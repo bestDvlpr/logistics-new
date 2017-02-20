@@ -1,0 +1,35 @@
+#-------------------------------------------------------------------------------
+# Note for using the rate-limiting:
+#   The comment part won't be copied if you use the subgenerator docker-compose
+#   you have to manually copy it
+#-------------------------------------------------------------------------------
+version: '2'
+services:
+    logistics-app:
+        image: logistics
+        external_links:
+            - logistics-postgresql:postgresql
+            # Uncomment to have Cassandra working with the gateway
+            # - logistics-cassandra:cassandra
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/logistics
+            - SPRING_DATA_CASSANDRA_CONTACTPOINTS=cassandra
+            - JHIPSTER_SLEEP=30 # gives time for the Cassandra cluster to start and execute the migration scripts
+        ports:
+            - 8998:8998
+    logistics-postgresql:
+        extends:
+            file: postgresql.yml
+            service: logistics-postgresql
+    # Uncomment to have Cassandra working with the gateway
+    # logistics-cassandra:
+    #     extends:
+    #         file: cassandra-cluster.yml
+    #         service: logistics-cassandra
+    # logistics-cassandra-migration:
+    #     extends:
+    #         file: cassandra-migration.yml
+    #         service: logistics-cassandra-migration
+    #     environment:
+    #         - CREATE_KEYSPACE_SCRIPT=create-keyspace-prod.cql

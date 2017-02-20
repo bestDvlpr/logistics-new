@@ -1,0 +1,18 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "docNum",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170220091557",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "receipt",
+    "pagination": "pagination"
+}
