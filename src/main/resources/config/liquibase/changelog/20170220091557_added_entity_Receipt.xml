@@ -25,6 +25,38 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="doc_id" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="doc_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="previous_doc_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="doc_date" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pay_master_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="loyalty_card_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="product_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pay_type_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

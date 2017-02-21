@@ -1,0 +1,36 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "paymentType",
+            "otherEntityName": "paymentType",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "amount",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sapCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "serial",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170220122800",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "pay_type",
+    "pagination": "pagination"
+}

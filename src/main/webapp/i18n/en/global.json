@@ -8,6 +8,12 @@
             "entities": {
                 "main": "Entities",
                 "receipt": "Receipt",
+                "payMaster": "Pay Master",
+                "loyaltyCard": "Loyalty Card",
+                "seller": "Seller",
+                "product": "Product",
+                "paymentType": "Payment Type",
+                "payType": "Pay Type",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

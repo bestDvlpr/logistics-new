@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "sellerID",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sellerName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170220111555",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "seller",
+    "pagination": "pagination"
+}

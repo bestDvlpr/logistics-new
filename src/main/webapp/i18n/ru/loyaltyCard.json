@@ -1,0 +1,24 @@
+{
+    "logisticsApp": {
+        "loyaltyCard" : {
+            "home": {
+                "title": "Loyalty Cards",
+                "createLabel": "Создать новый Loyalty Card",
+                "createOrEditLabel": "Создать или отредактировать Loyalty Card",
+                "search": "Найти Loyalty Card"
+            },
+            "created": "Новый Loyalty Card создан с идентификатором {{ param }}",
+            "updated": "Loyalty Card обновлен с идентификатором {{ param }}",
+            "deleted": "Loyalty Card удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Loyalty Card {{ id }}?"
+            },
+            "detail": {
+                "title": "Loyalty Card"
+            },
+            "loyaltyCardID": "Loyalty Card ID",
+            "loyaltyCardBonus": "Loyalty Card Bonus",
+            "loyaltyCardAmount": "Loyalty Card Amount"
+        }
+    }
+}

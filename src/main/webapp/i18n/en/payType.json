@@ -1,0 +1,25 @@
+{
+    "logisticsApp": {
+        "payType" : {
+            "home": {
+                "title": "Pay Types",
+                "createLabel": "Create a new Pay Type",
+                "createOrEditLabel": "Create or edit a Pay Type",
+                "search": "Search for Pay Type"
+            },
+            "created": "A new Pay Type is created with identifier {{ param }}",
+            "updated": "A Pay Type is updated with identifier {{ param }}",
+            "deleted": "A Pay Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Pay Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Pay Type"
+            },
+            "amount": "Amount",
+            "sapCode": "Sap Code",
+            "serial": "Serial",
+            "paymentType": "Payment Type"
+        }
+    }
+}

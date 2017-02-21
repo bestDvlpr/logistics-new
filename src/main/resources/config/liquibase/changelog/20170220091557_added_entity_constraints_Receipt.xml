@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Receipt.
+    -->
+    <changeSet id="20170220091557-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="pay_master_id"
+                                 baseTableName="receipt"
+                                 constraintName="fk_receipt_pay_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pay_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="loyalty_card_id"
+                                 baseTableName="receipt"
+                                 constraintName="fk_receipt_loyalty_card_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="loyalty_card"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="receipt"
+                                 constraintName="fk_receipt_product_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="pay_type_id"
+                                 baseTableName="receipt"
+                                 constraintName="fk_receipt_pay_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pay_type"/>
+
+    </changeSet>
+</databaseChangeLog>

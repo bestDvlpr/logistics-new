@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import uz.multimafe.domain.enumeration.DocType;
+
 /**
  * A Receipt.
  */
@@ -23,6 +25,38 @@ public class Receipt implements Serializable {
     @NotNull
     @Column(name = "doc_num", nullable = false)
     private String docNum;
+
+    @NotNull
+    @Column(name = "doc_id", nullable = false)
+    private String docID;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "doc_type", nullable = false)
+    private DocType docType;
+
+    @Column(name = "previous_doc_id")
+    private String previousDocID;
+
+    @NotNull
+    @Column(name = "doc_date", nullable = false)
+    private Long docDate;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private PayMaster payMaster;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private LoyaltyCard loyaltyCard;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Product product;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private PayType payType;
 
     public Long getId() {
         return id;
@@ -43,6 +77,110 @@ public class Receipt implements Serializable {
 
     public void setDocNum(String docNum) {
         this.docNum = docNum;
+    }
+
+    public String getDocID() {
+        return docID;
+    }
+
+    public Receipt docID(String docID) {
+        this.docID = docID;
+        return this;
+    }
+
+    public void setDocID(String docID) {
+        this.docID = docID;
+    }
+
+    public DocType getDocType() {
+        return docType;
+    }
+
+    public Receipt docType(DocType docType) {
+        this.docType = docType;
+        return this;
+    }
+
+    public void setDocType(DocType docType) {
+        this.docType = docType;
+    }
+
+    public String getPreviousDocID() {
+        return previousDocID;
+    }
+
+    public Receipt previousDocID(String previousDocID) {
+        this.previousDocID = previousDocID;
+        return this;
+    }
+
+    public void setPreviousDocID(String previousDocID) {
+        this.previousDocID = previousDocID;
+    }
+
+    public Long getDocDate() {
+        return docDate;
+    }
+
+    public Receipt docDate(Long docDate) {
+        this.docDate = docDate;
+        return this;
+    }
+
+    public void setDocDate(Long docDate) {
+        this.docDate = docDate;
+    }
+
+    public PayMaster getPayMaster() {
+        return payMaster;
+    }
+
+    public Receipt payMaster(PayMaster payMaster) {
+        this.payMaster = payMaster;
+        return this;
+    }
+
+    public void setPayMaster(PayMaster payMaster) {
+        this.payMaster = payMaster;
+    }
+
+    public LoyaltyCard getLoyaltyCard() {
+        return loyaltyCard;
+    }
+
+    public Receipt loyaltyCard(LoyaltyCard loyaltyCard) {
+        this.loyaltyCard = loyaltyCard;
+        return this;
+    }
+
+    public void setLoyaltyCard(LoyaltyCard loyaltyCard) {
+        this.loyaltyCard = loyaltyCard;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public Receipt product(Product product) {
+        this.product = product;
+        return this;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public PayType getPayType() {
+        return payType;
+    }
+
+    public Receipt payType(PayType payType) {
+        this.payType = payType;
+        return this;
+    }
+
+    public void setPayType(PayType payType) {
+        this.payType = payType;
     }
 
     @Override
@@ -70,6 +208,10 @@ public class Receipt implements Serializable {
         return "Receipt{" +
             "id=" + id +
             ", docNum='" + docNum + "'" +
+            ", docID='" + docID + "'" +
+            ", docType='" + docType + "'" +
+            ", previousDocID='" + previousDocID + "'" +
+            ", docDate='" + docDate + "'" +
             '}';
     }
 }

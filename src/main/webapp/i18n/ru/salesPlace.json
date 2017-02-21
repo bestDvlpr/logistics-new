@@ -1,0 +1,9 @@
+{
+    "logisticsApp": {
+        "SalesPlace" : {
+            "null": "",
+            "STORE": "STORE",
+            "WAREHOUSE": "WAREHOUSE"
+        }
+    }
+}

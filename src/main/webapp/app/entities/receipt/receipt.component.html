@@ -19,6 +19,14 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="previousDocID"><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="payMasterPayMasterName"><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.receipt.product">Product</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="payTypeSapCode"><span jhiTranslate="logisticsApp.receipt.payType">Pay Type</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -26,6 +34,30 @@
             <tr *ngFor="let receipt of receipts ;trackBy: trackId">
                 <td><a [routerLink]="['../receipt', receipt.id ]">{{receipt.id}}</a></td>
                 <td>{{receipt.docNum}}</td>
+                <td>{{receipt.docID}}</td>
+                <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
+                <td>{{receipt.previousDocID}}</td>
+                <td>{{receipt.docDate}}</td>
+                <td>
+                    <div *ngIf="receipt.payMasterId">
+                        <a [routerLink]="['../pay-master', receipt.payMasterId  ]" >{{receipt.payMasterPayMasterName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.loyaltyCardId">
+                        <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]" >{{receipt.loyaltyCardLoyaltyCardID}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.productId">
+                        <a [routerLink]="['../product', receipt.productId  ]" >{{receipt.productName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.payTypeId">
+                        <a [routerLink]="['../pay-type', receipt.payTypeId  ]" >{{receipt.payTypeSapCode}}</a>
+                    </div>
+                </td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

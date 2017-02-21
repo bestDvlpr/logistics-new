@@ -1,10 +1,73 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "payMaster",
+            "otherEntityName": "payMaster",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "payMasterName"
+        },
+        {
+            "relationshipName": "loyaltyCard",
+            "otherEntityName": "loyaltyCard",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "loyaltyCardID"
+        },
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "payType",
+            "otherEntityName": "payType",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "sapCode"
+        }
+    ],
     "fields": [
         {
             "fieldName": "docNum",
             "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "docID",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "docType",
+            "fieldType": "DocType",
+            "fieldValues": "RETURN,SALES",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "previousDocID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docDate",
+            "fieldType": "Long",
             "fieldValidateRules": [
                 "required"
             ]

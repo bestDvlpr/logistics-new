@@ -16,7 +16,15 @@
             "detail": {
                 "title": "Receipt"
             },
-            "docNum": "Doc Num"
+            "docNum": "Doc Num",
+            "docID": "Doc ID",
+            "docType": "Doc Type",
+            "previousDocID": "Previous Doc ID",
+            "docDate": "Doc Date",
+            "payMaster": "Pay Master",
+            "loyaltyCard": "Loyalty Card",
+            "product": "Product",
+            "payType": "Pay Type"
         }
     }
 }

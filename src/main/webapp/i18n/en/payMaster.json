@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "payMaster" : {
+            "home": {
+                "title": "Pay Masters",
+                "createLabel": "Create a new Pay Master",
+                "createOrEditLabel": "Create or edit a Pay Master",
+                "search": "Search for Pay Master"
+            },
+            "created": "A new Pay Master is created with identifier {{ param }}",
+            "updated": "A Pay Master is updated with identifier {{ param }}",
+            "deleted": "A Pay Master is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Pay Master {{ id }}?"
+            },
+            "detail": {
+                "title": "Pay Master"
+            },
+            "paymasterID": "Paymaster ID",
+            "payMasterName": "Pay Master Name"
+        }
+    }
+}

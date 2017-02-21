@@ -1,0 +1,111 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "seller",
+            "otherEntityName": "seller",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "sellerName"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "sapCode",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sapType",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "serial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "qty",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "uom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deliveryFlag",
+            "fieldType": "SalesType",
+            "fieldValues": "TAKEOUT_IN_TIME,TAKEOUT,DELIVERY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "hallFlag",
+            "fieldType": "SalesPlace",
+            "fieldValues": "STORE,WAREHOUSE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "defectFlag",
+            "fieldType": "DefectFlag",
+            "fieldValues": "WELL,DEFECTED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "virtualFlag",
+            "fieldType": "VirtualFlag",
+            "fieldValues": "SOLD_PHISICALLY,SOLD_VIRTUALLY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "reason",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "comment",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "guid",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170220113616",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "product",
+    "pagination": "pagination"
+}

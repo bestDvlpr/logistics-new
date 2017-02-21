@@ -12,11 +12,59 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {})
 public interface ReceiptMapper {
 
+    @Mapping(source = "payMaster.id", target = "payMasterId")
+    @Mapping(source = "payMaster.payMasterName", target = "payMasterPayMasterName")
+    @Mapping(source = "loyaltyCard.id", target = "loyaltyCardId")
+    @Mapping(source = "loyaltyCard.loyaltyCardID", target = "loyaltyCardLoyaltyCardID")
+    @Mapping(source = "product.id", target = "productId")
+    @Mapping(source = "product.name", target = "productName")
+    @Mapping(source = "payType.id", target = "payTypeId")
+    @Mapping(source = "payType.sapCode", target = "payTypeSapCode")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);
 
+    @Mapping(source = "payMasterId", target = "payMaster")
+    @Mapping(source = "loyaltyCardId", target = "loyaltyCard")
+    @Mapping(source = "productId", target = "product")
+    @Mapping(source = "payTypeId", target = "payType")
     Receipt receiptDTOToReceipt(ReceiptDTO receiptDTO);
 
     List<Receipt> receiptDTOsToReceipts(List<ReceiptDTO> receiptDTOs);
+
+    default PayMaster payMasterFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        PayMaster payMaster = new PayMaster();
+        payMaster.setId(id);
+        return payMaster;
+    }
+
+    default LoyaltyCard loyaltyCardFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        LoyaltyCard loyaltyCard = new LoyaltyCard();
+        loyaltyCard.setId(id);
+        return loyaltyCard;
+    }
+
+    default Product productFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Product product = new Product();
+        product.setId(id);
+        return product;
+    }
+
+    default PayType payTypeFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        PayType payType = new PayType();
+        payType.setId(id);
+        return payType;
+    }
 }

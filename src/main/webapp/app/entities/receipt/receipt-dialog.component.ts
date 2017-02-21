@@ -8,6 +8,10 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
+import { PayMaster, PayMasterService } from '../pay-master';
+import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
+import { Product, ProductService } from '../product';
+import { PayType, PayTypeService } from '../pay-type';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -17,19 +21,39 @@ export class ReceiptDialogComponent implements OnInit {
     receipt: Receipt;
     authorities: any[];
     isSaving: boolean;
+
+    paymasters: PayMaster[];
+
+    loyaltycards: LoyaltyCard[];
+
+    products: Product[];
+
+    paytypes: PayType[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private receiptService: ReceiptService,
+        private payMasterService: PayMasterService,
+        private loyaltyCardService: LoyaltyCardService,
+        private productService: ProductService,
+        private payTypeService: PayTypeService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['receipt']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.payMasterService.query().subscribe(
+            (res: Response) => { this.paymasters = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.loyaltyCardService.query().subscribe(
+            (res: Response) => { this.loyaltycards = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.productService.query().subscribe(
+            (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.payTypeService.query().subscribe(
+            (res: Response) => { this.paytypes = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -59,6 +83,22 @@ export class ReceiptDialogComponent implements OnInit {
 
     private onError (error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackPayMasterById(index: number, item: PayMaster) {
+        return item.id;
+    }
+
+    trackLoyaltyCardById(index: number, item: LoyaltyCard) {
+        return item.id;
+    }
+
+    trackProductById(index: number, item: Product) {
+        return item.id;
+    }
+
+    trackPayTypeById(index: number, item: PayType) {
+        return item.id;
     }
 }
 

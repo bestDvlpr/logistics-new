@@ -1,0 +1,9 @@
+{
+    "logisticsApp": {
+        "DocType" : {
+            "null": "",
+            "RETURN": "RETURN",
+            "SALES": "SALES"
+        }
+    }
+}

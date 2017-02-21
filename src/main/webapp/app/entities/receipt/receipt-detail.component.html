@@ -8,6 +8,46 @@
         <dd>
             <span>{{receipt.docNum}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span></dt>
+        <dd>
+            <span>{{receipt.docID}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span></dt>
+        <dd>
+            <span>{{receipt.previousDocID}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span></dt>
+        <dd>
+            <span>{{receipt.docDate}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span></dt>
+        <dd>
+            <div *ngIf="receipt.payMasterId">
+                <a [routerLink]="['pay-master', receipt.payMasterId]">{{receipt.payMasterPayMasterName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span></dt>
+        <dd>
+            <div *ngIf="receipt.loyaltyCardId">
+                <a [routerLink]="['loyalty-card', receipt.loyaltyCardId]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.product">Product</span></dt>
+        <dd>
+            <div *ngIf="receipt.productId">
+                <a [routerLink]="['product', receipt.productId]">{{receipt.productName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.payType">Pay Type</span></dt>
+        <dd>
+            <div *ngIf="receipt.payTypeId">
+                <a [routerLink]="['pay-type', receipt.payTypeId]">{{receipt.payTypeSapCode}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

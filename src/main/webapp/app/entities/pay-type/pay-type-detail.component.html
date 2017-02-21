@@ -1,0 +1,39 @@
+
+<div *ngIf="payType">
+    <h2><span jhiTranslate="logisticsApp.payType.detail.title">Pay Type</span> {{payType.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="logisticsApp.payType.amount">Amount</span></dt>
+        <dd>
+            <span>{{payType.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span></dt>
+        <dd>
+            <span>{{payType.sapCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.payType.serial">Serial</span></dt>
+        <dd>
+            <span>{{payType.serial}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span></dt>
+        <dd>
+            <div *ngIf="payType.paymentTypeId">
+                <a [routerLink]="['payment-type', payType.paymentTypeId]">{{payType.paymentTypeName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'pay-type/'+ payType.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

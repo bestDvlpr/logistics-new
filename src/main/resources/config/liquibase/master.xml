@@ -6,6 +6,15 @@
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220091557_added_entity_Receipt.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220110711_added_entity_PayMaster.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220111104_added_entity_LoyaltyCard.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220111555_added_entity_Seller.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220113616_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220121451_added_entity_PaymentType.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220122800_added_entity_PayType.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170220113616_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220122800_added_entity_constraints_PayType.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170220091557_added_entity_constraints_Receipt.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
