@@ -1,0 +1,24 @@
+{
+    "logisticsApp": {
+        "car" : {
+            "home": {
+                "title": "Cars",
+                "createLabel": "Создать новый Car",
+                "createOrEditLabel": "Создать или отредактировать Car",
+                "search": "Найти Car"
+            },
+            "created": "Новый Car создан с идентификатором {{ param }}",
+            "updated": "Car обновлен с идентификатором {{ param }}",
+            "deleted": "Car удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Car {{ id }}?"
+            },
+            "detail": {
+                "title": "Car"
+            },
+            "number": "Number",
+            "carModel": "Car Model",
+            "carColor": "Car Color"
+        }
+    }
+}

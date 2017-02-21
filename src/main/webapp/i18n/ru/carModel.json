@@ -1,0 +1,22 @@
+{
+    "logisticsApp": {
+        "carModel" : {
+            "home": {
+                "title": "Car Models",
+                "createLabel": "Создать новый Car Model",
+                "createOrEditLabel": "Создать или отредактировать Car Model",
+                "search": "Найти Car Model"
+            },
+            "created": "Новый Car Model создан с идентификатором {{ param }}",
+            "updated": "Car Model обновлен с идентификатором {{ param }}",
+            "deleted": "Car Model удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Car Model {{ id }}?"
+            },
+            "detail": {
+                "title": "Car Model"
+            },
+            "name": "Name"
+        }
+    }
+}

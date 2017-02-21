@@ -7,6 +7,10 @@ import { LogisticsSellerModule } from './seller/seller.module';
 import { LogisticsProductModule } from './product/product.module';
 import { LogisticsPaymentTypeModule } from './payment-type/payment-type.module';
 import { LogisticsPayTypeModule } from './pay-type/pay-type.module';
+import { LogisticsCarModelModule } from './car-model/car-model.module';
+import { LogisticsCarModule } from './car/car.module';
+import { LogisticsDriverModule } from './driver/driver.module';
+import { LogisticsCarColorModule } from './car-color/car-color.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -18,6 +22,10 @@ import { LogisticsPayTypeModule } from './pay-type/pay-type.module';
         LogisticsProductModule,
         LogisticsPaymentTypeModule,
         LogisticsPayTypeModule,
+        LogisticsCarModelModule,
+        LogisticsCarModule,
+        LogisticsDriverModule,
+        LogisticsCarColorModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

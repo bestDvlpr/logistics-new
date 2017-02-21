@@ -12,9 +12,15 @@
     <include file="classpath:config/liquibase/changelog/20170220113616_added_entity_Product.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220121451_added_entity_PaymentType.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220122800_added_entity_PayType.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221070226_added_entity_CarModel.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221070600_added_entity_Car.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221071651_added_entity_Driver.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221081351_added_entity_CarColor.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170220113616_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220122800_added_entity_constraints_PayType.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220091557_added_entity_constraints_Receipt.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221070600_added_entity_constraints_Car.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170221071651_added_entity_constraints_Driver.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

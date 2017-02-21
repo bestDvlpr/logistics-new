@@ -1,0 +1,22 @@
+{
+    "logisticsApp": {
+        "carColor" : {
+            "home": {
+                "title": "Car Colors",
+                "createLabel": "Create a new Car Color",
+                "createOrEditLabel": "Create or edit a Car Color",
+                "search": "Search for Car Color"
+            },
+            "created": "A new Car Color is created with identifier {{ param }}",
+            "updated": "A Car Color is updated with identifier {{ param }}",
+            "deleted": "A Car Color is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Car Color {{ id }}?"
+            },
+            "detail": {
+                "title": "Car Color"
+            },
+            "name": "Name"
+        }
+    }
+}

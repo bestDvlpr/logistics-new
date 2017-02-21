@@ -1,0 +1,43 @@
+
+<div *ngIf="driver">
+    <h2><span jhiTranslate="logisticsApp.driver.detail.title">Driver</span> {{driver.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="logisticsApp.driver.phone">Phone</span></dt>
+        <dd>
+            <span>{{driver.phone}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.address">Address</span></dt>
+        <dd>
+            <span>{{driver.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.firstName">First Name</span></dt>
+        <dd>
+            <span>{{driver.firstName}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.lastName">Last Name</span></dt>
+        <dd>
+            <span>{{driver.lastName}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.car">Car</span></dt>
+        <dd>
+            <div *ngIf="driver.carId">
+                <a [routerLink]="['car', driver.carId]">{{driver.carNumber}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'driver/'+ driver.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

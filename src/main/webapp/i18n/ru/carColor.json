@@ -1,0 +1,22 @@
+{
+    "logisticsApp": {
+        "carColor" : {
+            "home": {
+                "title": "Car Colors",
+                "createLabel": "Создать новый Car Color",
+                "createOrEditLabel": "Создать или отредактировать Car Color",
+                "search": "Найти Car Color"
+            },
+            "created": "Новый Car Color создан с идентификатором {{ param }}",
+            "updated": "Car Color обновлен с идентификатором {{ param }}",
+            "deleted": "Car Color удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Car Color {{ id }}?"
+            },
+            "detail": {
+                "title": "Car Color"
+            },
+            "name": "Name"
+        }
+    }
+}

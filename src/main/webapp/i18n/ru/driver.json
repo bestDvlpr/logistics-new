@@ -1,0 +1,26 @@
+{
+    "logisticsApp": {
+        "driver" : {
+            "home": {
+                "title": "Drivers",
+                "createLabel": "Создать новый Driver",
+                "createOrEditLabel": "Создать или отредактировать Driver",
+                "search": "Найти Driver"
+            },
+            "created": "Новый Driver создан с идентификатором {{ param }}",
+            "updated": "Driver обновлен с идентификатором {{ param }}",
+            "deleted": "Driver удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Driver {{ id }}?"
+            },
+            "detail": {
+                "title": "Driver"
+            },
+            "phone": "Phone",
+            "address": "Address",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "car": "Car"
+        }
+    }
+}
