@@ -1,10 +1,9 @@
-<nav class="navbar navbar-dark jh-navbar">
+<nav class="navbar navbar-dark navbar-fixed-top jh-navbar">
     <div class="jh-logo-container float-xs-left">
         <a class="jh-navbar-toggler hidden-lg-up float-xs-left" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
             <i class="fa fa-bars"></i>
         </a>
         <a class="navbar-brand logo float-xs-right" routerLink="/" (click)="collapseNavbar()">
-            <span class="logo-img"></span>
             <span jhiTranslate="global.title" class="navbar-title">Logistics</span> <span class="navbar-version">{{version}}</span>
         </a>
     </div>
@@ -171,7 +170,7 @@
                     </li>
                 </ul>
             </li>
-            <li ngbDropdown class="nav-item dropdown pointer">
+            <!--<li ngbDropdown class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">
                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -216,7 +215,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
         </ul>
     </div>
 </nav>

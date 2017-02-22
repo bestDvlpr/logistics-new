@@ -1,0 +1,109 @@
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.navbar-brand {
+    &.logo {
+        padding: 5px 15px;
+        .logo-img {
+            height: 45px;
+            width: 70px;
+            display: inline-block;
+            vertical-align: middle;
+            background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+            background-size: contain;
+        }
+    }
+}
+
+/*========================================================================
+HASAN CHANGED
+========================================================================== */
+
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+    .nav-item {
+        width: 100%;
+        .nav-link {
+            width: 100%;
+            border-radius: 0;
+            display: block;
+            padding: .5em 1em;
+            color: #8d9ea3;
+        }
+        .nav-link.active {
+            color: #fff;
+            cursor: default;
+        }
+    }
+    .sidenav_profile{
+        height: 45px;
+        width: 70px;
+        display: inline-block;
+        vertical-align: middle;
+        background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+        background-size: contain;
+    }
+}
+
+.bg-faded {
+    background-color: #353d47;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.flex-column {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    -webkit-flex-direction: column !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+
+.nav {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+*, ::after, ::before {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+/*========================================================================
+HASAN CHANGED
+========================================================================== */
+
