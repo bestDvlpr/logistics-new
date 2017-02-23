@@ -52,6 +52,9 @@ public class DriverResourceIntTest {
     private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_MOBILE_ID = "AAAAAAAAAA";
+    private static final String UPDATED_MOBILE_ID = "BBBBBBBBBB";
+
     @Autowired
     private DriverRepository driverRepository;
 
@@ -94,7 +97,8 @@ public class DriverResourceIntTest {
                 .phone(DEFAULT_PHONE)
                 .address(DEFAULT_ADDRESS)
                 .firstName(DEFAULT_FIRST_NAME)
-                .lastName(DEFAULT_LAST_NAME);
+                .lastName(DEFAULT_LAST_NAME)
+                .mobileId(DEFAULT_MOBILE_ID);
         // Add required entity
         Car car = CarResourceIntTest.createEntity(em);
         em.persist(car);
@@ -129,6 +133,7 @@ public class DriverResourceIntTest {
         assertThat(testDriver.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testDriver.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testDriver.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testDriver.getMobileId()).isEqualTo(DEFAULT_MOBILE_ID);
     }
 
     @Test
@@ -223,7 +228,8 @@ public class DriverResourceIntTest {
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())));
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].mobileId").value(hasItem(DEFAULT_MOBILE_ID.toString())));
     }
 
     @Test
@@ -240,7 +246,8 @@ public class DriverResourceIntTest {
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()));
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
+            .andExpect(jsonPath("$.mobileId").value(DEFAULT_MOBILE_ID.toString()));
     }
 
     @Test
@@ -264,7 +271,8 @@ public class DriverResourceIntTest {
                 .phone(UPDATED_PHONE)
                 .address(UPDATED_ADDRESS)
                 .firstName(UPDATED_FIRST_NAME)
-                .lastName(UPDATED_LAST_NAME);
+                .lastName(UPDATED_LAST_NAME)
+                .mobileId(UPDATED_MOBILE_ID);
         DriverDTO driverDTO = driverMapper.driverToDriverDTO(updatedDriver);
 
         restDriverMockMvc.perform(put("/api/drivers")
@@ -280,6 +288,7 @@ public class DriverResourceIntTest {
         assertThat(testDriver.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testDriver.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testDriver.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testDriver.getMobileId()).isEqualTo(UPDATED_MOBILE_ID);
     }
 
     @Test

@@ -20,6 +20,7 @@
             "address": "Address",
             "firstName": "First Name",
             "lastName": "Last Name",
+            "mobileId": "Mobile Id",
             "car": "Car"
         }
     }

@@ -5,6 +5,7 @@ export class Driver {
         public address?: string,
         public firstName?: string,
         public lastName?: string,
+        public mobileId?: string,
         public carId?: number,
     ) { }
 }

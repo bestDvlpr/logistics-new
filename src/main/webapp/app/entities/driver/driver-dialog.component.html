@@ -60,6 +60,12 @@
                 </small>
             </div>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.driver.mobileId" for="field_mobileId">Mobile Id</label>
+            <input type="text" class="form-control" name="mobileId" id="field_mobileId"
+                [(ngModel)]="driver.mobileId"
+             />
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.driver.car" for="field_car">Car</label>

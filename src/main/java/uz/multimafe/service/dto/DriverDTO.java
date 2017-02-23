@@ -26,6 +26,8 @@ public class DriverDTO implements Serializable {
     @NotNull
     private String lastName;
 
+    private String mobileId;
+
     private Long carId;
 
     private String carNumber;
@@ -64,6 +66,13 @@ public class DriverDTO implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public String getMobileId() {
+        return mobileId;
+    }
+
+    public void setMobileId(String mobileId) {
+        this.mobileId = mobileId;
     }
 
     public Long getCarId() {
@@ -111,6 +120,7 @@ public class DriverDTO implements Serializable {
             ", address='" + address + "'" +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", mobileId='" + mobileId + "'" +
             '}';
     }
 }

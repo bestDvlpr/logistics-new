@@ -36,6 +36,9 @@ public class Driver implements Serializable {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "mobile_id")
+    private String mobileId;
+
     @ManyToOne(optional = false)
     @NotNull
     private Car car;
@@ -100,6 +103,19 @@ public class Driver implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getMobileId() {
+        return mobileId;
+    }
+
+    public Driver mobileId(String mobileId) {
+        this.mobileId = mobileId;
+        return this;
+    }
+
+    public void setMobileId(String mobileId) {
+        this.mobileId = mobileId;
+    }
+
     public Car getCar() {
         return car;
     }
@@ -141,6 +157,7 @@ public class Driver implements Serializable {
             ", address='" + address + "'" +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", mobileId='" + mobileId + "'" +
             '}';
     }
 }

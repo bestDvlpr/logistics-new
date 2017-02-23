@@ -39,6 +39,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "mobileId",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170221071651",
