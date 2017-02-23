@@ -47,6 +47,19 @@
                 <option [ngValue]="carColorOption.id" *ngFor="let carColorOption of carcolors; trackBy: trackCarColorById">{{carColorOption.name}}</option>
             </select>
         </div>
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.car.type" for="field_type">Type</label>
+            <select class="form-control" id="field_type" name="type" [(ngModel)]="car.typeId"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="carTypeOption.id" *ngFor="let carTypeOption of cartypes; trackBy: trackCarTypeById">{{carTypeOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!type?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

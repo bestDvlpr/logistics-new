@@ -1,9 +1,9 @@
 <div>
-    <h2><span jhiTranslate="logisticsApp.car.home.title">Cars</span>
-        <button class="btn btn-primary float-xs-right create-car" [routerLink]="['/', { outlets: { popup: ['car-new'] } }]">
+    <h2><span jhiTranslate="logisticsApp.carType.home.title">Car Types</span>
+        <button class="btn btn-primary float-xs-right create-car-type" [routerLink]="['/', { outlets: { popup: ['car-type-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.car.home.createLabel">
-            Create new Car
+            <span  jhiTranslate="logisticsApp.carType.home.createLabel">
+            Create new Car Type
             </span>
         </button></h2>
     <jhi-alert></jhi-alert>
@@ -13,54 +13,38 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="cars">
+    <div class="table-responsive" *ngIf="carTypes">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="number"><span jhiTranslate="logisticsApp.car.number">Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="carModelName"><span jhiTranslate="logisticsApp.car.carModel">Car Model</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="carColorName"><span jhiTranslate="logisticsApp.car.carColor">Car Color</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="typeName"><span jhiTranslate="logisticsApp.car.type">Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="logisticsApp.carType.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="logisticsApp.carType.description">Description</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let car of cars ;trackBy: trackId">
-                <td><a [routerLink]="['../car', car.id ]">{{car.id}}</a></td>
-                <td>{{car.number}}</td>
-                <td>
-                    <div *ngIf="car.carModelId">
-                        <a [routerLink]="['../car-model', car.carModelId  ]" >{{car.carModelName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="car.carColorId">
-                        <a [routerLink]="['../car-color', car.carColorId  ]" >{{car.carColorName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="car.typeId">
-                        <a [routerLink]="['../car-type', car.typeId  ]" >{{car.typeName}}</a>
-                    </div>
-                </td>
+            <tr *ngFor="let carType of carTypes ;trackBy: trackId">
+                <td><a [routerLink]="['../car-type', carType.id ]">{{carType.id}}</a></td>
+                <td>{{carType.name}}</td>
+                <td>{{carType.description}}</td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../car', car.id ]"
+                                [routerLink]="['../car-type', carType.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'car/'+ car.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'car-type/'+ carType.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'car/'+ car.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'car-type/'+ carType.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
@@ -72,7 +56,7 @@
             </tbody>
         </table>
     </div>
-        <div class="text-xs-center" *ngIf="cars && cars.length">
+        <div class="text-xs-center" *ngIf="carTypes && carTypes.length">
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>

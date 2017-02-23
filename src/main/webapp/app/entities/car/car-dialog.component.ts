@@ -10,6 +10,7 @@ import { CarPopupService } from './car-popup.service';
 import { CarService } from './car.service';
 import { CarModel, CarModelService } from '../car-model';
 import { CarColor, CarColorService } from '../car-color';
+import { CarType, CarTypeService } from '../car-type';
 @Component({
     selector: 'jhi-car-dialog',
     templateUrl: './car-dialog.component.html'
@@ -23,6 +24,8 @@ export class CarDialogComponent implements OnInit {
     carmodels: CarModel[];
 
     carcolors: CarColor[];
+
+    cartypes: CarType[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -30,6 +33,7 @@ export class CarDialogComponent implements OnInit {
         private carService: CarService,
         private carModelService: CarModelService,
         private carColorService: CarColorService,
+        private carTypeService: CarTypeService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['car']);
@@ -42,6 +46,8 @@ export class CarDialogComponent implements OnInit {
             (res: Response) => { this.carmodels = res.json(); }, (res: Response) => this.onError(res.json()));
         this.carColorService.query().subscribe(
             (res: Response) => { this.carcolors = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.carTypeService.query().subscribe(
+            (res: Response) => { this.cartypes = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -78,6 +84,10 @@ export class CarDialogComponent implements OnInit {
     }
 
     trackCarColorById(index: number, item: CarColor) {
+        return item.id;
+    }
+
+    trackCarTypeById(index: number, item: CarType) {
         return item.id;
     }
 }

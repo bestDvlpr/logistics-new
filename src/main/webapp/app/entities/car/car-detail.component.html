@@ -20,6 +20,12 @@
                 <a [routerLink]="['car-color', car.carColorId]">{{car.carColorName}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.car.type">Type</span></dt>
+        <dd>
+            <div *ngIf="car.typeId">
+                <a [routerLink]="['car-type', car.typeId]">{{car.typeName}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

@@ -4,6 +4,7 @@ import uz.multimafe.LogisticsApp;
 
 import uz.multimafe.domain.Car;
 import uz.multimafe.domain.CarModel;
+import uz.multimafe.domain.CarType;
 import uz.multimafe.repository.CarRepository;
 import uz.multimafe.service.CarService;
 import uz.multimafe.service.dto.CarDTO;
@@ -88,6 +89,11 @@ public class CarResourceIntTest {
         em.persist(carModel);
         em.flush();
         car.setCarModel(carModel);
+        // Add required entity
+        CarType type = CarTypeResourceIntTest.createEntity(em);
+        em.persist(type);
+        em.flush();
+        car.setType(type);
         return car;
     }
 

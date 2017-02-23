@@ -16,12 +16,15 @@ public interface CarMapper {
     @Mapping(source = "carModel.name", target = "carModelName")
     @Mapping(source = "carColor.id", target = "carColorId")
     @Mapping(source = "carColor.name", target = "carColorName")
+    @Mapping(source = "type.id", target = "typeId")
+    @Mapping(source = "type.name", target = "typeName")
     CarDTO carToCarDTO(Car car);
 
     List<CarDTO> carsToCarDTOs(List<Car> cars);
 
     @Mapping(source = "carModelId", target = "carModel")
     @Mapping(source = "carColorId", target = "carColor")
+    @Mapping(source = "typeId", target = "type")
     Car carDTOToCar(CarDTO carDTO);
 
     List<Car> carDTOsToCars(List<CarDTO> carDTOs);
@@ -42,5 +45,14 @@ public interface CarMapper {
         CarColor carColor = new CarColor();
         carColor.setId(id);
         return carColor;
+    }
+
+    default CarType carTypeFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        CarType carType = new CarType();
+        carType.setId(id);
+        return carType;
     }
 }

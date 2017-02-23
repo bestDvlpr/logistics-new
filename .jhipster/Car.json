@@ -15,6 +15,15 @@
             "otherEntityName": "carColor",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "type",
+            "otherEntityName": "carType",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [

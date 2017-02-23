@@ -25,6 +25,10 @@ public class CarDTO implements Serializable {
 
     private String carColorName;
 
+    private Long typeId;
+
+    private String typeName;
+
     public Long getId() {
         return id;
     }
@@ -70,6 +74,22 @@ public class CarDTO implements Serializable {
 
     public void setCarColorName(String carColorName) {
         this.carColorName = carColorName;
+    }
+
+    public Long getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Long carTypeId) {
+        this.typeId = carTypeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String carTypeName) {
+        this.typeName = carTypeName;
     }
 
     @Override

@@ -31,6 +31,10 @@ public class Car implements Serializable {
     @ManyToOne
     private CarColor carColor;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private CarType type;
+
     public Long getId() {
         return id;
     }
@@ -76,6 +80,19 @@ public class Car implements Serializable {
 
     public void setCarColor(CarColor carColor) {
         this.carColor = carColor;
+    }
+
+    public CarType getType() {
+        return type;
+    }
+
+    public Car type(CarType carType) {
+        this.type = carType;
+        return this;
+    }
+
+    public void setType(CarType carType) {
+        this.type = carType;
     }
 
     @Override

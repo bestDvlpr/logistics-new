@@ -4,5 +4,6 @@ export class Car {
         public number?: string,
         public carModelId?: number,
         public carColorId?: number,
+        public typeId?: number,
     ) { }
 }

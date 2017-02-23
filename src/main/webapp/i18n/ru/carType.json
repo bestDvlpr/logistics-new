@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "carType" : {
+            "home": {
+                "title": "Car Types",
+                "createLabel": "Создать новый Car Type",
+                "createOrEditLabel": "Создать или отредактировать Car Type",
+                "search": "Найти Car Type"
+            },
+            "created": "Новый Car Type создан с идентификатором {{ param }}",
+            "updated": "Car Type обновлен с идентификатором {{ param }}",
+            "deleted": "Car Type удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Car Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Car Type"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

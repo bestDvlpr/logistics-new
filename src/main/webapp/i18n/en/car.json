@@ -18,7 +18,8 @@
             },
             "number": "Number",
             "carModel": "Car Model",
-            "carColor": "Car Color"
+            "carColor": "Car Color",
+            "type": "Type"
         }
     }
 }

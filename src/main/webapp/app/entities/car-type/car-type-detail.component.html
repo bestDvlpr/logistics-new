@@ -1,0 +1,29 @@
+
+<div *ngIf="carType">
+    <h2><span jhiTranslate="logisticsApp.carType.detail.title">Car Type</span> {{carType.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="logisticsApp.carType.name">Name</span></dt>
+        <dd>
+            <span>{{carType.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.carType.description">Description</span></dt>
+        <dd>
+            <span>{{carType.description}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'car-type/'+ carType.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
