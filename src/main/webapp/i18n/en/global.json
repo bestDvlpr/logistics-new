@@ -19,6 +19,8 @@
                 "driver": "Driver",
                 "carColor": "Car Color",
                 "carType": "Car Type",
+                "location": "Location",
+                "locationType": "Location Type",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

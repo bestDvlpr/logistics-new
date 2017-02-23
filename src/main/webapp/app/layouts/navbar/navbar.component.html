@@ -99,6 +99,18 @@
                             <span jhiTranslate="global.menu.entities.carType">Car Type</span>
                         </a>
                     </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="location" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.location">Location</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="location-type" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.locationType">Location Type</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

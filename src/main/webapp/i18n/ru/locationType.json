@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "locationType" : {
+            "home": {
+                "title": "Location Types",
+                "createLabel": "Создать новый Location Type",
+                "createOrEditLabel": "Создать или отредактировать Location Type",
+                "search": "Найти Location Type"
+            },
+            "created": "Новый Location Type создан с идентификатором {{ param }}",
+            "updated": "Location Type обновлен с идентификатором {{ param }}",
+            "deleted": "Location Type удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Location Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Location Type"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}
