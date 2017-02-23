@@ -1,4 +1,3 @@
-
 <div *ngIf="location">
     <h2><span jhiTranslate="logisticsApp.location.detail.title">Location</span> {{location.id}}</h2>
     <hr>
@@ -34,4 +33,82 @@
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
+
+    <h2>
+        <span jhiTranslate="logisticsApp.location.home.title">Locations</span>
+        <button class="btn btn-primary float-xs-right create-location"
+                [routerLink]="['/../', { outlets: { popup: ['location-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span jhiTranslate="logisticsApp.location.home.createLabel">
+            Create new Location
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="childLocations.length>0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="name"><span jhiTranslate="logisticsApp.location.name">Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="parent.name"><span jhiTranslate="logisticsApp.location.parent">Parent</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="type.name"><span jhiTranslate="logisticsApp.location.type">Type</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let location of childLocations ;trackBy: trackId">
+                <td><a [routerLink]="['../location', location.id ]">{{location.id}}</a></td>
+                <td>{{location.name}}</td>
+                <td>
+                    <div *ngIf="location.parent">
+                        <a [routerLink]="['../location', location.parent?.id ]">{{location.parent?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="location.type">
+                        <a [routerLink]="['../location-type', location.type?.id ]">{{location.type?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-xs-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../../location', location.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'location/'+ location.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'location/'+ location.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-xs-center" *ngIf="locations && locations.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
 </div>
