@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1487913991377-1">
+        <createTable tableName="driver_cars">
+            <column name="drivers_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cars_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-2">
+        <addColumn tableName="driver">
+            <column name="status_id" type="int8"/>
+        </addColumn>
+        <sql>update driver set status_id=1</sql>
+        <addNotNullConstraint tableName="driver" columnName="status_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-3">
+        <addPrimaryKey columnNames="drivers_id, cars_id" tableName="driver_cars"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-4">
+        <addForeignKeyConstraint baseColumnNames="cars_id" baseTableName="driver_cars" constraintName="FKaw596qr5rxsd299q0sy2qb1sl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-5">
+        <addForeignKeyConstraint baseColumnNames="drivers_id" baseTableName="driver_cars" constraintName="FKpg07xfxc67tfu009hv8vm54w2" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="driver"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-6">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="driver" constraintName="FKr9ytp2gj4rnduknqgsrtyw1h4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="driver_status"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-7">
+        <dropForeignKeyConstraint baseTableName="driver" constraintName="fk_driver_car_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487913991377-8">
+        <dropColumn columnName="car_id" tableName="driver"/>
+    </changeSet>
+</databaseChangeLog>

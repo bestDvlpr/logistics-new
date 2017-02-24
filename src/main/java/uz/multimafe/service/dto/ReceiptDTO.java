@@ -45,6 +45,10 @@ public class ReceiptDTO implements Serializable {
 
     private String payTypeSapCode;
 
+    private Long statusId;
+
+    private String statusName;
+
     public Long getId() {
         return id;
     }
@@ -150,6 +154,22 @@ public class ReceiptDTO implements Serializable {
 
     public void setPayTypeSapCode(String payTypeSapCode) {
         this.payTypeSapCode = payTypeSapCode;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long receiptStatusId) {
+        this.statusId = receiptStatusId;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String receiptStatusName) {
+        this.statusName = receiptStatusName;
     }
 
     @Override

@@ -19,7 +19,8 @@
             "number": "Number",
             "carModel": "Car Model",
             "carColor": "Car Color",
-            "type": "Type"
+            "type": "Type",
+            "drivers": "Drivers"
         }
     }
 }

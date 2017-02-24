@@ -11,6 +11,7 @@ import { CarService } from './car.service';
 import { CarModel, CarModelService } from '../car-model';
 import { CarColor, CarColorService } from '../car-color';
 import { CarType, CarTypeService } from '../car-type';
+import { Driver, DriverService } from '../driver';
 @Component({
     selector: 'jhi-car-dialog',
     templateUrl: './car-dialog.component.html'
@@ -26,6 +27,8 @@ export class CarDialogComponent implements OnInit {
     carcolors: CarColor[];
 
     cartypes: CarType[];
+
+    drivers: Driver[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -34,6 +37,7 @@ export class CarDialogComponent implements OnInit {
         private carModelService: CarModelService,
         private carColorService: CarColorService,
         private carTypeService: CarTypeService,
+        private driverService: DriverService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['car']);
@@ -48,6 +52,8 @@ export class CarDialogComponent implements OnInit {
             (res: Response) => { this.carcolors = res.json(); }, (res: Response) => this.onError(res.json()));
         this.carTypeService.query().subscribe(
             (res: Response) => { this.cartypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.driverService.query().subscribe(
+            (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -89,6 +95,21 @@ export class CarDialogComponent implements OnInit {
 
     trackCarTypeById(index: number, item: CarType) {
         return item.id;
+    }
+
+    trackDriverById(index: number, item: Driver) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }
 

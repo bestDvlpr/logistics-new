@@ -12,6 +12,7 @@ import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { Product, ProductService } from '../product';
 import { PayType, PayTypeService } from '../pay-type';
+import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -29,6 +30,8 @@ export class ReceiptDialogComponent implements OnInit {
     products: Product[];
 
     paytypes: PayType[];
+
+    receiptstatuses: ReceiptStatus[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -38,6 +41,7 @@ export class ReceiptDialogComponent implements OnInit {
         private loyaltyCardService: LoyaltyCardService,
         private productService: ProductService,
         private payTypeService: PayTypeService,
+        private receiptStatusService: ReceiptStatusService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType']);
@@ -54,6 +58,8 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
         this.payTypeService.query().subscribe(
             (res: Response) => { this.paytypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.receiptStatusService.query().subscribe(
+            (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -98,6 +104,10 @@ export class ReceiptDialogComponent implements OnInit {
     }
 
     trackPayTypeById(index: number, item: PayType) {
+        return item.id;
+    }
+
+    trackReceiptStatusById(index: number, item: ReceiptStatus) {
         return item.id;
     }
 }

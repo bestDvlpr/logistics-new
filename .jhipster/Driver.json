@@ -2,13 +2,24 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "car",
+            "relationshipName": "cars",
             "otherEntityName": "car",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "number",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "drivers"
+        },
+        {
+            "relationshipName": "status",
+            "otherEntityName": "driverStatus",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [
                 "required"
             ],
-            "otherEntityField": "number"
+            "otherEntityField": "name"
         }
     ],
     "fields": [

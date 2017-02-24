@@ -14,5 +14,6 @@ export class Receipt {
         public loyaltyCardId?: number,
         public productId?: number,
         public payTypeId?: number,
+        public statusId?: number,
     ) { }
 }

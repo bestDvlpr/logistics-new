@@ -4,6 +4,8 @@ package uz.multimafe.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -39,9 +41,16 @@ public class Driver implements Serializable {
     @Column(name = "mobile_id")
     private String mobileId;
 
+    @ManyToMany
+    @NotNull
+    @JoinTable(name = "driver_cars",
+               joinColumns = @JoinColumn(name="drivers_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="cars_id", referencedColumnName="id"))
+    private Set<Car> cars = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
-    private Car car;
+    private DriverStatus status;
 
     public Long getId() {
         return id;
@@ -116,17 +125,42 @@ public class Driver implements Serializable {
         this.mobileId = mobileId;
     }
 
-    public Car getCar() {
-        return car;
+    public Set<Car> getCars() {
+        return cars;
     }
 
-    public Driver car(Car car) {
-        this.car = car;
+    public Driver cars(Set<Car> cars) {
+        this.cars = cars;
         return this;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public Driver addCars(Car car) {
+        this.cars.add(car);
+        car.getDrivers().add(this);
+        return this;
+    }
+
+    public Driver removeCars(Car car) {
+        this.cars.remove(car);
+        car.getDrivers().remove(this);
+        return this;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+
+    public DriverStatus getStatus() {
+        return status;
+    }
+
+    public Driver status(DriverStatus driverStatus) {
+        this.status = driverStatus;
+        return this;
+    }
+
+    public void setStatus(DriverStatus driverStatus) {
+        this.status = driverStatus;
     }
 
     @Override

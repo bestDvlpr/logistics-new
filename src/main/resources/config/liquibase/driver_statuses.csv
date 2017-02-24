@@ -1,0 +1,5 @@
+id;name;description
+1;IDLE;Not busy
+2;SENT;Given a task
+3;ON_WAY;Going to a house
+4;ARRIVED;Arrived to the house

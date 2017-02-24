@@ -21,7 +21,8 @@
             "firstName": "First Name",
             "lastName": "Last Name",
             "mobileId": "Mobile Id",
-            "car": "Car"
+            "cars": "Cars",
+            "status": "Status"
         }
     }
 }

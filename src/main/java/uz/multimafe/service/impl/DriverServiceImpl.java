@@ -73,7 +73,7 @@ public class DriverServiceImpl implements DriverService{
     @Transactional(readOnly = true)
     public DriverDTO findOne(Long id) {
         log.debug("Request to get Driver : {}", id);
-        Driver driver = driverRepository.findOne(id);
+        Driver driver = driverRepository.findOneWithEagerRelationships(id);
         DriverDTO driverDTO = driverMapper.driverToDriverDTO(driver);
         return driverDTO;
     }

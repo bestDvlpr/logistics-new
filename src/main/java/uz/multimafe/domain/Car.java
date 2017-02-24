@@ -1,9 +1,12 @@
 package uz.multimafe.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -34,6 +37,10 @@ public class Car implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private CarType type;
+
+    @ManyToMany(mappedBy = "cars")
+    @JsonIgnore
+    private Set<Driver> drivers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -93,6 +100,31 @@ public class Car implements Serializable {
 
     public void setType(CarType carType) {
         this.type = carType;
+    }
+
+    public Set<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public Car drivers(Set<Driver> drivers) {
+        this.drivers = drivers;
+        return this;
+    }
+
+    public Car addDrivers(Driver driver) {
+        this.drivers.add(driver);
+        driver.getCars().add(this);
+        return this;
+    }
+
+    public Car removeDrivers(Driver driver) {
+        this.drivers.remove(driver);
+        driver.getCars().remove(this);
+        return this;
+    }
+
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     @Override

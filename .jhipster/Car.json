@@ -24,6 +24,13 @@
                 "required"
             ],
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "drivers",
+            "otherEntityName": "driver",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cars"
         }
     ],
     "fields": [

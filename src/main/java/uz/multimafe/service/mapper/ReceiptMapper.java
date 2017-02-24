@@ -20,6 +20,8 @@ public interface ReceiptMapper {
     @Mapping(source = "product.name", target = "productName")
     @Mapping(source = "payType.id", target = "payTypeId")
     @Mapping(source = "payType.sapCode", target = "payTypeSapCode")
+    @Mapping(source = "status.id", target = "statusId")
+    @Mapping(source = "status.name", target = "statusName")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);
@@ -28,6 +30,7 @@ public interface ReceiptMapper {
     @Mapping(source = "loyaltyCardId", target = "loyaltyCard")
     @Mapping(source = "productId", target = "product")
     @Mapping(source = "payTypeId", target = "payType")
+    @Mapping(source = "statusId", target = "status")
     Receipt receiptDTOToReceipt(ReceiptDTO receiptDTO);
 
     List<Receipt> receiptDTOsToReceipts(List<ReceiptDTO> receiptDTOs);
@@ -66,5 +69,14 @@ public interface ReceiptMapper {
         PayType payType = new PayType();
         payType.setId(id);
         return payType;
+    }
+
+    default ReceiptStatus receiptStatusFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        ReceiptStatus receiptStatus = new ReceiptStatus();
+        receiptStatus.setId(id);
+        return receiptStatus;
     }
 }

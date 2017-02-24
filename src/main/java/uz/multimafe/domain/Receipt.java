@@ -58,6 +58,10 @@ public class Receipt implements Serializable {
     @NotNull
     private PayType payType;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private ReceiptStatus status;
+
     public Long getId() {
         return id;
     }
@@ -181,6 +185,19 @@ public class Receipt implements Serializable {
 
     public void setPayType(PayType payType) {
         this.payType = payType;
+    }
+
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public Receipt status(ReceiptStatus receiptStatus) {
+        this.status = receiptStatus;
+        return this;
+    }
+
+    public void setStatus(ReceiptStatus receiptStatus) {
+        this.status = receiptStatus;
     }
 
     @Override
