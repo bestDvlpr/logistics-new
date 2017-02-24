@@ -25,7 +25,8 @@
             "loyaltyCard": "Loyalty Card",
             "product": "Product",
             "payType": "Pay Type",
-            "status": "Status"
+            "status": "Status",
+            "drivers": "Drivers"
         }
     }
 }

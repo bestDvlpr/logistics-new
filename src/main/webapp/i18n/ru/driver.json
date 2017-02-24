@@ -22,7 +22,8 @@
             "lastName": "Last Name",
             "mobileId": "Mobile Id",
             "cars": "Cars",
-            "status": "Status"
+            "status": "Status",
+            "receipts": "Receipts"
         }
     }
 }

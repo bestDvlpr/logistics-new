@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1487940725527-1">
+        <createTable tableName="receipt_drivers">
+            <column name="receipts_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="drivers_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487940725527-2">
+        <addPrimaryKey columnNames="receipts_id, drivers_id" tableName="receipt_drivers"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487940725527-3">
+        <addForeignKeyConstraint baseColumnNames="drivers_id" baseTableName="receipt_drivers" constraintName="FKgkransmvs9h11xv293lvrohcx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="driver"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487940725527-4">
+        <addForeignKeyConstraint baseColumnNames="receipts_id" baseTableName="receipt_drivers" constraintName="FKmxcgmbncs73m78jyg756t4rfh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
+    </changeSet>
+</databaseChangeLog>

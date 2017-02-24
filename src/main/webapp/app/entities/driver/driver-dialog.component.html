@@ -70,8 +70,7 @@
         <div class="form-group">
             <label jhiTranslate="logisticsApp.driver.cars" for="field_cars">Cars</label>
             <select class="form-control" id="field_cars" #cars="ngModel" multiple name="cars" [(ngModel)]="driver.cars" required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="getSelected(driver.cars, carOption)" *ngFor="let carOption of carsArray; trackBy: trackCarById">{{carOption.number}}</option>
+                <option [ngValue]="getSelected(driver.cars, carOption)" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.cars?.dirty && editForm.controls.cars?.invalid)">

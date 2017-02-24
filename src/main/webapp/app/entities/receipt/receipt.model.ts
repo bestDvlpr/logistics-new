@@ -15,5 +15,6 @@ export class Receipt {
         public productId?: number,
         public payTypeId?: number,
         public statusId?: number,
+        public driversId?: number,
     ) { }
 }

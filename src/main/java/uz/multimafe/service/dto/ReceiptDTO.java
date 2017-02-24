@@ -49,6 +49,8 @@ public class ReceiptDTO implements Serializable {
 
     private String statusName;
 
+    private Set<DriverDTO> drivers = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -170,6 +172,14 @@ public class ReceiptDTO implements Serializable {
 
     public void setStatusName(String receiptStatusName) {
         this.statusName = receiptStatusName;
+    }
+
+    public Set<DriverDTO> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(Set<DriverDTO> drivers) {
+        this.drivers = drivers;
     }
 
     @Override

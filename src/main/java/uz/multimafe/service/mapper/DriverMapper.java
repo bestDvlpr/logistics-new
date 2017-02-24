@@ -19,6 +19,7 @@ public interface DriverMapper {
     List<DriverDTO> driversToDriverDTOs(List<Driver> drivers);
 
     @Mapping(source = "statusId", target = "status")
+    @Mapping(target = "receipts", ignore = true)
     Driver driverDTOToDriver(DriverDTO driverDTO);
 
     List<Driver> driverDTOsToDrivers(List<DriverDTO> driverDTOs);

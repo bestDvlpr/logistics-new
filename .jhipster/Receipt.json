@@ -45,6 +45,14 @@
                 "required"
             ],
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "drivers",
+            "otherEntityName": "driver",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "lastName",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "receipts"
         }
     ],
     "fields": [
