@@ -14,6 +14,8 @@ import { LogisticsCarColorModule } from './car-color/car-color.module';
 import { LogisticsCarTypeModule } from './car-type/car-type.module';
 import { LogisticsLocationModule } from './location/location.module';
 import { LogisticsLocationTypeModule } from './location-type/location-type.module';
+import { LogisticsReceiptStatusModule } from './receipt-status/receipt-status.module';
+import { LogisticsDriverStatusModule } from './driver-status/driver-status.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -32,6 +34,8 @@ import { LogisticsLocationTypeModule } from './location-type/location-type.modul
         LogisticsCarTypeModule,
         LogisticsLocationModule,
         LogisticsLocationTypeModule,
+        LogisticsReceiptStatusModule,
+        LogisticsDriverStatusModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

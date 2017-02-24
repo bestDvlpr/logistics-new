@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "receiptStatus" : {
+            "home": {
+                "title": "Receipt Statuses",
+                "createLabel": "Create a new Receipt Status",
+                "createOrEditLabel": "Create or edit a Receipt Status",
+                "search": "Search for Receipt Status"
+            },
+            "created": "A new Receipt Status is created with identifier {{ param }}",
+            "updated": "A Receipt Status is updated with identifier {{ param }}",
+            "deleted": "A Receipt Status is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Receipt Status {{ id }}?"
+            },
+            "detail": {
+                "title": "Receipt Status"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}
