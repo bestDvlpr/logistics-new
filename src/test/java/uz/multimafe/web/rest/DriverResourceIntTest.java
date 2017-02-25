@@ -56,6 +56,9 @@ public class DriverResourceIntTest {
     private static final String DEFAULT_MOBILE_ID = "AAAAAAAAAA";
     private static final String UPDATED_MOBILE_ID = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_DELETED = false;
+    private static final Boolean UPDATED_DELETED = true;
+
     @Autowired
     private DriverRepository driverRepository;
 
@@ -99,7 +102,8 @@ public class DriverResourceIntTest {
                 .address(DEFAULT_ADDRESS)
                 .firstName(DEFAULT_FIRST_NAME)
                 .lastName(DEFAULT_LAST_NAME)
-                .mobileId(DEFAULT_MOBILE_ID);
+                .mobileId(DEFAULT_MOBILE_ID)
+                .deleted(DEFAULT_DELETED);
         // Add required entity
         Car cars = CarResourceIntTest.createEntity(em);
         em.persist(cars);
@@ -140,6 +144,7 @@ public class DriverResourceIntTest {
         assertThat(testDriver.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testDriver.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testDriver.getMobileId()).isEqualTo(DEFAULT_MOBILE_ID);
+        assertThat(testDriver.isDeleted()).isEqualTo(DEFAULT_DELETED);
     }
 
     @Test
@@ -222,6 +227,25 @@ public class DriverResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDeletedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = driverRepository.findAll().size();
+        // set the field null
+        driver.setDeleted(null);
+
+        // Create the Driver, which fails.
+        DriverDTO driverDTO = driverMapper.driverToDriverDTO(driver);
+
+        restDriverMockMvc.perform(post("/api/drivers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(driverDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Driver> driverList = driverRepository.findAll();
+        assertThat(driverList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllDrivers() throws Exception {
         // Initialize the database
         driverRepository.saveAndFlush(driver);
@@ -235,7 +259,8 @@ public class DriverResourceIntTest {
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].mobileId").value(hasItem(DEFAULT_MOBILE_ID.toString())));
+            .andExpect(jsonPath("$.[*].mobileId").value(hasItem(DEFAULT_MOBILE_ID.toString())))
+            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
     }
 
     @Test
@@ -253,7 +278,8 @@ public class DriverResourceIntTest {
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.mobileId").value(DEFAULT_MOBILE_ID.toString()));
+            .andExpect(jsonPath("$.mobileId").value(DEFAULT_MOBILE_ID.toString()))
+            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()));
     }
 
     @Test
@@ -278,7 +304,8 @@ public class DriverResourceIntTest {
                 .address(UPDATED_ADDRESS)
                 .firstName(UPDATED_FIRST_NAME)
                 .lastName(UPDATED_LAST_NAME)
-                .mobileId(UPDATED_MOBILE_ID);
+                .mobileId(UPDATED_MOBILE_ID)
+                .deleted(UPDATED_DELETED);
         DriverDTO driverDTO = driverMapper.driverToDriverDTO(updatedDriver);
 
         restDriverMockMvc.perform(put("/api/drivers")
@@ -295,6 +322,7 @@ public class DriverResourceIntTest {
         assertThat(testDriver.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testDriver.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testDriver.getMobileId()).isEqualTo(UPDATED_MOBILE_ID);
+        assertThat(testDriver.isDeleted()).isEqualTo(UPDATED_DELETED);
     }
 
     @Test

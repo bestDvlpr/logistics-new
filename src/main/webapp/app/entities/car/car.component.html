@@ -19,6 +19,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="number"><span jhiTranslate="logisticsApp.car.number">Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.car.deleted">Deleted</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="carModelName"><span jhiTranslate="logisticsApp.car.carModel">Car Model</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="carColorName"><span jhiTranslate="logisticsApp.car.carColor">Car Color</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="typeName"><span jhiTranslate="logisticsApp.car.type">Type</span> <span class="fa fa-sort"></span></th>
@@ -29,6 +30,7 @@
             <tr *ngFor="let car of cars ;trackBy: trackId">
                 <td><a [routerLink]="['../car', car.id ]">{{car.id}}</a></td>
                 <td>{{car.number}}</td>
+                <td>{{car.deleted}}</td>
                 <td>
                     <div *ngIf="car.carModelId">
                         <a [routerLink]="['../car-model', car.carModelId  ]" >{{car.carModelName}}</a>

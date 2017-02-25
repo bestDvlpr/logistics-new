@@ -27,6 +27,10 @@ public class Car implements Serializable {
     @Column(name = "number", nullable = false)
     private String number;
 
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted;
+
     @ManyToOne(optional = false)
     @NotNull
     private CarModel carModel;
@@ -61,6 +65,19 @@ public class Car implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public Car deleted(Boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public CarModel getCarModel() {
@@ -152,6 +169,7 @@ public class Car implements Serializable {
         return "Car{" +
             "id=" + id +
             ", number='" + number + "'" +
+            ", deleted='" + deleted + "'" +
             '}';
     }
 }

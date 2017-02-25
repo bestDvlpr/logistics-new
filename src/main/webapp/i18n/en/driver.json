@@ -21,6 +21,7 @@
             "firstName": "First Name",
             "lastName": "Last Name",
             "mobileId": "Mobile Id",
+            "deleted": "Deleted",
             "cars": "Cars",
             "status": "Status"
         }

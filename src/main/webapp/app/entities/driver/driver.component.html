@@ -23,6 +23,7 @@
             <th jhiSortBy="firstName"><span jhiTranslate="logisticsApp.driver.firstName">First Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="lastName"><span jhiTranslate="logisticsApp.driver.lastName">Last Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="mobileId"><span jhiTranslate="logisticsApp.driver.mobileId">Mobile Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.driver.deleted">Deleted</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="statusName"><span jhiTranslate="logisticsApp.driver.status">Status</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -35,6 +36,7 @@
                 <td>{{driver.firstName}}</td>
                 <td>{{driver.lastName}}</td>
                 <td>{{driver.mobileId}}</td>
+                <td>{{driver.deleted}}</td>
                 <td>
                     <div *ngIf="driver.statusId">
                         <a [routerLink]="['../driver-status', driver.statusId  ]" >{{driver.statusName}}</a>

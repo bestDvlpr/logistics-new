@@ -44,6 +44,9 @@ public class CarResourceIntTest {
     private static final String DEFAULT_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_NUMBER = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_DELETED = false;
+    private static final Boolean UPDATED_DELETED = true;
+
     @Autowired
     private CarRepository carRepository;
 
@@ -83,7 +86,8 @@ public class CarResourceIntTest {
      */
     public static Car createEntity(EntityManager em) {
         Car car = new Car()
-                .number(DEFAULT_NUMBER);
+                .number(DEFAULT_NUMBER)
+                .deleted(DEFAULT_DELETED);
         // Add required entity
         CarModel carModel = CarModelResourceIntTest.createEntity(em);
         em.persist(carModel);
@@ -120,6 +124,7 @@ public class CarResourceIntTest {
         assertThat(carList).hasSize(databaseSizeBeforeCreate + 1);
         Car testCar = carList.get(carList.size() - 1);
         assertThat(testCar.getNumber()).isEqualTo(DEFAULT_NUMBER);
+        assertThat(testCar.isDeleted()).isEqualTo(DEFAULT_DELETED);
     }
 
     @Test
@@ -164,6 +169,25 @@ public class CarResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDeletedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = carRepository.findAll().size();
+        // set the field null
+        car.setDeleted(null);
+
+        // Create the Car, which fails.
+        CarDTO carDTO = carMapper.carToCarDTO(car);
+
+        restCarMockMvc.perform(post("/api/cars")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(carDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Car> carList = carRepository.findAll();
+        assertThat(carList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCars() throws Exception {
         // Initialize the database
         carRepository.saveAndFlush(car);
@@ -173,7 +197,8 @@ public class CarResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(car.getId().intValue())))
-            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())));
+            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
     }
 
     @Test
@@ -187,7 +212,8 @@ public class CarResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(car.getId().intValue()))
-            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()));
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
+            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()));
     }
 
     @Test
@@ -208,7 +234,8 @@ public class CarResourceIntTest {
         // Update the car
         Car updatedCar = carRepository.findOne(car.getId());
         updatedCar
-                .number(UPDATED_NUMBER);
+                .number(UPDATED_NUMBER)
+                .deleted(UPDATED_DELETED);
         CarDTO carDTO = carMapper.carToCarDTO(updatedCar);
 
         restCarMockMvc.perform(put("/api/cars")
@@ -221,6 +248,7 @@ public class CarResourceIntTest {
         assertThat(carList).hasSize(databaseSizeBeforeUpdate);
         Car testCar = carList.get(carList.size() - 1);
         assertThat(testCar.getNumber()).isEqualTo(UPDATED_NUMBER);
+        assertThat(testCar.isDeleted()).isEqualTo(UPDATED_DELETED);
     }
 
     @Test

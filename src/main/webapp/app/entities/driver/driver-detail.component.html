@@ -24,6 +24,10 @@
         <dd>
             <span>{{driver.mobileId}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.deleted">Deleted</span></dt>
+        <dd>
+            <span>{{driver.deleted}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.driver.cars">Cars</span></dt>
         <dd>
             <span *ngFor="let cars of driver.cars; let last = last">

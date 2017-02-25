@@ -17,6 +17,7 @@
                 "title": "Car"
             },
             "number": "Number",
+            "deleted": "Deleted",
             "carModel": "Car Model",
             "carColor": "Car Color",
             "type": "Type",

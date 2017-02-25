@@ -41,6 +41,10 @@ public class Driver implements Serializable {
     @Column(name = "mobile_id")
     private String mobileId;
 
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted;
+
     @ManyToMany
     @NotNull
     @JoinTable(name = "driver_cars",
@@ -125,6 +129,19 @@ public class Driver implements Serializable {
         this.mobileId = mobileId;
     }
 
+    public Boolean isDeleted() {
+        return deleted;
+    }
+
+    public Driver deleted(Boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public Set<Car> getCars() {
         return cars;
     }
@@ -192,6 +209,7 @@ public class Driver implements Serializable {
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
             ", mobileId='" + mobileId + "'" +
+            ", deleted='" + deleted + "'" +
             '}';
     }
 }

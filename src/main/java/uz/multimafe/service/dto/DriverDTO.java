@@ -28,6 +28,9 @@ public class DriverDTO implements Serializable {
 
     private String mobileId;
 
+    @NotNull
+    private Boolean deleted;
+
     private Set<CarDTO> cars = new HashSet<>();
 
     private Long statusId;
@@ -75,6 +78,13 @@ public class DriverDTO implements Serializable {
 
     public void setMobileId(String mobileId) {
         this.mobileId = mobileId;
+    }
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Set<CarDTO> getCars() {
@@ -131,6 +141,7 @@ public class DriverDTO implements Serializable {
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
             ", mobileId='" + mobileId + "'" +
+            ", deleted='" + deleted + "'" +
             '}';
     }
 }

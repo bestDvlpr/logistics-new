@@ -17,6 +17,9 @@ public class CarDTO implements Serializable {
     @NotNull
     private String number;
 
+    @NotNull
+    private Boolean deleted;
+
     private Long carModelId;
 
     private String carModelName;
@@ -42,6 +45,13 @@ public class CarDTO implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Long getCarModelId() {
@@ -118,6 +128,7 @@ public class CarDTO implements Serializable {
         return "CarDTO{" +
             "id=" + id +
             ", number='" + number + "'" +
+            ", deleted='" + deleted + "'" +
             '}';
     }
 }
