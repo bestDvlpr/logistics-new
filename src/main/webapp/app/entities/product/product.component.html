@@ -21,18 +21,7 @@
             <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.product.sapCode">Sap Code</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sapType"><span jhiTranslate="logisticsApp.product.sapType">Sap Type</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="logisticsApp.product.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.product.serial">Serial</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.product.qty">Qty</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="uom"><span jhiTranslate="logisticsApp.product.uom">Uom</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="price"><span jhiTranslate="logisticsApp.product.price">Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deliveryFlag"><span jhiTranslate="logisticsApp.product.deliveryFlag">Delivery Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="hallFlag"><span jhiTranslate="logisticsApp.product.hallFlag">Hall Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="defectFlag"><span jhiTranslate="logisticsApp.product.defectFlag">Defect Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="virtualFlag"><span jhiTranslate="logisticsApp.product.virtualFlag">Virtual Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="reason"><span jhiTranslate="logisticsApp.product.reason">Reason</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="comment"><span jhiTranslate="logisticsApp.product.comment">Comment</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="guid"><span jhiTranslate="logisticsApp.product.guid">Guid</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sellerSellerName"><span jhiTranslate="logisticsApp.product.seller">Seller</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -42,22 +31,7 @@
                 <td>{{product.sapCode}}</td>
                 <td>{{product.sapType}}</td>
                 <td>{{product.name}}</td>
-                <td>{{product.serial}}</td>
-                <td>{{product.qty}}</td>
                 <td>{{product.uom}}</td>
-                <td>{{product.price}}</td>
-                <td jhiTranslate="{{'logisticsApp.SalesType.' + product.deliveryFlag}}">{{product.deliveryFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.SalesPlace.' + product.hallFlag}}">{{product.hallFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.DefectFlag.' + product.defectFlag}}">{{product.defectFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.VirtualFlag.' + product.virtualFlag}}">{{product.virtualFlag}}</td>
-                <td>{{product.reason}}</td>
-                <td>{{product.comment}}</td>
-                <td>{{product.guid}}</td>
-                <td>
-                    <div *ngIf="product.sellerId">
-                        <a [routerLink]="['../seller', product.sellerId  ]" >{{product.sellerSellerName}}</a>
-                    </div>
-                </td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

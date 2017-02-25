@@ -16,55 +16,9 @@
         <dd>
             <span>{{product.name}}</span>
         </dd>
-        <dt><span jhiTranslate="logisticsApp.product.serial">Serial</span></dt>
-        <dd>
-            <span>{{product.serial}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.qty">Qty</span></dt>
-        <dd>
-            <span>{{product.qty}}</span>
-        </dd>
         <dt><span jhiTranslate="logisticsApp.product.uom">Uom</span></dt>
         <dd>
             <span>{{product.uom}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.price">Price</span></dt>
-        <dd>
-            <span>{{product.price}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.deliveryFlag">Delivery Flag</span></dt>
-        <dd>
-            <span jhiTranslate="{{'logisticsApp.SalesType.' + product.deliveryFlag}}">{{product.deliveryFlag}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.hallFlag">Hall Flag</span></dt>
-        <dd>
-            <span jhiTranslate="{{'logisticsApp.SalesPlace.' + product.hallFlag}}">{{product.hallFlag}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.defectFlag">Defect Flag</span></dt>
-        <dd>
-            <span jhiTranslate="{{'logisticsApp.DefectFlag.' + product.defectFlag}}">{{product.defectFlag}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.virtualFlag">Virtual Flag</span></dt>
-        <dd>
-            <span jhiTranslate="{{'logisticsApp.VirtualFlag.' + product.virtualFlag}}">{{product.virtualFlag}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.reason">Reason</span></dt>
-        <dd>
-            <span>{{product.reason}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.comment">Comment</span></dt>
-        <dd>
-            <span>{{product.comment}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.guid">Guid</span></dt>
-        <dd>
-            <span>{{product.guid}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.product.seller">Seller</span></dt>
-        <dd>
-            <div *ngIf="product.sellerId">
-                <a [routerLink]="['seller', product.sellerId]">{{product.sellerSellerName}}</a>
-            </div>
         </dd>
     </dl>
 

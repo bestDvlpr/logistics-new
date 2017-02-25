@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488006620311-1">
+        <dropForeignKeyConstraint baseTableName="product" constraintName="fk_product_seller_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-2">
+        <dropColumn columnName="comment" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-3">
+        <dropColumn columnName="defect_flag" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-4">
+        <dropColumn columnName="delivery_flag" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-5">
+        <dropColumn columnName="guid" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-6">
+        <dropColumn columnName="hall_flag" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-7">
+        <dropColumn columnName="price" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-8">
+        <dropColumn columnName="qty" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-9">
+        <dropColumn columnName="reason" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-10">
+        <dropColumn columnName="seller_id" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-11">
+        <dropColumn columnName="serial" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488006620311-12">
+        <dropColumn columnName="virtual_flag" tableName="product"/>
+    </changeSet>
+</databaseChangeLog>

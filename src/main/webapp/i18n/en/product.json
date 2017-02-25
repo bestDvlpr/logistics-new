@@ -19,18 +19,7 @@
             "sapCode": "Sap Code",
             "sapType": "Sap Type",
             "name": "Name",
-            "serial": "Serial",
-            "qty": "Qty",
-            "uom": "Uom",
-            "price": "Price",
-            "deliveryFlag": "Delivery Flag",
-            "hallFlag": "Hall Flag",
-            "defectFlag": "Defect Flag",
-            "virtualFlag": "Virtual Flag",
-            "reason": "Reason",
-            "comment": "Comment",
-            "guid": "Guid",
-            "seller": "Seller"
+            "uom": "Uom"
         }
     }
 }

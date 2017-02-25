@@ -22,7 +22,7 @@ export class ProductDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['product', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
+        this.jhiLanguageService.setLocations(['product']);
     }
 
     clear () {

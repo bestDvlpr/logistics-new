@@ -8,7 +8,6 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Product } from './product.model';
 import { ProductPopupService } from './product-popup.service';
 import { ProductService } from './product.service';
-import { Seller, SellerService } from '../seller';
 @Component({
     selector: 'jhi-product-dialog',
     templateUrl: './product-dialog.component.html'
@@ -18,24 +17,19 @@ export class ProductDialogComponent implements OnInit {
     product: Product;
     authorities: any[];
     isSaving: boolean;
-
-    sellers: Seller[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private productService: ProductService,
-        private sellerService: SellerService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['product', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
+        this.jhiLanguageService.setLocations(['product']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.sellerService.query().subscribe(
-            (res: Response) => { this.sellers = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -65,10 +59,6 @@ export class ProductDialogComponent implements OnInit {
 
     private onError (error) {
         this.alertService.error(error.message, null, null);
-    }
-
-    trackSellerById(index: number, item: Seller) {
-        return item.id;
     }
 }
 

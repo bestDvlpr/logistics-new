@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,10 +30,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import uz.multimafe.domain.enumeration.SalesType;
-import uz.multimafe.domain.enumeration.SalesPlace;
-import uz.multimafe.domain.enumeration.DefectFlag;
-import uz.multimafe.domain.enumeration.VirtualFlag;
 /**
  * Test class for the ProductResource REST controller.
  *
@@ -53,38 +48,8 @@ public class ProductResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SERIAL = "AAAAAAAAAA";
-    private static final String UPDATED_SERIAL = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_QTY = 1;
-    private static final Integer UPDATED_QTY = 2;
-
     private static final String DEFAULT_UOM = "AAAAAAAAAA";
     private static final String UPDATED_UOM = "BBBBBBBBBB";
-
-    private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
-    private static final BigDecimal UPDATED_PRICE = new BigDecimal(2);
-
-    private static final SalesType DEFAULT_DELIVERY_FLAG = SalesType.TAKEOUT_IN_TIME;
-    private static final SalesType UPDATED_DELIVERY_FLAG = SalesType.TAKEOUT;
-
-    private static final SalesPlace DEFAULT_HALL_FLAG = SalesPlace.STORE;
-    private static final SalesPlace UPDATED_HALL_FLAG = SalesPlace.WAREHOUSE;
-
-    private static final DefectFlag DEFAULT_DEFECT_FLAG = DefectFlag.WELL;
-    private static final DefectFlag UPDATED_DEFECT_FLAG = DefectFlag.DEFECTED;
-
-    private static final VirtualFlag DEFAULT_VIRTUAL_FLAG = VirtualFlag.SOLD_PHISICALLY;
-    private static final VirtualFlag UPDATED_VIRTUAL_FLAG = VirtualFlag.SOLD_VIRTUALLY;
-
-    private static final String DEFAULT_REASON = "AAAAAAAAAA";
-    private static final String UPDATED_REASON = "BBBBBBBBBB";
-
-    private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
-    private static final String UPDATED_COMMENT = "BBBBBBBBBB";
-
-    private static final String DEFAULT_GUID = "AAAAAAAAAA";
-    private static final String UPDATED_GUID = "BBBBBBBBBB";
 
     @Autowired
     private ProductRepository productRepository;
@@ -128,17 +93,7 @@ public class ProductResourceIntTest {
                 .sapCode(DEFAULT_SAP_CODE)
                 .sapType(DEFAULT_SAP_TYPE)
                 .name(DEFAULT_NAME)
-                .serial(DEFAULT_SERIAL)
-                .qty(DEFAULT_QTY)
-                .uom(DEFAULT_UOM)
-                .price(DEFAULT_PRICE)
-                .deliveryFlag(DEFAULT_DELIVERY_FLAG)
-                .hallFlag(DEFAULT_HALL_FLAG)
-                .defectFlag(DEFAULT_DEFECT_FLAG)
-                .virtualFlag(DEFAULT_VIRTUAL_FLAG)
-                .reason(DEFAULT_REASON)
-                .comment(DEFAULT_COMMENT)
-                .guid(DEFAULT_GUID);
+                .uom(DEFAULT_UOM);
         return product;
     }
 
@@ -167,17 +122,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getSapCode()).isEqualTo(DEFAULT_SAP_CODE);
         assertThat(testProduct.getSapType()).isEqualTo(DEFAULT_SAP_TYPE);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testProduct.getSerial()).isEqualTo(DEFAULT_SERIAL);
-        assertThat(testProduct.getQty()).isEqualTo(DEFAULT_QTY);
         assertThat(testProduct.getUom()).isEqualTo(DEFAULT_UOM);
-        assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
-        assertThat(testProduct.getDeliveryFlag()).isEqualTo(DEFAULT_DELIVERY_FLAG);
-        assertThat(testProduct.getHallFlag()).isEqualTo(DEFAULT_HALL_FLAG);
-        assertThat(testProduct.getDefectFlag()).isEqualTo(DEFAULT_DEFECT_FLAG);
-        assertThat(testProduct.getVirtualFlag()).isEqualTo(DEFAULT_VIRTUAL_FLAG);
-        assertThat(testProduct.getReason()).isEqualTo(DEFAULT_REASON);
-        assertThat(testProduct.getComment()).isEqualTo(DEFAULT_COMMENT);
-        assertThat(testProduct.getGuid()).isEqualTo(DEFAULT_GUID);
     }
 
     @Test
@@ -260,143 +205,10 @@ public class ProductResourceIntTest {
 
     @Test
     @Transactional
-    public void checkQtyIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setQty(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkUomIsRequired() throws Exception {
         int databaseSizeBeforeTest = productRepository.findAll().size();
         // set the field null
         product.setUom(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setPrice(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDeliveryFlagIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setDeliveryFlag(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkHallFlagIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setHallFlag(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDefectFlagIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setDefectFlag(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkVirtualFlagIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setVirtualFlag(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkGuidIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setGuid(null);
 
         // Create the Product, which fails.
         ProductDTO productDTO = productMapper.productToProductDTO(product);
@@ -424,17 +236,7 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.[*].sapCode").value(hasItem(DEFAULT_SAP_CODE.toString())))
             .andExpect(jsonPath("$.[*].sapType").value(hasItem(DEFAULT_SAP_TYPE.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].serial").value(hasItem(DEFAULT_SERIAL.toString())))
-            .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY)))
-            .andExpect(jsonPath("$.[*].uom").value(hasItem(DEFAULT_UOM.toString())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
-            .andExpect(jsonPath("$.[*].deliveryFlag").value(hasItem(DEFAULT_DELIVERY_FLAG.toString())))
-            .andExpect(jsonPath("$.[*].hallFlag").value(hasItem(DEFAULT_HALL_FLAG.toString())))
-            .andExpect(jsonPath("$.[*].defectFlag").value(hasItem(DEFAULT_DEFECT_FLAG.toString())))
-            .andExpect(jsonPath("$.[*].virtualFlag").value(hasItem(DEFAULT_VIRTUAL_FLAG.toString())))
-            .andExpect(jsonPath("$.[*].reason").value(hasItem(DEFAULT_REASON.toString())))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
-            .andExpect(jsonPath("$.[*].guid").value(hasItem(DEFAULT_GUID.toString())));
+            .andExpect(jsonPath("$.[*].uom").value(hasItem(DEFAULT_UOM.toString())));
     }
 
     @Test
@@ -451,17 +253,7 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.sapCode").value(DEFAULT_SAP_CODE.toString()))
             .andExpect(jsonPath("$.sapType").value(DEFAULT_SAP_TYPE.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.serial").value(DEFAULT_SERIAL.toString()))
-            .andExpect(jsonPath("$.qty").value(DEFAULT_QTY))
-            .andExpect(jsonPath("$.uom").value(DEFAULT_UOM.toString()))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
-            .andExpect(jsonPath("$.deliveryFlag").value(DEFAULT_DELIVERY_FLAG.toString()))
-            .andExpect(jsonPath("$.hallFlag").value(DEFAULT_HALL_FLAG.toString()))
-            .andExpect(jsonPath("$.defectFlag").value(DEFAULT_DEFECT_FLAG.toString()))
-            .andExpect(jsonPath("$.virtualFlag").value(DEFAULT_VIRTUAL_FLAG.toString()))
-            .andExpect(jsonPath("$.reason").value(DEFAULT_REASON.toString()))
-            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
-            .andExpect(jsonPath("$.guid").value(DEFAULT_GUID.toString()));
+            .andExpect(jsonPath("$.uom").value(DEFAULT_UOM.toString()));
     }
 
     @Test
@@ -485,17 +277,7 @@ public class ProductResourceIntTest {
                 .sapCode(UPDATED_SAP_CODE)
                 .sapType(UPDATED_SAP_TYPE)
                 .name(UPDATED_NAME)
-                .serial(UPDATED_SERIAL)
-                .qty(UPDATED_QTY)
-                .uom(UPDATED_UOM)
-                .price(UPDATED_PRICE)
-                .deliveryFlag(UPDATED_DELIVERY_FLAG)
-                .hallFlag(UPDATED_HALL_FLAG)
-                .defectFlag(UPDATED_DEFECT_FLAG)
-                .virtualFlag(UPDATED_VIRTUAL_FLAG)
-                .reason(UPDATED_REASON)
-                .comment(UPDATED_COMMENT)
-                .guid(UPDATED_GUID);
+                .uom(UPDATED_UOM);
         ProductDTO productDTO = productMapper.productToProductDTO(updatedProduct);
 
         restProductMockMvc.perform(put("/api/products")
@@ -510,17 +292,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getSapCode()).isEqualTo(UPDATED_SAP_CODE);
         assertThat(testProduct.getSapType()).isEqualTo(UPDATED_SAP_TYPE);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testProduct.getSerial()).isEqualTo(UPDATED_SERIAL);
-        assertThat(testProduct.getQty()).isEqualTo(UPDATED_QTY);
         assertThat(testProduct.getUom()).isEqualTo(UPDATED_UOM);
-        assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
-        assertThat(testProduct.getDeliveryFlag()).isEqualTo(UPDATED_DELIVERY_FLAG);
-        assertThat(testProduct.getHallFlag()).isEqualTo(UPDATED_HALL_FLAG);
-        assertThat(testProduct.getDefectFlag()).isEqualTo(UPDATED_DEFECT_FLAG);
-        assertThat(testProduct.getVirtualFlag()).isEqualTo(UPDATED_VIRTUAL_FLAG);
-        assertThat(testProduct.getReason()).isEqualTo(UPDATED_REASON);
-        assertThat(testProduct.getComment()).isEqualTo(UPDATED_COMMENT);
-        assertThat(testProduct.getGuid()).isEqualTo(UPDATED_GUID);
     }
 
     @Test

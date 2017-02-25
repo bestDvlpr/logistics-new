@@ -51,28 +51,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.serial" for="field_serial">Serial</label>
-            <input type="text" class="form-control" name="serial" id="field_serial"
-                [(ngModel)]="product.serial"
-             />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.qty" for="field_qty">Qty</label>
-            <input type="number" class="form-control" name="qty" id="field_qty"
-                [(ngModel)]="product.qty"
-            required />
-            <div [hidden]="!(editForm.controls.qty?.dirty && editForm.controls.qty?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.qty?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.qty?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.product.uom" for="field_uom">Uom</label>
             <input type="text" class="form-control" name="uom" id="field_uom"
                 [(ngModel)]="product.uom"
@@ -84,107 +62,7 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.price" for="field_price">Price</label>
-            <input type="number" class="form-control" name="price" id="field_price"
-                [(ngModel)]="product.price"
-            required />
-            <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.deliveryFlag" for="field_deliveryFlag">Delivery Flag</label>
-            <select class="form-control" name="deliveryFlag" [(ngModel)]="product.deliveryFlag" id="field_deliveryFlag"  required>
-                <option value="TAKEOUT_IN_TIME" jhiTranslate="logisticsApp.SalesType.TAKEOUT_IN_TIME">TAKEOUT_IN_TIME</option>
-                <option value="TAKEOUT" jhiTranslate="logisticsApp.SalesType.TAKEOUT">TAKEOUT</option>
-                <option value="DELIVERY" jhiTranslate="logisticsApp.SalesType.DELIVERY">DELIVERY</option>
-            </select>
-            <div [hidden]="!(editForm.controls.deliveryFlag?.dirty && editForm.controls.deliveryFlag?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.deliveryFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.hallFlag" for="field_hallFlag">Hall Flag</label>
-            <select class="form-control" name="hallFlag" [(ngModel)]="product.hallFlag" id="field_hallFlag"  required>
-                <option value="STORE" jhiTranslate="logisticsApp.SalesPlace.STORE">STORE</option>
-                <option value="WAREHOUSE" jhiTranslate="logisticsApp.SalesPlace.WAREHOUSE">WAREHOUSE</option>
-            </select>
-            <div [hidden]="!(editForm.controls.hallFlag?.dirty && editForm.controls.hallFlag?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.hallFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.defectFlag" for="field_defectFlag">Defect Flag</label>
-            <select class="form-control" name="defectFlag" [(ngModel)]="product.defectFlag" id="field_defectFlag"  required>
-                <option value="WELL" jhiTranslate="logisticsApp.DefectFlag.WELL">WELL</option>
-                <option value="DEFECTED" jhiTranslate="logisticsApp.DefectFlag.DEFECTED">DEFECTED</option>
-            </select>
-            <div [hidden]="!(editForm.controls.defectFlag?.dirty && editForm.controls.defectFlag?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.defectFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.virtualFlag" for="field_virtualFlag">Virtual Flag</label>
-            <select class="form-control" name="virtualFlag" [(ngModel)]="product.virtualFlag" id="field_virtualFlag"  required>
-                <option value="SOLD_PHISICALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_PHISICALLY">SOLD_PHISICALLY</option>
-                <option value="SOLD_VIRTUALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_VIRTUALLY">SOLD_VIRTUALLY</option>
-            </select>
-            <div [hidden]="!(editForm.controls.virtualFlag?.dirty && editForm.controls.virtualFlag?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.virtualFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.reason" for="field_reason">Reason</label>
-            <input type="text" class="form-control" name="reason" id="field_reason"
-                [(ngModel)]="product.reason"
-             />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.comment" for="field_comment">Comment</label>
-            <input type="text" class="form-control" name="comment" id="field_comment"
-                [(ngModel)]="product.comment"
-             />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.guid" for="field_guid">Guid</label>
-            <input type="text" class="form-control" name="guid" id="field_guid"
-                [(ngModel)]="product.guid"
-            required />
-            <div [hidden]="!(editForm.controls.guid?.dirty && editForm.controls.guid?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.guid?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.product.seller" for="field_seller">Seller</label>
-            <select class="form-control" id="field_seller" name="seller" [(ngModel)]="product.sellerId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="sellerOption.id" *ngFor="let sellerOption of sellers; trackBy: trackSellerById">{{sellerOption.sellerName}}</option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
