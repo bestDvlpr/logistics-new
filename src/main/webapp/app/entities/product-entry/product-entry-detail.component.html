@@ -1,0 +1,69 @@
+
+<div *ngIf="productEntry">
+    <h2><span jhiTranslate="logisticsApp.productEntry.detail.title">Product Entry</span> {{productEntry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="logisticsApp.productEntry.serial">Serial</span></dt>
+        <dd>
+            <span>{{productEntry.serial}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.price">Price</span></dt>
+        <dd>
+            <span>{{productEntry.price}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.deliveryFlag">Delivery Flag</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">{{productEntry.deliveryFlag}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.hallFlag">Hall Flag</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.SalesPlace.' + productEntry.hallFlag}}">{{productEntry.hallFlag}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.defectFlag">Defect Flag</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}">{{productEntry.defectFlag}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}">{{productEntry.virtualFlag}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span></dt>
+        <dd>
+            <span>{{productEntry.reason}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.comment">Comment</span></dt>
+        <dd>
+            <span>{{productEntry.comment}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span></dt>
+        <dd>
+            <span>{{productEntry.guid}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.product">Product</span></dt>
+        <dd>
+            <div *ngIf="productEntry.productId">
+                <a [routerLink]="['product', productEntry.productId]">{{productEntry.productName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span></dt>
+        <dd>
+            <div *ngIf="productEntry.sellerIDId">
+                <a [routerLink]="['seller', productEntry.sellerIDId]">{{productEntry.sellerIDSellerID}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'product-entry/'+ productEntry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

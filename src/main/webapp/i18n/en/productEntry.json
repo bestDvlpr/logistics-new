@@ -1,0 +1,32 @@
+{
+    "logisticsApp": {
+        "productEntry" : {
+            "home": {
+                "title": "Product Entries",
+                "createLabel": "Create a new Product Entry",
+                "createOrEditLabel": "Create or edit a Product Entry",
+                "search": "Search for Product Entry"
+            },
+            "created": "A new Product Entry is created with identifier {{ param }}",
+            "updated": "A Product Entry is updated with identifier {{ param }}",
+            "deleted": "A Product Entry is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Product Entry {{ id }}?"
+            },
+            "detail": {
+                "title": "Product Entry"
+            },
+            "serial": "Serial",
+            "price": "Price",
+            "deliveryFlag": "Delivery Flag",
+            "hallFlag": "Hall Flag",
+            "defectFlag": "Defect Flag",
+            "virtualFlag": "Virtual Flag",
+            "reason": "Reason",
+            "comment": "Comment",
+            "guid": "Guid",
+            "product": "Product",
+            "sellerID": "Seller ID"
+        }
+    }
+}

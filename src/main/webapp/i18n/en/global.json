@@ -23,6 +23,7 @@
                 "locationType": "Location Type",
                 "receiptStatus": "Receipt Status",
                 "driverStatus": "Driver Status",
+                "productEntry": "Product Entry",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

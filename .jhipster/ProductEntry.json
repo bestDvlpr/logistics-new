@@ -1,0 +1,89 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "sellerID",
+            "otherEntityName": "seller",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "sellerID"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "serial",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deliveryFlag",
+            "fieldType": "SalesType",
+            "fieldValues": "TAKEOUT_IN_TIME,TAKEOUT,DELIVERY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "hallFlag",
+            "fieldType": "SalesPlace",
+            "fieldValues": "STORE,WAREHOUSE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "defectFlag",
+            "fieldType": "DefectFlag",
+            "fieldValues": "WELL,DEFECTED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "virtualFlag",
+            "fieldType": "VirtualFlag",
+            "fieldValues": "SOLD_PHISICALLY,SOLD_VIRTUALLY",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "reason",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "comment",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "guid",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170225072014",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "product_entry",
+    "pagination": "pagination"
+}
