@@ -8,6 +8,7 @@
             "entities": {
                 "main": "Entities",
                 "receipt": "Receipt",
+                "order": "Orders",
                 "payMaster": "Pay Master",
                 "loyaltyCard": "Loyalty Card",
                 "seller": "Seller",
