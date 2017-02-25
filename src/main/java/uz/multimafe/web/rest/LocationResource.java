@@ -32,7 +32,7 @@ public class LocationResource {
     private final Logger log = LoggerFactory.getLogger(LocationResource.class);
 
     private static final String ENTITY_NAME = "location";
-        
+
     private final LocationService locationService;
 
     public LocationResource(LocationService locationService) {
@@ -110,6 +110,37 @@ public class LocationResource {
         log.debug("REST request to get Location : {}", id);
         Location location = locationService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(location));
+    }
+
+    /**
+     * GET  /locations/children/:id : get children of the "id" location.
+     *
+     * @param id the id of the location to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the locations, or with status 404 (Not Found)
+     */
+    @GetMapping("/locations/children/{id}")
+    @Timed
+    public ResponseEntity<List<Location>> getChildLocations(@ApiParam Pageable pageable, @PathVariable Long id)
+        throws URISyntaxException {
+        log.debug("REST request to get child Locations of : {}", id);
+        Page<Location> children = locationService.findChildren(pageable, id);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(children, "/api/locations/children/{id}");
+        return new ResponseEntity<>(children.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /locations/countries : get country locations.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the locations, or with status 404 (Not Found)
+     */
+    @GetMapping("/locations/countries")
+    @Timed
+    public ResponseEntity<List<Location>> getCountries(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get only country Locations");
+        Page<Location> countries = locationService.findByParentIdIsNull(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(countries, "/api/locations/countries");
+        return new ResponseEntity<>(countries.getContent(), headers, HttpStatus.OK);
     }
 
     /**

@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "driverStatus" : {
+            "home": {
+                "title": "Driver Statuses",
+                "createLabel": "Создать новый Driver Status",
+                "createOrEditLabel": "Создать или отредактировать Driver Status",
+                "search": "Найти Driver Status"
+            },
+            "created": "Новый Driver Status создан с идентификатором {{ param }}",
+            "updated": "Driver Status обновлен с идентификатором {{ param }}",
+            "deleted": "Driver Status удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Driver Status {{ id }}?"
+            },
+            "detail": {
+                "title": "Driver Status"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

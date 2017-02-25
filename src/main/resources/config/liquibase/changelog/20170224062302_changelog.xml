@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1487917386753-0">
+        <addColumn tableName="receipt">
+            <column name="status_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan" id="1487917386753-1">
+        <sql>update receipt set status_id=1</sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487917386753-2">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="receipt"
+                                 constraintName="fk_receipt_status_status_id" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="receipt_status"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1487917386753-3">
+        <addNotNullConstraint tableName="receipt" columnName="status_id"/>
+    </changeSet>
+</databaseChangeLog>

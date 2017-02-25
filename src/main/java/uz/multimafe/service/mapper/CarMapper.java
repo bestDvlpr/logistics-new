@@ -25,6 +25,7 @@ public interface CarMapper {
     @Mapping(source = "carModelId", target = "carModel")
     @Mapping(source = "carColorId", target = "carColor")
     @Mapping(source = "typeId", target = "type")
+    @Mapping(target = "drivers", ignore = true)
     Car carDTOToCar(CarDTO carDTO);
 
     List<Car> carDTOsToCars(List<CarDTO> carDTOs);

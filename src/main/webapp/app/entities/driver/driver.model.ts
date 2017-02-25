@@ -6,6 +6,8 @@ export class Driver {
         public firstName?: string,
         public lastName?: string,
         public mobileId?: string,
-        public carId?: number,
+        public carsId?: number,
+        public statusId?: number,
+        public receiptsId?: number,
     ) { }
 }

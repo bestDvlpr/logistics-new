@@ -24,10 +24,16 @@
         <dd>
             <span>{{driver.mobileId}}</span>
         </dd>
-        <dt><span jhiTranslate="logisticsApp.driver.car">Car</span></dt>
+        <dt><span jhiTranslate="logisticsApp.driver.cars">Cars</span></dt>
         <dd>
-            <div *ngIf="driver.carId">
-                <a [routerLink]="['car', driver.carId]">{{driver.carNumber}}</a>
+            <span *ngFor="let cars of driver.cars; let last = last">
+                <a [routerLink]="['/car', cars?.id ]">{{cars.number}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.driver.status">Status</span></dt>
+        <dd>
+            <div *ngIf="driver.statusId">
+                <a [routerLink]="['driver-status', driver.statusId]">{{driver.statusName}}</a>
             </div>
         </dd>
     </dl>

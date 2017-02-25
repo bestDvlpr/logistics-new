@@ -68,15 +68,27 @@
         </div>
 
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.driver.car" for="field_car">Car</label>
-            <select class="form-control" id="field_car" name="car" [(ngModel)]="driver.carId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="carOption.id" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}</option>
+            <label jhiTranslate="logisticsApp.driver.cars" for="field_cars">Cars</label>
+            <select class="form-control" id="field_cars" #cars="ngModel" multiple name="cars" [(ngModel)]="driver.cars" required>
+                <option [ngValue]="getSelected(driver.cars, carOption)" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.car?.dirty && editForm.controls.car?.invalid)">
+        <div [hidden]="!(editForm.controls.cars?.dirty && editForm.controls.cars?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!car?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!cars?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.driver.status" for="field_status">Status</label>
+            <select class="form-control" id="field_status" name="status" [(ngModel)]="driver.statusId"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="driverStatusOption.id" *ngFor="let driverStatusOption of driverstatuses; trackBy: trackDriverStatusById">{{driverStatusOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!status?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

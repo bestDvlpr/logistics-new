@@ -21,6 +21,8 @@
                 "carType": "Car Type",
                 "location": "Location",
                 "locationType": "Location Type",
+                "receiptStatus": "Receipt Status",
+                "driverStatus": "Driver Status",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

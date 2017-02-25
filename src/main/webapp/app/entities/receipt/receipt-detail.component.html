@@ -48,6 +48,18 @@
                 <a [routerLink]="['pay-type', receipt.payTypeId]">{{receipt.payTypeSapCode}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.status">Status</span></dt>
+        <dd>
+            <div *ngIf="receipt.statusId">
+                <a [routerLink]="['receipt-status', receipt.statusId]">{{receipt.statusName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.drivers">Drivers</span></dt>
+        <dd>
+            <span *ngFor="let drivers of receipt.drivers; let last = last">
+                <a [routerLink]="['/driver', drivers?.id ]">{{drivers.lastName}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
     </dl>
 
     <button type="submit"

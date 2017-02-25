@@ -4,6 +4,7 @@ import uz.multimafe.LogisticsApp;
 
 import uz.multimafe.domain.Driver;
 import uz.multimafe.domain.Car;
+import uz.multimafe.domain.DriverStatus;
 import uz.multimafe.repository.DriverRepository;
 import uz.multimafe.service.DriverService;
 import uz.multimafe.service.dto.DriverDTO;
@@ -100,10 +101,15 @@ public class DriverResourceIntTest {
                 .lastName(DEFAULT_LAST_NAME)
                 .mobileId(DEFAULT_MOBILE_ID);
         // Add required entity
-        Car car = CarResourceIntTest.createEntity(em);
-        em.persist(car);
+        Car cars = CarResourceIntTest.createEntity(em);
+        em.persist(cars);
         em.flush();
-        driver.setCar(car);
+        driver.getCars().add(cars);
+        // Add required entity
+        DriverStatus status = DriverStatusResourceIntTest.createEntity(em);
+        em.persist(status);
+        em.flush();
+        driver.setStatus(status);
         return driver;
     }
 

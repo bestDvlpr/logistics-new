@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 public class LocationService {
 
     private final Logger log = LoggerFactory.getLogger(LocationService.class);
-    
+
     private final LocationRepository locationRepository;
 
     public LocationService(LocationRepository locationRepository) {
@@ -39,10 +40,10 @@ public class LocationService {
     }
 
     /**
-     *  Get all the locations.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * Get all the locations.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Transactional(readOnly = true)
     public Page<Location> findAll(Pageable pageable) {
@@ -52,10 +53,10 @@ public class LocationService {
     }
 
     /**
-     *  Get one location by id.
+     * Get one location by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Transactional(readOnly = true)
     public Location findOne(Long id) {
@@ -65,12 +66,36 @@ public class LocationService {
     }
 
     /**
-     *  Delete the  location by id.
+     * Delete the  location by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     public void delete(Long id) {
         log.debug("Request to delete Location : {}", id);
         locationRepository.delete(id);
+    }
+
+    /**
+     * Get location children by parent ID.
+     *
+     * @param parentId the id of the parent entity
+     * @return the entity list
+     */
+    public Page<Location> findChildren(Pageable pageable, Long parentId) {
+        if (parentId == null) {
+            return null;
+        }
+        log.debug("Request to get children of Location: {}", parentId);
+        return locationRepository.findByParentId(pageable, parentId);
+    }
+
+    /**
+     * Get country locations.
+     *
+     * @return the entity list
+     */
+    public Page<Location> findByParentIdIsNull(Pageable pageable) {
+        log.debug("Request to get country Locations");
+        return locationRepository.findByParentIdIsNull(pageable);
     }
 }

@@ -4,6 +4,8 @@ package uz.multimafe.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import uz.multimafe.domain.enumeration.DocType;
@@ -57,6 +59,16 @@ public class Receipt implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private PayType payType;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private ReceiptStatus status;
+
+    @ManyToMany
+    @JoinTable(name = "receipt_drivers",
+               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="drivers_id", referencedColumnName="id"))
+    private Set<Driver> drivers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -181,6 +193,44 @@ public class Receipt implements Serializable {
 
     public void setPayType(PayType payType) {
         this.payType = payType;
+    }
+
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public Receipt status(ReceiptStatus receiptStatus) {
+        this.status = receiptStatus;
+        return this;
+    }
+
+    public void setStatus(ReceiptStatus receiptStatus) {
+        this.status = receiptStatus;
+    }
+
+    public Set<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public Receipt drivers(Set<Driver> drivers) {
+        this.drivers = drivers;
+        return this;
+    }
+
+    public Receipt addDrivers(Driver driver) {
+        this.drivers.add(driver);
+        driver.getReceipts().add(this);
+        return this;
+    }
+
+    public Receipt removeDrivers(Driver driver) {
+        this.drivers.remove(driver);
+        driver.getReceipts().remove(this);
+        return this;
+    }
+
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     @Override
