@@ -18,7 +18,7 @@
         },
         {
             "fieldName": "loyaltyCardAmount",
-            "fieldType": "Integer",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]

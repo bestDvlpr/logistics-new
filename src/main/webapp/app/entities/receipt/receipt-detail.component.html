@@ -24,9 +24,9 @@
         <dd>
             <span>{{receipt.docDate}}</span>
         </dd>
-        <dt><span jhiTranslate="logisticsApp.receipt.discount">Discount</span></dt>
+        <dt><span jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span></dt>
         <dd>
-            <span>{{receipt.discount}}</span>
+            <span jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">{{receipt.wholeSaleFlag}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span></dt>
         <dd>

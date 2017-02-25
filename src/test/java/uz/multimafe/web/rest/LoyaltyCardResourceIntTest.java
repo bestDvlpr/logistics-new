@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,8 +46,8 @@ public class LoyaltyCardResourceIntTest {
     private static final String DEFAULT_LOYALTY_CARD_BONUS = "AAAAAAAAAA";
     private static final String UPDATED_LOYALTY_CARD_BONUS = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_LOYALTY_CARD_AMOUNT = 1;
-    private static final Integer UPDATED_LOYALTY_CARD_AMOUNT = 2;
+    private static final BigDecimal DEFAULT_LOYALTY_CARD_AMOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LOYALTY_CARD_AMOUNT = new BigDecimal(2);
 
     @Autowired
     private LoyaltyCardRepository loyaltyCardRepository;
@@ -211,7 +212,7 @@ public class LoyaltyCardResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(loyaltyCard.getId().intValue())))
             .andExpect(jsonPath("$.[*].loyaltyCardID").value(hasItem(DEFAULT_LOYALTY_CARD_ID.toString())))
             .andExpect(jsonPath("$.[*].loyaltyCardBonus").value(hasItem(DEFAULT_LOYALTY_CARD_BONUS.toString())))
-            .andExpect(jsonPath("$.[*].loyaltyCardAmount").value(hasItem(DEFAULT_LOYALTY_CARD_AMOUNT)));
+            .andExpect(jsonPath("$.[*].loyaltyCardAmount").value(hasItem(DEFAULT_LOYALTY_CARD_AMOUNT.intValue())));
     }
 
     @Test
@@ -227,7 +228,7 @@ public class LoyaltyCardResourceIntTest {
             .andExpect(jsonPath("$.id").value(loyaltyCard.getId().intValue()))
             .andExpect(jsonPath("$.loyaltyCardID").value(DEFAULT_LOYALTY_CARD_ID.toString()))
             .andExpect(jsonPath("$.loyaltyCardBonus").value(DEFAULT_LOYALTY_CARD_BONUS.toString()))
-            .andExpect(jsonPath("$.loyaltyCardAmount").value(DEFAULT_LOYALTY_CARD_AMOUNT));
+            .andExpect(jsonPath("$.loyaltyCardAmount").value(DEFAULT_LOYALTY_CARD_AMOUNT.intValue()));
     }
 
     @Test

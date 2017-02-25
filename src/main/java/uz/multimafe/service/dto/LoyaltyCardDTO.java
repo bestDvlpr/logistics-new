@@ -3,6 +3,7 @@ package uz.multimafe.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -19,7 +20,7 @@ public class LoyaltyCardDTO implements Serializable {
     private String loyaltyCardBonus;
 
     @NotNull
-    private Integer loyaltyCardAmount;
+    private BigDecimal loyaltyCardAmount;
 
     public Long getId() {
         return id;
@@ -42,11 +43,11 @@ public class LoyaltyCardDTO implements Serializable {
     public void setLoyaltyCardBonus(String loyaltyCardBonus) {
         this.loyaltyCardBonus = loyaltyCardBonus;
     }
-    public Integer getLoyaltyCardAmount() {
+    public BigDecimal getLoyaltyCardAmount() {
         return loyaltyCardAmount;
     }
 
-    public void setLoyaltyCardAmount(Integer loyaltyCardAmount) {
+    public void setLoyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
     }
 

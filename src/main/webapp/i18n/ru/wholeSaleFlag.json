@@ -1,0 +1,9 @@
+{
+    "logisticsApp": {
+        "WholeSaleFlag" : {
+            "null": "",
+            "RETAIL": "RETAIL",
+            "WHOLESALE": "WHOLESALE"
+        }
+    }
+}

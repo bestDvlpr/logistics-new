@@ -20,9 +20,6 @@ public class ProductEntryDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String serial;
-
-    @NotNull
     private BigDecimal price;
 
     @NotNull
@@ -43,6 +40,11 @@ public class ProductEntryDTO implements Serializable {
 
     @NotNull
     private String guid;
+
+    @NotNull
+    private BigDecimal qty;
+
+    private BigDecimal discount;
 
     private Long productId;
 
@@ -66,13 +68,6 @@ public class ProductEntryDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
     }
     public BigDecimal getPrice() {
         return price;
@@ -129,6 +124,20 @@ public class ProductEntryDTO implements Serializable {
 
     public void setGuid(String guid) {
         this.guid = guid;
+    }
+    public BigDecimal getQty() {
+        return qty;
+    }
+
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
+    }
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
     public Long getProductId() {
@@ -220,7 +229,6 @@ public class ProductEntryDTO implements Serializable {
     public String toString() {
         return "ProductEntryDTO{" +
             "id=" + id +
-            ", serial='" + serial + "'" +
             ", price='" + price + "'" +
             ", deliveryFlag='" + deliveryFlag + "'" +
             ", hallFlag='" + hallFlag + "'" +
@@ -229,6 +237,8 @@ public class ProductEntryDTO implements Serializable {
             ", reason='" + reason + "'" +
             ", comment='" + comment + "'" +
             ", guid='" + guid + "'" +
+            ", qty='" + qty + "'" +
+            ", discount='" + discount + "'" +
             '}';
     }
 }

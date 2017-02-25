@@ -74,10 +74,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.receipt.discount" for="field_discount">Discount</label>
-            <input type="number" class="form-control" name="discount" id="field_discount"
-                [(ngModel)]="receipt.discount"
-             />
+            <label class="form-control-label" jhiTranslate="logisticsApp.receipt.wholeSaleFlag" for="field_wholeSaleFlag">Whole Sale Flag</label>
+            <select class="form-control" name="wholeSaleFlag" [(ngModel)]="receipt.wholeSaleFlag" id="field_wholeSaleFlag"  required>
+                <option value="RETAIL" jhiTranslate="logisticsApp.WholeSaleFlag.RETAIL">RETAIL</option>
+                <option value="WHOLESALE" jhiTranslate="logisticsApp.WholeSaleFlag.WHOLESALE">WHOLESALE</option>
+            </select>
+            <div [hidden]="!(editForm.controls.wholeSaleFlag?.dirty && editForm.controls.wholeSaleFlag?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.wholeSaleFlag?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
         </div>
 
         <div class="form-group">

@@ -15,18 +15,6 @@
                    [(ngModel)]="productEntry.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.serial" for="field_serial">Serial</label>
-            <input type="text" class="form-control" name="serial" id="field_serial"
-                [(ngModel)]="productEntry.serial"
-            required />
-            <div [hidden]="!(editForm.controls.serial?.dirty && editForm.controls.serial?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.serial?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.price" for="field_price">Price</label>
             <input type="number" class="form-control" name="price" id="field_price"
                 [(ngModel)]="productEntry.price"
@@ -118,6 +106,28 @@
                    This field is required.
                 </small>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.qty" for="field_qty">Qty</label>
+            <input type="number" class="form-control" name="qty" id="field_qty"
+                [(ngModel)]="productEntry.qty"
+            required />
+            <div [hidden]="!(editForm.controls.qty?.dirty && editForm.controls.qty?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.qty?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.qty?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.discount" for="field_discount">Discount</label>
+            <input type="number" class="form-control" name="discount" id="field_discount"
+                [(ngModel)]="productEntry.discount"
+             />
         </div>
 
         <div class="form-group">

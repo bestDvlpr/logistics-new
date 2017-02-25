@@ -64,8 +64,12 @@
             ]
         },
         {
-            "fieldName": "discount",
-            "fieldType": "BigDecimal"
+            "fieldName": "wholeSaleFlag",
+            "fieldType": "WholeSaleFlag",
+            "fieldValues": "RETAIL,WHOLESALE",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170220091557",

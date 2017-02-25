@@ -3,11 +3,11 @@ package uz.multimafe.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 import uz.multimafe.domain.enumeration.DocType;
+import uz.multimafe.domain.enumeration.WholeSaleFlag;
 
 /**
  * A DTO for the Receipt entity.
@@ -30,7 +30,8 @@ public class ReceiptDTO implements Serializable {
     @NotNull
     private Long docDate;
 
-    private BigDecimal discount;
+    @NotNull
+    private WholeSaleFlag wholeSaleFlag;
 
     private Long payMasterId;
 
@@ -86,12 +87,12 @@ public class ReceiptDTO implements Serializable {
     public void setDocDate(Long docDate) {
         this.docDate = docDate;
     }
-    public BigDecimal getDiscount() {
-        return discount;
+    public WholeSaleFlag getWholeSaleFlag() {
+        return wholeSaleFlag;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    public void setWholeSaleFlag(WholeSaleFlag wholeSaleFlag) {
+        this.wholeSaleFlag = wholeSaleFlag;
     }
 
     public Long getPayMasterId() {
@@ -172,7 +173,7 @@ public class ReceiptDTO implements Serializable {
             ", docType='" + docType + "'" +
             ", previousDocID='" + previousDocID + "'" +
             ", docDate='" + docDate + "'" +
-            ", discount='" + discount + "'" +
+            ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             '}';
     }
 }

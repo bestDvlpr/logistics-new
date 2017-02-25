@@ -46,9 +46,6 @@ import uz.multimafe.domain.enumeration.VirtualFlag;
 @SpringBootTest(classes = LogisticsApp.class)
 public class ProductEntryResourceIntTest {
 
-    private static final String DEFAULT_SERIAL = "AAAAAAAAAA";
-    private static final String UPDATED_SERIAL = "BBBBBBBBBB";
-
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRICE = new BigDecimal(2);
 
@@ -72,6 +69,12 @@ public class ProductEntryResourceIntTest {
 
     private static final String DEFAULT_GUID = "AAAAAAAAAA";
     private static final String UPDATED_GUID = "BBBBBBBBBB";
+
+    private static final BigDecimal DEFAULT_QTY = new BigDecimal(1);
+    private static final BigDecimal UPDATED_QTY = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_DISCOUNT = new BigDecimal(2);
 
     @Autowired
     private ProductEntryRepository productEntryRepository;
@@ -112,7 +115,6 @@ public class ProductEntryResourceIntTest {
      */
     public static ProductEntry createEntity(EntityManager em) {
         ProductEntry productEntry = new ProductEntry()
-                .serial(DEFAULT_SERIAL)
                 .price(DEFAULT_PRICE)
                 .deliveryFlag(DEFAULT_DELIVERY_FLAG)
                 .hallFlag(DEFAULT_HALL_FLAG)
@@ -120,7 +122,9 @@ public class ProductEntryResourceIntTest {
                 .virtualFlag(DEFAULT_VIRTUAL_FLAG)
                 .reason(DEFAULT_REASON)
                 .comment(DEFAULT_COMMENT)
-                .guid(DEFAULT_GUID);
+                .guid(DEFAULT_GUID)
+                .qty(DEFAULT_QTY)
+                .discount(DEFAULT_DISCOUNT);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -156,7 +160,6 @@ public class ProductEntryResourceIntTest {
         List<ProductEntry> productEntryList = productEntryRepository.findAll();
         assertThat(productEntryList).hasSize(databaseSizeBeforeCreate + 1);
         ProductEntry testProductEntry = productEntryList.get(productEntryList.size() - 1);
-        assertThat(testProductEntry.getSerial()).isEqualTo(DEFAULT_SERIAL);
         assertThat(testProductEntry.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProductEntry.getDeliveryFlag()).isEqualTo(DEFAULT_DELIVERY_FLAG);
         assertThat(testProductEntry.getHallFlag()).isEqualTo(DEFAULT_HALL_FLAG);
@@ -165,6 +168,8 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getReason()).isEqualTo(DEFAULT_REASON);
         assertThat(testProductEntry.getComment()).isEqualTo(DEFAULT_COMMENT);
         assertThat(testProductEntry.getGuid()).isEqualTo(DEFAULT_GUID);
+        assertThat(testProductEntry.getQty()).isEqualTo(DEFAULT_QTY);
+        assertThat(testProductEntry.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
     }
 
     @Test
@@ -186,25 +191,6 @@ public class ProductEntryResourceIntTest {
         // Validate the Alice in the database
         List<ProductEntry> productEntryList = productEntryRepository.findAll();
         assertThat(productEntryList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkSerialIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productEntryRepository.findAll().size();
-        // set the field null
-        productEntry.setSerial(null);
-
-        // Create the ProductEntry, which fails.
-        ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(productEntry);
-
-        restProductEntryMockMvc.perform(post("/api/product-entries")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productEntryDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<ProductEntry> productEntryList = productEntryRepository.findAll();
-        assertThat(productEntryList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -323,6 +309,25 @@ public class ProductEntryResourceIntTest {
 
     @Test
     @Transactional
+    public void checkQtyIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productEntryRepository.findAll().size();
+        // set the field null
+        productEntry.setQty(null);
+
+        // Create the ProductEntry, which fails.
+        ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(productEntry);
+
+        restProductEntryMockMvc.perform(post("/api/product-entries")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productEntryDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ProductEntry> productEntryList = productEntryRepository.findAll();
+        assertThat(productEntryList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProductEntries() throws Exception {
         // Initialize the database
         productEntryRepository.saveAndFlush(productEntry);
@@ -332,7 +337,6 @@ public class ProductEntryResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(productEntry.getId().intValue())))
-            .andExpect(jsonPath("$.[*].serial").value(hasItem(DEFAULT_SERIAL.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].deliveryFlag").value(hasItem(DEFAULT_DELIVERY_FLAG.toString())))
             .andExpect(jsonPath("$.[*].hallFlag").value(hasItem(DEFAULT_HALL_FLAG.toString())))
@@ -340,7 +344,9 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.[*].virtualFlag").value(hasItem(DEFAULT_VIRTUAL_FLAG.toString())))
             .andExpect(jsonPath("$.[*].reason").value(hasItem(DEFAULT_REASON.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
-            .andExpect(jsonPath("$.[*].guid").value(hasItem(DEFAULT_GUID.toString())));
+            .andExpect(jsonPath("$.[*].guid").value(hasItem(DEFAULT_GUID.toString())))
+            .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY.intValue())))
+            .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())));
     }
 
     @Test
@@ -354,7 +360,6 @@ public class ProductEntryResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(productEntry.getId().intValue()))
-            .andExpect(jsonPath("$.serial").value(DEFAULT_SERIAL.toString()))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
             .andExpect(jsonPath("$.deliveryFlag").value(DEFAULT_DELIVERY_FLAG.toString()))
             .andExpect(jsonPath("$.hallFlag").value(DEFAULT_HALL_FLAG.toString()))
@@ -362,7 +367,9 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.virtualFlag").value(DEFAULT_VIRTUAL_FLAG.toString()))
             .andExpect(jsonPath("$.reason").value(DEFAULT_REASON.toString()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
-            .andExpect(jsonPath("$.guid").value(DEFAULT_GUID.toString()));
+            .andExpect(jsonPath("$.guid").value(DEFAULT_GUID.toString()))
+            .andExpect(jsonPath("$.qty").value(DEFAULT_QTY.intValue()))
+            .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()));
     }
 
     @Test
@@ -383,7 +390,6 @@ public class ProductEntryResourceIntTest {
         // Update the productEntry
         ProductEntry updatedProductEntry = productEntryRepository.findOne(productEntry.getId());
         updatedProductEntry
-                .serial(UPDATED_SERIAL)
                 .price(UPDATED_PRICE)
                 .deliveryFlag(UPDATED_DELIVERY_FLAG)
                 .hallFlag(UPDATED_HALL_FLAG)
@@ -391,7 +397,9 @@ public class ProductEntryResourceIntTest {
                 .virtualFlag(UPDATED_VIRTUAL_FLAG)
                 .reason(UPDATED_REASON)
                 .comment(UPDATED_COMMENT)
-                .guid(UPDATED_GUID);
+                .guid(UPDATED_GUID)
+                .qty(UPDATED_QTY)
+                .discount(UPDATED_DISCOUNT);
         ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(updatedProductEntry);
 
         restProductEntryMockMvc.perform(put("/api/product-entries")
@@ -403,7 +411,6 @@ public class ProductEntryResourceIntTest {
         List<ProductEntry> productEntryList = productEntryRepository.findAll();
         assertThat(productEntryList).hasSize(databaseSizeBeforeUpdate);
         ProductEntry testProductEntry = productEntryList.get(productEntryList.size() - 1);
-        assertThat(testProductEntry.getSerial()).isEqualTo(UPDATED_SERIAL);
         assertThat(testProductEntry.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProductEntry.getDeliveryFlag()).isEqualTo(UPDATED_DELIVERY_FLAG);
         assertThat(testProductEntry.getHallFlag()).isEqualTo(UPDATED_HALL_FLAG);
@@ -412,6 +419,8 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getReason()).isEqualTo(UPDATED_REASON);
         assertThat(testProductEntry.getComment()).isEqualTo(UPDATED_COMMENT);
         assertThat(testProductEntry.getGuid()).isEqualTo(UPDATED_GUID);
+        assertThat(testProductEntry.getQty()).isEqualTo(UPDATED_QTY);
+        assertThat(testProductEntry.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
     }
 
     @Test

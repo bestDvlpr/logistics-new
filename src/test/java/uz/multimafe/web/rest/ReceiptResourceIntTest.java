@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import uz.multimafe.domain.enumeration.DocType;
+import uz.multimafe.domain.enumeration.WholeSaleFlag;
 /**
  * Test class for the ReceiptResource REST controller.
  *
@@ -59,8 +59,8 @@ public class ReceiptResourceIntTest {
     private static final Long DEFAULT_DOC_DATE = 1L;
     private static final Long UPDATED_DOC_DATE = 2L;
 
-    private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal(1);
-    private static final BigDecimal UPDATED_DISCOUNT = new BigDecimal(2);
+    private static final WholeSaleFlag DEFAULT_WHOLE_SALE_FLAG = WholeSaleFlag.RETAIL;
+    private static final WholeSaleFlag UPDATED_WHOLE_SALE_FLAG = WholeSaleFlag.WHOLESALE;
 
     @Autowired
     private ReceiptRepository receiptRepository;
@@ -106,7 +106,7 @@ public class ReceiptResourceIntTest {
                 .docType(DEFAULT_DOC_TYPE)
                 .previousDocID(DEFAULT_PREVIOUS_DOC_ID)
                 .docDate(DEFAULT_DOC_DATE)
-                .discount(DEFAULT_DISCOUNT);
+                .wholeSaleFlag(DEFAULT_WHOLE_SALE_FLAG);
         // Add required entity
         PayMaster payMaster = PayMasterResourceIntTest.createEntity(em);
         em.persist(payMaster);
@@ -152,7 +152,7 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocType()).isEqualTo(DEFAULT_DOC_TYPE);
         assertThat(testReceipt.getPreviousDocID()).isEqualTo(DEFAULT_PREVIOUS_DOC_ID);
         assertThat(testReceipt.getDocDate()).isEqualTo(DEFAULT_DOC_DATE);
-        assertThat(testReceipt.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
+        assertThat(testReceipt.getWholeSaleFlag()).isEqualTo(DEFAULT_WHOLE_SALE_FLAG);
     }
 
     @Test
@@ -254,6 +254,25 @@ public class ReceiptResourceIntTest {
 
     @Test
     @Transactional
+    public void checkWholeSaleFlagIsRequired() throws Exception {
+        int databaseSizeBeforeTest = receiptRepository.findAll().size();
+        // set the field null
+        receipt.setWholeSaleFlag(null);
+
+        // Create the Receipt, which fails.
+        ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
+
+        restReceiptMockMvc.perform(post("/api/receipts")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(receiptDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Receipt> receiptList = receiptRepository.findAll();
+        assertThat(receiptList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllReceipts() throws Exception {
         // Initialize the database
         receiptRepository.saveAndFlush(receipt);
@@ -268,7 +287,7 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.[*].docType").value(hasItem(DEFAULT_DOC_TYPE.toString())))
             .andExpect(jsonPath("$.[*].previousDocID").value(hasItem(DEFAULT_PREVIOUS_DOC_ID.toString())))
             .andExpect(jsonPath("$.[*].docDate").value(hasItem(DEFAULT_DOC_DATE.intValue())))
-            .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())));
+            .andExpect(jsonPath("$.[*].wholeSaleFlag").value(hasItem(DEFAULT_WHOLE_SALE_FLAG.toString())));
     }
 
     @Test
@@ -287,7 +306,7 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.docType").value(DEFAULT_DOC_TYPE.toString()))
             .andExpect(jsonPath("$.previousDocID").value(DEFAULT_PREVIOUS_DOC_ID.toString()))
             .andExpect(jsonPath("$.docDate").value(DEFAULT_DOC_DATE.intValue()))
-            .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()));
+            .andExpect(jsonPath("$.wholeSaleFlag").value(DEFAULT_WHOLE_SALE_FLAG.toString()));
     }
 
     @Test
@@ -313,7 +332,7 @@ public class ReceiptResourceIntTest {
                 .docType(UPDATED_DOC_TYPE)
                 .previousDocID(UPDATED_PREVIOUS_DOC_ID)
                 .docDate(UPDATED_DOC_DATE)
-                .discount(UPDATED_DISCOUNT);
+                .wholeSaleFlag(UPDATED_WHOLE_SALE_FLAG);
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(updatedReceipt);
 
         restReceiptMockMvc.perform(put("/api/receipts")
@@ -330,7 +349,7 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocType()).isEqualTo(UPDATED_DOC_TYPE);
         assertThat(testReceipt.getPreviousDocID()).isEqualTo(UPDATED_PREVIOUS_DOC_ID);
         assertThat(testReceipt.getDocDate()).isEqualTo(UPDATED_DOC_DATE);
-        assertThat(testReceipt.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
+        assertThat(testReceipt.getWholeSaleFlag()).isEqualTo(UPDATED_WHOLE_SALE_FLAG);
     }
 
     @Test

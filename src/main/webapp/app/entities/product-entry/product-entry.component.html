@@ -18,7 +18,6 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.productEntry.serial">Serial</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="price"><span jhiTranslate="logisticsApp.productEntry.price">Price</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="deliveryFlag"><span jhiTranslate="logisticsApp.productEntry.deliveryFlag">Delivery Flag</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="hallFlag"><span jhiTranslate="logisticsApp.productEntry.hallFlag">Hall Flag</span> <span class="fa fa-sort"></span></th>
@@ -27,6 +26,8 @@
             <th jhiSortBy="reason"><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="comment"><span jhiTranslate="logisticsApp.productEntry.comment">Comment</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="guid"><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="discount"><span jhiTranslate="logisticsApp.productEntry.discount">Discount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sellerIDSellerID"><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
@@ -37,7 +38,6 @@
             <tbody>
             <tr *ngFor="let productEntry of productEntries ;trackBy: trackId">
                 <td><a [routerLink]="['../product-entry', productEntry.id ]">{{productEntry.id}}</a></td>
-                <td>{{productEntry.serial}}</td>
                 <td>{{productEntry.price}}</td>
                 <td jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">{{productEntry.deliveryFlag}}</td>
                 <td jhiTranslate="{{'logisticsApp.SalesPlace.' + productEntry.hallFlag}}">{{productEntry.hallFlag}}</td>
@@ -46,6 +46,8 @@
                 <td>{{productEntry.reason}}</td>
                 <td>{{productEntry.comment}}</td>
                 <td>{{productEntry.guid}}</td>
+                <td>{{productEntry.qty}}</td>
+                <td>{{productEntry.discount}}</td>
                 <td>
                     <div *ngIf="productEntry.productId">
                         <a [routerLink]="['../product', productEntry.productId  ]" >{{productEntry.productName}}</a>

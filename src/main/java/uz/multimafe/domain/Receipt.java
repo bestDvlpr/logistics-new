@@ -4,10 +4,11 @@ package uz.multimafe.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import uz.multimafe.domain.enumeration.DocType;
+
+import uz.multimafe.domain.enumeration.WholeSaleFlag;
 
 /**
  * A Receipt.
@@ -43,8 +44,10 @@ public class Receipt implements Serializable {
     @Column(name = "doc_date", nullable = false)
     private Long docDate;
 
-    @Column(name = "discount", precision=10, scale=2)
-    private BigDecimal discount;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "whole_sale_flag", nullable = false)
+    private WholeSaleFlag wholeSaleFlag;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -131,17 +134,17 @@ public class Receipt implements Serializable {
         this.docDate = docDate;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public WholeSaleFlag getWholeSaleFlag() {
+        return wholeSaleFlag;
     }
 
-    public Receipt discount(BigDecimal discount) {
-        this.discount = discount;
+    public Receipt wholeSaleFlag(WholeSaleFlag wholeSaleFlag) {
+        this.wholeSaleFlag = wholeSaleFlag;
         return this;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    public void setWholeSaleFlag(WholeSaleFlag wholeSaleFlag) {
+        this.wholeSaleFlag = wholeSaleFlag;
     }
 
     public PayMaster getPayMaster() {
@@ -212,7 +215,7 @@ public class Receipt implements Serializable {
             ", docType='" + docType + "'" +
             ", previousDocID='" + previousDocID + "'" +
             ", docDate='" + docDate + "'" +
-            ", discount='" + discount + "'" +
+            ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             '}';
     }
 }

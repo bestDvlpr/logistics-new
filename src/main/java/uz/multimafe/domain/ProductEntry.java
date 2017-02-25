@@ -30,10 +30,6 @@ public class ProductEntry implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "serial", nullable = false)
-    private String serial;
-
-    @NotNull
     @Column(name = "price", precision=10, scale=2, nullable = false)
     private BigDecimal price;
 
@@ -67,6 +63,13 @@ public class ProductEntry implements Serializable {
     @Column(name = "guid", nullable = false)
     private String guid;
 
+    @NotNull
+    @Column(name = "qty", precision=10, scale=2, nullable = false)
+    private BigDecimal qty;
+
+    @Column(name = "discount", precision=10, scale=2)
+    private BigDecimal discount;
+
     @ManyToOne(optional = false)
     @NotNull
     private Product product;
@@ -87,19 +90,6 @@ public class ProductEntry implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getSerial() {
-        return serial;
-    }
-
-    public ProductEntry serial(String serial) {
-        this.serial = serial;
-        return this;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
     }
 
     public BigDecimal getPrice() {
@@ -206,6 +196,32 @@ public class ProductEntry implements Serializable {
         this.guid = guid;
     }
 
+    public BigDecimal getQty() {
+        return qty;
+    }
+
+    public ProductEntry qty(BigDecimal qty) {
+        this.qty = qty;
+        return this;
+    }
+
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public ProductEntry discount(BigDecimal discount) {
+        this.discount = discount;
+        return this;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -282,7 +298,6 @@ public class ProductEntry implements Serializable {
     public String toString() {
         return "ProductEntry{" +
             "id=" + id +
-            ", serial='" + serial + "'" +
             ", price='" + price + "'" +
             ", deliveryFlag='" + deliveryFlag + "'" +
             ", hallFlag='" + hallFlag + "'" +
@@ -291,6 +306,8 @@ public class ProductEntry implements Serializable {
             ", reason='" + reason + "'" +
             ", comment='" + comment + "'" +
             ", guid='" + guid + "'" +
+            ", qty='" + qty + "'" +
+            ", discount='" + discount + "'" +
             '}';
     }
 }

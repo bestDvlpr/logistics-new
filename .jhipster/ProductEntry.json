@@ -34,13 +34,6 @@
     ],
     "fields": [
         {
-            "fieldName": "serial",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "price",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
@@ -94,6 +87,17 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "qty",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20170225072014",

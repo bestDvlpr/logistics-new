@@ -21,7 +21,7 @@
             "docType": "Doc Type",
             "previousDocID": "Previous Doc ID",
             "docDate": "Doc Date",
-            "discount": "Discount",
+            "wholeSaleFlag": "Whole Sale Flag",
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
             "status": "Status"

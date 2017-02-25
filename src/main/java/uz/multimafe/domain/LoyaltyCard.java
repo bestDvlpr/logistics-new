@@ -4,6 +4,7 @@ package uz.multimafe.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -29,8 +30,8 @@ public class LoyaltyCard implements Serializable {
     private String loyaltyCardBonus;
 
     @NotNull
-    @Column(name = "loyalty_card_amount", nullable = false)
-    private Integer loyaltyCardAmount;
+    @Column(name = "loyalty_card_amount", precision=10, scale=2, nullable = false)
+    private BigDecimal loyaltyCardAmount;
 
     public Long getId() {
         return id;
@@ -66,16 +67,16 @@ public class LoyaltyCard implements Serializable {
         this.loyaltyCardBonus = loyaltyCardBonus;
     }
 
-    public Integer getLoyaltyCardAmount() {
+    public BigDecimal getLoyaltyCardAmount() {
         return loyaltyCardAmount;
     }
 
-    public LoyaltyCard loyaltyCardAmount(Integer loyaltyCardAmount) {
+    public LoyaltyCard loyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
         return this;
     }
 
-    public void setLoyaltyCardAmount(Integer loyaltyCardAmount) {
+    public void setLoyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
     }
 

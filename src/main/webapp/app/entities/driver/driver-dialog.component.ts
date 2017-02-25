@@ -20,7 +20,7 @@ export class DriverDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    cars: Car[];
+    carsArray: Car[];
 
     driverstatuses: DriverStatus[];
     constructor(
@@ -39,7 +39,7 @@ export class DriverDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.carService.query().subscribe(
-            (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => { this.carsArray = res.json(); }, (res: Response) => this.onError(res.json()));
         this.driverStatusService.query().subscribe(
             (res: Response) => { this.driverstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
     }

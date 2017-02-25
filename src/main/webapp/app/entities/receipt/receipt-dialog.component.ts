@@ -36,7 +36,7 @@ export class ReceiptDialogComponent implements OnInit {
         private receiptStatusService: ReceiptStatusService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
     }
 
     ngOnInit() {

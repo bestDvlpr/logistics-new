@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488017689590-1">
+        <addColumn tableName="product_entry">
+            <column name="qty" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan" id="1488017689590-2">
+        <sql>
+            update product_entry set qty=1;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan" id="1488017689590-3">
+        <addNotNullConstraint tableName="product_entry" columnName="qty"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488018389870-4">
+        <addColumn tableName="product_entry">
+            <column name="discount" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488017689590-5">
+        <dropColumn columnName="discount" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488017689590-6">
+        <dropColumn columnName="serial" tableName="product_entry"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488017689590-7">
+        <sql>
+            alter table loyalty_card alter column loyalty_card_amount type numeric(10, 2);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

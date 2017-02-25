@@ -18,7 +18,6 @@ const enum VirtualFlag {
 export class ProductEntry {
     constructor(
         public id?: number,
-        public serial?: string,
         public price?: number,
         public deliveryFlag?: SalesType,
         public hallFlag?: SalesPlace,
@@ -27,6 +26,8 @@ export class ProductEntry {
         public reason?: string,
         public comment?: string,
         public guid?: string,
+        public qty?: number,
+        public discount?: number,
         public productId?: number,
         public sellerIDId?: number,
         public receiptId?: number,

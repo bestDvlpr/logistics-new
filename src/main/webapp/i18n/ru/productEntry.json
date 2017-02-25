@@ -16,7 +16,6 @@
             "detail": {
                 "title": "Product Entry"
             },
-            "serial": "Serial",
             "price": "Price",
             "deliveryFlag": "Delivery Flag",
             "hallFlag": "Hall Flag",
@@ -25,6 +24,8 @@
             "reason": "Reason",
             "comment": "Comment",
             "guid": "Guid",
+            "qty": "Qty",
+            "discount": "Discount",
             "product": "Product",
             "sellerID": "Seller ID",
             "receipt": "Receipt",
