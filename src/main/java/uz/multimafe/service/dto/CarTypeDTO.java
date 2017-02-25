@@ -18,6 +18,9 @@ public class CarTypeDTO implements Serializable {
 
     private String description;
 
+    @Size(max = 1000)
+    private String view;
+
     public Long getId() {
         return id;
     }
@@ -38,6 +41,13 @@ public class CarTypeDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
     }
 
     @Override
@@ -67,6 +77,7 @@ public class CarTypeDTO implements Serializable {
             "id=" + id +
             ", name='" + name + "'" +
             ", description='" + description + "'" +
+            ", view='" + view + "'" +
             '}';
     }
 }

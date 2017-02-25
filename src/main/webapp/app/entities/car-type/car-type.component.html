@@ -20,6 +20,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="logisticsApp.carType.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="description"><span jhiTranslate="logisticsApp.carType.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="view"><span jhiTranslate="logisticsApp.carType.view">View</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -28,6 +29,7 @@
                 <td><a [routerLink]="['../car-type', carType.id ]">{{carType.id}}</a></td>
                 <td>{{carType.name}}</td>
                 <td>{{carType.description}}</td>
+                <td>{{carType.view}}</td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

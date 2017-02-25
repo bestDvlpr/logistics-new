@@ -28,6 +28,10 @@ public class CarType implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Size(max = 1000)
+    @Column(name = "view", length = 1000)
+    private String view;
+
     public Long getId() {
         return id;
     }
@@ -62,6 +66,19 @@ public class CarType implements Serializable {
         this.description = description;
     }
 
+    public String getView() {
+        return view;
+    }
+
+    public CarType view(String view) {
+        this.view = view;
+        return this;
+    }
+
+    public void setView(String view) {
+        this.view = view;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,6 +105,7 @@ public class CarType implements Serializable {
             "id=" + id +
             ", name='" + name + "'" +
             ", description='" + description + "'" +
+            ", view='" + view + "'" +
             '}';
     }
 }

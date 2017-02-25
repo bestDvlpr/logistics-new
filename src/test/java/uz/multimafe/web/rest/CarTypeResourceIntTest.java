@@ -45,6 +45,9 @@ public class CarTypeResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_VIEW = "AAAAAAAAAA";
+    private static final String UPDATED_VIEW = "BBBBBBBBBB";
+
     @Autowired
     private CarTypeRepository carTypeRepository;
 
@@ -85,7 +88,8 @@ public class CarTypeResourceIntTest {
     public static CarType createEntity(EntityManager em) {
         CarType carType = new CarType()
                 .name(DEFAULT_NAME)
-                .description(DEFAULT_DESCRIPTION);
+                .description(DEFAULT_DESCRIPTION)
+                .view(DEFAULT_VIEW);
         return carType;
     }
 
@@ -113,6 +117,7 @@ public class CarTypeResourceIntTest {
         CarType testCarType = carTypeList.get(carTypeList.size() - 1);
         assertThat(testCarType.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCarType.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCarType.getView()).isEqualTo(DEFAULT_VIEW);
     }
 
     @Test
@@ -167,7 +172,8 @@ public class CarTypeResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(carType.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].view").value(hasItem(DEFAULT_VIEW.toString())));
     }
 
     @Test
@@ -182,7 +188,8 @@ public class CarTypeResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(carType.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.view").value(DEFAULT_VIEW.toString()));
     }
 
     @Test
@@ -204,7 +211,8 @@ public class CarTypeResourceIntTest {
         CarType updatedCarType = carTypeRepository.findOne(carType.getId());
         updatedCarType
                 .name(UPDATED_NAME)
-                .description(UPDATED_DESCRIPTION);
+                .description(UPDATED_DESCRIPTION)
+                .view(UPDATED_VIEW);
         CarTypeDTO carTypeDTO = carTypeMapper.carTypeToCarTypeDTO(updatedCarType);
 
         restCarTypeMockMvc.perform(put("/api/car-types")
@@ -218,6 +226,7 @@ public class CarTypeResourceIntTest {
         CarType testCarType = carTypeList.get(carTypeList.size() - 1);
         assertThat(testCarType.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCarType.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCarType.getView()).isEqualTo(UPDATED_VIEW);
     }
 
     @Test
