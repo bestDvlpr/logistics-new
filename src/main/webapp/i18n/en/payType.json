@@ -19,7 +19,8 @@
             "amount": "Amount",
             "sapCode": "Sap Code",
             "serial": "Serial",
-            "paymentType": "Payment Type"
+            "paymentType": "Payment Type",
+            "receipt": "Receipt"
         }
     }
 }

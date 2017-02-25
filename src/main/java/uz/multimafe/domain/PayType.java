@@ -34,6 +34,10 @@ public class PayType implements Serializable {
     @NotNull
     private PaymentType paymentType;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Receipt receipt;
+
     public Long getId() {
         return id;
     }
@@ -92,6 +96,19 @@ public class PayType implements Serializable {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public PayType receipt(Receipt receipt) {
+        this.receipt = receipt;
+        return this;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 
     @Override

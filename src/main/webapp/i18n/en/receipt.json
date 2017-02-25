@@ -23,8 +23,6 @@
             "docDate": "Doc Date",
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
-            "product": "Product",
-            "payType": "Pay Type",
             "status": "Status",
             "drivers": "Drivers"
         }

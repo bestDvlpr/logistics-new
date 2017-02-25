@@ -25,8 +25,6 @@
             <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="payMasterPayMasterName"><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.receipt.product">Product</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="payTypeSapCode"><span jhiTranslate="logisticsApp.receipt.payType">Pay Type</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="statusName"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -47,16 +45,6 @@
                 <td>
                     <div *ngIf="receipt.loyaltyCardId">
                         <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]" >{{receipt.loyaltyCardLoyaltyCardID}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.productId">
-                        <a [routerLink]="['../product', receipt.productId  ]" >{{receipt.productName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.payTypeId">
-                        <a [routerLink]="['../pay-type', receipt.payTypeId  ]" >{{receipt.payTypeSapCode}}</a>
                     </div>
                 </td>
                 <td>

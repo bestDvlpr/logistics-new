@@ -29,5 +29,6 @@ export class ProductEntry {
         public guid?: string,
         public productId?: number,
         public sellerIDId?: number,
+        public receiptId?: number,
     ) { }
 }

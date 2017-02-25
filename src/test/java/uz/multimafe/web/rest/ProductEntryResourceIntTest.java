@@ -4,6 +4,7 @@ import uz.multimafe.LogisticsApp;
 
 import uz.multimafe.domain.ProductEntry;
 import uz.multimafe.domain.Product;
+import uz.multimafe.domain.Receipt;
 import uz.multimafe.repository.ProductEntryRepository;
 import uz.multimafe.service.ProductEntryService;
 import uz.multimafe.service.dto.ProductEntryDTO;
@@ -125,6 +126,11 @@ public class ProductEntryResourceIntTest {
         em.persist(product);
         em.flush();
         productEntry.setProduct(product);
+        // Add required entity
+        Receipt receipt = ReceiptResourceIntTest.createEntity(em);
+        em.persist(receipt);
+        em.flush();
+        productEntry.setReceipt(receipt);
         return productEntry;
     }
 

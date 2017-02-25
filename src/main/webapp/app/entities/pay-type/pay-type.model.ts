@@ -5,5 +5,6 @@ export class PayType {
         public sapCode?: string,
         public serial?: string,
         public paymentTypeId?: number,
+        public receiptId?: number,
     ) { }
 }

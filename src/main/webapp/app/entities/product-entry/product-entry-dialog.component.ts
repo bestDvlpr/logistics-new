@@ -10,6 +10,7 @@ import { ProductEntryPopupService } from './product-entry-popup.service';
 import { ProductEntryService } from './product-entry.service';
 import { Product, ProductService } from '../product';
 import { Seller, SellerService } from '../seller';
+import { Receipt, ReceiptService } from '../receipt';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -23,6 +24,8 @@ export class ProductEntryDialogComponent implements OnInit {
     products: Product[];
 
     sellers: Seller[];
+
+    receipts: Receipt[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -30,6 +33,7 @@ export class ProductEntryDialogComponent implements OnInit {
         private productEntryService: ProductEntryService,
         private productService: ProductService,
         private sellerService: SellerService,
+        private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
@@ -42,6 +46,8 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
         this.sellerService.query().subscribe(
             (res: Response) => { this.sellers = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.receiptService.query().subscribe(
+            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -78,6 +84,10 @@ export class ProductEntryDialogComponent implements OnInit {
     }
 
     trackSellerById(index: number, item: Seller) {
+        return item.id;
+    }
+
+    trackReceiptById(index: number, item: Receipt) {
         return item.id;
     }
 }

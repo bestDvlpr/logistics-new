@@ -20,24 +20,6 @@
             "otherEntityField": "loyaltyCardID"
         },
         {
-            "relationshipName": "product",
-            "otherEntityName": "product",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "payType",
-            "otherEntityName": "payType",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "sapCode"
-        },
-        {
             "relationshipName": "status",
             "otherEntityName": "receiptStatus",
             "relationshipType": "many-to-one",

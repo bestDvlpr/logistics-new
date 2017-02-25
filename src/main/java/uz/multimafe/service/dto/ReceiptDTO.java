@@ -37,14 +37,6 @@ public class ReceiptDTO implements Serializable {
 
     private String loyaltyCardLoyaltyCardID;
 
-    private Long productId;
-
-    private String productName;
-
-    private Long payTypeId;
-
-    private String payTypeSapCode;
-
     private Long statusId;
 
     private String statusName;
@@ -124,38 +116,6 @@ public class ReceiptDTO implements Serializable {
 
     public void setLoyaltyCardLoyaltyCardID(String loyaltyCardLoyaltyCardID) {
         this.loyaltyCardLoyaltyCardID = loyaltyCardLoyaltyCardID;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Long getPayTypeId() {
-        return payTypeId;
-    }
-
-    public void setPayTypeId(Long payTypeId) {
-        this.payTypeId = payTypeId;
-    }
-
-    public String getPayTypeSapCode() {
-        return payTypeSapCode;
-    }
-
-    public void setPayTypeSapCode(String payTypeSapCode) {
-        this.payTypeSapCode = payTypeSapCode;
     }
 
     public Long getStatusId() {

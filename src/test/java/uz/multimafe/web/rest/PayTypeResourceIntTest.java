@@ -4,6 +4,7 @@ import uz.multimafe.LogisticsApp;
 
 import uz.multimafe.domain.PayType;
 import uz.multimafe.domain.PaymentType;
+import uz.multimafe.domain.Receipt;
 import uz.multimafe.repository.PayTypeRepository;
 import uz.multimafe.service.PayTypeService;
 import uz.multimafe.service.dto.PayTypeDTO;
@@ -96,6 +97,11 @@ public class PayTypeResourceIntTest {
         em.persist(paymentType);
         em.flush();
         payType.setPaymentType(paymentType);
+        // Add required entity
+        Receipt receipt = ReceiptResourceIntTest.createEntity(em);
+        em.persist(receipt);
+        em.flush();
+        payType.setReceipt(receipt);
         return payType;
     }
 

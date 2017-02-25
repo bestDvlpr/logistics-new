@@ -5,8 +5,6 @@ import uz.multimafe.LogisticsApp;
 import uz.multimafe.domain.Receipt;
 import uz.multimafe.domain.PayMaster;
 import uz.multimafe.domain.LoyaltyCard;
-import uz.multimafe.domain.Product;
-import uz.multimafe.domain.PayType;
 import uz.multimafe.domain.ReceiptStatus;
 import uz.multimafe.repository.ReceiptRepository;
 import uz.multimafe.service.ReceiptService;
@@ -114,16 +112,6 @@ public class ReceiptResourceIntTest {
         em.persist(loyaltyCard);
         em.flush();
         receipt.setLoyaltyCard(loyaltyCard);
-        // Add required entity
-        Product product = ProductResourceIntTest.createEntity(em);
-        em.persist(product);
-        em.flush();
-        receipt.setProduct(product);
-        // Add required entity
-        PayType payType = PayTypeResourceIntTest.createEntity(em);
-        em.persist(payType);
-        em.flush();
-        receipt.setPayType(payType);
         // Add required entity
         ReceiptStatus status = ReceiptStatusResourceIntTest.createEntity(em);
         em.persist(status);

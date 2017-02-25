@@ -52,6 +52,10 @@ public class ProductEntryDTO implements Serializable {
 
     private String sellerIDSellerID;
 
+    private Long receiptId;
+
+    private String receiptDocNum;
+
     public Long getId() {
         return id;
     }
@@ -153,6 +157,22 @@ public class ProductEntryDTO implements Serializable {
 
     public void setSellerIDSellerID(String sellerSellerID) {
         this.sellerIDSellerID = sellerSellerID;
+    }
+
+    public Long getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(Long receiptId) {
+        this.receiptId = receiptId;
+    }
+
+    public String getReceiptDocNum() {
+        return receiptDocNum;
+    }
+
+    public void setReceiptDocNum(String receiptDocNum) {
+        this.receiptDocNum = receiptDocNum;
     }
 
     @Override

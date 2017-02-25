@@ -25,6 +25,10 @@ public class PayTypeDTO implements Serializable {
 
     private String paymentTypeName;
 
+    private Long receiptId;
+
+    private String receiptDocNum;
+
     public Long getId() {
         return id;
     }
@@ -68,6 +72,22 @@ public class PayTypeDTO implements Serializable {
 
     public void setPaymentTypeName(String paymentTypeName) {
         this.paymentTypeName = paymentTypeName;
+    }
+
+    public Long getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(Long receiptId) {
+        this.receiptId = receiptId;
+    }
+
+    public String getReceiptDocNum() {
+        return receiptDocNum;
+    }
+
+    public void setReceiptDocNum(String receiptDocNum) {
+        this.receiptDocNum = receiptDocNum;
     }
 
     @Override

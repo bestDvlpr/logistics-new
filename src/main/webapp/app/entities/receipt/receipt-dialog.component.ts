@@ -10,8 +10,6 @@ import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
 import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
-import { Product, ProductService } from '../product';
-import { PayType, PayTypeService } from '../pay-type';
 import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
 import { Driver, DriverService } from '../driver';
 @Component({
@@ -28,13 +26,9 @@ export class ReceiptDialogComponent implements OnInit {
 
     loyaltycards: LoyaltyCard[];
 
-    products: Product[];
-
-    paytypes: PayType[];
-
     receiptstatuses: ReceiptStatus[];
 
-    driversArray: Driver[];
+    drivers: Driver[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -42,8 +36,6 @@ export class ReceiptDialogComponent implements OnInit {
         private receiptService: ReceiptService,
         private payMasterService: PayMasterService,
         private loyaltyCardService: LoyaltyCardService,
-        private productService: ProductService,
-        private payTypeService: PayTypeService,
         private receiptStatusService: ReceiptStatusService,
         private driverService: DriverService,
         private eventManager: EventManager
@@ -58,14 +50,10 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.paymasters = res.json(); }, (res: Response) => this.onError(res.json()));
         this.loyaltyCardService.query().subscribe(
             (res: Response) => { this.loyaltycards = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.productService.query().subscribe(
-            (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.payTypeService.query().subscribe(
-            (res: Response) => { this.paytypes = res.json(); }, (res: Response) => this.onError(res.json()));
         this.receiptStatusService.query().subscribe(
             (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
         this.driverService.query().subscribe(
-            (res: Response) => { this.driversArray = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -102,14 +90,6 @@ export class ReceiptDialogComponent implements OnInit {
     }
 
     trackLoyaltyCardById(index: number, item: LoyaltyCard) {
-        return item.id;
-    }
-
-    trackProductById(index: number, item: Product) {
-        return item.id;
-    }
-
-    trackPayTypeById(index: number, item: PayType) {
         return item.id;
     }
 

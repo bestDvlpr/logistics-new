@@ -52,6 +52,12 @@
                 <a [routerLink]="['seller', productEntry.sellerIDId]">{{productEntry.sellerIDSellerID}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span></dt>
+        <dd>
+            <div *ngIf="productEntry.receiptId">
+                <a [routerLink]="['receipt', productEntry.receiptId]">{{productEntry.receiptDocNum}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

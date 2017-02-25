@@ -22,6 +22,7 @@
             <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.payType.serial">Serial</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="paymentTypeName"><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -34,6 +35,11 @@
                 <td>
                     <div *ngIf="payType.paymentTypeId">
                         <a [routerLink]="['../payment-type', payType.paymentTypeId  ]" >{{payType.paymentTypeName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="payType.receiptId">
+                        <a [routerLink]="['../receipt', payType.receiptId  ]" >{{payType.receiptDocNum}}</a>
                     </div>
                 </td>
                 <td class="text-xs-right">

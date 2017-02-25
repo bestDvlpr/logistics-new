@@ -54,14 +54,6 @@ public class Receipt implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    private Product product;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    private PayType payType;
-
-    @ManyToOne(optional = false)
-    @NotNull
     private ReceiptStatus status;
 
     @ManyToMany
@@ -167,32 +159,6 @@ public class Receipt implements Serializable {
 
     public void setLoyaltyCard(LoyaltyCard loyaltyCard) {
         this.loyaltyCard = loyaltyCard;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public Receipt product(Product product) {
-        this.product = product;
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public PayType getPayType() {
-        return payType;
-    }
-
-    public Receipt payType(PayType payType) {
-        this.payType = payType;
-        return this;
-    }
-
-    public void setPayType(PayType payType) {
-        this.payType = payType;
     }
 
     public ReceiptStatus getStatus() {

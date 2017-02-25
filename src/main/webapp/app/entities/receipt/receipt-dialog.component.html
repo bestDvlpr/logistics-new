@@ -101,32 +101,6 @@
             </small>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.product" for="field_product">Product</label>
-            <select class="form-control" id="field_product" name="product" [(ngModel)]="receipt.productId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.name}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!product?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.payType" for="field_payType">Pay Type</label>
-            <select class="form-control" id="field_payType" name="payType" [(ngModel)]="receipt.payTypeId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="payTypeOption.id" *ngFor="let payTypeOption of paytypes; trackBy: trackPayTypeById">{{payTypeOption.sapCode}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.payType?.dirty && editForm.controls.payType?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!payType?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.status" for="field_status">Status</label>
             <select class="form-control" id="field_status" name="status" [(ngModel)]="receipt.statusId"  required>
                 <option [ngValue]="null"></option>
@@ -142,7 +116,7 @@
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.drivers" for="field_drivers">Drivers</label>
             <select class="form-control" id="field_drivers" #drivers="ngModel" multiple name="drivers" [(ngModel)]="receipt.drivers">
-                <option [ngValue]="getSelected(receipt.drivers, driverOption)" *ngFor="let driverOption of driversArray; trackBy: trackDriverById">{{driverOption.lastName}}</option>
+                <option [ngValue]="getSelected(receipt.drivers, driverOption)" *ngFor="let driverOption of drivers; trackBy: trackDriverById">{{driverOption.lastName}}</option>
             </select>
         </div>
     </div>

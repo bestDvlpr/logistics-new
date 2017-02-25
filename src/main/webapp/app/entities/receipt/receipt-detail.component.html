@@ -36,18 +36,6 @@
                 <a [routerLink]="['loyalty-card', receipt.loyaltyCardId]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="logisticsApp.receipt.product">Product</span></dt>
-        <dd>
-            <div *ngIf="receipt.productId">
-                <a [routerLink]="['product', receipt.productId]">{{receipt.productName}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.receipt.payType">Pay Type</span></dt>
-        <dd>
-            <div *ngIf="receipt.payTypeId">
-                <a [routerLink]="['pay-type', receipt.payTypeId]">{{receipt.payTypeSapCode}}</a>
-            </div>
-        </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.status">Status</span></dt>
         <dd>
             <div *ngIf="receipt.statusId">

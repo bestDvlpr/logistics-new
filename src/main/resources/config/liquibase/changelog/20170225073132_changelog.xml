@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488007897543-1">
+        <addColumn tableName="pay_type">
+            <column name="receipt_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488007897543-2">
+        <addColumn tableName="product_entry">
+            <column name="receipt_id" type="int8"/>
+        </addColumn>
+        <sql>
+            update pay_type set receipt_id=2101;
+            update product_entry set receipt_id=2101;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488007897543-3">
+        <addForeignKeyConstraint baseColumnNames="receipt_id" baseTableName="product_entry"
+                                 constraintName="FK3gt4k3tecfwrn0gkplj8tewqb" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488007897543-4">
+        <addForeignKeyConstraint baseColumnNames="receipt_id" baseTableName="pay_type"
+                                 constraintName="FK3wa81sqxqvkv14hfbnokcxsvd" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488007897543-5">
+        <addNotNullConstraint tableName="pay_type" columnName="receipt_id"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488007897543-6">
+        <addNotNullConstraint tableName="product_entry" columnName="receipt_id"/>
+    </changeSet>
+
+</databaseChangeLog>

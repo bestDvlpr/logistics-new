@@ -9,6 +9,7 @@ import { PayType } from './pay-type.model';
 import { PayTypePopupService } from './pay-type-popup.service';
 import { PayTypeService } from './pay-type.service';
 import { PaymentType, PaymentTypeService } from '../payment-type';
+import { Receipt, ReceiptService } from '../receipt';
 @Component({
     selector: 'jhi-pay-type-dialog',
     templateUrl: './pay-type-dialog.component.html'
@@ -20,12 +21,15 @@ export class PayTypeDialogComponent implements OnInit {
     isSaving: boolean;
 
     paymenttypes: PaymentType[];
+
+    receipts: Receipt[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private payTypeService: PayTypeService,
         private paymentTypeService: PaymentTypeService,
+        private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['payType']);
@@ -36,6 +40,8 @@ export class PayTypeDialogComponent implements OnInit {
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.paymentTypeService.query().subscribe(
             (res: Response) => { this.paymenttypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.receiptService.query().subscribe(
+            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -68,6 +74,10 @@ export class PayTypeDialogComponent implements OnInit {
     }
 
     trackPaymentTypeById(index: number, item: PaymentType) {
+        return item.id;
+    }
+
+    trackReceiptById(index: number, item: Receipt) {
         return item.id;
     }
 }

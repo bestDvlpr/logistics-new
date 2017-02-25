@@ -15,6 +15,15 @@
             "otherEntityName": "seller",
             "relationshipType": "many-to-one",
             "otherEntityField": "sellerID"
+        },
+        {
+            "relationshipName": "receipt",
+            "otherEntityName": "receipt",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "docNum"
         }
     ],
     "fields": [

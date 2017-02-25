@@ -16,12 +16,15 @@ public interface ProductEntryMapper {
     @Mapping(source = "product.name", target = "productName")
     @Mapping(source = "sellerID.id", target = "sellerIDId")
     @Mapping(source = "sellerID.sellerID", target = "sellerIDSellerID")
+    @Mapping(source = "receipt.id", target = "receiptId")
+    @Mapping(source = "receipt.docNum", target = "receiptDocNum")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);
 
     @Mapping(source = "productId", target = "product")
     @Mapping(source = "sellerIDId", target = "sellerID")
+    @Mapping(source = "receiptId", target = "receipt")
     ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO);
 
     List<ProductEntry> productEntryDTOsToProductEntries(List<ProductEntryDTO> productEntryDTOs);
@@ -42,5 +45,14 @@ public interface ProductEntryMapper {
         Seller seller = new Seller();
         seller.setId(id);
         return seller;
+    }
+
+    default Receipt receiptFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Receipt receipt = new Receipt();
+        receipt.setId(id);
+        return receipt;
     }
 }

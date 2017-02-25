@@ -9,6 +9,15 @@
                 "required"
             ],
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "receipt",
+            "otherEntityName": "receipt",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "docNum"
         }
     ],
     "fields": [

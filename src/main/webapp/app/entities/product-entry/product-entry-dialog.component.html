@@ -140,6 +140,19 @@
                 <option [ngValue]="sellerOption.id" *ngFor="let sellerOption of sellers; trackBy: trackSellerById">{{sellerOption.sellerID}}</option>
             </select>
         </div>
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.productEntry.receipt" for="field_receipt">Receipt</label>
+            <select class="form-control" id="field_receipt" name="receipt" [(ngModel)]="productEntry.receiptId"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="receiptOption.id" *ngFor="let receiptOption of receipts; trackBy: trackReceiptById">{{receiptOption.docNum}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.receipt?.dirty && editForm.controls.receipt?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!receipt?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

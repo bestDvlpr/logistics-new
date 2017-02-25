@@ -74,6 +74,10 @@ public class ProductEntry implements Serializable {
     @ManyToOne
     private Seller sellerID;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Receipt receipt;
+
     public Long getId() {
         return id;
     }
@@ -223,6 +227,19 @@ public class ProductEntry implements Serializable {
 
     public void setSellerID(Seller seller) {
         this.sellerID = seller;
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public ProductEntry receipt(Receipt receipt) {
+        this.receipt = receipt;
+        return this;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 
     @Override
