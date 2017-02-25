@@ -24,6 +24,12 @@
                 "required"
             ],
             "otherEntityField": "docNum"
+        },
+        {
+            "relationshipName": "driver",
+            "otherEntityName": "driver",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "lastName"
         }
     ],
     "fields": [

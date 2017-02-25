@@ -10,7 +10,6 @@ import { DriverPopupService } from './driver-popup.service';
 import { DriverService } from './driver.service';
 import { Car, CarService } from '../car';
 import { DriverStatus, DriverStatusService } from '../driver-status';
-import { Receipt, ReceiptService } from '../receipt';
 @Component({
     selector: 'jhi-driver-dialog',
     templateUrl: './driver-dialog.component.html'
@@ -24,8 +23,6 @@ export class DriverDialogComponent implements OnInit {
     cars: Car[];
 
     driverstatuses: DriverStatus[];
-
-    receipts: Receipt[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -33,7 +30,6 @@ export class DriverDialogComponent implements OnInit {
         private driverService: DriverService,
         private carService: CarService,
         private driverStatusService: DriverStatusService,
-        private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['driver']);
@@ -46,8 +42,6 @@ export class DriverDialogComponent implements OnInit {
             (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
         this.driverStatusService.query().subscribe(
             (res: Response) => { this.driverstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.receiptService.query().subscribe(
-            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -84,10 +78,6 @@ export class DriverDialogComponent implements OnInit {
     }
 
     trackDriverStatusById(index: number, item: DriverStatus) {
-        return item.id;
-    }
-
-    trackReceiptById(index: number, item: Receipt) {
         return item.id;
     }
 

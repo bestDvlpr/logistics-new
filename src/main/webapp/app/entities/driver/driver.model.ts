@@ -8,6 +8,5 @@ export class Driver {
         public mobileId?: string,
         public carsId?: number,
         public statusId?: number,
-        public receiptsId?: number,
     ) { }
 }

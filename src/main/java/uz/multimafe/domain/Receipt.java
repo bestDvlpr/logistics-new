@@ -4,8 +4,7 @@ package uz.multimafe.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import uz.multimafe.domain.enumeration.DocType;
@@ -44,6 +43,9 @@ public class Receipt implements Serializable {
     @Column(name = "doc_date", nullable = false)
     private Long docDate;
 
+    @Column(name = "discount", precision=10, scale=2)
+    private BigDecimal discount;
+
     @ManyToOne(optional = false)
     @NotNull
     private PayMaster payMaster;
@@ -55,12 +57,6 @@ public class Receipt implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private ReceiptStatus status;
-
-    @ManyToMany
-    @JoinTable(name = "receipt_drivers",
-               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="drivers_id", referencedColumnName="id"))
-    private Set<Driver> drivers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -135,6 +131,19 @@ public class Receipt implements Serializable {
         this.docDate = docDate;
     }
 
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public Receipt discount(BigDecimal discount) {
+        this.discount = discount;
+        return this;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
+
     public PayMaster getPayMaster() {
         return payMaster;
     }
@@ -174,31 +183,6 @@ public class Receipt implements Serializable {
         this.status = receiptStatus;
     }
 
-    public Set<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public Receipt drivers(Set<Driver> drivers) {
-        this.drivers = drivers;
-        return this;
-    }
-
-    public Receipt addDrivers(Driver driver) {
-        this.drivers.add(driver);
-        driver.getReceipts().add(this);
-        return this;
-    }
-
-    public Receipt removeDrivers(Driver driver) {
-        this.drivers.remove(driver);
-        driver.getReceipts().remove(this);
-        return this;
-    }
-
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -228,6 +212,7 @@ public class Receipt implements Serializable {
             ", docType='" + docType + "'" +
             ", previousDocID='" + previousDocID + "'" +
             ", docDate='" + docDate + "'" +
+            ", discount='" + discount + "'" +
             '}';
     }
 }

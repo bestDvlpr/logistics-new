@@ -20,13 +20,6 @@
                 "required"
             ],
             "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "receipts",
-            "otherEntityName": "receipt",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "drivers"
         }
     ],
     "fields": [

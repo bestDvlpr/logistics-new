@@ -10,9 +10,9 @@ export class Receipt {
         public docType?: DocType,
         public previousDocID?: string,
         public docDate?: number,
+        public discount?: number,
         public payMasterId?: number,
         public loyaltyCardId?: number,
         public statusId?: number,
-        public driversId?: number,
     ) { }
 }

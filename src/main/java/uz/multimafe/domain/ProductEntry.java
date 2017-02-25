@@ -78,6 +78,9 @@ public class ProductEntry implements Serializable {
     @NotNull
     private Receipt receipt;
 
+    @ManyToOne
+    private Driver driver;
+
     public Long getId() {
         return id;
     }
@@ -240,6 +243,19 @@ public class ProductEntry implements Serializable {
 
     public void setReceipt(Receipt receipt) {
         this.receipt = receipt;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public ProductEntry driver(Driver driver) {
+        this.driver = driver;
+        return this;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     @Override

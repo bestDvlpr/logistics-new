@@ -30,6 +30,7 @@
             <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sellerIDSellerID"><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="driverLastName"><span jhiTranslate="logisticsApp.productEntry.driver">Driver</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -58,6 +59,11 @@
                 <td>
                     <div *ngIf="productEntry.receiptId">
                         <a [routerLink]="['../receipt', productEntry.receiptId  ]" >{{productEntry.receiptDocNum}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="productEntry.driverId">
+                        <a [routerLink]="['../driver', productEntry.driverId  ]" >{{productEntry.driverLastName}}</a>
                     </div>
                 </td>
                 <td class="text-xs-right">

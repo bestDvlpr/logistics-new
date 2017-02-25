@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Mapper for the entity Receipt and its DTO ReceiptDTO.
  */
-@Mapper(componentModel = "spring", uses = {DriverMapper.class, })
+@Mapper(componentModel = "spring", uses = {})
 public interface ReceiptMapper {
 
     @Mapping(source = "payMaster.id", target = "payMasterId")
@@ -54,14 +54,5 @@ public interface ReceiptMapper {
         ReceiptStatus receiptStatus = new ReceiptStatus();
         receiptStatus.setId(id);
         return receiptStatus;
-    }
-
-    default Driver driverFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Driver driver = new Driver();
-        driver.setId(id);
-        return driver;
     }
 }

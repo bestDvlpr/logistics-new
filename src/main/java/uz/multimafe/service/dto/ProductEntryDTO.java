@@ -56,6 +56,10 @@ public class ProductEntryDTO implements Serializable {
 
     private String receiptDocNum;
 
+    private Long driverId;
+
+    private String driverLastName;
+
     public Long getId() {
         return id;
     }
@@ -173,6 +177,22 @@ public class ProductEntryDTO implements Serializable {
 
     public void setReceiptDocNum(String receiptDocNum) {
         this.receiptDocNum = receiptDocNum;
+    }
+
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
+
+    public String getDriverLastName() {
+        return driverLastName;
+    }
+
+    public void setDriverLastName(String driverLastName) {
+        this.driverLastName = driverLastName;
     }
 
     @Override

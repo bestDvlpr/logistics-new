@@ -27,7 +27,8 @@
             "guid": "Guid",
             "product": "Product",
             "sellerID": "Seller ID",
-            "receipt": "Receipt"
+            "receipt": "Receipt",
+            "driver": "Driver"
         }
     }
 }

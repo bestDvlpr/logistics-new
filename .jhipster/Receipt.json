@@ -27,14 +27,6 @@
                 "required"
             ],
             "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "drivers",
-            "otherEntityName": "driver",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "lastName",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "receipts"
         }
     ],
     "fields": [
@@ -70,6 +62,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20170220091557",

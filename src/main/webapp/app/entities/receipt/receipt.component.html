@@ -23,6 +23,7 @@
             <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="previousDocID"><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="discount"><span jhiTranslate="logisticsApp.receipt.discount">Discount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="payMasterPayMasterName"><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="statusName"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span class="fa fa-sort"></span></th>
@@ -37,6 +38,7 @@
                 <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
                 <td>{{receipt.previousDocID}}</td>
                 <td>{{receipt.docDate}}</td>
+                <td>{{receipt.discount}}</td>
                 <td>
                     <div *ngIf="receipt.payMasterId">
                         <a [routerLink]="['../pay-master', receipt.payMasterId  ]" >{{receipt.payMasterPayMasterName}}</a>

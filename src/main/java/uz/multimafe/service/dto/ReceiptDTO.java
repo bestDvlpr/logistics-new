@@ -3,6 +3,7 @@ package uz.multimafe.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -29,6 +30,8 @@ public class ReceiptDTO implements Serializable {
     @NotNull
     private Long docDate;
 
+    private BigDecimal discount;
+
     private Long payMasterId;
 
     private String payMasterPayMasterName;
@@ -40,8 +43,6 @@ public class ReceiptDTO implements Serializable {
     private Long statusId;
 
     private String statusName;
-
-    private Set<DriverDTO> drivers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -84,6 +85,13 @@ public class ReceiptDTO implements Serializable {
 
     public void setDocDate(Long docDate) {
         this.docDate = docDate;
+    }
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
     public Long getPayMasterId() {
@@ -134,14 +142,6 @@ public class ReceiptDTO implements Serializable {
         this.statusName = receiptStatusName;
     }
 
-    public Set<DriverDTO> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(Set<DriverDTO> drivers) {
-        this.drivers = drivers;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -172,6 +172,7 @@ public class ReceiptDTO implements Serializable {
             ", docType='" + docType + "'" +
             ", previousDocID='" + previousDocID + "'" +
             ", docDate='" + docDate + "'" +
+            ", discount='" + discount + "'" +
             '}';
     }
 }

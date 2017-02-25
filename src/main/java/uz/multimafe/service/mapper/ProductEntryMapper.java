@@ -18,6 +18,8 @@ public interface ProductEntryMapper {
     @Mapping(source = "sellerID.sellerID", target = "sellerIDSellerID")
     @Mapping(source = "receipt.id", target = "receiptId")
     @Mapping(source = "receipt.docNum", target = "receiptDocNum")
+    @Mapping(source = "driver.id", target = "driverId")
+    @Mapping(source = "driver.lastName", target = "driverLastName")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);
@@ -25,6 +27,7 @@ public interface ProductEntryMapper {
     @Mapping(source = "productId", target = "product")
     @Mapping(source = "sellerIDId", target = "sellerID")
     @Mapping(source = "receiptId", target = "receipt")
+    @Mapping(source = "driverId", target = "driver")
     ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO);
 
     List<ProductEntry> productEntryDTOsToProductEntries(List<ProductEntryDTO> productEntryDTOs);
@@ -54,5 +57,14 @@ public interface ProductEntryMapper {
         Receipt receipt = new Receipt();
         receipt.setId(id);
         return receipt;
+    }
+
+    default Driver driverFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Driver driver = new Driver();
+        driver.setId(id);
+        return driver;
     }
 }

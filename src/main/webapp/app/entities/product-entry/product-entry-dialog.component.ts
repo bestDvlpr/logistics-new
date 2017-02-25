@@ -11,6 +11,7 @@ import { ProductEntryService } from './product-entry.service';
 import { Product, ProductService } from '../product';
 import { Seller, SellerService } from '../seller';
 import { Receipt, ReceiptService } from '../receipt';
+import { Driver, DriverService } from '../driver';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -26,6 +27,8 @@ export class ProductEntryDialogComponent implements OnInit {
     sellers: Seller[];
 
     receipts: Receipt[];
+
+    drivers: Driver[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -34,6 +37,7 @@ export class ProductEntryDialogComponent implements OnInit {
         private productService: ProductService,
         private sellerService: SellerService,
         private receiptService: ReceiptService,
+        private driverService: DriverService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
@@ -48,6 +52,8 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.sellers = res.json(); }, (res: Response) => this.onError(res.json()));
         this.receiptService.query().subscribe(
             (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.driverService.query().subscribe(
+            (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -88,6 +94,10 @@ export class ProductEntryDialogComponent implements OnInit {
     }
 
     trackReceiptById(index: number, item: Receipt) {
+        return item.id;
+    }
+
+    trackDriverById(index: number, item: Driver) {
         return item.id;
     }
 }

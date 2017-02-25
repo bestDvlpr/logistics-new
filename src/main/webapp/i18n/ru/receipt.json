@@ -21,10 +21,10 @@
             "docType": "Doc Type",
             "previousDocID": "Previous Doc ID",
             "docDate": "Doc Date",
+            "discount": "Discount",
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
-            "status": "Status",
-            "drivers": "Drivers"
+            "status": "Status"
         }
     }
 }

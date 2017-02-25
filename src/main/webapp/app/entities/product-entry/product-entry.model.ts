@@ -30,5 +30,6 @@ export class ProductEntry {
         public productId?: number,
         public sellerIDId?: number,
         public receiptId?: number,
+        public driverId?: number,
     ) { }
 }

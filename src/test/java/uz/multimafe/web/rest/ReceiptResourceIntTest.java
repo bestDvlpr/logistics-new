@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,6 +58,9 @@ public class ReceiptResourceIntTest {
 
     private static final Long DEFAULT_DOC_DATE = 1L;
     private static final Long UPDATED_DOC_DATE = 2L;
+
+    private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_DISCOUNT = new BigDecimal(2);
 
     @Autowired
     private ReceiptRepository receiptRepository;
@@ -101,7 +105,8 @@ public class ReceiptResourceIntTest {
                 .docID(DEFAULT_DOC_ID)
                 .docType(DEFAULT_DOC_TYPE)
                 .previousDocID(DEFAULT_PREVIOUS_DOC_ID)
-                .docDate(DEFAULT_DOC_DATE);
+                .docDate(DEFAULT_DOC_DATE)
+                .discount(DEFAULT_DISCOUNT);
         // Add required entity
         PayMaster payMaster = PayMasterResourceIntTest.createEntity(em);
         em.persist(payMaster);
@@ -147,6 +152,7 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocType()).isEqualTo(DEFAULT_DOC_TYPE);
         assertThat(testReceipt.getPreviousDocID()).isEqualTo(DEFAULT_PREVIOUS_DOC_ID);
         assertThat(testReceipt.getDocDate()).isEqualTo(DEFAULT_DOC_DATE);
+        assertThat(testReceipt.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
     }
 
     @Test
@@ -261,7 +267,8 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.[*].docID").value(hasItem(DEFAULT_DOC_ID.toString())))
             .andExpect(jsonPath("$.[*].docType").value(hasItem(DEFAULT_DOC_TYPE.toString())))
             .andExpect(jsonPath("$.[*].previousDocID").value(hasItem(DEFAULT_PREVIOUS_DOC_ID.toString())))
-            .andExpect(jsonPath("$.[*].docDate").value(hasItem(DEFAULT_DOC_DATE.intValue())));
+            .andExpect(jsonPath("$.[*].docDate").value(hasItem(DEFAULT_DOC_DATE.intValue())))
+            .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())));
     }
 
     @Test
@@ -279,7 +286,8 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.docID").value(DEFAULT_DOC_ID.toString()))
             .andExpect(jsonPath("$.docType").value(DEFAULT_DOC_TYPE.toString()))
             .andExpect(jsonPath("$.previousDocID").value(DEFAULT_PREVIOUS_DOC_ID.toString()))
-            .andExpect(jsonPath("$.docDate").value(DEFAULT_DOC_DATE.intValue()));
+            .andExpect(jsonPath("$.docDate").value(DEFAULT_DOC_DATE.intValue()))
+            .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()));
     }
 
     @Test
@@ -304,7 +312,8 @@ public class ReceiptResourceIntTest {
                 .docID(UPDATED_DOC_ID)
                 .docType(UPDATED_DOC_TYPE)
                 .previousDocID(UPDATED_PREVIOUS_DOC_ID)
-                .docDate(UPDATED_DOC_DATE);
+                .docDate(UPDATED_DOC_DATE)
+                .discount(UPDATED_DISCOUNT);
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(updatedReceipt);
 
         restReceiptMockMvc.perform(put("/api/receipts")
@@ -321,6 +330,7 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocType()).isEqualTo(UPDATED_DOC_TYPE);
         assertThat(testReceipt.getPreviousDocID()).isEqualTo(UPDATED_PREVIOUS_DOC_ID);
         assertThat(testReceipt.getDocDate()).isEqualTo(UPDATED_DOC_DATE);
+        assertThat(testReceipt.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package uz.multimafe.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -52,10 +51,6 @@ public class Driver implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private DriverStatus status;
-
-    @ManyToMany(mappedBy = "drivers")
-    @JsonIgnore
-    private Set<Receipt> receipts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -166,31 +161,6 @@ public class Driver implements Serializable {
 
     public void setStatus(DriverStatus driverStatus) {
         this.status = driverStatus;
-    }
-
-    public Set<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public Driver receipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
-        return this;
-    }
-
-    public Driver addReceipts(Receipt receipt) {
-        this.receipts.add(receipt);
-        receipt.getDrivers().add(this);
-        return this;
-    }
-
-    public Driver removeReceipts(Receipt receipt) {
-        this.receipts.remove(receipt);
-        receipt.getDrivers().remove(this);
-        return this;
-    }
-
-    public void setReceipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
     }
 
     @Override

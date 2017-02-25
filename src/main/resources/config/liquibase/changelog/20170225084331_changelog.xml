@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488012215593-1">
+        <addColumn tableName="receipt">
+            <column name="discount" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488012215593-2">
+        <addColumn tableName="product_entry">
+            <column name="driver_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488012215593-3">
+        <addForeignKeyConstraint baseColumnNames="driver_id" baseTableName="product_entry" constraintName="FKbfp1p5ios7juvrvx7v7mk2e4p" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="driver"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488012215593-4">
+        <dropForeignKeyConstraint baseTableName="receipt_drivers" constraintName="FKgkransmvs9h11xv293lvrohcx"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488012215593-5">
+        <dropForeignKeyConstraint baseTableName="receipt_drivers" constraintName="FKmxcgmbncs73m78jyg756t4rfh"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488012215593-6">
+        <dropTable tableName="receipt_drivers"/>
+    </changeSet>
+</databaseChangeLog>

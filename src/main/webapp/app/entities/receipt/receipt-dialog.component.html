@@ -73,6 +73,12 @@
                 </small>
             </div>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.receipt.discount" for="field_discount">Discount</label>
+            <input type="number" class="form-control" name="discount" id="field_discount"
+                [(ngModel)]="receipt.discount"
+             />
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.payMaster" for="field_payMaster">Pay Master</label>
@@ -112,12 +118,6 @@
                 [hidden]="!status?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.drivers" for="field_drivers">Drivers</label>
-            <select class="form-control" id="field_drivers" #drivers="ngModel" multiple name="drivers" [(ngModel)]="receipt.drivers">
-                <option [ngValue]="getSelected(receipt.drivers, driverOption)" *ngFor="let driverOption of drivers; trackBy: trackDriverById">{{driverOption.lastName}}</option>
-            </select>
         </div>
     </div>
     <div class="modal-footer">

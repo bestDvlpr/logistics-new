@@ -73,7 +73,7 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Transactional(readOnly = true)
     public ReceiptDTO findOne(Long id) {
         log.debug("Request to get Receipt : {}", id);
-        Receipt receipt = receiptRepository.findOneWithEagerRelationships(id);
+        Receipt receipt = receiptRepository.findOne(id);
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
         return receiptDTO;
     }

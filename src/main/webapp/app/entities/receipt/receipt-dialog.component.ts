@@ -11,7 +11,6 @@ import { ReceiptService } from './receipt.service';
 import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
-import { Driver, DriverService } from '../driver';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -27,8 +26,6 @@ export class ReceiptDialogComponent implements OnInit {
     loyaltycards: LoyaltyCard[];
 
     receiptstatuses: ReceiptStatus[];
-
-    drivers: Driver[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -37,7 +34,6 @@ export class ReceiptDialogComponent implements OnInit {
         private payMasterService: PayMasterService,
         private loyaltyCardService: LoyaltyCardService,
         private receiptStatusService: ReceiptStatusService,
-        private driverService: DriverService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType']);
@@ -52,8 +48,6 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.loyaltycards = res.json(); }, (res: Response) => this.onError(res.json()));
         this.receiptStatusService.query().subscribe(
             (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.driverService.query().subscribe(
-            (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -95,21 +89,6 @@ export class ReceiptDialogComponent implements OnInit {
 
     trackReceiptStatusById(index: number, item: ReceiptStatus) {
         return item.id;
-    }
-
-    trackDriverById(index: number, item: Driver) {
-        return item.id;
-    }
-
-    getSelected(selectedVals: Array<any>, option: any) {
-        if (selectedVals) {
-            for (let i = 0; i < selectedVals.length; i++) {
-                if (option.id === selectedVals[i].id) {
-                    return selectedVals[i];
-                }
-            }
-        }
-        return option;
     }
 }
 
