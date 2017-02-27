@@ -11,7 +11,7 @@
         </sql>
     </changeSet>
     <changeSet author="hasan" id="1488017689590-3">
-        <addNotNullConstraint tableName="product_entry" columnName="qty"/>
+        <addNotNullConstraint tableName="product_entry" columnName="qty" columnDataType="numeric(10, 2)"/>
     </changeSet>
     <changeSet author="hasan (generated)" id="1488018389870-4">
         <addColumn tableName="product_entry">

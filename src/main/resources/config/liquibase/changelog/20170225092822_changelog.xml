@@ -17,9 +17,9 @@
         </sql>
     </changeSet>
     <changeSet author="hasan" id="1488014910309-4">
-        <addNotNullConstraint tableName="car" columnName="deleted"/>
+        <addNotNullConstraint tableName="car" columnName="deleted" columnDataType="boolean"/>
     </changeSet>
     <changeSet author="hasan" id="1488014910309-5">
-        <addNotNullConstraint tableName="driver" columnName="deleted"/>
+        <addNotNullConstraint tableName="driver" columnName="deleted" columnDataType="boolean"/>
     </changeSet>
 </databaseChangeLog>

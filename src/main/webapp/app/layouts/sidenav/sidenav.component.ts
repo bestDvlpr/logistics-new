@@ -11,6 +11,8 @@ import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 export class SidenavComponent implements OnInit {
 
     public isCollapsed: boolean = true;
+    public isEntitiesCollapsed: boolean = true;
+    public isAdministrationCollapsed: boolean = true;
     inProduction: boolean;
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;

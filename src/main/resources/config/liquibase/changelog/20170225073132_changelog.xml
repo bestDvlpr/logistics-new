@@ -28,10 +28,10 @@
                                  initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
     </changeSet>
     <changeSet author="hasan" id="1488007897543-5">
-        <addNotNullConstraint tableName="pay_type" columnName="receipt_id"/>
+        <addNotNullConstraint tableName="pay_type" columnName="receipt_id" columnDataType="int8"/>
     </changeSet>
     <changeSet author="hasan" id="1488007897543-6">
-        <addNotNullConstraint tableName="product_entry" columnName="receipt_id"/>
+        <addNotNullConstraint tableName="product_entry" columnName="receipt_id" columnDataType="int8"/>
     </changeSet>
 
 </databaseChangeLog>

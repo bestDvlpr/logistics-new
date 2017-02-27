@@ -18,6 +18,6 @@
                                  referencedTableName="receipt_status"/>
     </changeSet>
     <changeSet author="hasan (generated)" id="1487917386753-3">
-        <addNotNullConstraint tableName="receipt" columnName="status_id"/>
+        <addNotNullConstraint tableName="receipt" columnName="status_id" columnDataType="int8"/>
     </changeSet>
 </databaseChangeLog>

@@ -15,7 +15,7 @@
             <column name="status_id" type="int8"/>
         </addColumn>
         <sql>update driver set status_id=1</sql>
-        <addNotNullConstraint tableName="driver" columnName="status_id"/>
+        <addNotNullConstraint tableName="driver" columnName="status_id" columnDataType="int8"/>
     </changeSet>
     <changeSet author="hasan (generated)" id="1487913991377-3">
         <addPrimaryKey columnNames="drivers_id, cars_id" tableName="driver_cars"/>
