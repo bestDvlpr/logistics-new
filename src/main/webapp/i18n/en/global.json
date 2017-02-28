@@ -114,6 +114,8 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
+            "attachDriver": "Attach to Drivers",
+            "sendOrder": "Send Order",
             "view": "View"
         },
         "detail": {

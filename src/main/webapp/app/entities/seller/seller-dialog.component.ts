@@ -29,7 +29,7 @@ export class SellerDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MANAGER'];
     }
     clear () {
         this.activeModal.dismiss('cancel');

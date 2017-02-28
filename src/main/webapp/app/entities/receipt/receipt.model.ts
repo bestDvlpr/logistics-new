@@ -1,11 +1,15 @@
-const enum DocType {
+export enum DocType {
     'RETURN',
     'SALES'
-};
-const enum WholeSaleFlag {
+}
+export enum WholeSaleFlag {
     'RETAIL',
     'WHOLESALE'
-};
+}
+export function WholeSaleFlagAware(constructor: Function) {
+    constructor.prototype.WholeSaleFlag = WholeSaleFlag;
+    constructor.prototype.DocType = DocType;
+}
 export class Receipt {
     constructor(
         public id?: number,

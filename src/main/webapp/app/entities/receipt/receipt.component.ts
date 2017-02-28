@@ -1,21 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService} from 'ng-jhipster';
 
-import { Receipt } from './receipt.model';
-import { ReceiptService } from './receipt.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import {Receipt, WholeSaleFlag, DocType, WholeSaleFlagAware} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-receipt',
     templateUrl: './receipt.component.html'
 })
+@WholeSaleFlagAware
 export class ReceiptComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     receipts: Receipt[];
     error: any;
     success: any;
@@ -29,19 +30,18 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    wholeSaleFlagEnum = WholeSaleFlag;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private receiptService: ReceiptService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private receiptService: ReceiptService,
+                private parseLinks: ParseLinks,
+                private alertService: AlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: EventManager,
+                private paginationUtil: PaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -56,20 +56,23 @@ currentAccount: any;
         this.receiptService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
     }
-    loadPage (page: number) {
+
+    loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/receipt'], {queryParams:
-            {
+        this.router.navigate(['/receipt'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -86,6 +89,7 @@ currentAccount: any;
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -98,17 +102,16 @@ currentAccount: any;
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Receipt) {
+    trackId(index: number, item: Receipt) {
         return item.id;
     }
-
 
 
     registerChangeInReceipts() {
         this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
     }
 
-    sort () {
+    sort() {
         let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
@@ -116,7 +119,7 @@ currentAccount: any;
         return result;
     }
 
-    private onSuccess (data, headers) {
+    private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
@@ -124,7 +127,7 @@ currentAccount: any;
         this.receipts = data;
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

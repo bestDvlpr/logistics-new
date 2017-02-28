@@ -30,8 +30,8 @@
             <a class="nav-link" id="admin-menu" (click)="isAdministrationCollapsed = !isAdministrationCollapsed">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 <span class="hidden-sm-down" jhiTranslate="global.menu.admin.main">Administration</span>
-                <i *ngIf="isAdministrationCollapsed" class="fa fa-arrow-circle-down fa-pull-right"></i>
-                <i *ngIf="!isAdministrationCollapsed" class="fa fa-arrow-circle-up fa-pull-right"></i>
+                <i *ngIf="isAdministrationCollapsed" class="fa fa-caret-down fa-pull-right"></i>
+                <i *ngIf="!isAdministrationCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
             <div [collapse]="isAdministrationCollapsed" id="adminCollapse">
                 <ul class="nav nav-pills flex-column">
@@ -88,19 +88,18 @@
             </div>
         </li>
         <li class="nav-item" *ngSwitchCase="false">
-            <a class="nav-link" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" aria-expanded="false"
-               aria-controls="collapseDD">
+            <a class="nav-link" (click)="isCollapsed = !isCollapsed">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span class="hidden-sm" jhiTranslate="global.menu.account.main">
                       Account
                 </span>
-                <i *ngIf="isCollapsed" class="fa fa-arrow-circle-down fa-pull-right"></i>
-                <i *ngIf="!isCollapsed" class="fa fa-arrow-circle-up fa-pull-right"></i>
+                <i *ngIf="isCollapsed" class="fa fa-caret-down fa-pull-right"></i>
+                <i *ngIf="!isCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
-            <div [collapse]="isCollapsed" id="collapseDD">
+            <div [collapse]="isCollapsed">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['login']" (click)="login()" id="login" routerLinkActive="active">
+                        <a class="nav-link" (click)="login()" id="login" routerLinkActive="active">
                             <i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.account.login">Sign in</span>
                         </a>
@@ -114,7 +113,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item" *ngSwitchCase="true" jhiHasAnyAuthority="ROLE_MANAGER,ROLE_DISPATCHER">
+        <li class="nav-item" *ngSwitchCase="true" jhiHasAnyAuthority="ROLE_MANAGER,ROLE_DISPATCHER,ROLE_CASHIER">
             <a class="nav-link" [routerLink]="['receipt']">
                 <i class="fa fa-list-alt" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.entities.order">Orders</span>
@@ -128,11 +127,17 @@
                 <span class="hidden-sm-down" jhiTranslate="global.menu.entities.main">
                     Entities
                 </span>
-                <i *ngIf="isEntitiesCollapsed" class="fa fa-arrow-circle-down fa-pull-right"></i>
-                <i *ngIf="!isEntitiesCollapsed" class="fa fa-arrow-circle-up fa-pull-right"></i>
+                <i *ngIf="isEntitiesCollapsed" class="fa fa-caret-down fa-pull-right"></i>
+                <i *ngIf="!isEntitiesCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
             <div [collapse]="isEntitiesCollapsed" id="collapseEntitiesDD" class="col-md-12">
                 <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['receipt']" routerLinkActive="active">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.receipt">Receipt</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['pay-master']" routerLinkActive="active">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
