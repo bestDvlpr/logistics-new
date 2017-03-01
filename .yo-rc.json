@@ -1,9 +1,9 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.2",
+    "jhipsterVersion": "4.0.6",
     "baseName": "logistics",
-    "packageName": "uz.multimafe",
-    "packageFolder": "uz/multimafe",
+    "packageName": "uz.hasan",
+    "packageFolder": "uz/hasan",
     "serverPort": "8998",
     "authenticationType": "jwt",
     "hibernateCache": "no",
