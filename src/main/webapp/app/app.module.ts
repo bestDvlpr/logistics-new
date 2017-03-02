@@ -26,6 +26,7 @@ import {
 } from './layouts';
 import {SidenavComponent} from './layouts/sidenav/sidenav.component';
 import {Collapse} from './layouts/sidenav/collapse.component';
+import {Ng2CompleterModule} from 'ng2-completer';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {Collapse} from './layouts/sidenav/collapse.component';
         LogisticsSharedModule,
         LogisticsAdminModule,
         LogisticsAccountModule,
-        LogisticsEntityModule
+        LogisticsEntityModule,
+        Ng2CompleterModule
     ],
     declarations: [
         JhiMainComponent,

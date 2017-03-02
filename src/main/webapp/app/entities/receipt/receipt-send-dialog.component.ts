@@ -11,6 +11,7 @@ import { ReceiptService } from './receipt.service';
 import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
+import {CompleterService, CompleterData} from 'ng2-completer';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -20,6 +21,7 @@ export class ReceiptDialogComponent implements OnInit {
     receipt: Receipt;
     authorities: any[];
     isSaving: boolean;
+    protected dataService: CompleterData;
 
     paymasters: PayMaster[];
 
@@ -34,7 +36,8 @@ export class ReceiptDialogComponent implements OnInit {
         private payMasterService: PayMasterService,
         private loyaltyCardService: LoyaltyCardService,
         private receiptStatusService: ReceiptStatusService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private completerService: CompleterService
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
     }
