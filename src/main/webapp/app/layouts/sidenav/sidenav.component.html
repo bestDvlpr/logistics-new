@@ -133,12 +133,6 @@
             <div [collapse]="isEntitiesCollapsed" id="collapseEntitiesDD" class="col-md-12">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['receipt-order']" routerLinkActive="active">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.entities.receipt">ReceiptOrder</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" [routerLink]="['receipt']" routerLinkActive="active">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.receipt">Receipt</span>
@@ -238,6 +232,18 @@
                         <a class="nav-link" [routerLink]="['product-entry']" routerLinkActive="active">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.productEntry">Product Entry</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['client']" routerLinkActive="active">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.client">Client</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['phone-number']" routerLinkActive="active">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.phoneNumber">Phone Number</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

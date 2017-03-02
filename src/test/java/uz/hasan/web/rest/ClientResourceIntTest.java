@@ -48,6 +48,9 @@ public class ClientResourceIntTest {
     private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
+
     @Autowired
     private ClientRepository clientRepository;
 
@@ -88,7 +91,8 @@ public class ClientResourceIntTest {
     public static Client createEntity(EntityManager em) {
         Client client = new Client()
                 .firstName(DEFAULT_FIRST_NAME)
-                .lastName(DEFAULT_LAST_NAME);
+                .lastName(DEFAULT_LAST_NAME)
+                .address(DEFAULT_ADDRESS);
         // Add required entity
         Location city = LocationResourceIntTest.createEntity(em);
         em.persist(city);
@@ -131,6 +135,7 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testClient.getAddress()).isEqualTo(DEFAULT_ADDRESS);
     }
 
     @Test
@@ -156,6 +161,25 @@ public class ClientResourceIntTest {
 
     @Test
     @Transactional
+    public void checkAddressIsRequired() throws Exception {
+        int databaseSizeBeforeTest = clientRepository.findAll().size();
+        // set the field null
+        client.setAddress(null);
+
+        // Create the Client, which fails.
+        ClientDTO clientDTO = clientMapper.clientToClientDTO(client);
+
+        restClientMockMvc.perform(post("/api/clients")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Client> clientList = clientRepository.findAll();
+        assertThat(clientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllClients() throws Exception {
         // Initialize the database
         clientRepository.saveAndFlush(client);
@@ -166,7 +190,8 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(client.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())));
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())));
     }
 
     @Test
@@ -181,7 +206,8 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(client.getId().intValue()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()));
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()));
     }
 
     @Test
@@ -203,7 +229,8 @@ public class ClientResourceIntTest {
         Client updatedClient = clientRepository.findOne(client.getId());
         updatedClient
                 .firstName(UPDATED_FIRST_NAME)
-                .lastName(UPDATED_LAST_NAME);
+                .lastName(UPDATED_LAST_NAME)
+                .address(UPDATED_ADDRESS);
         ClientDTO clientDTO = clientMapper.clientToClientDTO(updatedClient);
 
         restClientMockMvc.perform(put("/api/clients")
@@ -217,6 +244,7 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testClient.getAddress()).isEqualTo(UPDATED_ADDRESS);
     }
 
     @Test

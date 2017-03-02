@@ -11,6 +11,7 @@ import { ReceiptService } from './receipt.service';
 import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
+import { Client, ClientService } from '../client';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -26,6 +27,8 @@ export class ReceiptDialogComponent implements OnInit {
     loyaltycards: LoyaltyCard[];
 
     receiptstatuses: ReceiptStatus[];
+
+    clients: Client[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -34,6 +37,7 @@ export class ReceiptDialogComponent implements OnInit {
         private payMasterService: PayMasterService,
         private loyaltyCardService: LoyaltyCardService,
         private receiptStatusService: ReceiptStatusService,
+        private clientService: ClientService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
@@ -48,6 +52,8 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.loyaltycards = res.json(); }, (res: Response) => this.onError(res.json()));
         this.receiptStatusService.query().subscribe(
             (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.clientService.query().subscribe(
+            (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -88,6 +94,10 @@ export class ReceiptDialogComponent implements OnInit {
     }
 
     trackReceiptStatusById(index: number, item: ReceiptStatus) {
+        return item.id;
+    }
+
+    trackClientById(index: number, item: Client) {
         return item.id;
     }
 }

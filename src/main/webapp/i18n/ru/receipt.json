@@ -3,19 +3,18 @@
         "receipt" : {
             "home": {
                 "title": "Receipts",
-                "createLabel": "Создать новую заявку",
-                "createOrEditLabel": "Создать или отредактировать заявку",
-                "sendReceiptLabel": "Отправить заявку",
-                "search": "Найти заявку"
+                "createLabel": "Создать новый Receipt",
+                "createOrEditLabel": "Создать или отредактировать Receipt",
+                "search": "Найти Receipt"
             },
-            "created": "Новая заявка создана с идентификатором {{ param }}",
-            "updated": "Заявка обновлена с идентификатором {{ param }}",
-            "deleted": "Заявка удалена с идентификатором {{ param }}",
+            "created": "Новый Receipt создан с идентификатором {{ param }}",
+            "updated": "Receipt обновлен с идентификатором {{ param }}",
+            "deleted": "Receipt удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить заявку {{ id }}?"
+                "question": "Вы уверены что хотите удалить Receipt {{ id }}?"
             },
             "detail": {
-                "title": "Заявка"
+                "title": "Receipt"
             },
             "docNum": "Doc Num",
             "docID": "Doc ID",
@@ -25,7 +24,8 @@
             "wholeSaleFlag": "Whole Sale Flag",
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
-            "status": "Status"
+            "status": "Status",
+            "client": "Client"
         }
     }
 }

@@ -53,7 +53,7 @@ export const receiptPopupRoute: Routes = [
     path: 'receipt-new',
     component: ReceiptPopupComponent,
     data: {
-        authorities: ['ROLE_ADMIN'],
+        authorities: ['ROLE_USER'],
         pageTitle: 'logisticsApp.receipt.home.title'
     },
     outlet: 'popup'
@@ -71,7 +71,7 @@ export const receiptPopupRoute: Routes = [
     path: 'receipt/:id/delete',
     component: ReceiptDeletePopupComponent,
     data: {
-        authorities: ['ROLE_ADMIN'],
+        authorities: ['ROLE_USER'],
         pageTitle: 'logisticsApp.receipt.home.title'
     },
     outlet: 'popup'

@@ -46,6 +46,12 @@
                 <a [routerLink]="['receipt-status', receipt.statusId]">{{receipt.statusName}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.client">Client</span></dt>
+        <dd>
+            <div *ngIf="receipt.clientId">
+                <a [routerLink]="['client', receipt.clientId]">{{receipt.clientFirstName}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"

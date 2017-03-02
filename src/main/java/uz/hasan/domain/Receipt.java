@@ -61,6 +61,9 @@ public class Receipt implements Serializable {
     @NotNull
     private ReceiptStatus status;
 
+    @ManyToOne
+    private Client client;
+
     public Long getId() {
         return id;
     }
@@ -184,6 +187,19 @@ public class Receipt implements Serializable {
 
     public void setStatus(ReceiptStatus receiptStatus) {
         this.status = receiptStatus;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Receipt client(Client client) {
+        this.client = client;
+        return this;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

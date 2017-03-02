@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Receipt.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class ReceiptServiceImpl implements ReceiptService{
 
     private final Logger log = LoggerFactory.getLogger(ReceiptServiceImpl.class);
-
+    
     private final ReceiptRepository receiptRepository;
 
     private final ReceiptMapper receiptMapper;
@@ -47,7 +51,7 @@ public class ReceiptServiceImpl implements ReceiptService{
 
     /**
      *  Get all the receipts.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

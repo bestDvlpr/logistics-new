@@ -26,6 +26,10 @@ public class Client implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
+    @Column(name = "address", nullable = false)
+    private String address;
+
     @ManyToOne(optional = false)
     @NotNull
     private Location city;
@@ -70,6 +74,19 @@ public class Client implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Client address(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Location getCity() {
@@ -137,6 +154,7 @@ public class Client implements Serializable {
             "id=" + id +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", address='" + address + "'" +
             '}';
     }
 }

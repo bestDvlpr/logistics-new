@@ -18,6 +18,7 @@
             },
             "firstName": "First Name",
             "lastName": "Last Name",
+            "address": "Address",
             "city": "City",
             "region": "Region",
             "street": "Street"

@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan" id="1488450931439-0">
+        <addColumn tableName="client">
+            <column name="address" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488450931439-1">
+        <addColumn tableName="receipt">
+            <column name="client_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488450931439-2">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="receipt"
+                                 constraintName="FK7or099q4lc2oy04qbi6i9ykr0" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="client"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488450931439-3">
+        <loadData tableName="client"
+                  file="config/liquibase/customers.csv"
+                  encoding="UTF-8"
+                  separator=";"/>
+        <loadData tableName="phone_number"
+                  file="config/liquibase/phone_numbers.csv"
+                  encoding="UTF-8"
+                  separator=";"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488450931439-4">
+        <sql>
+            update receipt set client_id=1;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan" id="1488450931439-5">
+        <addNotNullConstraint tableName="receipt" columnName="client_id" columnDataType="int8"/>
+    </changeSet>
+</databaseChangeLog>

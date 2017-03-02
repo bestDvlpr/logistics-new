@@ -37,6 +37,13 @@
         {
             "fieldName": "lastName",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170302060008",

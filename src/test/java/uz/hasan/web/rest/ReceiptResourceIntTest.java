@@ -6,6 +6,7 @@ import uz.hasan.domain.Receipt;
 import uz.hasan.domain.PayMaster;
 import uz.hasan.domain.LoyaltyCard;
 import uz.hasan.domain.ReceiptStatus;
+import uz.hasan.domain.Client;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -122,6 +123,11 @@ public class ReceiptResourceIntTest {
         em.persist(status);
         em.flush();
         receipt.setStatus(status);
+        // Add required entity
+        Client client = ClientResourceIntTest.createEntity(em);
+        em.persist(client);
+        em.flush();
+        receipt.setClient(client);
         return receipt;
     }
 

@@ -18,6 +18,9 @@ public class ClientDTO implements Serializable {
 
     private String lastName;
 
+    @NotNull
+    private String address;
+
     private Long cityId;
 
     private String cityName;
@@ -50,6 +53,13 @@ public class ClientDTO implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getCityId() {
@@ -127,6 +137,7 @@ public class ClientDTO implements Serializable {
             "id=" + id +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", address='" + address + "'" +
             '}';
     }
 }

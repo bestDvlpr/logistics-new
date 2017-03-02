@@ -126,6 +126,19 @@
                 This field is required.
             </small>
         </div>
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.receipt.client" for="field_client">Client</label>
+            <select class="form-control" id="field_client" name="client" [(ngModel)]="receipt.clientId"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.firstName}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.client?.dirty && editForm.controls.client?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!client?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
