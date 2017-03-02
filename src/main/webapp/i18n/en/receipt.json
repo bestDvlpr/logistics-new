@@ -5,6 +5,7 @@
                 "title": "Receipts",
                 "createLabel": "Create a new Receipt",
                 "createOrEditLabel": "Create or edit a Receipt",
+                "sendReceiptLabel": "Send the Receipt",
                 "search": "Search for Receipt"
             },
             "created": "A new Receipt is created with identifier {{ param }}",

@@ -81,6 +81,7 @@ jhipster:
             enabled: false
         authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
             app1: /api,/v2/api-docs # recommended dev configuration
+            test: http://localhost:8887/api #,/v2/api-docs # recommended dev configuration
     security:
         authentication:
             jwt:

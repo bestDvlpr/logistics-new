@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "phoneNumber" : {
+            "home": {
+                "title": "Phone Numbers",
+                "createLabel": "Create a new Phone Number",
+                "createOrEditLabel": "Create or edit a Phone Number",
+                "search": "Search for Phone Number"
+            },
+            "created": "A new Phone Number is created with identifier {{ param }}",
+            "updated": "A Phone Number is updated with identifier {{ param }}",
+            "deleted": "A Phone Number is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Phone Number {{ id }}?"
+            },
+            "detail": {
+                "title": "Phone Number"
+            },
+            "number": "Number",
+            "client": "Client"
+        }
+    }
+}

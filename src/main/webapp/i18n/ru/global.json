@@ -25,6 +25,9 @@
                 "receiptStatus": "Receipt Status",
                 "driverStatus": "Driver Status",
                 "productEntry": "Product Entry",
+                "phoneNumber": "Phone Number",
+                "client": "Client",
+                "receiptOrder": "Receipt Order",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
