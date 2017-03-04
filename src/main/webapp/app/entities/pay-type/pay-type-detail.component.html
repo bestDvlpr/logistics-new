@@ -4,10 +4,6 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row">
-        <dt><span jhiTranslate="logisticsApp.payType.amount">Amount</span></dt>
-        <dd>
-            <span>{{payType.amount}}</span>
-        </dd>
         <dt><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span></dt>
         <dd>
             <span>{{payType.sapCode}}</span>
@@ -19,6 +15,10 @@
         <dt><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span></dt>
         <dd>
             <span jhiTranslate="{{'logisticsApp.PaymentType.' + payType.paymentType}}">{{payType.paymentType}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.payType.amount">Amount</span></dt>
+        <dd>
+            <span>{{payType.amount}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span></dt>
         <dd>

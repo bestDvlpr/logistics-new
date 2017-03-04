@@ -16,10 +16,10 @@
             "detail": {
                 "title": "Pay Type"
             },
-            "amount": "Amount",
             "sapCode": "Sap Code",
             "serial": "Serial",
             "paymentType": "Payment Type",
+            "amount": "Amount",
             "receipt": "Receipt"
         }
     }

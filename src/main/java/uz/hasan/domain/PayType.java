@@ -4,6 +4,7 @@ package uz.hasan.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.PaymentType;
@@ -22,10 +23,6 @@ public class PayType implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
-
     @Column(name = "sap_code")
     private String sapCode;
 
@@ -37,6 +34,10 @@ public class PayType implements Serializable {
     @Column(name = "payment_type", nullable = false)
     private PaymentType paymentType;
 
+    @NotNull
+    @Column(name = "amount", precision=10, scale=2, nullable = false)
+    private BigDecimal amount;
+
     @ManyToOne(optional = false)
     @NotNull
     private Receipt receipt;
@@ -47,19 +48,6 @@ public class PayType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public PayType amount(Integer amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
     }
 
     public String getSapCode() {
@@ -101,6 +89,19 @@ public class PayType implements Serializable {
         this.paymentType = paymentType;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public PayType amount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     public Receipt getReceipt() {
         return receipt;
     }
@@ -138,10 +139,10 @@ public class PayType implements Serializable {
     public String toString() {
         return "PayType{" +
             "id=" + id +
-            ", amount='" + amount + "'" +
             ", sapCode='" + sapCode + "'" +
             ", serial='" + serial + "'" +
             ", paymentType='" + paymentType + "'" +
+            ", amount='" + amount + "'" +
             '}';
     }
 }

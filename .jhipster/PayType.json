@@ -13,13 +13,6 @@
     ],
     "fields": [
         {
-            "fieldName": "amount",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "sapCode",
             "fieldType": "String"
         },
@@ -31,6 +24,13 @@
             "fieldName": "paymentType",
             "fieldType": "PaymentType",
             "fieldValues": "CASH,CARD,LOYALTY_CARD",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]

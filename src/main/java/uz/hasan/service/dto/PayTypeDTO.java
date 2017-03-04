@@ -3,6 +3,7 @@ package uz.hasan.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -15,15 +16,15 @@ public class PayTypeDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
-    private Integer amount;
-
     private String sapCode;
 
     private String serial;
 
     @NotNull
     private PaymentType paymentType;
+
+    @NotNull
+    private BigDecimal amount;
 
     private Long receiptId;
 
@@ -35,13 +36,6 @@ public class PayTypeDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
     }
     public String getSapCode() {
         return sapCode;
@@ -63,6 +57,13 @@ public class PayTypeDTO implements Serializable {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public Long getReceiptId() {
@@ -106,10 +107,10 @@ public class PayTypeDTO implements Serializable {
     public String toString() {
         return "PayTypeDTO{" +
             "id=" + id +
-            ", amount='" + amount + "'" +
             ", sapCode='" + sapCode + "'" +
             ", serial='" + serial + "'" +
             ", paymentType='" + paymentType + "'" +
+            ", amount='" + amount + "'" +
             '}';
     }
 }

@@ -15,22 +15,6 @@
                    [(ngModel)]="payType.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.payType.amount" for="field_amount">Amount</label>
-            <input type="number" class="form-control" name="amount" id="field_amount"
-                [(ngModel)]="payType.amount"
-            required />
-            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.payType.sapCode" for="field_sapCode">Sap Code</label>
             <input type="text" class="form-control" name="sapCode" id="field_sapCode"
                 [(ngModel)]="payType.sapCode"
@@ -53,6 +37,22 @@
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.paymentType?.errors?.required" jhiTranslate="entity.validation.required">
                    This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.payType.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="payType.amount"
+            required />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
                 </small>
             </div>
         </div>

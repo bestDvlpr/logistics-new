@@ -126,7 +126,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
         this.receipts = data;
-        console.log(this.receipts[0].status === this.receiptStatusEnum.NEW);
+        console.log(this.receipts[0].status === ReceiptStatus.NEW);
     }
 
     private onError(error) {

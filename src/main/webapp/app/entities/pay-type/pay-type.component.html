@@ -18,10 +18,10 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="amount"><span jhiTranslate="logisticsApp.payType.amount">Amount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.payType.serial">Serial</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="paymentType"><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amount"><span jhiTranslate="logisticsApp.payType.amount">Amount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -29,10 +29,10 @@
             <tbody>
             <tr *ngFor="let payType of payTypes ;trackBy: trackId">
                 <td><a [routerLink]="['../pay-type', payType.id ]">{{payType.id}}</a></td>
-                <td>{{payType.amount}}</td>
                 <td>{{payType.sapCode}}</td>
                 <td>{{payType.serial}}</td>
                 <td jhiTranslate="{{'logisticsApp.PaymentType.' + payType.paymentType}}">{{payType.paymentType}}</td>
+                <td>{{payType.amount}}</td>
                 <td>
                     <div *ngIf="payType.receiptId">
                         <a [routerLink]="['../receipt', payType.receiptId  ]" >{{payType.receiptDocNum}}</a>

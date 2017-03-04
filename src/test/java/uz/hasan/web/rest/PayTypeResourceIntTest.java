@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,9 +42,6 @@ import uz.hasan.domain.enumeration.PaymentType;
 @SpringBootTest(classes = LogisticsApp.class)
 public class PayTypeResourceIntTest {
 
-    private static final Integer DEFAULT_AMOUNT = 1;
-    private static final Integer UPDATED_AMOUNT = 2;
-
     private static final String DEFAULT_SAP_CODE = "AAAAAAAAAA";
     private static final String UPDATED_SAP_CODE = "BBBBBBBBBB";
 
@@ -52,6 +50,9 @@ public class PayTypeResourceIntTest {
 
     private static final PaymentType DEFAULT_PAYMENT_TYPE = PaymentType.CASH;
     private static final PaymentType UPDATED_PAYMENT_TYPE = PaymentType.CARD;
+
+    private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(2);
 
     @Autowired
     private PayTypeRepository payTypeRepository;
@@ -92,10 +93,10 @@ public class PayTypeResourceIntTest {
      */
     public static PayType createEntity(EntityManager em) {
         PayType payType = new PayType()
-                .amount(DEFAULT_AMOUNT)
                 .sapCode(DEFAULT_SAP_CODE)
                 .serial(DEFAULT_SERIAL)
-                .paymentType(DEFAULT_PAYMENT_TYPE);
+                .paymentType(DEFAULT_PAYMENT_TYPE)
+                .amount(DEFAULT_AMOUNT);
         // Add required entity
         Receipt receipt = ReceiptResourceIntTest.createEntity(em);
         em.persist(receipt);
@@ -126,10 +127,10 @@ public class PayTypeResourceIntTest {
         List<PayType> payTypeList = payTypeRepository.findAll();
         assertThat(payTypeList).hasSize(databaseSizeBeforeCreate + 1);
         PayType testPayType = payTypeList.get(payTypeList.size() - 1);
-        assertThat(testPayType.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testPayType.getSapCode()).isEqualTo(DEFAULT_SAP_CODE);
         assertThat(testPayType.getSerial()).isEqualTo(DEFAULT_SERIAL);
         assertThat(testPayType.getPaymentType()).isEqualTo(DEFAULT_PAYMENT_TYPE);
+        assertThat(testPayType.getAmount()).isEqualTo(DEFAULT_AMOUNT);
     }
 
     @Test
@@ -155,10 +156,10 @@ public class PayTypeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAmountIsRequired() throws Exception {
+    public void checkPaymentTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = payTypeRepository.findAll().size();
         // set the field null
-        payType.setAmount(null);
+        payType.setPaymentType(null);
 
         // Create the PayType, which fails.
         PayTypeDTO payTypeDTO = payTypeMapper.payTypeToPayTypeDTO(payType);
@@ -174,10 +175,10 @@ public class PayTypeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkPaymentTypeIsRequired() throws Exception {
+    public void checkAmountIsRequired() throws Exception {
         int databaseSizeBeforeTest = payTypeRepository.findAll().size();
         // set the field null
-        payType.setPaymentType(null);
+        payType.setAmount(null);
 
         // Create the PayType, which fails.
         PayTypeDTO payTypeDTO = payTypeMapper.payTypeToPayTypeDTO(payType);
@@ -202,10 +203,10 @@ public class PayTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(payType.getId().intValue())))
-            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT)))
             .andExpect(jsonPath("$.[*].sapCode").value(hasItem(DEFAULT_SAP_CODE.toString())))
             .andExpect(jsonPath("$.[*].serial").value(hasItem(DEFAULT_SERIAL.toString())))
-            .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())));
     }
 
     @Test
@@ -219,10 +220,10 @@ public class PayTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(payType.getId().intValue()))
-            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT))
             .andExpect(jsonPath("$.sapCode").value(DEFAULT_SAP_CODE.toString()))
             .andExpect(jsonPath("$.serial").value(DEFAULT_SERIAL.toString()))
-            .andExpect(jsonPath("$.paymentType").value(DEFAULT_PAYMENT_TYPE.toString()));
+            .andExpect(jsonPath("$.paymentType").value(DEFAULT_PAYMENT_TYPE.toString()))
+            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()));
     }
 
     @Test
@@ -243,10 +244,10 @@ public class PayTypeResourceIntTest {
         // Update the payType
         PayType updatedPayType = payTypeRepository.findOne(payType.getId());
         updatedPayType
-                .amount(UPDATED_AMOUNT)
                 .sapCode(UPDATED_SAP_CODE)
                 .serial(UPDATED_SERIAL)
-                .paymentType(UPDATED_PAYMENT_TYPE);
+                .paymentType(UPDATED_PAYMENT_TYPE)
+                .amount(UPDATED_AMOUNT);
         PayTypeDTO payTypeDTO = payTypeMapper.payTypeToPayTypeDTO(updatedPayType);
 
         restPayTypeMockMvc.perform(put("/api/pay-types")
@@ -258,10 +259,10 @@ public class PayTypeResourceIntTest {
         List<PayType> payTypeList = payTypeRepository.findAll();
         assertThat(payTypeList).hasSize(databaseSizeBeforeUpdate);
         PayType testPayType = payTypeList.get(payTypeList.size() - 1);
-        assertThat(testPayType.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testPayType.getSapCode()).isEqualTo(UPDATED_SAP_CODE);
         assertThat(testPayType.getSerial()).isEqualTo(UPDATED_SERIAL);
         assertThat(testPayType.getPaymentType()).isEqualTo(UPDATED_PAYMENT_TYPE);
+        assertThat(testPayType.getAmount()).isEqualTo(UPDATED_AMOUNT);
     }
 
     @Test
