@@ -3,6 +3,7 @@ package uz.hasan.service;
 import uz.hasan.service.dto.LoyaltyCardDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 /**
  * Service Interface for managing LoyaltyCard.
@@ -19,7 +20,7 @@ public interface LoyaltyCardService {
 
     /**
      *  Get all the loyaltyCards.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

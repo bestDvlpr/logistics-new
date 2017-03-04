@@ -28,6 +28,10 @@
         <dd>
             <span jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">{{receipt.wholeSaleFlag}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{receipt.status}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span></dt>
         <dd>
             <div *ngIf="receipt.payMasterId">
@@ -38,12 +42,6 @@
         <dd>
             <div *ngIf="receipt.loyaltyCardId">
                 <a [routerLink]="['loyalty-card', receipt.loyaltyCardId]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.receipt.status">Status</span></dt>
-        <dd>
-            <div *ngIf="receipt.statusId">
-                <a [routerLink]="['receipt-status', receipt.statusId]">{{receipt.statusName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.client">Client</span></dt>

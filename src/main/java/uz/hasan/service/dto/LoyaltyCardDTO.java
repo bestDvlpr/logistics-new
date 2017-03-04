@@ -17,10 +17,9 @@ public class LoyaltyCardDTO implements Serializable {
     private String loyaltyCardID;
 
     @NotNull
-    private String loyaltyCardBonus;
-
-    @NotNull
     private BigDecimal loyaltyCardAmount;
+
+    private BigDecimal loyaltyCardBonus;
 
     public Long getId() {
         return id;
@@ -36,19 +35,19 @@ public class LoyaltyCardDTO implements Serializable {
     public void setLoyaltyCardID(String loyaltyCardID) {
         this.loyaltyCardID = loyaltyCardID;
     }
-    public String getLoyaltyCardBonus() {
-        return loyaltyCardBonus;
-    }
-
-    public void setLoyaltyCardBonus(String loyaltyCardBonus) {
-        this.loyaltyCardBonus = loyaltyCardBonus;
-    }
     public BigDecimal getLoyaltyCardAmount() {
         return loyaltyCardAmount;
     }
 
     public void setLoyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
+    }
+    public BigDecimal getLoyaltyCardBonus() {
+        return loyaltyCardBonus;
+    }
+
+    public void setLoyaltyCardBonus(BigDecimal loyaltyCardBonus) {
+        this.loyaltyCardBonus = loyaltyCardBonus;
     }
 
     @Override
@@ -77,8 +76,8 @@ public class LoyaltyCardDTO implements Serializable {
         return "LoyaltyCardDTO{" +
             "id=" + id +
             ", loyaltyCardID='" + loyaltyCardID + "'" +
-            ", loyaltyCardBonus='" + loyaltyCardBonus + "'" +
             ", loyaltyCardAmount='" + loyaltyCardAmount + "'" +
+            ", loyaltyCardBonus='" + loyaltyCardBonus + "'" +
             '}';
     }
 }

@@ -27,18 +27,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus" for="field_loyaltyCardBonus">Loyalty Card Bonus</label>
-            <input type="text" class="form-control" name="loyaltyCardBonus" id="field_loyaltyCardBonus"
-                [(ngModel)]="loyaltyCard.loyaltyCardBonus"
-            required />
-            <div [hidden]="!(editForm.controls.loyaltyCardBonus?.dirty && editForm.controls.loyaltyCardBonus?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.loyaltyCardBonus?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardAmount" for="field_loyaltyCardAmount">Loyalty Card Amount</label>
             <input type="number" class="form-control" name="loyaltyCardAmount" id="field_loyaltyCardAmount"
                 [(ngModel)]="loyaltyCard.loyaltyCardAmount"
@@ -53,6 +41,12 @@
                     This field should be a number.
                 </small>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus" for="field_loyaltyCardBonus">Loyalty Card Bonus</label>
+            <input type="number" class="form-control" name="loyaltyCardBonus" id="field_loyaltyCardBonus"
+                [(ngModel)]="loyaltyCard.loyaltyCardBonus"
+             />
         </div>
 
     </div>

@@ -86,6 +86,22 @@
                 </small>
             </div>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.receipt.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="receipt.status" id="field_status"  required>
+                <option value="NEW" jhiTranslate="logisticsApp.ReceiptStatus.NEW">NEW</option>
+                <option value="APPLICATION_SENT" jhiTranslate="logisticsApp.ReceiptStatus.APPLICATION_SENT">APPLICATION_SENT</option>
+                <option value="ATTACHED_TO_DRIVER" jhiTranslate="logisticsApp.ReceiptStatus.ATTACHED_TO_DRIVER">ATTACHED_TO_DRIVER</option>
+                <option value="DELIVERY_PROCESS" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERY_PROCESS">DELIVERY_PROCESS</option>
+                <option value="DELIVERED" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERED">DELIVERED</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.payMaster" for="field_payMaster">Pay Master</label>
@@ -114,29 +130,10 @@
             </small>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.status" for="field_status">Status</label>
-            <select class="form-control" id="field_status" name="status" [(ngModel)]="receipt.statusId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="receiptStatusOption.id" *ngFor="let receiptStatusOption of receiptstatuses; trackBy: trackReceiptStatusById">{{receiptStatusOption.name}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!status?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.client" for="field_client">Client</label>
             <select class="form-control" id="field_client" name="client" [(ngModel)]="receipt.clientId" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.firstName}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.productEntries" for="field_product_entries">Products</label>
-            <select class="form-control" id="field_product_entries" #products="ngModel" multiple name="productEntries" [(ngModel)]="receipt.productEntriesId" required>
-                <option [ngValue]="getSelected(receipt.productEntriesId, productOption)" *ngFor="let productOption of productentries; trackBy: trackProductEntryById">{{productOption.id}}</option>
             </select>
         </div>
     </div>

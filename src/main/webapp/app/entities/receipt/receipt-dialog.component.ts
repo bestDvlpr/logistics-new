@@ -10,7 +10,6 @@ import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
 import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
-import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
 import { Client, ClientService } from '../client';
 import { ProductEntry, ProductEntryService } from '../product-entry';
 @Component({
@@ -27,12 +26,9 @@ export class ReceiptDialogComponent implements OnInit {
 
     loyaltycards: LoyaltyCard[];
 
-    receiptstatuses: ReceiptStatus[];
-
     clients: Client[];
 
     productentries: ProductEntry[];
-
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -40,12 +36,11 @@ export class ReceiptDialogComponent implements OnInit {
         private receiptService: ReceiptService,
         private payMasterService: PayMasterService,
         private loyaltyCardService: LoyaltyCardService,
-        private receiptStatusService: ReceiptStatusService,
         private clientService: ClientService,
         private productEntryService: ProductEntryService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
     }
 
     ngOnInit() {
@@ -55,8 +50,6 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.paymasters = res.json(); }, (res: Response) => this.onError(res.json()));
         this.loyaltyCardService.query().subscribe(
             (res: Response) => { this.loyaltycards = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.receiptStatusService.query().subscribe(
-            (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
         this.clientService.query().subscribe(
             (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
         this.productEntryService.query().subscribe(
@@ -100,27 +93,12 @@ export class ReceiptDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackReceiptStatusById(index: number, item: ReceiptStatus) {
-        return item.id;
-    }
-
     trackClientById(index: number, item: Client) {
         return item.id;
     }
 
     trackProductEntryById(index: number, item: ProductEntry) {
         return item.id;
-    }
-
-    getSelected(selectedVals: Array<any>, option: any) {
-        if (selectedVals) {
-            for (let i = 0; i < selectedVals.length; i++) {
-                if (option.id === selectedVals[i].id) {
-                    return selectedVals[i];
-                }
-            }
-        }
-        return option;
     }
 }
 

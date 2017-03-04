@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing LoyaltyCard.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class LoyaltyCardServiceImpl implements LoyaltyCardService{
 
     private final Logger log = LoggerFactory.getLogger(LoyaltyCardServiceImpl.class);
-
+    
     private final LoyaltyCardRepository loyaltyCardRepository;
 
     private final LoyaltyCardMapper loyaltyCardMapper;
@@ -47,7 +51,7 @@ public class LoyaltyCardServiceImpl implements LoyaltyCardService{
 
     /**
      *  Get all the loyaltyCards.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

@@ -9,7 +9,6 @@ import {
     ReceiptComponent,
     ReceiptDetailComponent,
     ReceiptDialogComponent,
-    ReceiptSendComponent,
     ReceiptPopupComponent,
     ReceiptDeletePopupComponent,
     ReceiptDeleteDialogComponent,
@@ -32,7 +31,6 @@ let ENTITY_STATES = [
         ReceiptComponent,
         ReceiptDetailComponent,
         ReceiptDialogComponent,
-        ReceiptSendComponent,
         ReceiptDeleteDialogComponent,
         ReceiptPopupComponent,
         ReceiptDeletePopupComponent,
@@ -40,7 +38,6 @@ let ENTITY_STATES = [
     entryComponents: [
         ReceiptComponent,
         ReceiptDialogComponent,
-        ReceiptSendComponent,
         ReceiptPopupComponent,
         ReceiptDeleteDialogComponent,
         ReceiptDeletePopupComponent,

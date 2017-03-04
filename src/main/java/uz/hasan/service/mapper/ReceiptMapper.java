@@ -16,8 +16,6 @@ public interface ReceiptMapper {
     @Mapping(source = "payMaster.payMasterName", target = "payMasterPayMasterName")
     @Mapping(source = "loyaltyCard.id", target = "loyaltyCardId")
     @Mapping(source = "loyaltyCard.loyaltyCardID", target = "loyaltyCardLoyaltyCardID")
-    @Mapping(source = "status.id", target = "statusId")
-    @Mapping(source = "status.name", target = "statusName")
     @Mapping(source = "client.id", target = "clientId")
     @Mapping(source = "client.firstName", target = "clientFirstName")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
@@ -26,7 +24,6 @@ public interface ReceiptMapper {
 
     @Mapping(source = "payMasterId", target = "payMaster")
     @Mapping(source = "loyaltyCardId", target = "loyaltyCard")
-    @Mapping(source = "statusId", target = "status")
     @Mapping(source = "clientId", target = "client")
     @Mapping(target = "productEntries", ignore = true)
     Receipt receiptDTOToReceipt(ReceiptDTO receiptDTO);
@@ -49,15 +46,6 @@ public interface ReceiptMapper {
         LoyaltyCard loyaltyCard = new LoyaltyCard();
         loyaltyCard.setId(id);
         return loyaltyCard;
-    }
-
-    default ReceiptStatus receiptStatusFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        ReceiptStatus receiptStatus = new ReceiptStatus();
-        receiptStatus.setId(id);
-        return receiptStatus;
     }
 
     default Client clientFromId(Long id) {

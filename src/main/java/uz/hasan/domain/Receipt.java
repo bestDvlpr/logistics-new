@@ -13,6 +13,8 @@ import uz.hasan.domain.enumeration.DocType;
 
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 
+import uz.hasan.domain.enumeration.ReceiptStatus;
+
 /**
  * A Receipt.
  */
@@ -52,6 +54,11 @@ public class Receipt implements Serializable {
     @Column(name = "whole_sale_flag", nullable = false)
     private WholeSaleFlag wholeSaleFlag;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private ReceiptStatus status;
+
     @ManyToOne(optional = false)
     @NotNull
     private PayMaster payMaster;
@@ -59,10 +66,6 @@ public class Receipt implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private LoyaltyCard loyaltyCard;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    private ReceiptStatus status;
 
     @ManyToOne
     private Client client;
@@ -157,6 +160,19 @@ public class Receipt implements Serializable {
         this.wholeSaleFlag = wholeSaleFlag;
     }
 
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public Receipt status(ReceiptStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(ReceiptStatus status) {
+        this.status = status;
+    }
+
     public PayMaster getPayMaster() {
         return payMaster;
     }
@@ -181,19 +197,6 @@ public class Receipt implements Serializable {
 
     public void setLoyaltyCard(LoyaltyCard loyaltyCard) {
         this.loyaltyCard = loyaltyCard;
-    }
-
-    public ReceiptStatus getStatus() {
-        return status;
-    }
-
-    public Receipt status(ReceiptStatus receiptStatus) {
-        this.status = receiptStatus;
-        return this;
-    }
-
-    public void setStatus(ReceiptStatus receiptStatus) {
-        this.status = receiptStatus;
     }
 
     public Client getClient() {
@@ -264,6 +267,7 @@ public class Receipt implements Serializable {
             ", previousDocID='" + previousDocID + "'" +
             ", docDate='" + docDate + "'" +
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

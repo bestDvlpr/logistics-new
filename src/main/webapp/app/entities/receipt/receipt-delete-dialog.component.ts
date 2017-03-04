@@ -22,7 +22,7 @@ export class ReceiptDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
     }
 
     clear () {

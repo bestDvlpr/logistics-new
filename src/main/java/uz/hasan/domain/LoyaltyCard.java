@@ -26,12 +26,11 @@ public class LoyaltyCard implements Serializable {
     private String loyaltyCardID;
 
     @NotNull
-    @Column(name = "loyalty_card_bonus", nullable = false)
-    private String loyaltyCardBonus;
-
-    @NotNull
     @Column(name = "loyalty_card_amount", precision=10, scale=2, nullable = false)
     private BigDecimal loyaltyCardAmount;
+
+    @Column(name = "loyalty_card_bonus", precision=10, scale=2)
+    private BigDecimal loyaltyCardBonus;
 
     public Long getId() {
         return id;
@@ -54,19 +53,6 @@ public class LoyaltyCard implements Serializable {
         this.loyaltyCardID = loyaltyCardID;
     }
 
-    public String getLoyaltyCardBonus() {
-        return loyaltyCardBonus;
-    }
-
-    public LoyaltyCard loyaltyCardBonus(String loyaltyCardBonus) {
-        this.loyaltyCardBonus = loyaltyCardBonus;
-        return this;
-    }
-
-    public void setLoyaltyCardBonus(String loyaltyCardBonus) {
-        this.loyaltyCardBonus = loyaltyCardBonus;
-    }
-
     public BigDecimal getLoyaltyCardAmount() {
         return loyaltyCardAmount;
     }
@@ -78,6 +64,19 @@ public class LoyaltyCard implements Serializable {
 
     public void setLoyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
+    }
+
+    public BigDecimal getLoyaltyCardBonus() {
+        return loyaltyCardBonus;
+    }
+
+    public LoyaltyCard loyaltyCardBonus(BigDecimal loyaltyCardBonus) {
+        this.loyaltyCardBonus = loyaltyCardBonus;
+        return this;
+    }
+
+    public void setLoyaltyCardBonus(BigDecimal loyaltyCardBonus) {
+        this.loyaltyCardBonus = loyaltyCardBonus;
     }
 
     @Override
@@ -105,8 +104,8 @@ public class LoyaltyCard implements Serializable {
         return "LoyaltyCard{" +
             "id=" + id +
             ", loyaltyCardID='" + loyaltyCardID + "'" +
-            ", loyaltyCardBonus='" + loyaltyCardBonus + "'" +
             ", loyaltyCardAmount='" + loyaltyCardAmount + "'" +
+            ", loyaltyCardBonus='" + loyaltyCardBonus + "'" +
             '}';
     }
 }

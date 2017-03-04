@@ -43,11 +43,11 @@ public class LoyaltyCardResourceIntTest {
     private static final String DEFAULT_LOYALTY_CARD_ID = "AAAAAAAAAA";
     private static final String UPDATED_LOYALTY_CARD_ID = "BBBBBBBBBB";
 
-    private static final String DEFAULT_LOYALTY_CARD_BONUS = "AAAAAAAAAA";
-    private static final String UPDATED_LOYALTY_CARD_BONUS = "BBBBBBBBBB";
-
     private static final BigDecimal DEFAULT_LOYALTY_CARD_AMOUNT = new BigDecimal(1);
     private static final BigDecimal UPDATED_LOYALTY_CARD_AMOUNT = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_LOYALTY_CARD_BONUS = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LOYALTY_CARD_BONUS = new BigDecimal(2);
 
     @Autowired
     private LoyaltyCardRepository loyaltyCardRepository;
@@ -89,8 +89,8 @@ public class LoyaltyCardResourceIntTest {
     public static LoyaltyCard createEntity(EntityManager em) {
         LoyaltyCard loyaltyCard = new LoyaltyCard()
                 .loyaltyCardID(DEFAULT_LOYALTY_CARD_ID)
-                .loyaltyCardBonus(DEFAULT_LOYALTY_CARD_BONUS)
-                .loyaltyCardAmount(DEFAULT_LOYALTY_CARD_AMOUNT);
+                .loyaltyCardAmount(DEFAULT_LOYALTY_CARD_AMOUNT)
+                .loyaltyCardBonus(DEFAULT_LOYALTY_CARD_BONUS);
         return loyaltyCard;
     }
 
@@ -117,8 +117,8 @@ public class LoyaltyCardResourceIntTest {
         assertThat(loyaltyCardList).hasSize(databaseSizeBeforeCreate + 1);
         LoyaltyCard testLoyaltyCard = loyaltyCardList.get(loyaltyCardList.size() - 1);
         assertThat(testLoyaltyCard.getLoyaltyCardID()).isEqualTo(DEFAULT_LOYALTY_CARD_ID);
-        assertThat(testLoyaltyCard.getLoyaltyCardBonus()).isEqualTo(DEFAULT_LOYALTY_CARD_BONUS);
         assertThat(testLoyaltyCard.getLoyaltyCardAmount()).isEqualTo(DEFAULT_LOYALTY_CARD_AMOUNT);
+        assertThat(testLoyaltyCard.getLoyaltyCardBonus()).isEqualTo(DEFAULT_LOYALTY_CARD_BONUS);
     }
 
     @Test
@@ -163,25 +163,6 @@ public class LoyaltyCardResourceIntTest {
 
     @Test
     @Transactional
-    public void checkLoyaltyCardBonusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = loyaltyCardRepository.findAll().size();
-        // set the field null
-        loyaltyCard.setLoyaltyCardBonus(null);
-
-        // Create the LoyaltyCard, which fails.
-        LoyaltyCardDTO loyaltyCardDTO = loyaltyCardMapper.loyaltyCardToLoyaltyCardDTO(loyaltyCard);
-
-        restLoyaltyCardMockMvc.perform(post("/api/loyalty-cards")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(loyaltyCardDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<LoyaltyCard> loyaltyCardList = loyaltyCardRepository.findAll();
-        assertThat(loyaltyCardList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkLoyaltyCardAmountIsRequired() throws Exception {
         int databaseSizeBeforeTest = loyaltyCardRepository.findAll().size();
         // set the field null
@@ -211,8 +192,8 @@ public class LoyaltyCardResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(loyaltyCard.getId().intValue())))
             .andExpect(jsonPath("$.[*].loyaltyCardID").value(hasItem(DEFAULT_LOYALTY_CARD_ID.toString())))
-            .andExpect(jsonPath("$.[*].loyaltyCardBonus").value(hasItem(DEFAULT_LOYALTY_CARD_BONUS.toString())))
-            .andExpect(jsonPath("$.[*].loyaltyCardAmount").value(hasItem(DEFAULT_LOYALTY_CARD_AMOUNT.intValue())));
+            .andExpect(jsonPath("$.[*].loyaltyCardAmount").value(hasItem(DEFAULT_LOYALTY_CARD_AMOUNT.intValue())))
+            .andExpect(jsonPath("$.[*].loyaltyCardBonus").value(hasItem(DEFAULT_LOYALTY_CARD_BONUS.intValue())));
     }
 
     @Test
@@ -227,8 +208,8 @@ public class LoyaltyCardResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(loyaltyCard.getId().intValue()))
             .andExpect(jsonPath("$.loyaltyCardID").value(DEFAULT_LOYALTY_CARD_ID.toString()))
-            .andExpect(jsonPath("$.loyaltyCardBonus").value(DEFAULT_LOYALTY_CARD_BONUS.toString()))
-            .andExpect(jsonPath("$.loyaltyCardAmount").value(DEFAULT_LOYALTY_CARD_AMOUNT.intValue()));
+            .andExpect(jsonPath("$.loyaltyCardAmount").value(DEFAULT_LOYALTY_CARD_AMOUNT.intValue()))
+            .andExpect(jsonPath("$.loyaltyCardBonus").value(DEFAULT_LOYALTY_CARD_BONUS.intValue()));
     }
 
     @Test
@@ -250,8 +231,8 @@ public class LoyaltyCardResourceIntTest {
         LoyaltyCard updatedLoyaltyCard = loyaltyCardRepository.findOne(loyaltyCard.getId());
         updatedLoyaltyCard
                 .loyaltyCardID(UPDATED_LOYALTY_CARD_ID)
-                .loyaltyCardBonus(UPDATED_LOYALTY_CARD_BONUS)
-                .loyaltyCardAmount(UPDATED_LOYALTY_CARD_AMOUNT);
+                .loyaltyCardAmount(UPDATED_LOYALTY_CARD_AMOUNT)
+                .loyaltyCardBonus(UPDATED_LOYALTY_CARD_BONUS);
         LoyaltyCardDTO loyaltyCardDTO = loyaltyCardMapper.loyaltyCardToLoyaltyCardDTO(updatedLoyaltyCard);
 
         restLoyaltyCardMockMvc.perform(put("/api/loyalty-cards")
@@ -264,8 +245,8 @@ public class LoyaltyCardResourceIntTest {
         assertThat(loyaltyCardList).hasSize(databaseSizeBeforeUpdate);
         LoyaltyCard testLoyaltyCard = loyaltyCardList.get(loyaltyCardList.size() - 1);
         assertThat(testLoyaltyCard.getLoyaltyCardID()).isEqualTo(UPDATED_LOYALTY_CARD_ID);
-        assertThat(testLoyaltyCard.getLoyaltyCardBonus()).isEqualTo(UPDATED_LOYALTY_CARD_BONUS);
         assertThat(testLoyaltyCard.getLoyaltyCardAmount()).isEqualTo(UPDATED_LOYALTY_CARD_AMOUNT);
+        assertThat(testLoyaltyCard.getLoyaltyCardBonus()).isEqualTo(UPDATED_LOYALTY_CARD_BONUS);
     }
 
     @Test

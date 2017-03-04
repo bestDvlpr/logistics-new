@@ -10,18 +10,16 @@
             ]
         },
         {
-            "fieldName": "loyaltyCardBonus",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "loyaltyCardAmount",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "loyaltyCardBonus",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": []
         }
     ],
     "changelogDate": "20170220111104",

@@ -18,7 +18,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
         private receiptService: ReceiptService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
     }
 
     ngOnInit() {

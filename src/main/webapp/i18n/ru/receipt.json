@@ -22,9 +22,9 @@
             "previousDocID": "Previous Doc ID",
             "docDate": "Doc Date",
             "wholeSaleFlag": "Whole Sale Flag",
+            "status": "Status",
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
-            "status": "Status",
             "client": "Client",
             "productEntries": "Product Entries"
         }

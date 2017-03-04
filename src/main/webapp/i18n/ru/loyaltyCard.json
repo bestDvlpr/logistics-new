@@ -17,8 +17,8 @@
                 "title": "Loyalty Card"
             },
             "loyaltyCardID": "Loyalty Card ID",
-            "loyaltyCardBonus": "Loyalty Card Bonus",
-            "loyaltyCardAmount": "Loyalty Card Amount"
+            "loyaltyCardAmount": "Loyalty Card Amount",
+            "loyaltyCardBonus": "Loyalty Card Bonus"
         }
     }
 }

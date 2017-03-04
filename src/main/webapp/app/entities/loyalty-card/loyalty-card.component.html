@@ -19,8 +19,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="loyaltyCardID"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardID">Loyalty Card ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="loyaltyCardBonus"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus">Loyalty Card Bonus</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="loyaltyCardAmount"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardAmount">Loyalty Card Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="loyaltyCardBonus"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus">Loyalty Card Bonus</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -28,8 +28,8 @@
             <tr *ngFor="let loyaltyCard of loyaltyCards ;trackBy: trackId">
                 <td><a [routerLink]="['../loyalty-card', loyaltyCard.id ]">{{loyaltyCard.id}}</a></td>
                 <td>{{loyaltyCard.loyaltyCardID}}</td>
-                <td>{{loyaltyCard.loyaltyCardBonus}}</td>
                 <td>{{loyaltyCard.loyaltyCardAmount}}</td>
+                <td>{{loyaltyCard.loyaltyCardBonus}}</td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -20,15 +20,6 @@
             "otherEntityField": "loyaltyCardID"
         },
         {
-            "relationshipName": "status",
-            "otherEntityName": "receiptStatus",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-        {
             "relationshipName": "client",
             "otherEntityName": "client",
             "relationshipType": "many-to-one",
@@ -79,6 +70,14 @@
             "fieldName": "wholeSaleFlag",
             "fieldType": "WholeSaleFlag",
             "fieldValues": "RETAIL,WHOLESALE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ReceiptStatus",
+            "fieldValues": "NEW,APPLICATION_SENT,ATTACHED_TO_DRIVER,DELIVERY_PROCESS,DELIVERED",
             "fieldValidateRules": [
                 "required"
             ]
