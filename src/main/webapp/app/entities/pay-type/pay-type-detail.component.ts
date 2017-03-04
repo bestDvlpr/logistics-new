@@ -18,7 +18,7 @@ export class PayTypeDetailComponent implements OnInit, OnDestroy {
         private payTypeService: PayTypeService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['payType']);
+        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
     }
 
     ngOnInit() {

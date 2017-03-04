@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import uz.hasan.domain.enumeration.PaymentType;
+
 /**
  * A PayType.
  */
@@ -30,8 +32,9 @@ public class PayType implements Serializable {
     @Column(name = "serial")
     private String serial;
 
-    @ManyToOne(optional = false)
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type", nullable = false)
     private PaymentType paymentType;
 
     @ManyToOne(optional = false)
@@ -138,6 +141,7 @@ public class PayType implements Serializable {
             ", amount='" + amount + "'" +
             ", sapCode='" + sapCode + "'" +
             ", serial='" + serial + "'" +
+            ", paymentType='" + paymentType + "'" +
             '}';
     }
 }

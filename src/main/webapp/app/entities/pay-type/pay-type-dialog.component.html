@@ -42,20 +42,21 @@
                 [(ngModel)]="payType.serial"
              />
         </div>
-
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.payType.paymentType" for="field_paymentType">Payment Type</label>
-            <select class="form-control" id="field_paymentType" name="paymentType" [(ngModel)]="payType.paymentTypeId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="paymentTypeOption.id" *ngFor="let paymentTypeOption of paymenttypes; trackBy: trackPaymentTypeById">{{paymentTypeOption.name}}</option>
+            <label class="form-control-label" jhiTranslate="logisticsApp.payType.paymentType" for="field_paymentType">Payment Type</label>
+            <select class="form-control" name="paymentType" [(ngModel)]="payType.paymentType" id="field_paymentType"  required>
+                <option value="CASH" jhiTranslate="logisticsApp.PaymentType.CASH">CASH</option>
+                <option value="CARD" jhiTranslate="logisticsApp.PaymentType.CARD">CARD</option>
+                <option value="LOYALTY_CARD" jhiTranslate="logisticsApp.PaymentType.LOYALTY_CARD">LOYALTY_CARD</option>
             </select>
+            <div [hidden]="!(editForm.controls.paymentType?.dirty && editForm.controls.paymentType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paymentType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
         </div>
-        <div [hidden]="!(editForm.controls.paymentType?.dirty && editForm.controls.paymentType?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!paymentType?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
+
         <div class="form-group">
             <label jhiTranslate="logisticsApp.payType.receipt" for="field_receipt">Receipt</label>
             <select class="form-control" id="field_receipt" name="receipt" [(ngModel)]="payType.receiptId"  required>

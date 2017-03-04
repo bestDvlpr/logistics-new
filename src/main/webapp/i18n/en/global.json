@@ -22,7 +22,6 @@
                 "carType": "Car Type",
                 "location": "Location",
                 "locationType": "Location Type",
-                "receiptStatus": "Receipt Status",
                 "driverStatus": "Driver Status",
                 "productEntry": "Product Entry",
                 "phoneNumber": "Phone Number",

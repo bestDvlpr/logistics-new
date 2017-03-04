@@ -1,22 +1,10 @@
 {
     "logisticsApp": {
-        "paymentType" : {
-            "home": {
-                "title": "Payment Types",
-                "createLabel": "Create a new Payment Type",
-                "createOrEditLabel": "Create or edit a Payment Type",
-                "search": "Search for Payment Type"
-            },
-            "created": "A new Payment Type is created with identifier {{ param }}",
-            "updated": "A Payment Type is updated with identifier {{ param }}",
-            "deleted": "A Payment Type is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Payment Type {{ id }}?"
-            },
-            "detail": {
-                "title": "Payment Type"
-            },
-            "name": "Name"
+        "PaymentType" : {
+            "null": "",
+            "CASH": "CASH",
+            "CARD": "CARD",
+            "LOYALTY_CARD": "LOYALTY_CARD"
         }
     }
 }

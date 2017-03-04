@@ -18,9 +18,7 @@
         </dd>
         <dt><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span></dt>
         <dd>
-            <div *ngIf="payType.paymentTypeId">
-                <a [routerLink]="['payment-type', payType.paymentTypeId]">{{payType.paymentTypeName}}</a>
-            </div>
+            <span jhiTranslate="{{'logisticsApp.PaymentType.' + payType.paymentType}}">{{payType.paymentType}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span></dt>
         <dd>

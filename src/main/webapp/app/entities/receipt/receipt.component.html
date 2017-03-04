@@ -1,11 +1,13 @@
 <div>
     <h2><span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
-        <button class="btn btn-primary float-xs-right create-receipt" [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
+        <button class="btn btn-primary float-xs-right create-receipt"
+                [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.receipt.home.createLabel">
+            <span jhiTranslate="logisticsApp.receipt.home.createLabel">
             Create new Receipt
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">
@@ -17,18 +19,31 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="previousDocID"><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="wholeSaleFlag"><span jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="payMasterPayMasterName"><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="previousDocID"><span
+                    jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="wholeSaleFlag"><span
+                    jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="payMasterPayMasterName"><span
+                    jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -39,25 +54,34 @@
                 <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
                 <td>{{receipt.previousDocID}}</td>
                 <td>{{receipt.docDate}}</td>
-                <td jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">{{receipt.wholeSaleFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{receipt.status}}</td>
+                <td>
+                    <span class="tag tag-primary"
+                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">
+                    {{receipt.wholeSaleFlag}}
+                    </span>
+                </td>
+                <td>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
+                          *ngIf="receipt.status===ReceiptStatus.NEW">{{receipt.status}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
+                          *ngIf="receipt.status===ReceiptStatus.APPLICATION_SENT">{{receipt.status}}</span>
+                </td>
                 <td>
                     <div *ngIf="receipt.payMasterId">
-                        <a [routerLink]="['../pay-master', receipt.payMasterId  ]" >{{receipt.payMasterPayMasterName}}</a>
+                        <a [routerLink]="['../pay-master', receipt.payMasterId  ]">{{receipt.payMasterPayMasterName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="receipt.loyaltyCardId">
-                        <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]" >{{receipt.loyaltyCardLoyaltyCardID}}</a>
+                        <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]" >{{receipt.clientFirstName}}</a>
-                    </div>
+                    <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
                 </td>
                 <td class="text-xs-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
                         <button type="submit"
                                 [routerLink]="['../receipt', receipt.id ]"
                                 class="btn btn-info btn-sm">
@@ -79,13 +103,22 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
+                            jhiHasAuthority="ROLE_DISPATCHER">
+                        <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status==ReceiptStatus.NEW"
+                            [routerLink]="['../receipt/' + receipt.id + '/send' ]"
+                            jhiHasAuthority="ROLE_CASHIER">
+                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-        <div class="text-xs-center" *ngIf="receipts && receipts.length">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
+    <div class="text-xs-center" *ngIf="receipts && receipts.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
 </div>

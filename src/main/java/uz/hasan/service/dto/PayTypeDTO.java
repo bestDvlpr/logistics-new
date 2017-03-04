@@ -3,7 +3,10 @@ package uz.hasan.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
+import uz.hasan.domain.enumeration.PaymentType;
 
 /**
  * A DTO for the PayType entity.
@@ -19,9 +22,8 @@ public class PayTypeDTO implements Serializable {
 
     private String serial;
 
-    private Long paymentTypeId;
-
-    private String paymentTypeName;
+    @NotNull
+    private PaymentType paymentType;
 
     private Long receiptId;
 
@@ -55,21 +57,12 @@ public class PayTypeDTO implements Serializable {
     public void setSerial(String serial) {
         this.serial = serial;
     }
-
-    public Long getPaymentTypeId() {
-        return paymentTypeId;
+    public PaymentType getPaymentType() {
+        return paymentType;
     }
 
-    public void setPaymentTypeId(Long paymentTypeId) {
-        this.paymentTypeId = paymentTypeId;
-    }
-
-    public String getPaymentTypeName() {
-        return paymentTypeName;
-    }
-
-    public void setPaymentTypeName(String paymentTypeName) {
-        this.paymentTypeName = paymentTypeName;
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 
     public Long getReceiptId() {
@@ -116,6 +109,7 @@ public class PayTypeDTO implements Serializable {
             ", amount='" + amount + "'" +
             ", sapCode='" + sapCode + "'" +
             ", serial='" + serial + "'" +
+            ", paymentType='" + paymentType + "'" +
             '}';
     }
 }

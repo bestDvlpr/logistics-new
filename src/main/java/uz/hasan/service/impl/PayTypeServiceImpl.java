@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing PayType.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class PayTypeServiceImpl implements PayTypeService{
 
     private final Logger log = LoggerFactory.getLogger(PayTypeServiceImpl.class);
-
+    
     private final PayTypeRepository payTypeRepository;
 
     private final PayTypeMapper payTypeMapper;
@@ -47,7 +51,7 @@ public class PayTypeServiceImpl implements PayTypeService{
 
     /**
      *  Get all the payTypes.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

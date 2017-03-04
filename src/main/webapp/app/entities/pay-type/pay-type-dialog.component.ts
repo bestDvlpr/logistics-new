@@ -8,7 +8,6 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { PayType } from './pay-type.model';
 import { PayTypePopupService } from './pay-type-popup.service';
 import { PayTypeService } from './pay-type.service';
-import { PaymentType, PaymentTypeService } from '../payment-type';
 import { Receipt, ReceiptService } from '../receipt';
 @Component({
     selector: 'jhi-pay-type-dialog',
@@ -20,26 +19,21 @@ export class PayTypeDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    paymenttypes: PaymentType[];
-
     receipts: Receipt[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private payTypeService: PayTypeService,
-        private paymentTypeService: PaymentTypeService,
         private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['payType']);
+        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.paymentTypeService.query().subscribe(
-            (res: Response) => { this.paymenttypes = res.json(); }, (res: Response) => this.onError(res.json()));
         this.receiptService.query().subscribe(
             (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
     }
@@ -71,10 +65,6 @@ export class PayTypeDialogComponent implements OnInit {
 
     private onError (error) {
         this.alertService.error(error.message, null, null);
-    }
-
-    trackPaymentTypeById(index: number, item: PaymentType) {
-        return item.id;
     }
 
     trackReceiptById(index: number, item: Receipt) {

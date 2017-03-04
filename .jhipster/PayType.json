@@ -2,15 +2,6 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "paymentType",
-            "otherEntityName": "paymentType",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-        {
             "relationshipName": "receipt",
             "otherEntityName": "receipt",
             "relationshipType": "many-to-one",
@@ -35,6 +26,14 @@
         {
             "fieldName": "serial",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "paymentType",
+            "fieldType": "PaymentType",
+            "fieldValues": "CASH,CARD,LOYALTY_CARD",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170220122800",

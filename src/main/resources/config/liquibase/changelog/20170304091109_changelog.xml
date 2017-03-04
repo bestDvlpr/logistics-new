@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488618678235-1">
+        <addColumn tableName="pay_type">
+            <column name="payment_type" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488618678235-2">
+        <dropForeignKeyConstraint baseTableName="pay_type" constraintName="fk_pay_type_payment_type_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488618678235-3">
+        <dropColumn columnName="payment_type_id" tableName="pay_type"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488618678235-4">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="status" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488618678235-5">
+        <sql>
+            update pay_type set payment_type='NEW';
+        </sql>
+        <addNotNullConstraint tableName="pay_type" columnName="payment_type" columnDataType="varchar(255)"/>
+    </changeSet>
+</databaseChangeLog>

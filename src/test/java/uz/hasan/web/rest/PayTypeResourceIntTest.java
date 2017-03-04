@@ -3,7 +3,6 @@ package uz.hasan.web.rest;
 import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.PayType;
-import uz.hasan.domain.PaymentType;
 import uz.hasan.domain.Receipt;
 import uz.hasan.repository.PayTypeRepository;
 import uz.hasan.service.PayTypeService;
@@ -32,6 +31,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import uz.hasan.domain.enumeration.PaymentType;
 /**
  * Test class for the PayTypeResource REST controller.
  *
@@ -49,6 +49,9 @@ public class PayTypeResourceIntTest {
 
     private static final String DEFAULT_SERIAL = "AAAAAAAAAA";
     private static final String UPDATED_SERIAL = "BBBBBBBBBB";
+
+    private static final PaymentType DEFAULT_PAYMENT_TYPE = PaymentType.CASH;
+    private static final PaymentType UPDATED_PAYMENT_TYPE = PaymentType.CARD;
 
     @Autowired
     private PayTypeRepository payTypeRepository;
@@ -91,12 +94,8 @@ public class PayTypeResourceIntTest {
         PayType payType = new PayType()
                 .amount(DEFAULT_AMOUNT)
                 .sapCode(DEFAULT_SAP_CODE)
-                .serial(DEFAULT_SERIAL);
-        // Add required entity
-        PaymentType paymentType = PaymentTypeResourceIntTest.createEntity(em);
-        em.persist(paymentType);
-        em.flush();
-        payType.setPaymentType(paymentType);
+                .serial(DEFAULT_SERIAL)
+                .paymentType(DEFAULT_PAYMENT_TYPE);
         // Add required entity
         Receipt receipt = ReceiptResourceIntTest.createEntity(em);
         em.persist(receipt);
@@ -130,6 +129,7 @@ public class PayTypeResourceIntTest {
         assertThat(testPayType.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testPayType.getSapCode()).isEqualTo(DEFAULT_SAP_CODE);
         assertThat(testPayType.getSerial()).isEqualTo(DEFAULT_SERIAL);
+        assertThat(testPayType.getPaymentType()).isEqualTo(DEFAULT_PAYMENT_TYPE);
     }
 
     @Test
@@ -174,6 +174,25 @@ public class PayTypeResourceIntTest {
 
     @Test
     @Transactional
+    public void checkPaymentTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = payTypeRepository.findAll().size();
+        // set the field null
+        payType.setPaymentType(null);
+
+        // Create the PayType, which fails.
+        PayTypeDTO payTypeDTO = payTypeMapper.payTypeToPayTypeDTO(payType);
+
+        restPayTypeMockMvc.perform(post("/api/pay-types")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(payTypeDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<PayType> payTypeList = payTypeRepository.findAll();
+        assertThat(payTypeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPayTypes() throws Exception {
         // Initialize the database
         payTypeRepository.saveAndFlush(payType);
@@ -185,7 +204,8 @@ public class PayTypeResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payType.getId().intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT)))
             .andExpect(jsonPath("$.[*].sapCode").value(hasItem(DEFAULT_SAP_CODE.toString())))
-            .andExpect(jsonPath("$.[*].serial").value(hasItem(DEFAULT_SERIAL.toString())));
+            .andExpect(jsonPath("$.[*].serial").value(hasItem(DEFAULT_SERIAL.toString())))
+            .andExpect(jsonPath("$.[*].paymentType").value(hasItem(DEFAULT_PAYMENT_TYPE.toString())));
     }
 
     @Test
@@ -201,7 +221,8 @@ public class PayTypeResourceIntTest {
             .andExpect(jsonPath("$.id").value(payType.getId().intValue()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT))
             .andExpect(jsonPath("$.sapCode").value(DEFAULT_SAP_CODE.toString()))
-            .andExpect(jsonPath("$.serial").value(DEFAULT_SERIAL.toString()));
+            .andExpect(jsonPath("$.serial").value(DEFAULT_SERIAL.toString()))
+            .andExpect(jsonPath("$.paymentType").value(DEFAULT_PAYMENT_TYPE.toString()));
     }
 
     @Test
@@ -224,7 +245,8 @@ public class PayTypeResourceIntTest {
         updatedPayType
                 .amount(UPDATED_AMOUNT)
                 .sapCode(UPDATED_SAP_CODE)
-                .serial(UPDATED_SERIAL);
+                .serial(UPDATED_SERIAL)
+                .paymentType(UPDATED_PAYMENT_TYPE);
         PayTypeDTO payTypeDTO = payTypeMapper.payTypeToPayTypeDTO(updatedPayType);
 
         restPayTypeMockMvc.perform(put("/api/pay-types")
@@ -239,6 +261,7 @@ public class PayTypeResourceIntTest {
         assertThat(testPayType.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testPayType.getSapCode()).isEqualTo(UPDATED_SAP_CODE);
         assertThat(testPayType.getSerial()).isEqualTo(UPDATED_SERIAL);
+        assertThat(testPayType.getPaymentType()).isEqualTo(UPDATED_PAYMENT_TYPE);
     }
 
     @Test

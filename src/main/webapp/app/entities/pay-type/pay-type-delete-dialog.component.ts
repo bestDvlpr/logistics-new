@@ -22,7 +22,7 @@ export class PayTypeDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['payType']);
+        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
     }
 
     clear () {
