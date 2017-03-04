@@ -1,18 +1,18 @@
-const enum DocType {
+export enum DocType {
     'RETURN',
     'SALES'
-};
-const enum WholeSaleFlag {
+}
+export enum WholeSaleFlag {
     'RETAIL',
     'WHOLESALE'
-};
-const enum ReceiptStatus {
+}
+export enum ReceiptStatus {
     'NEW',
     'APPLICATION_SENT',
     'ATTACHED_TO_DRIVER',
     'DELIVERY_PROCESS',
     'DELIVERED'
-};
+}
 export class Receipt {
     constructor(
         public id?: number,

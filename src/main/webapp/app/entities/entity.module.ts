@@ -14,7 +14,6 @@ import { LogisticsCarColorModule } from './car-color/car-color.module';
 import { LogisticsCarTypeModule } from './car-type/car-type.module';
 import { LogisticsLocationModule } from './location/location.module';
 import { LogisticsLocationTypeModule } from './location-type/location-type.module';
-import { LogisticsReceiptStatusModule } from './receipt-status/receipt-status.module';
 import { LogisticsDriverStatusModule } from './driver-status/driver-status.module';
 import { LogisticsProductEntryModule } from './product-entry/product-entry.module';
 import { LogisticsPhoneNumberModule } from './phone-number/phone-number.module';
@@ -37,7 +36,6 @@ import { LogisticsClientModule } from './client/client.module';
         LogisticsCarTypeModule,
         LogisticsLocationModule,
         LogisticsLocationTypeModule,
-        LogisticsReceiptStatusModule,
         LogisticsDriverStatusModule,
         LogisticsProductEntryModule,
         LogisticsPhoneNumberModule,
