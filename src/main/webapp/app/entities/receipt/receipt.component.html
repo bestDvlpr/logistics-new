@@ -51,10 +51,17 @@
                 <td><a [routerLink]="['../receipt', receipt.id ]">{{receipt.id}}</a></td>
                 <td>{{receipt.docNum}}</td>
                 <td>{{receipt.docID}}</td>
-                <td>
-                    <span class="tag tag-primary" jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">
-                    {{receipt.docType}}
-                    </span>
+                <td>{{receipt.docType}}
+                    <div [ngSwitch]="receipt.docType">
+                        <span *ngSwitchCase="DocType.SALES" class="tag tag-primary"
+                              jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">
+                        {{receipt.docType}}
+                        </span>
+                        <span *ngSwitchCase="DocType.RETURN" class="tag tag-warning"
+                              jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">
+                            {{receipt.docType}}
+                        </span>
+                    </div>
                 </td>
                 <td>{{receipt.previousDocID}}</td>
                 <td>{{receipt.docDate}}</td>
@@ -114,9 +121,10 @@
                             jhiHasAuthority="ROLE_DISPATCHER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="sendToDeliveryCenter(receipt.id)"
+                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.statusName=='NEW'"
+                            [routerLink]="['../receipt/' + receipt.id + '/send' ]"
                             jhiHasAuthority="ROLE_CASHIER">
-                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Attach to Driver</span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                 </td>
             </tr>

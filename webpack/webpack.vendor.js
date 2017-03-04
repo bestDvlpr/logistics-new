@@ -17,7 +17,8 @@ module.exports = {
             'jquery',
             'ng-jhipster',
             'ng2-webstorage',
-            'rxjs'
+            'rxjs',
+            'ng2-completer'
         ]
     },
     resolve: {

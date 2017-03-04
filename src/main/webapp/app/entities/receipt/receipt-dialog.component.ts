@@ -12,6 +12,7 @@ import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { ReceiptStatus, ReceiptStatusService } from '../receipt-status';
 import { Client, ClientService } from '../client';
+import { ProductEntry, ProductEntryService } from '../product-entry';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -29,6 +30,9 @@ export class ReceiptDialogComponent implements OnInit {
     receiptstatuses: ReceiptStatus[];
 
     clients: Client[];
+
+    productentries: ProductEntry[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -38,6 +42,7 @@ export class ReceiptDialogComponent implements OnInit {
         private loyaltyCardService: LoyaltyCardService,
         private receiptStatusService: ReceiptStatusService,
         private clientService: ClientService,
+        private productEntryService: ProductEntryService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag']);
@@ -54,6 +59,8 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.receiptstatuses = res.json(); }, (res: Response) => this.onError(res.json()));
         this.clientService.query().subscribe(
             (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.productEntryService.query().subscribe(
+            (res: Response) => { this.productentries = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -99,6 +106,21 @@ export class ReceiptDialogComponent implements OnInit {
 
     trackClientById(index: number, item: Client) {
         return item.id;
+    }
+
+    trackProductEntryById(index: number, item: ProductEntry) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }
 

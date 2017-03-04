@@ -1,9 +1,12 @@
 package uz.hasan.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.DocType;
@@ -63,6 +66,10 @@ public class Receipt implements Serializable {
 
     @ManyToOne
     private Client client;
+
+    @OneToMany(mappedBy = "receipt")
+    @JsonIgnore
+    private Set<ProductEntry> productEntries = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -200,6 +207,31 @@ public class Receipt implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Set<ProductEntry> getProductEntries() {
+        return productEntries;
+    }
+
+    public Receipt productEntries(Set<ProductEntry> productEntries) {
+        this.productEntries = productEntries;
+        return this;
+    }
+
+    public Receipt addProductEntries(ProductEntry productEntry) {
+        this.productEntries.add(productEntry);
+        productEntry.setReceipt(this);
+        return this;
+    }
+
+    public Receipt removeProductEntries(ProductEntry productEntry) {
+        this.productEntries.remove(productEntry);
+        productEntry.setReceipt(null);
+        return this;
+    }
+
+    public void setProductEntries(Set<ProductEntry> productEntries) {
+        this.productEntries = productEntries;
     }
 
     @Override

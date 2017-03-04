@@ -33,6 +33,12 @@
             "otherEntityName": "client",
             "relationshipType": "many-to-one",
             "otherEntityField": "firstName"
+        },
+        {
+            "relationshipName": "productEntries",
+            "otherEntityName": "productEntry",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "receipt"
         }
     ],
     "fields": [

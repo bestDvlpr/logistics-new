@@ -4,15 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Receipt } from './receipt.model';
+import { Receipt, DocType, WholeSaleFlag } from './receipt.model';
 import { ReceiptService } from './receipt.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { DocTypeEnumAware } from './doctypaware.decorator';
 
 @Component({
     selector: 'jhi-receipt',
     templateUrl: './receipt.component.html'
 })
+@DocTypeEnumAware
 export class ReceiptComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
@@ -29,6 +31,9 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    docTypeSales: DocType = DocType.SALES;
+    docTypeReturn: DocType = DocType.RETURN;
+    wholeSaleFlagEnum = WholeSaleFlag;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,

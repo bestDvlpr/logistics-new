@@ -25,7 +25,8 @@
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
             "status": "Status",
-            "client": "Client"
+            "client": "Client",
+            "productEntries": "Product Entries"
         }
     }
 }

@@ -1,0 +1,61 @@
+<div *ngIf="receipt">
+    <h2><span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-md-10 offset-md-1 small text-muted font-weight-bold">
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span></div>
+            <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span></div>
+            <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.status">Status</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.client">Client</span></div>
+        </div>
+        <div class="col-md-10 offset-md-1 small">
+            <div class="col-md-1"><span>{{receipt.docNum}}</span></div>
+            <div class="col-md-1"><span>{{receipt.docID}}</span></div>
+            <div class="col-md-1"><span
+                jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</span></div>
+            <div class="col-md-1"><span>{{receipt.previousDocID}}</span></div>
+            <div class="col-md-2"><span>{{receipt.docDate}}</span></div>
+            <div class="col-md-2"><span jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">{{receipt.wholeSaleFlag}}</span>
+            </div>
+            <div class="col-md-1">
+                <div *ngIf="receipt.payMasterId"><a [routerLink]="['pay-master', receipt.payMasterId]">{{receipt.payMasterPayMasterName}}</a>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div *ngIf="receipt.loyaltyCardId"><a [routerLink]="['loyalty-card', receipt.loyaltyCardId]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div *ngIf="receipt.statusId"><a
+                    [routerLink]="['receipt-status', receipt.statusId]">{{receipt.statusName}}</a></div>
+            </div>
+            <div class="col-md-1">
+                <div *ngIf="receipt.clientId"><a
+                    [routerLink]="['client', receipt.clientId]">{{receipt.clientFirstName}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md">
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-info btn-sm">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+        <button type="button"
+
+                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
+                replaceUrl="true"
+                class="btn btn-primary btn-sm">
+            <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        </button>
+    </div>
+</div>

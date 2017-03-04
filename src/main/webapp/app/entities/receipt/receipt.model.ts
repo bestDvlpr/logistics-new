@@ -1,11 +1,11 @@
-const enum DocType {
+export enum DocType {
     'RETURN',
     'SALES'
-};
-const enum WholeSaleFlag {
+}
+export enum WholeSaleFlag {
     'RETAIL',
     'WHOLESALE'
-};
+}
 export class Receipt {
     constructor(
         public id?: number,
@@ -19,5 +19,6 @@ export class Receipt {
         public loyaltyCardId?: number,
         public statusId?: number,
         public clientId?: number,
+        public productEntriesId?: number,
     ) { }
 }
