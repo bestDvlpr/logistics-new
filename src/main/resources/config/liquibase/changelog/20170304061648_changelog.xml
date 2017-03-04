@@ -1,0 +1,33 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488608213043-1">
+        <addColumn tableName="receipt">
+            <column name="status" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488608213043-2">
+        <dropForeignKeyConstraint baseTableName="receipt" constraintName="fk_receipt_status_status_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488608213043-3">
+        <sql>
+            update receipt set status=null;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488608213043-4">
+        <dropColumn columnName="status_id" tableName="receipt"/>
+    </changeSet>
+    <changeSet id="1488608213043-5" author="hasan">
+        <sql>
+            delete from receipt_status;
+        </sql>
+    </changeSet>
+    <changeSet id="1488608213043-6" author="hasan">
+        <dropTable tableName="receipt_status"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488608213043-7">
+        <dropNotNullConstraint columnDataType="number(10,2)" columnName="loyalty_card_bonus" tableName="loyalty_card"/>
+    </changeSet>
+</databaseChangeLog>
