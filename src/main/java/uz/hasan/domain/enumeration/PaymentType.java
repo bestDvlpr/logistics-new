@@ -31,6 +31,8 @@ public enum PaymentType {
             return ZBAL;
         if (type.equalsIgnoreCase("ZCUPS"))
             return ZCUPS;
+        if (type.equalsIgnoreCase("LOYALTY_CARD"))
+            return LOYALTY_CARD;
 
         throw new ValidationException("Unknown PaymentType: " + type);
 

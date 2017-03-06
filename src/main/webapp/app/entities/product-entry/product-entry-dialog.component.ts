@@ -12,6 +12,8 @@ import { Product, ProductService } from '../product';
 import { Seller, SellerService } from '../seller';
 import { Receipt, ReceiptService } from '../receipt';
 import { Driver, DriverService } from '../driver';
+import { Car, CarService } from '../car';
+import { Address, AddressService } from '../address';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -29,6 +31,10 @@ export class ProductEntryDialogComponent implements OnInit {
     receipts: Receipt[];
 
     drivers: Driver[];
+
+    cars: Car[];
+
+    addresses: Address[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -38,6 +44,8 @@ export class ProductEntryDialogComponent implements OnInit {
         private sellerService: SellerService,
         private receiptService: ReceiptService,
         private driverService: DriverService,
+        private carService: CarService,
+        private addressService: AddressService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
@@ -54,6 +62,10 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
         this.driverService.query().subscribe(
             (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.carService.query().subscribe(
+            (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.addressService.query().subscribe(
+            (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -98,6 +110,14 @@ export class ProductEntryDialogComponent implements OnInit {
     }
 
     trackDriverById(index: number, item: Driver) {
+        return item.id;
+    }
+
+    trackCarById(index: number, item: Car) {
+        return item.id;
+    }
+
+    trackAddressById(index: number, item: Address) {
         return item.id;
     }
 }

@@ -24,6 +24,7 @@
     <include file="classpath:config/liquibase/changelog/20170225072014_added_entity_ProductEntry.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170302055522_added_entity_PhoneNumber.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170302060008_added_entity_Client.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306120635_added_entity_Address.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170220113616_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170220122800_added_entity_constraints_PayType.xml" relativeToChangelogFile="false"/>
@@ -58,5 +59,7 @@
     <include file="classpath:config/liquibase/changelog/20170306101036_changelog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306103234_changelog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306110506_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306120635_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306122841_changelog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

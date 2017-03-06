@@ -37,9 +37,12 @@ export class ProductEntry {
         public discount?: number,
         public status?: ReceiptStatus,
         public cancelled?: boolean,
+        public serialNumber?: string,
         public productId?: number,
         public sellerIDId?: number,
         public receiptId?: number,
         public driverId?: number,
+        public attachedCarId?: number,
+        public addressId?: number,
     ) { }
 }

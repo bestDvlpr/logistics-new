@@ -28,10 +28,13 @@
             "discount": "Discount",
             "status": "Status",
             "cancelled": "Cancelled",
+            "serialNumber": "Serial Number",
             "product": "Product",
             "sellerID": "Seller ID",
             "receipt": "Receipt",
-            "driver": "Driver"
+            "driver": "Driver",
+            "attachedCar": "Attached Car",
+            "address": "Address"
         }
     }
 }

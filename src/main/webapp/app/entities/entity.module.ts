@@ -18,6 +18,7 @@ import { LogisticsDriverStatusModule } from './driver-status/driver-status.modul
 import { LogisticsProductEntryModule } from './product-entry/product-entry.module';
 import { LogisticsPhoneNumberModule } from './phone-number/phone-number.module';
 import { LogisticsClientModule } from './client/client.module';
+import { LogisticsAddressModule } from './address/address.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -40,6 +41,7 @@ import { LogisticsClientModule } from './client/client.module';
         LogisticsProductEntryModule,
         LogisticsPhoneNumberModule,
         LogisticsClientModule,
+        LogisticsAddressModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

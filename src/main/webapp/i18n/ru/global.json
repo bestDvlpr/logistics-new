@@ -27,6 +27,7 @@
                 "phoneNumber": "Phone Number",
                 "client": "Client",
                 "receiptOrder": "Receipt Order",
+                "address": "Address",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

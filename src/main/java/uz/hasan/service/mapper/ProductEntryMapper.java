@@ -20,6 +20,10 @@ public interface ProductEntryMapper {
     @Mapping(source = "receipt.docNum", target = "receiptDocNum")
     @Mapping(source = "driver.id", target = "driverId")
     @Mapping(source = "driver.lastName", target = "driverLastName")
+    @Mapping(source = "attachedCar.id", target = "attachedCarId")
+    @Mapping(source = "attachedCar.number", target = "attachedCarNumber")
+    @Mapping(source = "address.id", target = "addressId")
+    @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);
@@ -28,6 +32,8 @@ public interface ProductEntryMapper {
     @Mapping(source = "sellerIDId", target = "sellerID")
     @Mapping(source = "receiptId", target = "receipt")
     @Mapping(source = "driverId", target = "driver")
+    @Mapping(source = "attachedCarId", target = "attachedCar")
+    @Mapping(source = "addressId", target = "address")
     ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO);
 
     List<ProductEntry> productEntryDTOsToProductEntries(List<ProductEntryDTO> productEntryDTOs);
@@ -66,5 +72,23 @@ public interface ProductEntryMapper {
         Driver driver = new Driver();
         driver.setId(id);
         return driver;
+    }
+
+    default Car carFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Car car = new Car();
+        car.setId(id);
+        return car;
+    }
+
+    default Address addressFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Address address = new Address();
+        address.setId(id);
+        return address;
     }
 }

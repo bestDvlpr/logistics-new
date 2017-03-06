@@ -6,8 +6,7 @@
             "NEW": "NEW",
             "ATTACHED_TO_DRIVER": "ATTACHED_TO_DRIVER",
             "DELIVERY_PROCESS": "DELIVERY_PROCESS",
-            "DELIVERED": "DELIVERED",
-            "CANCELLED": "CANCELLED"
+            "DELIVERED": "DELIVERED"
         }
     }
 }

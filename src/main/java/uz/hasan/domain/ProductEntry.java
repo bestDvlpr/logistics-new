@@ -81,6 +81,9 @@ public class ProductEntry implements Serializable {
     @Column(name = "cancelled", nullable = false)
     private Boolean cancelled;
 
+    @Column(name = "serial_number")
+    private String serialNumber;
+
     @ManyToOne(optional = false)
     @NotNull
     private Product product;
@@ -94,6 +97,12 @@ public class ProductEntry implements Serializable {
 
     @ManyToOne
     private Driver driver;
+
+    @ManyToOne
+    private Car attachedCar;
+
+    @ManyToOne
+    private Address address;
 
     public Long getId() {
         return id;
@@ -259,6 +268,19 @@ public class ProductEntry implements Serializable {
         this.cancelled = cancelled;
     }
 
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public ProductEntry serialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+        return this;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -311,6 +333,32 @@ public class ProductEntry implements Serializable {
         this.driver = driver;
     }
 
+    public Car getAttachedCar() {
+        return attachedCar;
+    }
+
+    public ProductEntry attachedCar(Car car) {
+        this.attachedCar = car;
+        return this;
+    }
+
+    public void setAttachedCar(Car car) {
+        this.attachedCar = car;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public ProductEntry address(Address address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -347,6 +395,7 @@ public class ProductEntry implements Serializable {
             ", discount='" + discount + "'" +
             ", status='" + status + "'" +
             ", cancelled='" + cancelled + "'" +
+            ", serialNumber='" + serialNumber + "'" +
             '}';
     }
 }

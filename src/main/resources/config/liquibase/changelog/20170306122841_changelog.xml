@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488803327166-1">
+        <addColumn tableName="product_entry">
+            <column name="address_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488803327166-2">
+        <addColumn tableName="product_entry">
+            <column name="attached_car_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488803327166-3">
+        <addColumn tableName="product_entry">
+            <column name="serial_number" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488803327166-4">
+        <addForeignKeyConstraint baseColumnNames="attached_car_id" baseTableName="product_entry" constraintName="FK9vtvw3el5o8cc1cs18v78dwk3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488803327166-5">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="product_entry" constraintName="FKr48wr60fpgof4rumt0s8i8xaa" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="address"/>
+    </changeSet>
+</databaseChangeLog>

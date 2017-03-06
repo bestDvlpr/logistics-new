@@ -83,6 +83,9 @@ public class ProductEntryResourceIntTest {
     private static final Boolean DEFAULT_CANCELLED = false;
     private static final Boolean UPDATED_CANCELLED = true;
 
+    private static final String DEFAULT_SERIAL_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_SERIAL_NUMBER = "BBBBBBBBBB";
+
     @Autowired
     private ProductEntryRepository productEntryRepository;
 
@@ -133,7 +136,8 @@ public class ProductEntryResourceIntTest {
                 .qty(DEFAULT_QTY)
                 .discount(DEFAULT_DISCOUNT)
                 .status(DEFAULT_STATUS)
-                .cancelled(DEFAULT_CANCELLED);
+                .cancelled(DEFAULT_CANCELLED)
+                .serialNumber(DEFAULT_SERIAL_NUMBER);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -181,6 +185,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
         assertThat(testProductEntry.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProductEntry.isCancelled()).isEqualTo(DEFAULT_CANCELLED);
+        assertThat(testProductEntry.getSerialNumber()).isEqualTo(DEFAULT_SERIAL_NUMBER);
     }
 
     @Test
@@ -397,7 +402,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY.intValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].cancelled").value(hasItem(DEFAULT_CANCELLED.booleanValue())));
+            .andExpect(jsonPath("$.[*].cancelled").value(hasItem(DEFAULT_CANCELLED.booleanValue())))
+            .andExpect(jsonPath("$.[*].serialNumber").value(hasItem(DEFAULT_SERIAL_NUMBER.toString())));
     }
 
     @Test
@@ -422,7 +428,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.qty").value(DEFAULT_QTY.intValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.cancelled").value(DEFAULT_CANCELLED.booleanValue()));
+            .andExpect(jsonPath("$.cancelled").value(DEFAULT_CANCELLED.booleanValue()))
+            .andExpect(jsonPath("$.serialNumber").value(DEFAULT_SERIAL_NUMBER.toString()));
     }
 
     @Test
@@ -454,7 +461,8 @@ public class ProductEntryResourceIntTest {
                 .qty(UPDATED_QTY)
                 .discount(UPDATED_DISCOUNT)
                 .status(UPDATED_STATUS)
-                .cancelled(UPDATED_CANCELLED);
+                .cancelled(UPDATED_CANCELLED)
+                .serialNumber(UPDATED_SERIAL_NUMBER);
         ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(updatedProductEntry);
 
         restProductEntryMockMvc.perform(put("/api/product-entries")
@@ -478,6 +486,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
         assertThat(testProductEntry.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProductEntry.isCancelled()).isEqualTo(UPDATED_CANCELLED);
+        assertThat(testProductEntry.getSerialNumber()).isEqualTo(UPDATED_SERIAL_NUMBER);
     }
 
     @Test

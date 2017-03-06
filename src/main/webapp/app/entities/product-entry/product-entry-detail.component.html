@@ -52,6 +52,10 @@
         <dd>
             <span>{{productEntry.cancelled}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.serialNumber">Serial Number</span></dt>
+        <dd>
+            <span>{{productEntry.serialNumber}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.product">Product</span></dt>
         <dd>
             <div *ngIf="productEntry.productId">
@@ -74,6 +78,18 @@
         <dd>
             <div *ngIf="productEntry.driverId">
                 <a [routerLink]="['driver', productEntry.driverId]">{{productEntry.driverLastName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.attachedCar">Attached Car</span></dt>
+        <dd>
+            <div *ngIf="productEntry.attachedCarId">
+                <a [routerLink]="['car', productEntry.attachedCarId]">{{productEntry.attachedCarNumber}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.address">Address</span></dt>
+        <dd>
+            <div *ngIf="productEntry.addressId">
+                <a [routerLink]="['address', productEntry.addressId]">{{productEntry.addressStreetAddress}}</a>
             </div>
         </dd>
     </dl>

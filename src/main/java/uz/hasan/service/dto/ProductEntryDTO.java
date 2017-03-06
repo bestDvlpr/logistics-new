@@ -53,6 +53,8 @@ public class ProductEntryDTO implements Serializable {
     @NotNull
     private Boolean cancelled;
 
+    private String serialNumber;
+
     private Long productId;
 
     private String productName;
@@ -68,6 +70,14 @@ public class ProductEntryDTO implements Serializable {
     private Long driverId;
 
     private String driverLastName;
+
+    private Long attachedCarId;
+
+    private String attachedCarNumber;
+
+    private Long addressId;
+
+    private String addressStreetAddress;
 
     public Long getId() {
         return id;
@@ -160,6 +170,13 @@ public class ProductEntryDTO implements Serializable {
     public void setCancelled(Boolean cancelled) {
         this.cancelled = cancelled;
     }
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public Long getProductId() {
         return productId;
@@ -225,6 +242,38 @@ public class ProductEntryDTO implements Serializable {
         this.driverLastName = driverLastName;
     }
 
+    public Long getAttachedCarId() {
+        return attachedCarId;
+    }
+
+    public void setAttachedCarId(Long carId) {
+        this.attachedCarId = carId;
+    }
+
+    public String getAttachedCarNumber() {
+        return attachedCarNumber;
+    }
+
+    public void setAttachedCarNumber(String carNumber) {
+        this.attachedCarNumber = carNumber;
+    }
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getAddressStreetAddress() {
+        return addressStreetAddress;
+    }
+
+    public void setAddressStreetAddress(String addressStreetAddress) {
+        this.addressStreetAddress = addressStreetAddress;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -262,6 +311,7 @@ public class ProductEntryDTO implements Serializable {
             ", discount='" + discount + "'" +
             ", status='" + status + "'" +
             ", cancelled='" + cancelled + "'" +
+            ", serialNumber='" + serialNumber + "'" +
             '}';
     }
 }
