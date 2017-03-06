@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 public interface SellerRepository extends JpaRepository<Seller,Long> {
 
+    Seller findFirstBySellerID(String sellerID);
 }

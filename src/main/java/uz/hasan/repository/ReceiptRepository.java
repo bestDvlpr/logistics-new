@@ -10,6 +10,9 @@ import java.util.List;
  * Spring Data JPA repository for the Receipt entity.
  */
 @SuppressWarnings("unused")
-public interface ReceiptRepository extends JpaRepository<Receipt,Long> {
+public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
+
+    Receipt findFirstByDocID(String docID);
+
 
 }

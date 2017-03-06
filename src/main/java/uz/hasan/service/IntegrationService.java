@@ -1,11 +1,11 @@
 package uz.hasan.service;
 
-import uz.hasan.domain.Receipt;
+import uz.hasan.service.dto.IntegrateDTO;
 
 import java.util.List;
 
 public interface IntegrationService {
 
-    void integrate(List<Receipt> receiptList);
+    Boolean integrate(List<IntegrateDTO> integrateDTOS);
 
 }

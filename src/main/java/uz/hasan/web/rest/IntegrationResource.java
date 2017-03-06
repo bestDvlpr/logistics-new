@@ -1,0 +1,49 @@
+package uz.hasan.web.rest;
+
+import com.codahale.metrics.annotation.Timed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import uz.hasan.service.IntegrationService;
+import uz.hasan.service.dto.IntegrateDTO;
+
+import javax.validation.Valid;
+import java.net.URISyntaxException;
+import java.util.List;
+
+/**
+ * Created by User on 3/4/2017.
+ */
+
+@RestController
+@RequestMapping("/api")
+public class IntegrationResource {
+
+
+    private final Logger log = LoggerFactory.getLogger(DriverStatusResource.class);
+
+    private final IntegrationService integrationService;
+
+    public IntegrationResource(IntegrationService integrationService) {
+        this.integrationService = integrationService;
+    }
+
+    /**
+     * POST  /integrate : Integrate from service.
+     *
+     * @param integrateDTOs the integrateDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new driverStatusDTO, or with status 400 (Bad Request) if the driverStatus has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/integrate")
+    @Timed
+    public Boolean integrate(@Valid @RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
+        log.debug("REST request to save DriverStatus : {}", integrateDTOs);
+
+        return integrationService.integrate(integrateDTOs);
+    }
+
+}

@@ -10,6 +10,8 @@ import java.util.List;
  * Spring Data JPA repository for the PayType entity.
  */
 @SuppressWarnings("unused")
-public interface PayTypeRepository extends JpaRepository<PayType,Long> {
+public interface PayTypeRepository extends JpaRepository<PayType, Long> {
+
+    List<PayType> findByReceiptId(Long id);
 
 }
