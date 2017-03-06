@@ -129,6 +129,22 @@
                 [(ngModel)]="productEntry.discount"
              />
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="productEntry.status" id="field_status"  required>
+                <option value="APPLICATION_SENT" jhiTranslate="logisticsApp.ReceiptStatus.APPLICATION_SENT">APPLICATION_SENT</option>
+                <option value="NEW" jhiTranslate="logisticsApp.ReceiptStatus.NEW">NEW</option>
+                <option value="ATTACHED_TO_DRIVER" jhiTranslate="logisticsApp.ReceiptStatus.ATTACHED_TO_DRIVER">ATTACHED_TO_DRIVER</option>
+                <option value="DELIVERY_PROCESS" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERY_PROCESS">DELIVERY_PROCESS</option>
+                <option value="DELIVERED" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERED">DELIVERED</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.product" for="field_product">Product</label>

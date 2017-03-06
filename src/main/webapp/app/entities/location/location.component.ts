@@ -47,7 +47,7 @@ export class LocationComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['location']);
+        this.jhiLanguageService.setLocations(['location', 'locationType']);
     }
 
     loadAll() {

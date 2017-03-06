@@ -8,7 +8,6 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Location } from './location.model';
 import { LocationPopupService } from './location-popup.service';
 import { LocationService } from './location.service';
-import { LocationType, LocationTypeService } from '../location-type';
 @Component({
     selector: 'jhi-location-dialog',
     templateUrl: './location-dialog.component.html'
@@ -20,17 +19,14 @@ export class LocationDialogComponent implements OnInit {
     isSaving: boolean;
 
     locations: Location[];
-
-    locationtypes: LocationType[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private locationService: LocationService,
-        private locationTypeService: LocationTypeService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['location']);
+        this.jhiLanguageService.setLocations(['location', 'locationType']);
     }
 
     ngOnInit() {
@@ -38,8 +34,6 @@ export class LocationDialogComponent implements OnInit {
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.locationService.query().subscribe(
             (res: Response) => { this.locations = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.locationTypeService.query().subscribe(
-            (res: Response) => { this.locationtypes = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -72,10 +66,6 @@ export class LocationDialogComponent implements OnInit {
     }
 
     trackLocationById(index: number, item: Location) {
-        return item.id;
-    }
-
-    trackLocationTypeById(index: number, item: LocationType) {
         return item.id;
     }
 }

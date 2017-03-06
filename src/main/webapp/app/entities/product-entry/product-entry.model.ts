@@ -15,6 +15,13 @@ const enum VirtualFlag {
     'SOLD_PHISICALLY',
     'SOLD_VIRTUALLY'
 };
+const enum ReceiptStatus {
+    'APPLICATION_SENT',
+    ' NEW',
+    ' ATTACHED_TO_DRIVER',
+    ' DELIVERY_PROCESS',
+    ' DELIVERED'
+};
 export class ProductEntry {
     constructor(
         public id?: number,
@@ -28,6 +35,7 @@ export class ProductEntry {
         public guid?: string,
         public qty?: number,
         public discount?: number,
+        public status?: ReceiptStatus,
         public productId?: number,
         public sellerIDId?: number,
         public receiptId?: number,

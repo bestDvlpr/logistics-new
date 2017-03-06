@@ -1,12 +1,13 @@
 {
     "logisticsApp": {
-        "ReceiptStatus": {
+        "ReceiptStatus" : {
             "null": "",
-            "NEW": "NEW",
             "APPLICATION_SENT": "APPLICATION_SENT",
+            "NEW": "NEW",
             "ATTACHED_TO_DRIVER": "ATTACHED_TO_DRIVER",
             "DELIVERY_PROCESS": "DELIVERY_PROCESS",
-            "DELIVERED": "DELIVERED"
+            "DELIVERED": "DELIVERED",
+            "CANCELLED": "CANCELLED"
         }
     }
 }

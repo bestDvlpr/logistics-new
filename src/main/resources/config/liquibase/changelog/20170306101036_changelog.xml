@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488795050516-1">
+        <addColumn tableName="location">
+            <column name="type" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488795050516-2">
+        <dropForeignKeyConstraint baseTableName="location" constraintName="fk_location_type_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1488795050516-3">
+        <dropColumn columnName="type_id" tableName="location"/>
+    </changeSet>
+    <changeSet author="hasan" id="1488795050516-4">
+        <sql>
+            update location set type='COUNTRY';
+        </sql>
+    </changeSet>
+    <changeSet author="hasan" id="1488795050516-5">
+        <addNotNullConstraint tableName="location" columnName="type" columnDataType="varchar(255)"/>
+    </changeSet>
+</databaseChangeLog>

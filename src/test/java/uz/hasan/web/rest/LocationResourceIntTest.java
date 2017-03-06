@@ -3,7 +3,6 @@ package uz.hasan.web.rest;
 import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.Location;
-import uz.hasan.domain.LocationType;
 import uz.hasan.repository.LocationRepository;
 import uz.hasan.service.LocationService;
 
@@ -29,6 +28,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import uz.hasan.domain.enumeration.LocationType;
 /**
  * Test class for the LocationResource REST controller.
  *
@@ -40,6 +40,9 @@ public class LocationResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final LocationType DEFAULT_TYPE = LocationType.COUNTRY;
+    private static final LocationType UPDATED_TYPE = LocationType.REGION;
 
     @Autowired
     private LocationRepository locationRepository;
@@ -77,12 +80,8 @@ public class LocationResourceIntTest {
      */
     public static Location createEntity(EntityManager em) {
         Location location = new Location()
-                .name(DEFAULT_NAME);
-        // Add required entity
-        LocationType type = LocationTypeResourceIntTest.createEntity(em);
-        em.persist(type);
-        em.flush();
-        location.setType(type);
+                .name(DEFAULT_NAME)
+                .type(DEFAULT_TYPE);
         return location;
     }
 
@@ -108,6 +107,7 @@ public class LocationResourceIntTest {
         assertThat(locationList).hasSize(databaseSizeBeforeCreate + 1);
         Location testLocation = locationList.get(locationList.size() - 1);
         assertThat(testLocation.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testLocation.getType()).isEqualTo(DEFAULT_TYPE);
     }
 
     @Test
@@ -150,6 +150,24 @@ public class LocationResourceIntTest {
 
     @Test
     @Transactional
+    public void checkTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = locationRepository.findAll().size();
+        // set the field null
+        location.setType(null);
+
+        // Create the Location, which fails.
+
+        restLocationMockMvc.perform(post("/api/locations")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .andExpect(status().isBadRequest());
+
+        List<Location> locationList = locationRepository.findAll();
+        assertThat(locationList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllLocations() throws Exception {
         // Initialize the database
         locationRepository.saveAndFlush(location);
@@ -159,7 +177,8 @@ public class LocationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
 
     @Test
@@ -173,7 +192,8 @@ public class LocationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(location.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
     }
 
     @Test
@@ -195,7 +215,8 @@ public class LocationResourceIntTest {
         // Update the location
         Location updatedLocation = locationRepository.findOne(location.getId());
         updatedLocation
-                .name(UPDATED_NAME);
+                .name(UPDATED_NAME)
+                .type(UPDATED_TYPE);
 
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -207,6 +228,7 @@ public class LocationResourceIntTest {
         assertThat(locationList).hasSize(databaseSizeBeforeUpdate);
         Location testLocation = locationList.get(locationList.size() - 1);
         assertThat(testLocation.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testLocation.getType()).isEqualTo(UPDATED_TYPE);
     }
 
     @Test

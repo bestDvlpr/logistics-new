@@ -18,7 +18,7 @@ export class ProductEntryDetailComponent implements OnInit, OnDestroy {
         private productEntryService: ProductEntryService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
+        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
     }
 
     ngOnInit() {

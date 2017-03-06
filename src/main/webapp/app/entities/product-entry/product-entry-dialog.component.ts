@@ -40,7 +40,7 @@ export class ProductEntryDialogComponent implements OnInit {
         private driverService: DriverService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag']);
+        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
     }
 
     ngOnInit() {

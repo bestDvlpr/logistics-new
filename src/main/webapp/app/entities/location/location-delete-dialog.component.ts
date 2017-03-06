@@ -22,7 +22,7 @@ export class LocationDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['location']);
+        this.jhiLanguageService.setLocations(['location', 'locationType']);
     }
 
     clear () {

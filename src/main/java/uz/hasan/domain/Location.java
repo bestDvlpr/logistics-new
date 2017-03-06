@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import uz.hasan.domain.enumeration.LocationType;
+
 /**
  * A Location.
  */
@@ -25,12 +27,13 @@ public class Location implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private LocationType type;
+
     @ManyToOne
     private Location parent;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    private LocationType type;
 
     public Long getId() {
         return id;
@@ -53,6 +56,19 @@ public class Location implements Serializable {
         this.name = name;
     }
 
+    public LocationType getType() {
+        return type;
+    }
+
+    public Location type(LocationType type) {
+        this.type = type;
+        return this;
+    }
+
+    public void setType(LocationType type) {
+        this.type = type;
+    }
+
     public Location getParent() {
         return parent;
     }
@@ -64,19 +80,6 @@ public class Location implements Serializable {
 
     public void setParent(Location location) {
         this.parent = location;
-    }
-
-    public LocationType getType() {
-        return type;
-    }
-
-    public Location type(LocationType locationType) {
-        this.type = locationType;
-        return this;
-    }
-
-    public void setType(LocationType locationType) {
-        this.type = locationType;
     }
 
     @Override
@@ -104,6 +107,7 @@ public class Location implements Serializable {
         return "Location{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", type='" + type + "'" +
             '}';
     }
 }

@@ -7,15 +7,6 @@
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [],
             "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "type",
-            "otherEntityName": "locationType",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
         }
     ],
     "fields": [
@@ -27,6 +18,14 @@
                 "minlength"
             ],
             "fieldValidateRulesMinlength": "2"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "LocationType",
+            "fieldValues": "COUNTRY,REGION,CITY,DISTRICT",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170223094152",

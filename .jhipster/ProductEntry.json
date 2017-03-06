@@ -98,6 +98,14 @@
         {
             "fieldName": "discount",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ReceiptStatus",
+            "fieldValues": "APPLICATION_SENT, NEW, ATTACHED_TO_DRIVER, DELIVERY_PROCESS, DELIVERED",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170225072014",

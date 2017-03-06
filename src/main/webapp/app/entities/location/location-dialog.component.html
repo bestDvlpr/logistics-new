@@ -30,6 +30,21 @@
                 </small>
             </div>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.location.type" for="field_type">Type</label>
+            <select class="form-control" name="type" [(ngModel)]="location.type" id="field_type"  required>
+                <option value="COUNTRY" jhiTranslate="logisticsApp.LocationType.COUNTRY">COUNTRY</option>
+                <option value="REGION" jhiTranslate="logisticsApp.LocationType.REGION">REGION</option>
+                <option value="CITY" jhiTranslate="logisticsApp.LocationType.CITY">CITY</option>
+                <option value="DISTRICT" jhiTranslate="logisticsApp.LocationType.DISTRICT">DISTRICT</option>
+            </select>
+            <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.location.parent" for="field_parent">Parent</label>
@@ -37,19 +52,6 @@
                 <option [ngValue]="null"></option>
                 <option [ngValue]="locationOption.id === location.parent?.id ? location.parent : locationOption" *ngFor="let locationOption of locations; trackBy: trackLocationById">{{locationOption.name}}</option>
             </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.location.type" for="field_type">Type</label>
-            <select class="form-control" id="field_type" name="type" [(ngModel)]="location.type"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="locationTypeOption.id === location.type?.id ? location.type : locationTypeOption" *ngFor="let locationTypeOption of locationtypes; trackBy: trackLocationTypeById">{{locationTypeOption.name}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!type?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
         </div>
     </div>
     <div class="modal-footer">

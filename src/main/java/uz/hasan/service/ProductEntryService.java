@@ -3,6 +3,7 @@ package uz.hasan.service;
 import uz.hasan.service.dto.ProductEntryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 /**
  * Service Interface for managing ProductEntry.
@@ -19,7 +20,7 @@ public interface ProductEntryService {
 
     /**
      *  Get all the productEntries.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

@@ -37,6 +37,7 @@ import uz.hasan.domain.enumeration.SalesType;
 import uz.hasan.domain.enumeration.SalesPlace;
 import uz.hasan.domain.enumeration.DefectFlag;
 import uz.hasan.domain.enumeration.VirtualFlag;
+import uz.hasan.domain.enumeration.ReceiptStatus;
 /**
  * Test class for the ProductEntryResource REST controller.
  *
@@ -75,6 +76,9 @@ public class ProductEntryResourceIntTest {
 
     private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal(1);
     private static final BigDecimal UPDATED_DISCOUNT = new BigDecimal(2);
+
+    private static final ReceiptStatus DEFAULT_STATUS = ReceiptStatus.APPLICATION_SENT;
+    private static final ReceiptStatus UPDATED_STATUS = ReceiptStatus.NEW;
 
     @Autowired
     private ProductEntryRepository productEntryRepository;
@@ -124,7 +128,8 @@ public class ProductEntryResourceIntTest {
                 .comment(DEFAULT_COMMENT)
                 .guid(DEFAULT_GUID)
                 .qty(DEFAULT_QTY)
-                .discount(DEFAULT_DISCOUNT);
+                .discount(DEFAULT_DISCOUNT)
+                .status(DEFAULT_STATUS);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -170,6 +175,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getGuid()).isEqualTo(DEFAULT_GUID);
         assertThat(testProductEntry.getQty()).isEqualTo(DEFAULT_QTY);
         assertThat(testProductEntry.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
+        assertThat(testProductEntry.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -328,6 +334,25 @@ public class ProductEntryResourceIntTest {
 
     @Test
     @Transactional
+    public void checkStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productEntryRepository.findAll().size();
+        // set the field null
+        productEntry.setStatus(null);
+
+        // Create the ProductEntry, which fails.
+        ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(productEntry);
+
+        restProductEntryMockMvc.perform(post("/api/product-entries")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productEntryDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ProductEntry> productEntryList = productEntryRepository.findAll();
+        assertThat(productEntryList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProductEntries() throws Exception {
         // Initialize the database
         productEntryRepository.saveAndFlush(productEntry);
@@ -346,7 +371,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].guid").value(hasItem(DEFAULT_GUID.toString())))
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY.intValue())))
-            .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())));
+            .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -369,7 +395,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
             .andExpect(jsonPath("$.guid").value(DEFAULT_GUID.toString()))
             .andExpect(jsonPath("$.qty").value(DEFAULT_QTY.intValue()))
-            .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()));
+            .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -399,7 +426,8 @@ public class ProductEntryResourceIntTest {
                 .comment(UPDATED_COMMENT)
                 .guid(UPDATED_GUID)
                 .qty(UPDATED_QTY)
-                .discount(UPDATED_DISCOUNT);
+                .discount(UPDATED_DISCOUNT)
+                .status(UPDATED_STATUS);
         ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(updatedProductEntry);
 
         restProductEntryMockMvc.perform(put("/api/product-entries")
@@ -421,6 +449,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getGuid()).isEqualTo(UPDATED_GUID);
         assertThat(testProductEntry.getQty()).isEqualTo(UPDATED_QTY);
         assertThat(testProductEntry.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
+        assertThat(testProductEntry.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

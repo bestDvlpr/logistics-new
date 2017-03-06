@@ -22,9 +22,9 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="name"><span jhiTranslate="logisticsApp.location.name">Name</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="parent.name"><span jhiTranslate="logisticsApp.location.parent">Parent</span> <span
+                <th jhiSortBy="type"><span jhiTranslate="logisticsApp.location.type">Type</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="type.name"><span jhiTranslate="logisticsApp.location.type">Type</span> <span
+                <th jhiSortBy="parent.name"><span jhiTranslate="logisticsApp.location.parent">Parent</span> <span
                     class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
@@ -33,14 +33,10 @@
             <tr *ngFor="let location of locations ;trackBy: trackId">
                 <td><a [routerLink]="['../location', location.id ]">{{location.id}}</a></td>
                 <td>{{location.name}}</td>
+                <td jhiTranslate="{{'logisticsApp.LocationType.' + location.type}}">{{location.type}}</td>
                 <td>
                     <div *ngIf="location.parent">
                         <a [routerLink]="['../location', location.parent?.id ]">{{location.parent?.name}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="location.type">
-                        <a [routerLink]="['../location-type', location.type?.id ]">{{location.type?.name}}</a>
                     </div>
                 </td>
                 <td class="text-xs-right">

@@ -15,6 +15,8 @@ import uz.hasan.domain.enumeration.DefectFlag;
 
 import uz.hasan.domain.enumeration.VirtualFlag;
 
+import uz.hasan.domain.enumeration.ReceiptStatus;
+
 /**
  * A ProductEntry.
  */
@@ -69,6 +71,11 @@ public class ProductEntry implements Serializable {
 
     @Column(name = "discount", precision=10, scale=2)
     private BigDecimal discount;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private ReceiptStatus status;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -222,6 +229,19 @@ public class ProductEntry implements Serializable {
         this.discount = discount;
     }
 
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public ProductEntry status(ReceiptStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(ReceiptStatus status) {
+        this.status = status;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -308,6 +328,7 @@ public class ProductEntry implements Serializable {
             ", guid='" + guid + "'" +
             ", qty='" + qty + "'" +
             ", discount='" + discount + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

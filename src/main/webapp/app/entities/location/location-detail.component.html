@@ -7,16 +7,14 @@
         <dd>
             <span>{{location.name}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.location.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.LocationType.' + location.type}}">{{location.type}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.location.parent">Parent</span></dt>
         <dd>
             <div *ngIf="location.parent">
                 <a [routerLink]="['location', location.parent?.id]">{{location.parent?.name}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.location.type">Type</span></dt>
-        <dd>
-            <div *ngIf="location.type">
-                <a [routerLink]="['location-type', location.type?.id]">{{location.type?.name}}</a>
             </div>
         </dd>
     </dl>

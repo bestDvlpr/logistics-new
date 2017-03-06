@@ -4,11 +4,14 @@ package uz.hasan.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import uz.hasan.domain.enumeration.SalesType;
 import uz.hasan.domain.enumeration.SalesPlace;
 import uz.hasan.domain.enumeration.DefectFlag;
 import uz.hasan.domain.enumeration.VirtualFlag;
+import uz.hasan.domain.enumeration.ReceiptStatus;
 
 /**
  * A DTO for the ProductEntry entity.
@@ -43,6 +46,9 @@ public class ProductEntryDTO implements Serializable {
     private BigDecimal qty;
 
     private BigDecimal discount;
+
+    @NotNull
+    private ReceiptStatus status;
 
     private Long productId;
 
@@ -136,6 +142,13 @@ public class ProductEntryDTO implements Serializable {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReceiptStatus status) {
+        this.status = status;
     }
 
     public Long getProductId() {
@@ -237,6 +250,7 @@ public class ProductEntryDTO implements Serializable {
             ", guid='" + guid + "'" +
             ", qty='" + qty + "'" +
             ", discount='" + discount + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

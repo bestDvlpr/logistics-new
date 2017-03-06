@@ -17,8 +17,8 @@
                 "title": "Location"
             },
             "name": "Name",
-            "parent": "Parent",
-            "type": "Type"
+            "type": "Type",
+            "parent": "Parent"
         }
     }
 }

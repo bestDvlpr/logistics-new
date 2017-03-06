@@ -26,6 +26,7 @@
             "guid": "Guid",
             "qty": "Qty",
             "discount": "Discount",
+            "status": "Status",
             "product": "Product",
             "sellerID": "Seller ID",
             "receipt": "Receipt",
