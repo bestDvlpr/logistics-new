@@ -29,6 +29,7 @@
             <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="discount"><span jhiTranslate="logisticsApp.productEntry.discount">Discount</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="status"><span jhiTranslate="logisticsApp.productEntry.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cancelled"><span jhiTranslate="logisticsApp.productEntry.cancelled">Cancelled</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sellerIDSellerID"><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
@@ -50,6 +51,7 @@
                 <td>{{productEntry.qty}}</td>
                 <td>{{productEntry.discount}}</td>
                 <td jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}">{{productEntry.status}}</td>
+                <td>{{productEntry.cancelled}}</td>
                 <td>
                     <div *ngIf="productEntry.productId">
                         <a [routerLink]="['../product', productEntry.productId  ]" >{{productEntry.productName}}</a>

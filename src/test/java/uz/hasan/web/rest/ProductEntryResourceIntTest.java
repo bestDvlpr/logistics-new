@@ -80,6 +80,9 @@ public class ProductEntryResourceIntTest {
     private static final ReceiptStatus DEFAULT_STATUS = ReceiptStatus.APPLICATION_SENT;
     private static final ReceiptStatus UPDATED_STATUS = ReceiptStatus.NEW;
 
+    private static final Boolean DEFAULT_CANCELLED = false;
+    private static final Boolean UPDATED_CANCELLED = true;
+
     @Autowired
     private ProductEntryRepository productEntryRepository;
 
@@ -129,7 +132,8 @@ public class ProductEntryResourceIntTest {
                 .guid(DEFAULT_GUID)
                 .qty(DEFAULT_QTY)
                 .discount(DEFAULT_DISCOUNT)
-                .status(DEFAULT_STATUS);
+                .status(DEFAULT_STATUS)
+                .cancelled(DEFAULT_CANCELLED);
         // Add required entity
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
@@ -176,6 +180,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getQty()).isEqualTo(DEFAULT_QTY);
         assertThat(testProductEntry.getDiscount()).isEqualTo(DEFAULT_DISCOUNT);
         assertThat(testProductEntry.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testProductEntry.isCancelled()).isEqualTo(DEFAULT_CANCELLED);
     }
 
     @Test
@@ -353,6 +358,25 @@ public class ProductEntryResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCancelledIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productEntryRepository.findAll().size();
+        // set the field null
+        productEntry.setCancelled(null);
+
+        // Create the ProductEntry, which fails.
+        ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(productEntry);
+
+        restProductEntryMockMvc.perform(post("/api/product-entries")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productEntryDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ProductEntry> productEntryList = productEntryRepository.findAll();
+        assertThat(productEntryList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProductEntries() throws Exception {
         // Initialize the database
         productEntryRepository.saveAndFlush(productEntry);
@@ -372,7 +396,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.[*].guid").value(hasItem(DEFAULT_GUID.toString())))
             .andExpect(jsonPath("$.[*].qty").value(hasItem(DEFAULT_QTY.intValue())))
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].cancelled").value(hasItem(DEFAULT_CANCELLED.booleanValue())));
     }
 
     @Test
@@ -396,7 +421,8 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.guid").value(DEFAULT_GUID.toString()))
             .andExpect(jsonPath("$.qty").value(DEFAULT_QTY.intValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.cancelled").value(DEFAULT_CANCELLED.booleanValue()));
     }
 
     @Test
@@ -427,7 +453,8 @@ public class ProductEntryResourceIntTest {
                 .guid(UPDATED_GUID)
                 .qty(UPDATED_QTY)
                 .discount(UPDATED_DISCOUNT)
-                .status(UPDATED_STATUS);
+                .status(UPDATED_STATUS)
+                .cancelled(UPDATED_CANCELLED);
         ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(updatedProductEntry);
 
         restProductEntryMockMvc.perform(put("/api/product-entries")
@@ -450,6 +477,7 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getQty()).isEqualTo(UPDATED_QTY);
         assertThat(testProductEntry.getDiscount()).isEqualTo(UPDATED_DISCOUNT);
         assertThat(testProductEntry.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProductEntry.isCancelled()).isEqualTo(UPDATED_CANCELLED);
     }
 
     @Test

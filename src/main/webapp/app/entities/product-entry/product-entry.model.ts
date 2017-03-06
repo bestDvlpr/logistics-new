@@ -36,6 +36,7 @@ export class ProductEntry {
         public qty?: number,
         public discount?: number,
         public status?: ReceiptStatus,
+        public cancelled?: boolean,
         public productId?: number,
         public sellerIDId?: number,
         public receiptId?: number,

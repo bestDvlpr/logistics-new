@@ -48,6 +48,10 @@
         <dd>
             <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}">{{productEntry.status}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.cancelled">Cancelled</span></dt>
+        <dd>
+            <span>{{productEntry.cancelled}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.product">Product</span></dt>
         <dd>
             <div *ngIf="productEntry.productId">

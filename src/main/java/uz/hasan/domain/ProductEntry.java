@@ -77,6 +77,10 @@ public class ProductEntry implements Serializable {
     @Column(name = "status", nullable = false)
     private ReceiptStatus status;
 
+    @NotNull
+    @Column(name = "cancelled", nullable = false)
+    private Boolean cancelled;
+
     @ManyToOne(optional = false)
     @NotNull
     private Product product;
@@ -242,6 +246,19 @@ public class ProductEntry implements Serializable {
         this.status = status;
     }
 
+    public Boolean isCancelled() {
+        return cancelled;
+    }
+
+    public ProductEntry cancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
+        return this;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -329,6 +346,7 @@ public class ProductEntry implements Serializable {
             ", qty='" + qty + "'" +
             ", discount='" + discount + "'" +
             ", status='" + status + "'" +
+            ", cancelled='" + cancelled + "'" +
             '}';
     }
 }

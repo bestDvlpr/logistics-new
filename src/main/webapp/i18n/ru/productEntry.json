@@ -27,6 +27,7 @@
             "qty": "Qty",
             "discount": "Discount",
             "status": "Status",
+            "cancelled": "Cancelled",
             "product": "Product",
             "sellerID": "Seller ID",
             "receipt": "Receipt",

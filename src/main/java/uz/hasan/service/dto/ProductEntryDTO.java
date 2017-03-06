@@ -50,6 +50,9 @@ public class ProductEntryDTO implements Serializable {
     @NotNull
     private ReceiptStatus status;
 
+    @NotNull
+    private Boolean cancelled;
+
     private Long productId;
 
     private String productName;
@@ -149,6 +152,13 @@ public class ProductEntryDTO implements Serializable {
 
     public void setStatus(ReceiptStatus status) {
         this.status = status;
+    }
+    public Boolean getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     public Long getProductId() {
@@ -251,6 +261,7 @@ public class ProductEntryDTO implements Serializable {
             ", qty='" + qty + "'" +
             ", discount='" + discount + "'" +
             ", status='" + status + "'" +
+            ", cancelled='" + cancelled + "'" +
             '}';
     }
 }

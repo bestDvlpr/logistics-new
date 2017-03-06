@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1488798311637-1">
+        <addColumn tableName="product_entry">
+            <column name="cancelled" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan" id="1488798311637-2">
+        <sql>
+            update product_entry set cancelled=false;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan" id="1488798311637-3">
+        <addNotNullConstraint tableName="product_entry" columnName="cancelled" columnDataType="boolean"/>
+    </changeSet>
+</databaseChangeLog>
