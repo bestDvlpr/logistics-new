@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import {JhiLanguageService, AlertService} from 'ng-jhipster';
 import { Receipt } from './receipt.model';
 import { ReceiptService } from './receipt.service';
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {ProductEntryService} from "../product-entry/product-entry.service";
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {ProductEntryService} from '../product-entry/product-entry.service';
 import { Response } from '@angular/http';
 
 @Component({

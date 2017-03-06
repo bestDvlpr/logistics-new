@@ -15,6 +15,7 @@ import {
     receiptRoute,
     receiptPopupRoute,
     ReceiptResolvePagingParams,
+    ReceiptSendComponent,
 } from './';
 
 let ENTITY_STATES = [
@@ -34,6 +35,7 @@ let ENTITY_STATES = [
         ReceiptDeleteDialogComponent,
         ReceiptPopupComponent,
         ReceiptDeletePopupComponent,
+        ReceiptSendComponent,
     ],
     entryComponents: [
         ReceiptComponent,

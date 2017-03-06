@@ -8,6 +8,7 @@ import { ReceiptComponent } from './receipt.component';
 import { ReceiptDetailComponent } from './receipt-detail.component';
 import { ReceiptPopupComponent } from './receipt-dialog.component';
 import { ReceiptDeletePopupComponent } from './receipt-delete-dialog.component';
+import { ReceiptSendComponent } from './receipt-send.component';
 
 import { Principal } from '../../shared';
 
@@ -28,24 +29,31 @@ export class ReceiptResolvePagingParams implements Resolve<any> {
 }
 
 export const receiptRoute: Routes = [
-  {
-    path: 'receipt',
-    component: ReceiptComponent,
-    resolve: {
-      'pagingParams': ReceiptResolvePagingParams
-    },
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.receipt.home.title'
+    {
+        path: 'receipt',
+        component: ReceiptComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt/:id',
+        component: ReceiptDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt/:id/send',
+        component: ReceiptSendComponent,
+        data: {
+            authorities: ['ROLE_CASHIER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
     }
-  }, {
-    path: 'receipt/:id',
-    component: ReceiptDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.receipt.home.title'
-    }
-  }
 ];
 
 export const receiptPopupRoute: Routes = [

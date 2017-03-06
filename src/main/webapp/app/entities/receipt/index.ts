@@ -6,3 +6,4 @@ export * from './receipt-delete-dialog.component';
 export * from './receipt-detail.component';
 export * from './receipt.component';
 export * from './receipt.route';
+export * from './receipt-send.component';
