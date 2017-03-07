@@ -1,0 +1,8 @@
+id;name;parent_id;type
+1651;Uzbekistan;;COUNTRY
+1652;Tashkent;1651;COUNTRY
+1751;Olmazor;1652;COUNTRY
+1752;Buxoro;1651;COUNTRY
+4151;Rometon;1752;COUNTRY
+4152;asda2;4151;COUNTRY
+4401;2-chimboy kochasi;1751;COUNTRY

@@ -1,10 +1,19 @@
 <div *ngIf="receipt">
-    <h2><span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h2><span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
+        </div>
+        <div class="col-md-6">
+            <span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span>: <span>{{receipt.docNum}}</span>
+            <span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span>: <span>{{receipt.docID}}</span>
+            <span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>: <span>{{receipt.docDate}}</span>
+        </div>
+    </div>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <div class="row">
         <div class="col-md-10 offset-md-1 small text-muted font-weight-bold">
-            <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span></div>
+            <div class="col-md-1"><span jhiTranslate="logisticsApp.productEntry.docNum">Doc Num</span></div>
             <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span></div>
             <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></div>
             <div class="col-md-1"><span jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span></div>

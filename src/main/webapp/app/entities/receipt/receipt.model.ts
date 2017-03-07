@@ -1,10 +1,10 @@
 export enum DocType {
-    'RETURN',
-    'SALES'
+    RETURN = <any>'RETURN',
+    SALES = <any>'SALES'
 }
 export enum WholeSaleFlag {
-    'RETAIL',
-    'WHOLESALE'
+    RETAIL = <any>'RETAIL',
+    WHOLESALE = <any>'WHOLESALE'
 }
 export enum ReceiptStatus {
     NEW = <any>'NEW',
@@ -26,6 +26,6 @@ export class Receipt {
                 public payMasterId?: number,
                 public loyaltyCardId?: number,
                 public clientId?: number,
-                public productEntriesId?: number) {
+                public productEntriesId?: number ) {
     }
 }

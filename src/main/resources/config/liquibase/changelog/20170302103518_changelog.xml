@@ -19,6 +19,10 @@
                                  initiallyDeferred="false" referencedColumnNames="id" referencedTableName="client"/>
     </changeSet>
     <changeSet author="hasan" id="1488450931439-3">
+        <loadData tableName="location"
+                  file="config/liquibase/locations.csv"
+                  encoding="UTF-8"
+                  separator=";"/>
         <loadData tableName="client"
                   file="config/liquibase/customers.csv"
                   encoding="UTF-8"
