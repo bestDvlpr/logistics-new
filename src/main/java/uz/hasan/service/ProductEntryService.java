@@ -20,7 +20,7 @@ public interface ProductEntryService {
 
     /**
      *  Get all the productEntries.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,12 @@ public interface ProductEntryService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *  Get all the productEntries by receiptId.
+     *
+     *  @param receiptId the receipt ID
+     *  @return the list of entities
+     */
+    List<ProductEntryDTO> findAllByReceiptId(Long receiptId);
 }

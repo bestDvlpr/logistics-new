@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { ProductEntry } from './product-entry.model';
+import {ProductEntry} from './product-entry.model';
 @Injectable()
 export class ProductEntryService {
 
     private resourceUrl = 'api/product-entries';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(productEntry: ProductEntry): Observable<ProductEntry> {
         let copy: ProductEntry = Object.assign({}, productEntry);
@@ -33,13 +34,16 @@ export class ProductEntryService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
+    }
+
+    byReceipt(receiptId: number): Observable<Response> {
+        return this.http.get(this.resourceUrl + '/receipt-entries/' + receiptId);
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

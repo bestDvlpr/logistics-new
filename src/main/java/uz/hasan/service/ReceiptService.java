@@ -20,7 +20,7 @@ public interface ReceiptService {
 
     /**
      *  Get all the receipts.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,20 @@ public interface ReceiptService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *  Get all the new receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptDTO> findAllNewReceipts(Pageable pageable);
+
+    /**
+     *  Get all the applied receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptDTO> findAppliedReceipts(Pageable pageable);
 }

@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class ProductEntryServiceImpl implements ProductEntryService{
+public class ProductEntryServiceImpl implements ProductEntryService {
 
     private final Logger log = LoggerFactory.getLogger(ProductEntryServiceImpl.class);
-    
+
     private final ProductEntryRepository productEntryRepository;
 
     private final ProductEntryMapper productEntryMapper;
@@ -50,10 +50,10 @@ public class ProductEntryServiceImpl implements ProductEntryService{
     }
 
     /**
-     *  Get all the productEntries.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * Get all the productEntries.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -64,10 +64,10 @@ public class ProductEntryServiceImpl implements ProductEntryService{
     }
 
     /**
-     *  Get one productEntry by id.
+     * Get one productEntry by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,13 +79,26 @@ public class ProductEntryServiceImpl implements ProductEntryService{
     }
 
     /**
-     *  Delete the  productEntry by id.
+     * Delete the  productEntry by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete ProductEntry : {}", id);
         productEntryRepository.delete(id);
+    }
+
+    /**
+     * Get all the productEntries by receipt ID.
+     *
+     * @param receiptId the receipt ID
+     * @return the list of entities
+     */
+    @Override
+    public List<ProductEntryDTO> findAllByReceiptId(Long receiptId) {
+        log.debug("Request to get all ProductEntries by receiptId: {}", receiptId);
+        List<ProductEntry> result = productEntryRepository.findByReceiptId(receiptId);
+        return productEntryMapper.productEntriesToProductEntryDTOs(result);
     }
 }

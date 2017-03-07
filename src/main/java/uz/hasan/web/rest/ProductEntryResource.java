@@ -34,7 +34,7 @@ public class ProductEntryResource {
     private final Logger log = LoggerFactory.getLogger(ProductEntryResource.class);
 
     private static final String ENTITY_NAME = "productEntry";
-        
+
     private final ProductEntryService productEntryService;
 
     public ProductEntryResource(ProductEntryService productEntryService) {
@@ -98,6 +98,24 @@ public class ProductEntryResource {
         Page<ProductEntryDTO> page = productEntryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/product-entries");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /product-entries/:receiptId : get all the productEntries of receipt.
+     *
+     * @param receiptId the receipt ID
+     * @return the ResponseEntity with status 200 (OK) and the list of productEntries in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/product-entries/receipt-entries/{receiptId}")
+    @Timed
+    public ResponseEntity<List<ProductEntryDTO>> getAllReceiptProductEntries(
+        @PathVariable Long receiptId
+    ) throws URISyntaxException {
+        log.debug("REST request to get a productEntryDTOS of ProductEntries by receiptId: {}", receiptId);
+        List<ProductEntryDTO> productEntryDTOS = productEntryService.findAllByReceiptId(receiptId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(productEntryDTOS, "/api/product-entries");
+        return new ResponseEntity<>(productEntryDTOS, HttpStatus.OK);
     }
 
     /**

@@ -34,7 +34,8 @@
             "receipt": "Receipt",
             "driver": "Driver",
             "attachedCar": "Attached Car",
-            "address": "Address"
+            "address": "Address",
+            "productName": "Product Name"
         }
     }
 }

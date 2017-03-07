@@ -1,5 +1,6 @@
 package uz.hasan.service.impl;
 
+import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.domain.Receipt;
 import uz.hasan.repository.ReceiptRepository;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 public class ReceiptServiceImpl implements ReceiptService{
 
     private final Logger log = LoggerFactory.getLogger(ReceiptServiceImpl.class);
-    
+
     private final ReceiptRepository receiptRepository;
 
     private final ReceiptMapper receiptMapper;
@@ -51,7 +52,7 @@ public class ReceiptServiceImpl implements ReceiptService{
 
     /**
      *  Get all the receipts.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -87,5 +88,31 @@ public class ReceiptServiceImpl implements ReceiptService{
     public void delete(Long id) {
         log.debug("Request to delete Receipt : {}", id);
         receiptRepository.delete(id);
+    }
+
+    /**
+     *  Get all the new receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of new entities
+     */
+    @Override
+    public Page<ReceiptDTO> findAllNewReceipts(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.NEW);
+        return result.map(receiptMapper::receiptToReceiptDTO);
+    }
+
+    /**
+     *  Get all the applied receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of applied entities
+     */
+    @Override
+    public Page<ReceiptDTO> findAppliedReceipts(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.APPLICATION_SENT);
+        return result.map(receiptMapper::receiptToReceiptDTO);
     }
 }
