@@ -61,5 +61,6 @@
     <include file="classpath:config/liquibase/changelog/20170306110506_changelog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306120635_added_entity_constraints_Address.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306122841_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170307113538_changelog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

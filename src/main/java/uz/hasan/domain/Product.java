@@ -28,7 +28,6 @@ public class Product implements Serializable {
     @Column(name = "sap_type", nullable = false)
     private String sapType;
 
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 

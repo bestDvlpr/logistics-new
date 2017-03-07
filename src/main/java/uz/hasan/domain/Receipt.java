@@ -60,11 +60,9 @@ public class Receipt implements Serializable {
     private ReceiptStatus status;
 
     @ManyToOne(optional = false)
-    @NotNull
     private PayMaster payMaster;
 
     @ManyToOne(optional = false)
-    @NotNull
     private LoyaltyCard loyaltyCard;
 
     @ManyToOne
