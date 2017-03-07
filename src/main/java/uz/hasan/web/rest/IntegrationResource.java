@@ -1,6 +1,8 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ import java.util.List;
 public class IntegrationResource {
 
 
-    private final Logger log = LoggerFactory.getLogger(DriverStatusResource.class);
+    private final Logger log = LoggerFactory.getLogger(IntegrationResource.class);
 
     private final IntegrationService integrationService;
 
@@ -40,10 +42,19 @@ public class IntegrationResource {
      */
     @PostMapping("/integrate")
     @Timed
-    public Boolean integrate(@Valid @RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
+    public JSONObject integrate(@Valid @RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
         log.debug("REST request to save DriverStatus : {}", integrateDTOs);
 
-        return integrationService.integrate(integrateDTOs);
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("success", integrationService.integrate(integrateDTOs));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return object;
     }
+
 
 }

@@ -49,14 +49,7 @@ public class IntegrationServiceImpl implements IntegrationService {
         for (IntegrateDTO integrateDTO : integrateDTOS) {
             Receipt receipt = receiptRepository.findFirstByDocID(integrateDTO.getDocID());
             try {
-
-                if (receipt != null)
-
-                    updateReceipt(receipt, integrateDTO);
-
-                else
-
-                    createReceipt(integrateDTO);
+                createOrUpdateReceipt(receipt, integrateDTO);
 
                 return true;
             } catch (Exception e) {
@@ -68,7 +61,10 @@ public class IntegrationServiceImpl implements IntegrationService {
     }
 
 
-    private void createReceipt(IntegrateDTO integrateDTO) throws ValidationException {
+    private void createOrUpdateReceipt(Receipt receipt, IntegrateDTO integrateDTO) throws ValidationException {
+
+        if (receipt == null)
+            receipt = new Receipt();
 
         DocType docType = DocType.get(integrateDTO.getDocType());
 
@@ -80,8 +76,6 @@ public class IntegrationServiceImpl implements IntegrationService {
 
         if (integrateDTO.getDocDate() == null)
             throw new NullPointerException("Doc Date is null");
-
-        Receipt receipt = new Receipt();
 
         receipt.setDocDate(integrateDTO.getDocDate());
         receipt.setDocID(integrateDTO.getDocID());
@@ -102,104 +96,77 @@ public class IntegrationServiceImpl implements IntegrationService {
 
     }
 
-
-    private void updateReceipt(Receipt receipt, IntegrateDTO integrateDTO) throws ValidationException {
-
-        DocType docType = DocType.get(integrateDTO.getDocType());
-
-        WholeSaleFlag wholeSaleFlag = WholeSaleFlag.get(integrateDTO.getWholesaleFlag());
-
-        PayMaster master = getPayMaster(integrateDTO);
-
-        LoyaltyCard loyaltyCard = getLoyaltyCard(integrateDTO);
-
-        if (integrateDTO.getDocDate() == null)
-            throw new NullPointerException("Doc Date is null");
-
-        receipt.setDocDate(integrateDTO.getDocDate());
-        receipt.setDocID(integrateDTO.getDocID());
-        receipt.setDocNum(integrateDTO.getDocNum());
-        receipt.setPreviousDocID(integrateDTO.getPreviousDocID());
-        receipt.setPayMaster(master);
-        receipt.setLoyaltyCard(loyaltyCard);
-        receipt.setWholeSaleFlag(wholeSaleFlag);
-        receipt.setDocType(docType);
-
-        if (receipt.getStatus() != ReceiptStatus.NEW)
-            receipt.setStatus(ReceiptStatus.NEW);
-
-        receipt = receiptRepository.save(receipt);
-
-        updateOrCreateProductEntries(receipt, integrateDTO.getProducts());
-
-        updateOrCreatePayTypes(receipt, integrateDTO.getPayments());
-
-    }
-
-
-    private void updateOrCreateProductEntries(Receipt savedReceipt, List<IntegrateDTO.Product> products) {
+    private void updateOrCreateProductEntries(Receipt savedReceipt, List<IntegrateDTO.Product> products) throws ValidationException {
         List<ProductEntry> productEntries = productEntryRepository.findByReceiptId(savedReceipt.getId());
         if (productEntries != null && !productEntries.isEmpty()) {
             log.debug("Products found: " + String.valueOf(productEntries.size()));
 
-            for (ProductEntry productEntry : productEntries) {
-                boolean needDelete = true;
-                for (IntegrateDTO.Product product : products) {
-                    if (!product.getSaved() && product.eq(productEntry) && product.canUpdate(productEntry)) {
-                        productEntry.setQty(product.getQty());
-                        productEntryRepository.save(productEntry);
-                        product.setSaved(true);
-                        needDelete = false;
+            for (IntegrateDTO.Product product : products) {
+                if (SalesType.DELIVERY == SalesType.get(product.getDeliveryFlag())) {
+
+                    for (int qty = 0; qty < product.getQty().intValue(); qty++) {
+
+
+                        boolean hasEntry = false;
+
+                        for (ProductEntry productEntry : productEntries) {
+
+                            if (product.eq(productEntry)) {
+                                if (savedReceipt.getDocType() == DocType.RETURN)
+                                    productEntry.setCancelled(true);
+                                else
+                                    productEntry.setCancelled(false);
+
+                                productEntryRepository.save(productEntry);
+                                hasEntry = true;
+
+                            }
+                        }
+
+                        if (!hasEntry) {
+
+                            SalesType salesType = SalesType.get(product.getDeliveryFlag());
+
+                            SalesPlace salesPlace = SalesPlace.get(product.getHallFlag());
+
+                            DefectFlag defectFlag = DefectFlag.get(product.getDefectFlag());
+
+                            VirtualFlag virtualFlag = VirtualFlag.get(product.getVirtualFlag());
+
+                            Product p = getProduct(product);
+
+                            Seller seller = getSeller(product);
+
+
+                            ProductEntry productEntry = new ProductEntry();
+                            productEntry.setQty(product.getQty());
+                            productEntry.setComment(product.getComment());
+                            productEntry.setDiscount(product.getDiscount());
+                            productEntry.setPrice(product.getPrice());
+                            productEntry.setReason(product.getReason());
+                            productEntry.setGuid(product.getGuid());
+
+                            productEntry.setDeliveryFlag(salesType);
+                            productEntry.setHallFlag(salesPlace);
+                            productEntry.setDefectFlag(defectFlag);
+                            productEntry.setVirtualFlag(virtualFlag);
+                            productEntry.setProduct(p);
+                            productEntry.setSellerID(seller);
+                            productEntry.setReceipt(savedReceipt);
+
+                            if (savedReceipt.getDocType() == DocType.RETURN)
+                                productEntry.setCancelled(true);
+                            else
+                                productEntry.setCancelled(false);
+
+
+                            productEntryRepository.save(productEntry);
+                        }
+
                     }
                 }
-                if (needDelete)
-                    productEntryRepository.delete(productEntry);
             }
 
-        }
-
-        for (IntegrateDTO.Product integrateProduct : products) {
-            if (!integrateProduct.getSaved()) {
-
-                try {
-
-                    SalesType salesType = SalesType.get(integrateProduct.getDeliveryFlag());
-
-                    SalesPlace salesPlace = SalesPlace.get(integrateProduct.getHallFlag());
-
-                    DefectFlag defectFlag = DefectFlag.get(integrateProduct.getDefectFlag());
-
-                    VirtualFlag virtualFlag = VirtualFlag.get(integrateProduct.getVirtualFlag());
-
-                    Product product = getProduct(integrateProduct);
-
-                    Seller seller = getSeller(integrateProduct);
-
-
-                    ProductEntry productEntry = new ProductEntry();
-                    productEntry.setQty(integrateProduct.getQty());
-                    productEntry.setComment(integrateProduct.getComment());
-                    productEntry.setDiscount(integrateProduct.getDiscount());
-                    productEntry.setPrice(integrateProduct.getPrice());
-                    productEntry.setReason(integrateProduct.getReason());
-                    productEntry.setGuid(integrateProduct.getGuid());
-
-                    productEntry.setDeliveryFlag(salesType);
-                    productEntry.setHallFlag(salesPlace);
-                    productEntry.setDefectFlag(defectFlag);
-                    productEntry.setVirtualFlag(virtualFlag);
-                    productEntry.setProduct(product);
-                    productEntry.setSellerID(seller);
-                    productEntry.setReceipt(savedReceipt);
-
-                    productEntryRepository.save(productEntry);
-
-
-                } catch (ValidationException e) {
-                    e.printStackTrace();
-                }
-
-            }
         }
 
     }

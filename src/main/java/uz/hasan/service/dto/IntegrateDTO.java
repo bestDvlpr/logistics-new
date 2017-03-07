@@ -379,16 +379,15 @@ public class IntegrateDTO {
         }
 
 
-
         public boolean eq(ProductEntry entry) {
-            return this.getGuid().equals(entry.getGuid());
-        }
-
-        public boolean canUpdate(ProductEntry entry) {
-            if (this.getQty().equals(entry.getQty()))
+            if (getSapCode() == null
+                || getSerial() == null
+                || entry.getProduct() == null
+                || entry.getProduct().getSapCode() == null
+                || entry.getSerialNumber() == null)
                 return false;
-            else
-                return true;
+
+            return this.getSapCode().equals(entry.getProduct().getSapCode()) && this.getSerial().equals(entry.getSerialNumber());
         }
 
     }

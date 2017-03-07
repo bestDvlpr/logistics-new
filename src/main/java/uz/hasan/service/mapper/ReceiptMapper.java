@@ -18,6 +18,7 @@ public interface ReceiptMapper {
     @Mapping(source = "loyaltyCard.loyaltyCardID", target = "loyaltyCardLoyaltyCardID")
     @Mapping(source = "client.id", target = "clientId")
     @Mapping(source = "client.firstName", target = "clientFirstName")
+    @Mapping(target = "productEntries", ignore = true)
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);
