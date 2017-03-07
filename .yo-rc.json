@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.2",
+    "jhipsterVersion": "4.0.7",
     "baseName": "logistics",
     "packageName": "uz.hasan",
     "packageFolder": "uz/hasan",

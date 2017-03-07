@@ -50,8 +50,6 @@ public class ReceiptDTO implements Serializable {
 
     private String clientFirstName;
 
-    private List<ProductEntryDTO> productEntries;
-
     public Long getId() {
         return id;
     }
@@ -155,14 +153,6 @@ public class ReceiptDTO implements Serializable {
 
     public void setClientFirstName(String clientFirstName) {
         this.clientFirstName = clientFirstName;
-    }
-
-    public List<ProductEntryDTO> getProductEntries() {
-        return productEntries;
-    }
-
-    public void setProductEntries(List<ProductEntryDTO> productEntries) {
-        this.productEntries = productEntries;
     }
 
     @Override
