@@ -1,0 +1,23 @@
+{
+    "logisticsApp": {
+        "xmlHolder" : {
+            "home": {
+                "title": "Xml Holders",
+                "createLabel": "Create a new Xml Holder",
+                "createOrEditLabel": "Create or edit a Xml Holder"
+            },
+            "created": "A new Xml Holder is created with identifier {{ param }}",
+            "updated": "A Xml Holder is updated with identifier {{ param }}",
+            "deleted": "A Xml Holder is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Xml Holder {{ id }}?"
+            },
+            "detail": {
+                "title": "Xml Holder"
+            },
+            "xmlContent": "Xml Content",
+            "date": "Date",
+            "checked": "Checked"
+        }
+    }
+}

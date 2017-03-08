@@ -20,7 +20,7 @@
             </div>
         </li>
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <a class="nav-link" [routerLink]="'/'" >
+            <a class="nav-link" [routerLink]="'/'">
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span class="hidden-sm-down" jhiTranslate="global.menu.home">Home</span>
             </a>
@@ -77,7 +77,7 @@
                             <span jhiTranslate="global.menu.admin.logs">Logs</span>
                         </a>
                     </li>
-                    <li  class="nav-item" *ngIf="swaggerEnabled">
+                    <li class="nav-item" *ngIf="swaggerEnabled">
                         <a class="nav-link" [routerLink]="['docs']" routerLinkActive="active">
                             <i class="fa fa-fw fa-book" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.admin.apidocs">API</span>

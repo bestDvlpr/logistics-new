@@ -1,8 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { LogisticsSharedModule } from '../../shared';
-
+import {LogisticsSharedModule} from '../../shared';
+import {SelectModule} from 'ng2-select';
 import {
     ReceiptService,
     ReceiptPopupService,
@@ -26,7 +26,8 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
+        SelectModule
     ],
     declarations: [
         ReceiptComponent,
@@ -51,4 +52,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsReceiptModule {}
+export class LogisticsReceiptModule {
+}

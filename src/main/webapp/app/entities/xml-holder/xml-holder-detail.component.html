@@ -1,0 +1,33 @@
+
+<div *ngIf="xmlHolder">
+    <h2><span jhiTranslate="logisticsApp.xmlHolder.detail.title">Xml Holder</span> {{xmlHolder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="logisticsApp.xmlHolder.xmlContent">Xml Content</span></dt>
+        <dd>
+            <span>{{xmlHolder.xmlContent}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.xmlHolder.date">Date</span></dt>
+        <dd>
+            <span>{{xmlHolder.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.xmlHolder.checked">Checked</span></dt>
+        <dd>
+            <span>{{xmlHolder.checked}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'xml-holder/'+ xmlHolder.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

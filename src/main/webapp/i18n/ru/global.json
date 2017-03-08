@@ -28,6 +28,7 @@
                 "client": "Client",
                 "receiptOrder": "Receipt Order",
                 "address": "Address",
+                "xmlHolder": "Xml Holder",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

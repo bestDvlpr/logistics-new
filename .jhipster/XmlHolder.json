@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "xmlContent",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "10000"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "checked",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20170308065319",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "xml_holder",
+    "pagination": "pagination"
+}

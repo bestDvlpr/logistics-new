@@ -50,7 +50,7 @@ module.exports = webpackMerge(commonConfig({env: ENV}), {
             port: 9000,
             proxy: 'http://localhost:9060'
         }, {
-            reload: false
+            reload: true
         }),
         new ExtractTextPlugin('styles.css'),
         new webpack.NoEmitOnErrorsPlugin(),
