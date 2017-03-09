@@ -62,7 +62,7 @@ public class Receipt implements Serializable {
     @ManyToOne(optional = false)
     private PayMaster payMaster;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private LoyaltyCard loyaltyCard;
 
     @ManyToOne
@@ -71,6 +71,10 @@ public class Receipt implements Serializable {
     @OneToMany(mappedBy = "receipt")
     @JsonIgnore
     private Set<ProductEntry> productEntries = new HashSet<>();
+
+    @OneToMany(mappedBy = "receipt")
+    @JsonIgnore
+    private Set<PayType> payTypes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -217,6 +221,14 @@ public class Receipt implements Serializable {
     public Receipt productEntries(Set<ProductEntry> productEntries) {
         this.productEntries = productEntries;
         return this;
+    }
+
+    public Set<PayType> getPayTypes() {
+        return payTypes;
+    }
+
+    public void setPayTypes(Set<PayType> payTypes) {
+        this.payTypes = payTypes;
     }
 
     public Receipt addProductEntries(ProductEntry productEntry) {

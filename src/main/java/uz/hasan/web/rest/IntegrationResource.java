@@ -1,18 +1,16 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import uz.hasan.service.IntegrationService;
 import uz.hasan.service.dto.IntegrateDTO;
+import uz.hasan.service.dto.JsonApp;
 
-import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -40,20 +38,16 @@ public class IntegrationResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new driverStatusDTO, or with status 400 (Bad Request) if the driverStatus has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/integrate")
+    @PostMapping(value = "/integrate", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public JSONObject integrate(@Valid @RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
+    public ResponseEntity<JsonApp> integrate(@RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
         log.debug("REST request to save DriverStatus : {}", integrateDTOs);
 
-        JSONObject object = new JSONObject();
 
-        try {
-            object.put("success", integrationService.integrate(integrateDTOs));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Boolean success = integrationService.integrate(integrateDTOs);
+        JsonApp jsonApp = new JsonApp(success, HttpStatus.OK.value(), null);
 
-        return object;
+        return new ResponseEntity<>(jsonApp, HttpStatus.OK);
     }
 
 

@@ -87,7 +87,9 @@
                     </div>
                 </td>
                 <td>
-                    <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
+                    <div *ngIf="receipt.clientId">
+                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
+                    </div>
                 </td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">

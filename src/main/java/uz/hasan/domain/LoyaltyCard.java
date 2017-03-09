@@ -1,11 +1,15 @@
 package uz.hasan.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A LoyaltyCard.
@@ -31,6 +35,11 @@ public class LoyaltyCard implements Serializable {
 
     @Column(name = "loyalty_card_bonus", precision=10, scale=2)
     private BigDecimal loyaltyCardBonus;
+
+
+    @OneToMany(mappedBy = "loyaltyCard")
+    @JsonIgnore
+    private Set<Receipt> receipts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,6 +69,15 @@ public class LoyaltyCard implements Serializable {
     public LoyaltyCard loyaltyCardAmount(BigDecimal loyaltyCardAmount) {
         this.loyaltyCardAmount = loyaltyCardAmount;
         return this;
+    }
+
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
     }
 
     public void setLoyaltyCardAmount(BigDecimal loyaltyCardAmount) {
