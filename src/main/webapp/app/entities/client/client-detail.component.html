@@ -3,7 +3,7 @@
     <h2><span jhiTranslate="logisticsApp.client.detail.title">Client</span> {{client.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.client.firstName">First Name</span></dt>
         <dd>
             <span>{{client.firstName}}</span>
@@ -11,28 +11,6 @@
         <dt><span jhiTranslate="logisticsApp.client.lastName">Last Name</span></dt>
         <dd>
             <span>{{client.lastName}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.client.address">Address</span></dt>
-        <dd>
-            <span>{{client.address}}</span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.client.city">City</span></dt>
-        <dd>
-            <div *ngIf="client.cityId">
-                <a [routerLink]="['location', client.cityId]">{{client.cityName}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.client.region">Region</span></dt>
-        <dd>
-            <div *ngIf="client.regionId">
-                <a [routerLink]="['location', client.regionId]">{{client.regionName}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.client.street">Street</span></dt>
-        <dd>
-            <div *ngIf="client.streetId">
-                <a [routerLink]="['location', client.streetId]">{{client.streetName}}</a>
-            </div>
         </dd>
     </dl>
 

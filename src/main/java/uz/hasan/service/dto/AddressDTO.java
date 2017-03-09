@@ -15,7 +15,11 @@ public class AddressDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String streetAddress;
+    private String firstName;
+
+    private String latitude;
+
+    private String longitude;
 
     private Long countryId;
 
@@ -33,6 +37,10 @@ public class AddressDTO implements Serializable {
 
     private String districtName;
 
+    private Long clientId;
+
+    private String clientStreetAddress;
+
     public Long getId() {
         return id;
     }
@@ -40,12 +48,26 @@ public class AddressDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public Long getCountryId() {
@@ -112,6 +134,22 @@ public class AddressDTO implements Serializable {
         this.districtName = locationName;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientStreetAddress() {
+        return clientStreetAddress;
+    }
+
+    public void setClientStreetAddress(String clientStreetAddress) {
+        this.clientStreetAddress = clientStreetAddress;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -137,7 +175,9 @@ public class AddressDTO implements Serializable {
     public String toString() {
         return "AddressDTO{" +
             "id=" + id +
-            ", streetAddress='" + streetAddress + "'" +
+            ", firstName='" + firstName + "'" +
+            ", latitude='" + latitude + "'" +
+            ", longitude='" + longitude + "'" +
             '}';
     }
 }

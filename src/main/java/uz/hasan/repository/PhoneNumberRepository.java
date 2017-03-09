@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumber,Long> {
 
+    PhoneNumber findByNumber(String phoneNumber);
 }

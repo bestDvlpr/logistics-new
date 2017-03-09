@@ -21,8 +21,14 @@ public class Address implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "street_address", nullable = false)
-    private String streetAddress;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "latitude")
+    private String latitude;
+
+    @Column(name = "longitude")
+    private String longitude;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -39,6 +45,9 @@ public class Address implements Serializable {
     @NotNull
     private Location district;
 
+    @ManyToOne
+    private Client client;
+
     public Long getId() {
         return id;
     }
@@ -47,17 +56,43 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Address streetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public Address firstName(String firstName) {
+        this.firstName = firstName;
         return this;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public Address latitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public Address longitude(String longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public Location getCountry() {
@@ -112,6 +147,19 @@ public class Address implements Serializable {
         this.district = location;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public Address client(Client client) {
+        this.client = client;
+        return this;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,7 +184,9 @@ public class Address implements Serializable {
     public String toString() {
         return "Address{" +
             "id=" + id +
-            ", streetAddress='" + streetAddress + "'" +
+            ", firstName='" + firstName + "'" +
+            ", latitude='" + latitude + "'" +
+            ", longitude='" + longitude + "'" +
             '}';
     }
 }

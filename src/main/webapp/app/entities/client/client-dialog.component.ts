@@ -8,7 +8,6 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Client } from './client.model';
 import { ClientPopupService } from './client-popup.service';
 import { ClientService } from './client.service';
-import { Location, LocationService } from '../location';
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
@@ -18,14 +17,11 @@ export class ClientDialogComponent implements OnInit {
     client: Client;
     authorities: any[];
     isSaving: boolean;
-
-    locations: Location[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private clientService: ClientService,
-        private locationService: LocationService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['client']);
@@ -34,8 +30,6 @@ export class ClientDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.locationService.query().subscribe(
-            (res: Response) => { this.locations = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -65,10 +59,6 @@ export class ClientDialogComponent implements OnInit {
 
     private onError (error) {
         this.alertService.error(error.message, null, null);
-    }
-
-    trackLocationById(index: number, item: Location) {
-        return item.id;
     }
 }
 

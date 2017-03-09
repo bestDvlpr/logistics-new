@@ -33,6 +33,12 @@
                 "required"
             ],
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "streetAddress"
         }
     ],
     "fields": [
@@ -42,6 +48,14 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170306120635",

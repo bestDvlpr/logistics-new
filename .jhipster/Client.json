@@ -1,34 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipName": "city",
-            "otherEntityName": "location",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "region",
-            "otherEntityName": "location",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "street",
-            "otherEntityName": "location",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "firstName",
@@ -37,13 +9,6 @@
         {
             "fieldName": "lastName",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "address",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
         }
     ],
     "changelogDate": "20170302060008",

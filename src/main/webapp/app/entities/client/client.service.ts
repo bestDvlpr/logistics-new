@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Client } from './client.model';
+import {Client} from './client.model';
 @Injectable()
 export class ClientService {
 
     private resourceUrl = 'api/clients';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(client: Client): Observable<Client> {
         let copy: Client = Object.assign({}, client);
@@ -33,14 +34,18 @@ export class ClientService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
+    }
+
+    byPhoneNumber(phoneNumber: string): Observable<Client> {
+        return this.http.get(`${this.resourceUrl}/by-phone/${phoneNumber}`).map((res: Response) => {
+            return res.json();
+        });
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
-
 
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();

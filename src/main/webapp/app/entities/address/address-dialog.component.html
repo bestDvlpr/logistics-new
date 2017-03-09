@@ -3,9 +3,9 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
+        <h4 class="modal-title" id="myAddressLabel" jhiTranslate="logisticsApp.address.home.createOrEditLabel">Create or edit a Address</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
-        <h4 class="modal-title" id="myAddressLabel" jhiTranslate="logisticsApp.address.home.createOrEditLabel">Create or edit a Address</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -26,6 +26,18 @@
                 </small>
             </div>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.address.latitude" for="field_latitude">Latitude</label>
+            <input type="text" class="form-control" name="latitude" id="field_latitude"
+                [(ngModel)]="address.latitude"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.address.longitude" for="field_longitude">Longitude</label>
+            <input type="text" class="form-control" name="longitude" id="field_longitude"
+                [(ngModel)]="address.longitude"
+             />
+        </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.address.country" for="field_country">Country</label>
@@ -36,7 +48,7 @@
         </div>
         <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!country?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
@@ -49,7 +61,7 @@
         </div>
         <div [hidden]="!(editForm.controls.region?.dirty && editForm.controls.region?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!region?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.region?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
@@ -69,9 +81,16 @@
         </div>
         <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!district?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.address.client" for="field_client">Client</label>
+            <select class="form-control" id="field_client" name="client" [(ngModel)]="address.clientId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.streetAddress}}</option>
+            </select>
         </div>
     </div>
     <div class="modal-footer">

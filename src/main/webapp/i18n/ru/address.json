@@ -4,8 +4,7 @@
             "home": {
                 "title": "Addresses",
                 "createLabel": "Создать новый Address",
-                "createOrEditLabel": "Создать или отредактировать Address",
-                "search": "Найти Address"
+                "createOrEditLabel": "Создать или отредактировать Address"
             },
             "created": "Новый Address создан с идентификатором {{ param }}",
             "updated": "Address обновлен с идентификатором {{ param }}",
@@ -17,10 +16,13 @@
                 "title": "Address"
             },
             "streetAddress": "Street Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
             "country": "Country",
             "region": "Region",
             "city": "City",
-            "district": "District"
+            "district": "District",
+            "client": "Client"
         }
     }
 }

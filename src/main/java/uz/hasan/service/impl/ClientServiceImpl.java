@@ -1,5 +1,7 @@
 package uz.hasan.service.impl;
 
+import uz.hasan.domain.PhoneNumber;
+import uz.hasan.repository.PhoneNumberRepository;
 import uz.hasan.service.ClientService;
 import uz.hasan.domain.Client;
 import uz.hasan.repository.ClientRepository;
@@ -24,13 +26,16 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService{
 
     private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
-    
+
     private final ClientRepository clientRepository;
+
+    private final PhoneNumberRepository phoneNumberRepository;
 
     private final ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper) {
+    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, PhoneNumberRepository phoneNumberRepository) {
         this.clientRepository = clientRepository;
+        this.phoneNumberRepository = phoneNumberRepository;
         this.clientMapper = clientMapper;
     }
 
@@ -51,7 +56,7 @@ public class ClientServiceImpl implements ClientService{
 
     /**
      *  Get all the clients.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -87,5 +92,23 @@ public class ClientServiceImpl implements ClientService{
     public void delete(Long id) {
         log.debug("Request to delete Client : {}", id);
         clientRepository.delete(id);
+    }
+
+    /**
+     * Get one client by phoneNumber.
+     *
+     * @param phoneNumber the phoneNumber of the entity
+     * @return the entity
+     */
+    @Override
+    public ClientDTO findByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            return null;
+        }
+        PhoneNumber number = phoneNumberRepository.findByNumber(phoneNumber);
+        if (number == null) {
+            return null;
+        }
+        return clientMapper.clientToClientDTO(number.getClient());
     }
 }

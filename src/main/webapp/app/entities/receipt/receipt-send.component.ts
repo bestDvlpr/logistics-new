@@ -6,22 +6,27 @@ import {ReceiptService} from './receipt.service';
 import {ProductEntry} from '../product-entry/product-entry.model';
 import {ProductEntryService} from '../product-entry/product-entry.service';
 import {Response} from '@angular/http';
+import {PhoneNumberService} from '../phone-number/phone-number.service';
+import {ClientService} from '../client/client.service';
+import {Client} from '../client/client.model';
 
 @Component({
     selector: 'jhi-receipt-send',
     templateUrl: './receipt-send.component.html'
 })
-export class ReceiptSendComponent implements OnInit, OnDestroy {
+export class ReceiptSendComponent implements OnInit {
 
     receipt: Receipt;
     private subscription: any;
-
+    phoneNumber: string;
+    client: Client;
     productEntries: ProductEntry[];
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
+                private clientService: ClientService,
                 private productEntryService: ProductEntryService) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber']);
     }
@@ -100,6 +105,13 @@ export class ReceiptSendComponent implements OnInit, OnDestroy {
 
     public refreshValue(value: any): void {
         this.value = value;
+    }
+
+    public findClient() {
+        this.clientService.byPhoneNumber(this.phoneNumber).subscribe((res: Response) => {
+            this.client = res.json();
+            console.log(this.client);
+        });
     }
 
 }

@@ -9,6 +9,7 @@ import { Address } from './address.model';
 import { AddressPopupService } from './address-popup.service';
 import { AddressService } from './address.service';
 import { Location, LocationService } from '../location';
+import { Client, ClientService } from '../client';
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
@@ -20,12 +21,15 @@ export class AddressDialogComponent implements OnInit {
     isSaving: boolean;
 
     locations: Location[];
+
+    clients: Client[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
         private addressService: AddressService,
         private locationService: LocationService,
+        private clientService: ClientService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['address']);
@@ -36,6 +40,8 @@ export class AddressDialogComponent implements OnInit {
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.locationService.query().subscribe(
             (res: Response) => { this.locations = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.clientService.query().subscribe(
+            (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -68,6 +74,10 @@ export class AddressDialogComponent implements OnInit {
     }
 
     trackLocationById(index: number, item: Location) {
+        return item.id;
+    }
+
+    trackClientById(index: number, item: Client) {
         return item.id;
     }
 }

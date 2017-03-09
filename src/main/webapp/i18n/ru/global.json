@@ -64,7 +64,8 @@
             "confirmpassword": "Подтверждение нового пароля",
             "confirmpassword.placeholder": "Подтвердите новый пароль",
             "email": "E-mail",
-            "email.placeholder": "Ваш e-mail"
+            "email.placeholder": "Ваш e-mail",
+            "next": "Следующий"
         },
         "messages": {
             "info": {

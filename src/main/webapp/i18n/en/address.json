@@ -4,8 +4,7 @@
             "home": {
                 "title": "Addresses",
                 "createLabel": "Create a new Address",
-                "createOrEditLabel": "Create or edit a Address",
-                "search": "Search for Address"
+                "createOrEditLabel": "Create or edit a Address"
             },
             "created": "A new Address is created with identifier {{ param }}",
             "updated": "A Address is updated with identifier {{ param }}",
@@ -17,10 +16,13 @@
                 "title": "Address"
             },
             "streetAddress": "Street Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
             "country": "Country",
             "region": "Region",
             "city": "City",
-            "district": "District"
+            "district": "District",
+            "client": "Client"
         }
     }
 }

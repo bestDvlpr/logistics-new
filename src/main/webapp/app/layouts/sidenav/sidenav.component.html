@@ -8,10 +8,11 @@
                 <!--<img src="../../../content/images/logo-jhipster.png" class="rounded"/>-->
                 <div class="profile-image sidenav_profile col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
                 <div class="col-lg-8 col-md-8 col-sm-12 col-cs-12">
-                    <button class="btn btn-outline-success btn-sm" [routerLink]="settings" type="button"
+                    <button class="btn btn-outline-success btn-sm" [routerLink]="['settings']" type="button"
                             ngbTooltip="Settings">
                         <span class="fa fa-edit"></span></button>
-                    <button ngbTooltip="Change Password" class="btn btn-outline-primary btn-sm" [routerLink]="password"
+                    <button ngbTooltip="Change Password" class="btn btn-outline-primary btn-sm"
+                            [routerLink]="['password']"
                             type="button"><span class="fa fa-lock"></span></button>
                     <button ngbTooltip="Sign Out" class="btn btn-outline-danger btn-sm" (click)="logout()"
                             type="button"><span
@@ -33,7 +34,7 @@
                 <i *ngIf="isAdministrationCollapsed" class="fa fa-caret-down fa-pull-right"></i>
                 <i *ngIf="!isAdministrationCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
-            <div [collapse]="isAdministrationCollapsed" id="adminCollapse">
+            <div [jhiCollapse]="isAdministrationCollapsed" id="adminCollapse">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['gateway']" routerLinkActive="active">
@@ -96,7 +97,7 @@
                 <i *ngIf="isCollapsed" class="fa fa-caret-down fa-pull-right"></i>
                 <i *ngIf="!isCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
-            <div [collapse]="isCollapsed">
+            <div [jhiCollapse]="isCollapsed">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a class="nav-link" (click)="login()" id="login" routerLinkActive="active">
@@ -130,7 +131,7 @@
                 <i *ngIf="isEntitiesCollapsed" class="fa fa-caret-down fa-pull-right"></i>
                 <i *ngIf="!isEntitiesCollapsed" class="fa fa-caret-up fa-pull-right"></i>
             </a>
-            <div [collapse]="isEntitiesCollapsed" id="collapseEntitiesDD" class="col-md-12">
+            <div [jhiCollapse]="isEntitiesCollapsed" id="collapseEntitiesDD" class="col-md-12">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['receipt']" routerLinkActive="active">

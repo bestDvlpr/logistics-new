@@ -20,7 +20,7 @@ public interface ClientService {
 
     /**
      *  Get all the clients.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,12 @@ public interface ClientService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *  Get the "phoneNumber" client.
+     *
+     *  @param phoneNumber the phone number of the entity
+     *  @return the entity
+     */
+    ClientDTO findByPhoneNumber(String phoneNumber);
 }

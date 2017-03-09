@@ -44,33 +44,25 @@
     <div class="clearfix"></div>
     <hr>
     <div class="row">
-        <div class="card">
-            <div class="card-header">
-                <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone Number</label>
-            </div>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-md-4">
-                        <form name="number" role="form" novalidate>
-                            <div class="form-group">
-                                <ng-select id="phoneNumber" class="form-control"
-                                           [allowClear]="true"
-                                           [items]="phoneNumbers"
-                                           [disabled]="disabled"
-                                           (data)="refreshValue($event)"
-                                           (selected)="selected($event)"
-                                           (removed)="removed($event)"
-                                           (typed)="typed($event)">
-                                </ng-select>
-                            </div>
-                            <button type="button"
-                                    [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
-                                    replaceUrl="true"
-                                    class="btn btn-primary btn-lg">
-                                <span jhiTranslate="logisticsApp.receipt."> Edit</span>&nbsp;
-                                <span class="fa fa-arrow-circle-right"></span>
-                            </button>
-                        </form>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone Number</label>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form name="number" role="form" novalidate (ngSubmit)="findClient()">
+                                <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone
+                                    Number</label>
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber"/>
+                                <div>&nbsp;</div>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <span jhiTranslate="global.form.next"> Edit</span>&nbsp;
+                                    <span class="fa fa-arrow-circle-right"></span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

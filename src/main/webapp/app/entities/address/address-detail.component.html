@@ -3,33 +3,47 @@
     <h2><span jhiTranslate="logisticsApp.address.detail.title">Address</span> {{address.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.address.streetAddress">Street Address</span></dt>
         <dd>
             <span>{{address.streetAddress}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.address.latitude">Latitude</span></dt>
+        <dd>
+            <span>{{address.latitude}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.address.longitude">Longitude</span></dt>
+        <dd>
+            <span>{{address.longitude}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.address.country">Country</span></dt>
         <dd>
             <div *ngIf="address.countryId">
-                <a [routerLink]="['location', address.countryId]">{{address.countryName}}</a>
+                <a [routerLink]="['/location', address.countryId]">{{address.countryName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.address.region">Region</span></dt>
         <dd>
             <div *ngIf="address.regionId">
-                <a [routerLink]="['location', address.regionId]">{{address.regionName}}</a>
+                <a [routerLink]="['/location', address.regionId]">{{address.regionName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.address.city">City</span></dt>
         <dd>
             <div *ngIf="address.cityId">
-                <a [routerLink]="['location', address.cityId]">{{address.cityName}}</a>
+                <a [routerLink]="['/location', address.cityId]">{{address.cityName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.address.district">District</span></dt>
         <dd>
             <div *ngIf="address.districtId">
-                <a [routerLink]="['location', address.districtId]">{{address.districtName}}</a>
+                <a [routerLink]="['/location', address.districtId]">{{address.districtName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.address.client">Client</span></dt>
+        <dd>
+            <div *ngIf="address.clientId">
+                <a [routerLink]="['/client', address.clientId]">{{address.clientStreetAddress}}</a>
             </div>
         </dd>
     </dl>

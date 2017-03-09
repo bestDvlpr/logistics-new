@@ -4,12 +4,11 @@ import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.Address;
 import uz.hasan.domain.Location;
-import uz.hasan.domain.Location;
-import uz.hasan.domain.Location;
 import uz.hasan.repository.AddressRepository;
 import uz.hasan.service.AddressService;
 import uz.hasan.service.dto.AddressDTO;
 import uz.hasan.service.mapper.AddressMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +42,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AddressResourceIntTest {
 
     private static final String DEFAULT_STREET_ADDRESS = "AAAAAAAAAA";
-    private static final String UPDATED_STREET_ADDRESS = "BBBBBBBBBB";
+    private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LATITUDE = "AAAAAAAAAA";
+    private static final String UPDATED_LATITUDE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LONGITUDE = "AAAAAAAAAA";
+    private static final String UPDATED_LONGITUDE = "BBBBBBBBBB";
 
     @Autowired
     private AddressRepository addressRepository;
@@ -61,6 +66,9 @@ public class AddressResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restAddressMockMvc;
@@ -73,6 +81,7 @@ public class AddressResourceIntTest {
         AddressResource addressResource = new AddressResource(addressService);
         this.restAddressMockMvc = MockMvcBuilders.standaloneSetup(addressResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -84,7 +93,9 @@ public class AddressResourceIntTest {
      */
     public static Address createEntity(EntityManager em) {
         Address address = new Address()
-                .streetAddress(DEFAULT_STREET_ADDRESS);
+                .firstName(DEFAULT_STREET_ADDRESS)
+                .latitude(DEFAULT_LATITUDE)
+                .longitude(DEFAULT_LONGITUDE);
         // Add required entity
         Location country = LocationResourceIntTest.createEntity(em);
         em.persist(country);
@@ -125,7 +136,9 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeCreate + 1);
         Address testAddress = addressList.get(addressList.size() - 1);
-        assertThat(testAddress.getStreetAddress()).isEqualTo(DEFAULT_STREET_ADDRESS);
+        assertThat(testAddress.getFirstName()).isEqualTo(DEFAULT_STREET_ADDRESS);
+        assertThat(testAddress.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testAddress.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
     }
 
     @Test
@@ -154,7 +167,7 @@ public class AddressResourceIntTest {
     public void checkStreetAddressIsRequired() throws Exception {
         int databaseSizeBeforeTest = addressRepository.findAll().size();
         // set the field null
-        address.setStreetAddress(null);
+        address.setFirstName(null);
 
         // Create the Address, which fails.
         AddressDTO addressDTO = addressMapper.addressToAddressDTO(address);
@@ -179,7 +192,9 @@ public class AddressResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(address.getId().intValue())))
-            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS.toString())));
+            .andExpect(jsonPath("$.[*].streetAddress").value(hasItem(DEFAULT_STREET_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.toString())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.toString())));
     }
 
     @Test
@@ -193,7 +208,9 @@ public class AddressResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(address.getId().intValue()))
-            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS.toString()));
+            .andExpect(jsonPath("$.streetAddress").value(DEFAULT_STREET_ADDRESS.toString()))
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.toString()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.toString()));
     }
 
     @Test
@@ -214,7 +231,9 @@ public class AddressResourceIntTest {
         // Update the address
         Address updatedAddress = addressRepository.findOne(address.getId());
         updatedAddress
-                .streetAddress(UPDATED_STREET_ADDRESS);
+                .firstName(UPDATED_FIRST_NAME)
+                .latitude(UPDATED_LATITUDE)
+                .longitude(UPDATED_LONGITUDE);
         AddressDTO addressDTO = addressMapper.addressToAddressDTO(updatedAddress);
 
         restAddressMockMvc.perform(put("/api/addresses")
@@ -226,7 +245,9 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeUpdate);
         Address testAddress = addressList.get(addressList.size() - 1);
-        assertThat(testAddress.getStreetAddress()).isEqualTo(UPDATED_STREET_ADDRESS);
+        assertThat(testAddress.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
+        assertThat(testAddress.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAddress.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }
 
     @Test

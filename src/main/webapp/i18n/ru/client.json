@@ -4,8 +4,7 @@
             "home": {
                 "title": "Clients",
                 "createLabel": "Создать новый Client",
-                "createOrEditLabel": "Создать или отредактировать Client",
-                "search": "Найти Client"
+                "createOrEditLabel": "Создать или отредактировать Client"
             },
             "created": "Новый Client создан с идентификатором {{ param }}",
             "updated": "Client обновлен с идентификатором {{ param }}",
@@ -17,11 +16,7 @@
                 "title": "Client"
             },
             "firstName": "First Name",
-            "lastName": "Last Name",
-            "address": "Address",
-            "city": "City",
-            "region": "Region",
-            "street": "Street"
+            "lastName": "Last Name"
         }
     }
 }

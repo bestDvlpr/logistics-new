@@ -4,7 +4,7 @@
 import {Directive, Input, HostBinding} from '@angular/core';
 
 
-@Directive({selector: '[collapse]'})
+@Directive({selector: '[jhiCollapse]'})
 export class Collapse {
     // style
     @HostBinding('style.height')
@@ -15,21 +15,21 @@ export class Collapse {
     private isExpanded: boolean = true;
     // hidden
     @HostBinding('attr.aria-hidden')
-    private isCollapsed: boolean = false;
+    private isJhiCollapsed: boolean = false;
     // stale state
     @HostBinding('class.collapse')
-    private isCollapse: boolean = true;
+    private isJhiCollapse: boolean = true;
     // animation state
     @HostBinding('class.collapsing')
-    private isCollapsing: boolean = false;
+    private isJhiCollapsing: boolean = false;
 
     @Input()
-    private set collapse(value: boolean) {
+    private set jhiCollapse(value: boolean) {
         this.isExpanded = value;
         this.toggle();
     }
 
-    private get collapse(): boolean {
+    private get jhiCollapse(): boolean {
         return this.isExpanded;
     }
 
@@ -45,29 +45,29 @@ export class Collapse {
     }
 
     hide() {
-        this.isCollapse = false;
-        this.isCollapsing = true;
+        this.isJhiCollapse = false;
+        this.isJhiCollapsing = true;
 
         this.isExpanded = false;
-        this.isCollapsed = true;
+        this.isJhiCollapsed = true;
         setTimeout(() => {
             this.height = '0';
-            this.isCollapse = true;
-            this.isCollapsing = false;
+            this.isJhiCollapse = true;
+            this.isJhiCollapsing = false;
         }, 4);
     }
 
     show() {
-        this.isCollapse = false;
-        this.isCollapsing = true;
+        this.isJhiCollapse = false;
+        this.isJhiCollapsing = true;
 
         this.isExpanded = true;
-        this.isCollapsed = false;
+        this.isJhiCollapsed = false;
         setTimeout(() => {
             this.height = 'auto';
 
-            this.isCollapse = true;
-            this.isCollapsing = false;
+            this.isJhiCollapse = true;
+            this.isJhiCollapsing = false;
         }, 4);
     }
 }

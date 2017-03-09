@@ -34,7 +34,7 @@ public class ClientResource {
     private final Logger log = LoggerFactory.getLogger(ClientResource.class);
 
     private static final String ENTITY_NAME = "client";
-        
+
     private final ClientService clientService;
 
     public ClientResource(ClientService clientService) {
@@ -111,6 +111,20 @@ public class ClientResource {
     public ResponseEntity<ClientDTO> getClient(@PathVariable Long id) {
         log.debug("REST request to get Client : {}", id);
         ClientDTO clientDTO = clientService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(clientDTO));
+    }
+
+    /**
+     * GET  /clients/:id : get the "id" client.
+     *
+     * @param id the id of the clientDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the clientDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/clients/by-phone/{phoneNumber}")
+    @Timed
+    public ResponseEntity<ClientDTO> getClientByPhone(@PathVariable String phoneNumber) {
+        log.debug("REST request to get Client by phone: {}", phoneNumber);
+        ClientDTO clientDTO = clientService.findByPhoneNumber(phoneNumber);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(clientDTO));
     }
 

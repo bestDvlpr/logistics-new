@@ -1,0 +1,63 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan" id="1489043240842-0">
+        <sql>
+            update receipt set client_id = null;
+            delete from phone_number;
+            delete from client;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-1">
+        <addColumn tableName="address">
+            <column name="client_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-2">
+        <addColumn tableName="address">
+            <column name="first_name" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-3">
+        <addColumn tableName="address">
+            <column name="latitude" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-4">
+        <addColumn tableName="address">
+            <column name="longitude" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-5">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="address" constraintName="FK7156ty2o5atyuy9f6kuup9dna" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="client"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-6">
+        <dropForeignKeyConstraint baseTableName="client" constraintName="fk_client_city_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-7">
+        <dropForeignKeyConstraint baseTableName="client" constraintName="fk_client_region_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-8">
+        <dropForeignKeyConstraint baseTableName="client" constraintName="fk_client_street_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-9">
+        <dropColumn columnName="address" tableName="client"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-10">
+        <dropColumn columnName="city_id" tableName="client"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-11">
+        <dropColumn columnName="region_id" tableName="client"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-12">
+        <dropColumn columnName="street_address" tableName="address"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-13">
+        <dropColumn columnName="street_id" tableName="client"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489043240842-14">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="name" tableName="product"/>
+    </changeSet>
+    <changeSet author="hasan" id="1489043240842-15">
+        <addNotNullConstraint columnDataType="int8" columnName="client_id" tableName="address"/>
+    </changeSet>
+</databaseChangeLog>

@@ -20,6 +20,8 @@ public interface AddressMapper {
     @Mapping(source = "city.name", target = "cityName")
     @Mapping(source = "district.id", target = "districtId")
     @Mapping(source = "district.name", target = "districtName")
+    @Mapping(source = "client.id", target = "clientId")
+    @Mapping(source = "client.firstName", target = "firstName")
     AddressDTO addressToAddressDTO(Address address);
 
     List<AddressDTO> addressesToAddressDTOs(List<Address> addresses);
@@ -28,6 +30,7 @@ public interface AddressMapper {
     @Mapping(source = "regionId", target = "region")
     @Mapping(source = "cityId", target = "city")
     @Mapping(source = "districtId", target = "district")
+    @Mapping(source = "clientId", target = "client")
     Address addressDTOToAddress(AddressDTO addressDTO);
 
     List<Address> addressDTOsToAddresses(List<AddressDTO> addressDTOs);
@@ -39,5 +42,14 @@ public interface AddressMapper {
         Location location = new Location();
         location.setId(id);
         return location;
+    }
+
+    default Client clientFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Client client = new Client();
+        client.setId(id);
+        return client;
     }
 }
