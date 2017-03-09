@@ -1,5 +1,6 @@
 package uz.hasan.service;
 
+import uz.hasan.service.dto.ClientAndAddressesDTO;
 import uz.hasan.service.dto.ClientDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,5 +48,5 @@ public interface ClientService {
      *  @param phoneNumber the phone number of the entity
      *  @return the entity
      */
-    ClientDTO findByPhoneNumber(String phoneNumber);
+    ClientAndAddressesDTO findByPhoneNumber(String phoneNumber);
 }

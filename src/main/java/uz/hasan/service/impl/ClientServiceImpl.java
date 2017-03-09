@@ -5,7 +5,9 @@ import uz.hasan.repository.PhoneNumberRepository;
 import uz.hasan.service.ClientService;
 import uz.hasan.domain.Client;
 import uz.hasan.repository.ClientRepository;
+import uz.hasan.service.dto.ClientAndAddressesDTO;
 import uz.hasan.service.dto.ClientDTO;
+import uz.hasan.service.mapper.ClientAndAddressesMapper;
 import uz.hasan.service.mapper.ClientMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +35,13 @@ public class ClientServiceImpl implements ClientService{
 
     private final ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, PhoneNumberRepository phoneNumberRepository) {
+    private final ClientAndAddressesMapper clientAndAddressesMapper;
+
+    public ClientServiceImpl(ClientRepository clientRepository, PhoneNumberRepository phoneNumberRepository, ClientMapper clientMapper, ClientAndAddressesMapper clientAndAddressesMapper) {
         this.clientRepository = clientRepository;
         this.phoneNumberRepository = phoneNumberRepository;
         this.clientMapper = clientMapper;
+        this.clientAndAddressesMapper = clientAndAddressesMapper;
     }
 
     /**
@@ -101,7 +106,7 @@ public class ClientServiceImpl implements ClientService{
      * @return the entity
      */
     @Override
-    public ClientDTO findByPhoneNumber(String phoneNumber) {
+    public ClientAndAddressesDTO findByPhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isEmpty()) {
             return null;
         }
@@ -109,6 +114,6 @@ public class ClientServiceImpl implements ClientService{
         if (number == null) {
             return null;
         }
-        return clientMapper.clientToClientDTO(number.getClient());
+        return clientAndAddressesMapper.clientToClientAndAddressesDTO(number.getClient());
     }
 }

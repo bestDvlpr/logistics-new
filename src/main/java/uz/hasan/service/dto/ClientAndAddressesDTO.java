@@ -8,37 +8,9 @@ import java.util.Objects;
 /**
  * A DTO for the Client entity.
  */
-public class ClientAndAddressesDTO implements Serializable {
-
-    private Long id;
-
-    private String firstName;
-
-    private String lastName;
+public class ClientAndAddressesDTO extends ClientDTO implements Serializable {
 
     private List<AddressDTO> addressDTOS;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public List<AddressDTO> getAddressDTOS() {
         return addressDTOS;
@@ -50,31 +22,26 @@ public class ClientAndAddressesDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        ClientAndAddressesDTO clientDTO = (ClientAndAddressesDTO) o;
+        ClientAndAddressesDTO that = (ClientAndAddressesDTO) o;
 
-        if ( ! Objects.equals(id, clientDTO.id)) { return false; }
-
-        return true;
+        return addressDTOS != null ? addressDTOS.equals(that.addressDTOS) : that.addressDTOS == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        int result = super.hashCode();
+        result = 31 * result + (addressDTOS != null ? addressDTOS.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "ClientDTO{" +
-            "id=" + id +
-            ", firstName='" + firstName + "'" +
-            ", lastName='" + lastName + "'" +
+        return "ClientAndAddressesDTO{" +
+            "addressDTOS=" + addressDTOS +
             '}';
     }
 }

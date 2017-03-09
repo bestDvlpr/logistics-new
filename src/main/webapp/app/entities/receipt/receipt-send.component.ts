@@ -115,11 +115,6 @@ export class ReceiptSendComponent implements OnInit {
         this.clientService.byPhoneNumber(this.phoneNumber).subscribe(res => {
             this.client = res;
             console.log(this.client);
-
-            this.addressService.byClientId(this.client.id).subscribe((res: Response) => {
-                this.clientAddress = res.json();
-                console.log(this.clientAddress);
-            });
         });
     }
 

@@ -2,6 +2,7 @@ package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import uz.hasan.service.ClientService;
+import uz.hasan.service.dto.ClientAndAddressesDTO;
 import uz.hasan.web.rest.util.HeaderUtil;
 import uz.hasan.web.rest.util.PaginationUtil;
 import uz.hasan.service.dto.ClientDTO;
@@ -122,9 +123,9 @@ public class ClientResource {
      */
     @GetMapping("/clients/by-phone/{phoneNumber}")
     @Timed
-    public ResponseEntity<ClientDTO> getClientByPhone(@PathVariable String phoneNumber) {
+    public ResponseEntity<ClientAndAddressesDTO> getClientByPhone(@PathVariable String phoneNumber) {
         log.debug("REST request to get Client by phone: {}", phoneNumber);
-        ClientDTO clientDTO = clientService.findByPhoneNumber(phoneNumber);
+        ClientAndAddressesDTO clientDTO = clientService.findByPhoneNumber(phoneNumber);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(clientDTO));
     }
 
