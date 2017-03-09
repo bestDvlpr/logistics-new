@@ -24,7 +24,7 @@
             <th jhiSortBy="regionName"><span jhiTranslate="logisticsApp.address.region">Region</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="cityName"><span jhiTranslate="logisticsApp.address.city">City</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="districtName"><span jhiTranslate="logisticsApp.address.district">District</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="clientStreetAddress"><span jhiTranslate="logisticsApp.address.client">Client</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.address.client">Client</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -56,7 +56,7 @@
                 </td>
                 <td>
                     <div *ngIf="address.clientId">
-                        <a [routerLink]="['../client', address.clientId  ]" >{{address.clientStreetAddress}}</a>
+                        <a [routerLink]="['../client', address.clientId  ]" >{{address.clientFirstName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

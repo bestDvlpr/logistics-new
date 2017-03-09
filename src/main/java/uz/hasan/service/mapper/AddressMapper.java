@@ -21,7 +21,7 @@ public interface AddressMapper {
     @Mapping(source = "district.id", target = "districtId")
     @Mapping(source = "district.name", target = "districtName")
     @Mapping(source = "client.id", target = "clientId")
-    @Mapping(source = "client.firstName", target = "firstName")
+    @Mapping(source = "client.firstName", target = "clientFirstName")
     AddressDTO addressToAddressDTO(Address address);
 
     List<AddressDTO> addressesToAddressDTOs(List<Address> addresses);

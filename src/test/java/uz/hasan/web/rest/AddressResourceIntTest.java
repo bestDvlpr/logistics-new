@@ -4,6 +4,8 @@ import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.Address;
 import uz.hasan.domain.Location;
+import uz.hasan.domain.Location;
+import uz.hasan.domain.Location;
 import uz.hasan.repository.AddressRepository;
 import uz.hasan.service.AddressService;
 import uz.hasan.service.dto.AddressDTO;
@@ -42,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AddressResourceIntTest {
 
     private static final String DEFAULT_STREET_ADDRESS = "AAAAAAAAAA";
-    private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
+    private static final String UPDATED_STREET_ADDRESS = "BBBBBBBBBB";
 
     private static final String DEFAULT_LATITUDE = "AAAAAAAAAA";
     private static final String UPDATED_LATITUDE = "BBBBBBBBBB";
@@ -93,7 +95,7 @@ public class AddressResourceIntTest {
      */
     public static Address createEntity(EntityManager em) {
         Address address = new Address()
-                .firstName(DEFAULT_STREET_ADDRESS)
+                .streetAddress(DEFAULT_STREET_ADDRESS)
                 .latitude(DEFAULT_LATITUDE)
                 .longitude(DEFAULT_LONGITUDE);
         // Add required entity
@@ -136,7 +138,7 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeCreate + 1);
         Address testAddress = addressList.get(addressList.size() - 1);
-        assertThat(testAddress.getFirstName()).isEqualTo(DEFAULT_STREET_ADDRESS);
+        assertThat(testAddress.getStreetAddress()).isEqualTo(DEFAULT_STREET_ADDRESS);
         assertThat(testAddress.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
         assertThat(testAddress.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
     }
@@ -167,7 +169,7 @@ public class AddressResourceIntTest {
     public void checkStreetAddressIsRequired() throws Exception {
         int databaseSizeBeforeTest = addressRepository.findAll().size();
         // set the field null
-        address.setFirstName(null);
+        address.setStreetAddress(null);
 
         // Create the Address, which fails.
         AddressDTO addressDTO = addressMapper.addressToAddressDTO(address);
@@ -231,7 +233,7 @@ public class AddressResourceIntTest {
         // Update the address
         Address updatedAddress = addressRepository.findOne(address.getId());
         updatedAddress
-                .firstName(UPDATED_FIRST_NAME)
+                .streetAddress(UPDATED_STREET_ADDRESS)
                 .latitude(UPDATED_LATITUDE)
                 .longitude(UPDATED_LONGITUDE);
         AddressDTO addressDTO = addressMapper.addressToAddressDTO(updatedAddress);
@@ -245,7 +247,7 @@ public class AddressResourceIntTest {
         List<Address> addressList = addressRepository.findAll();
         assertThat(addressList).hasSize(databaseSizeBeforeUpdate);
         Address testAddress = addressList.get(addressList.size() - 1);
-        assertThat(testAddress.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
+        assertThat(testAddress.getStreetAddress()).isEqualTo(UPDATED_STREET_ADDRESS);
         assertThat(testAddress.getLatitude()).isEqualTo(UPDATED_LATITUDE);
         assertThat(testAddress.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }

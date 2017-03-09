@@ -21,8 +21,8 @@ public class Address implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "street_address", nullable = false)
+    private String streetAddress;
 
     @Column(name = "latitude")
     private String latitude;
@@ -56,17 +56,17 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public Address firstName(String firstName) {
-        this.firstName = firstName;
+    public Address streetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
         return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     public String getLatitude() {
@@ -184,7 +184,7 @@ public class Address implements Serializable {
     public String toString() {
         return "Address{" +
             "id=" + id +
-            ", firstName='" + firstName + "'" +
+            ", streetAddress='" + streetAddress + "'" +
             ", latitude='" + latitude + "'" +
             ", longitude='" + longitude + "'" +
             '}';

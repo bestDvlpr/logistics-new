@@ -15,7 +15,7 @@ public class AddressDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String firstName;
+    private String streetAddress;
 
     private String latitude;
 
@@ -39,7 +39,7 @@ public class AddressDTO implements Serializable {
 
     private Long clientId;
 
-    private String clientStreetAddress;
+    private String clientFirstName;
 
     public Long getId() {
         return id;
@@ -48,12 +48,12 @@ public class AddressDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getFirstName() {
-        return firstName;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
     public String getLatitude() {
         return latitude;
@@ -142,12 +142,12 @@ public class AddressDTO implements Serializable {
         this.clientId = clientId;
     }
 
-    public String getClientStreetAddress() {
-        return clientStreetAddress;
+    public String getClientFirstName() {
+        return clientFirstName;
     }
 
-    public void setClientStreetAddress(String clientStreetAddress) {
-        this.clientStreetAddress = clientStreetAddress;
+    public void setClientFirstName(String clientFirstName) {
+        this.clientFirstName = clientFirstName;
     }
 
     @Override
@@ -175,7 +175,7 @@ public class AddressDTO implements Serializable {
     public String toString() {
         return "AddressDTO{" +
             "id=" + id +
-            ", firstName='" + firstName + "'" +
+            ", streetAddress='" + streetAddress + "'" +
             ", latitude='" + latitude + "'" +
             ", longitude='" + longitude + "'" +
             '}';

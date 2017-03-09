@@ -89,7 +89,7 @@
             <label jhiTranslate="logisticsApp.address.client" for="field_client">Client</label>
             <select class="form-control" id="field_client" name="client" [(ngModel)]="address.clientId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.streetAddress}}</option>
+                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.firstName}}</option>
             </select>
         </div>
     </div>

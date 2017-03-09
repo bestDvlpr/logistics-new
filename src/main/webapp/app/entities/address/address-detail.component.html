@@ -43,7 +43,7 @@
         <dt><span jhiTranslate="logisticsApp.address.client">Client</span></dt>
         <dd>
             <div *ngIf="address.clientId">
-                <a [routerLink]="['/client', address.clientId]">{{address.clientStreetAddress}}</a>
+                <a [routerLink]="['/client', address.clientId]">{{address.clientFirstName}}</a>
             </div>
         </dd>
     </dl>
