@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Mapper for the entity Receipt and its DTO ReceiptDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {CarMapper.class, AddressMapper.class, })
 public interface ReceiptMapper {
 
     @Mapping(source = "payMaster.id", target = "payMasterId")
@@ -24,7 +24,7 @@ public interface ReceiptMapper {
 
     @Mapping(source = "payMasterId", target = "payMaster")
     @Mapping(source = "loyaltyCardId", target = "loyaltyCard")
-    @Mapping(source = "clientId", target = "client")
+    @Mapping(source = "clientId", target = "client.id")
     @Mapping(target = "productEntries", ignore = true)
     Receipt receiptDTOToReceipt(ReceiptDTO receiptDTO);
 
@@ -55,5 +55,23 @@ public interface ReceiptMapper {
         Client client = new Client();
         client.setId(id);
         return client;
+    }
+
+    default Car carFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Car car = new Car();
+        car.setId(id);
+        return car;
+    }
+
+    default Address addressFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Address address = new Address();
+        address.setId(id);
+        return address;
     }
 }

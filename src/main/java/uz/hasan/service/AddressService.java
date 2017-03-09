@@ -20,7 +20,7 @@ public interface AddressService {
 
     /**
      *  Get all the addresses.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,12 @@ public interface AddressService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *  Get all the addresses of client.
+     *
+     *  @param clientId the pagination information
+     *  @return the list of entities
+     */
+    List<AddressDTO> findByClientId(Long clientId);
 }

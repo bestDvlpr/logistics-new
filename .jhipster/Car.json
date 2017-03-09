@@ -31,6 +31,13 @@
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "cars"
+        },
+        {
+            "relationshipName": "receipts",
+            "otherEntityName": "receipt",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cars"
         }
     ],
     "fields": [

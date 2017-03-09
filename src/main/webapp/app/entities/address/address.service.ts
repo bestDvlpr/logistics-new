@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Address } from './address.model';
+import {Address} from './address.model';
 @Injectable()
 export class AddressService {
 
     private resourceUrl = 'api/addresses';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(address: Address): Observable<Address> {
         let copy: Address = Object.assign({}, address);
@@ -33,13 +34,12 @@ export class AddressService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {
@@ -56,5 +56,9 @@ export class AddressService {
             options.search = params;
         }
         return options;
+    }
+
+    byClientId(clientId: number): Observable<Response> {
+        return this.http.get(`${this.resourceUrl}/by-client/${clientId}`);
     }
 }

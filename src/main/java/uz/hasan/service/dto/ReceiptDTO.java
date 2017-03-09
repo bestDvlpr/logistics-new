@@ -4,7 +4,6 @@ package uz.hasan.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Objects;
 import uz.hasan.domain.enumeration.DocType;
@@ -49,6 +48,10 @@ public class ReceiptDTO implements Serializable {
     private Long clientId;
 
     private String clientFirstName;
+
+    private Set<CarDTO> cars = new HashSet<>();
+
+    private Set<AddressDTO> addresses = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -153,6 +156,22 @@ public class ReceiptDTO implements Serializable {
 
     public void setClientFirstName(String clientFirstName) {
         this.clientFirstName = clientFirstName;
+    }
+
+    public Set<CarDTO> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<CarDTO> cars) {
+        this.cars = cars;
+    }
+
+    public Set<AddressDTO> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<AddressDTO> addresses) {
+        this.addresses = addresses;
     }
 
     @Override

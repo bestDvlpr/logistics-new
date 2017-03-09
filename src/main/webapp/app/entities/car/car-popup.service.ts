@@ -10,6 +10,7 @@ export class CarPopupService {
         private modalService: NgbModal,
         private router: Router,
         private carService: CarService
+
     ) {}
 
     open (component: Component, id?: number | any): NgbModalRef {
@@ -31,11 +32,9 @@ export class CarPopupService {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.car = car;
         modalRef.result.then(result => {
-            console.log(`Closed with: ${result}`);
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {
-            console.log(`Dismissed ${reason}`);
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         });

@@ -3,7 +3,7 @@
     <h2><span jhiTranslate="logisticsApp.car.detail.title">Car</span> {{car.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.car.number">Number</span></dt>
         <dd>
             <span>{{car.number}}</span>
@@ -15,19 +15,19 @@
         <dt><span jhiTranslate="logisticsApp.car.carModel">Car Model</span></dt>
         <dd>
             <div *ngIf="car.carModelId">
-                <a [routerLink]="['car-model', car.carModelId]">{{car.carModelName}}</a>
+                <a [routerLink]="['/car-model', car.carModelId]">{{car.carModelName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.car.carColor">Car Color</span></dt>
         <dd>
             <div *ngIf="car.carColorId">
-                <a [routerLink]="['car-color', car.carColorId]">{{car.carColorName}}</a>
+                <a [routerLink]="['/car-color', car.carColorId]">{{car.carColorName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.car.type">Type</span></dt>
         <dd>
             <div *ngIf="car.typeId">
-                <a [routerLink]="['car-type', car.typeId]">{{car.typeName}}</a>
+                <a [routerLink]="['/car-type', car.typeId]">{{car.typeName}}</a>
             </div>
         </dd>
     </dl>

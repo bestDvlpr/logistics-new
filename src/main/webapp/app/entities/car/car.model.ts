@@ -7,5 +7,7 @@ export class Car {
         public carColorId?: number,
         public typeId?: number,
         public driversId?: number,
-    ) { }
+        public receiptsId?: number ) {
+        this.deleted = false;
+    }
 }

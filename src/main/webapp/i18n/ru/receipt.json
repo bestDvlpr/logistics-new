@@ -4,8 +4,7 @@
             "home": {
                 "title": "Receipts",
                 "createLabel": "Создать новый Receipt",
-                "createOrEditLabel": "Создать или отредактировать Receipt",
-                "search": "Найти Receipt"
+                "createOrEditLabel": "Создать или отредактировать Receipt"
             },
             "created": "Новый Receipt создан с идентификатором {{ param }}",
             "updated": "Receipt обновлен с идентификатором {{ param }}",
@@ -26,7 +25,9 @@
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
             "client": "Client",
-            "productEntries": "Product Entries"
+            "productEntries": "Product Entries",
+            "cars": "Cars",
+            "addresses": "Addresses"
         }
     }
 }

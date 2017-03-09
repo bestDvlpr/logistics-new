@@ -3,9 +3,9 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
+        <h4 class="modal-title" id="myCarLabel" jhiTranslate="logisticsApp.car.home.createOrEditLabel">Create or edit a Car</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
-        <h4 class="modal-title" id="myCarLabel" jhiTranslate="logisticsApp.car.home.createOrEditLabel">Create or edit a Car</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -48,7 +48,7 @@
         </div>
         <div [hidden]="!(editForm.controls.carModel?.dirty && editForm.controls.carModel?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!carModel?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.carModel?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
@@ -68,7 +68,7 @@
         </div>
         <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!type?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

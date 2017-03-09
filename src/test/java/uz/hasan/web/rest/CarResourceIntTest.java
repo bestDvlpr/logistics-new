@@ -9,6 +9,7 @@ import uz.hasan.repository.CarRepository;
 import uz.hasan.service.CarService;
 import uz.hasan.service.dto.CarDTO;
 import uz.hasan.service.mapper.CarMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,6 +64,9 @@ public class CarResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restCarMockMvc;
@@ -75,6 +79,7 @@ public class CarResourceIntTest {
         CarResource carResource = new CarResource(carService);
         this.restCarMockMvc = MockMvcBuilders.standaloneSetup(carResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 

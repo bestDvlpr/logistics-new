@@ -46,6 +46,10 @@ public class Car implements Serializable {
     @JsonIgnore
     private Set<Driver> drivers = new HashSet<>();
 
+    @ManyToMany(mappedBy = "cars")
+    @JsonIgnore
+    private Set<Receipt> receipts = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -142,6 +146,31 @@ public class Car implements Serializable {
 
     public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
+    }
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public Car receipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
+        return this;
+    }
+
+    public Car addReceipts(Receipt receipt) {
+        this.receipts.add(receipt);
+        receipt.getCars().add(this);
+        return this;
+    }
+
+    public Car removeReceipts(Receipt receipt) {
+        this.receipts.remove(receipt);
+        receipt.getCars().remove(this);
+        return this;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
     }
 
     @Override

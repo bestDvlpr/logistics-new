@@ -4,8 +4,7 @@
             "home": {
                 "title": "Cars",
                 "createLabel": "Создать новый Car",
-                "createOrEditLabel": "Создать или отредактировать Car",
-                "search": "Найти Car"
+                "createOrEditLabel": "Создать или отредактировать Car"
             },
             "created": "Новый Car создан с идентификатором {{ param }}",
             "updated": "Car обновлен с идентификатором {{ param }}",
@@ -21,7 +20,8 @@
             "carModel": "Car Model",
             "carColor": "Car Color",
             "type": "Type",
-            "drivers": "Drivers"
+            "drivers": "Drivers",
+            "receipts": "Receipts"
         }
     }
 }

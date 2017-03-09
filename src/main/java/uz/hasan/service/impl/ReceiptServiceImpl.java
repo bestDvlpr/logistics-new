@@ -1,21 +1,17 @@
 package uz.hasan.service.impl;
 
-import uz.hasan.domain.enumeration.ReceiptStatus;
-import uz.hasan.service.ReceiptService;
-import uz.hasan.domain.Receipt;
-import uz.hasan.repository.ReceiptRepository;
-import uz.hasan.service.dto.ReceiptDTO;
-import uz.hasan.service.mapper.ReceiptMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Receipt;
+import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.repository.ReceiptRepository;
+import uz.hasan.service.ReceiptService;
+import uz.hasan.service.dto.ReceiptDTO;
+import uz.hasan.service.mapper.ReceiptMapper;
 
 /**
  * Service Implementation for managing Receipt.
@@ -74,7 +70,7 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Transactional(readOnly = true)
     public ReceiptDTO findOne(Long id) {
         log.debug("Request to get Receipt : {}", id);
-        Receipt receipt = receiptRepository.findOne(id);
+        Receipt receipt = receiptRepository.findOneWithEagerRelationships(id);
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
         return receiptDTO;
     }

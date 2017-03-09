@@ -12,6 +12,8 @@ import { PayMaster, PayMasterService } from '../pay-master';
 import { LoyaltyCard, LoyaltyCardService } from '../loyalty-card';
 import { Client, ClientService } from '../client';
 import { ProductEntry, ProductEntryService } from '../product-entry';
+import { Car, CarService } from '../car';
+import { Address, AddressService } from '../address';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -29,6 +31,10 @@ export class ReceiptDialogComponent implements OnInit {
     clients: Client[];
 
     productentries: ProductEntry[];
+
+    cars: Car[];
+
+    addresses: Address[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -38,6 +44,8 @@ export class ReceiptDialogComponent implements OnInit {
         private loyaltyCardService: LoyaltyCardService,
         private clientService: ClientService,
         private productEntryService: ProductEntryService,
+        private carService: CarService,
+        private addressService: AddressService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
@@ -54,6 +62,10 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
         this.productEntryService.query().subscribe(
             (res: Response) => { this.productentries = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.carService.query().subscribe(
+            (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.addressService.query().subscribe(
+            (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -99,6 +111,25 @@ export class ReceiptDialogComponent implements OnInit {
 
     trackProductEntryById(index: number, item: ProductEntry) {
         return item.id;
+    }
+
+    trackCarById(index: number, item: Car) {
+        return item.id;
+    }
+
+    trackAddressById(index: number, item: Address) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }
 

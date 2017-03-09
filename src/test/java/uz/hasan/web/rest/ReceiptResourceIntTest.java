@@ -9,6 +9,7 @@ import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.mapper.ReceiptMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -81,6 +82,9 @@ public class ReceiptResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restReceiptMockMvc;
@@ -93,6 +97,7 @@ public class ReceiptResourceIntTest {
         ReceiptResource receiptResource = new ReceiptResource(receiptService);
         this.restReceiptMockMvc = MockMvcBuilders.standaloneSetup(receiptResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 

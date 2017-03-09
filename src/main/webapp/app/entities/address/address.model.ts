@@ -9,6 +9,6 @@ export class Address {
         public cityId?: number,
         public districtId?: number,
         public clientId?: number,
-    ) {
+        public receiptsId?: number ) {
     }
 }

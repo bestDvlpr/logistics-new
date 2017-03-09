@@ -22,7 +22,8 @@
             "region": "Region",
             "city": "City",
             "district": "District",
-            "client": "Client"
+            "client": "Client",
+            "receipts": "Receipts"
         }
     }
 }

@@ -4,8 +4,7 @@
             "home": {
                 "title": "Cars",
                 "createLabel": "Create a new Car",
-                "createOrEditLabel": "Create or edit a Car",
-                "search": "Search for Car"
+                "createOrEditLabel": "Create or edit a Car"
             },
             "created": "A new Car is created with identifier {{ param }}",
             "updated": "A Car is updated with identifier {{ param }}",
@@ -21,7 +20,8 @@
             "carModel": "Car Model",
             "carColor": "Car Color",
             "type": "Type",
-            "drivers": "Drivers"
+            "drivers": "Drivers",
+            "receipts": "Receipts"
         }
     }
 }

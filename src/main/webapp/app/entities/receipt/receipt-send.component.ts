@@ -9,6 +9,8 @@ import {Response} from '@angular/http';
 import {PhoneNumberService} from '../phone-number/phone-number.service';
 import {ClientService} from '../client/client.service';
 import {Client} from '../client/client.model';
+import {Address} from '../address/address.model';
+import {AddressService} from '../address/address.service';
 
 @Component({
     selector: 'jhi-receipt-send',
@@ -20,13 +22,24 @@ export class ReceiptSendComponent implements OnInit {
     private subscription: any;
     phoneNumber: string;
     client: Client;
+    clientAddress: Address[];
     productEntries: ProductEntry[];
+
+    /**
+     *
+     * ng2-select component functions
+     *
+     * */
+    private value: any = {};
+    private _disabledV: string = '0';
+    private disabled: boolean = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
                 private clientService: ClientService,
+                private addressService: AddressService,
                 private productEntryService: ProductEntryService) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber']);
     }
@@ -73,15 +86,6 @@ export class ReceiptSendComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    /**
-     *
-     * ng2-select component functions
-     *
-     * */
-    private value: any = {};
-    private _disabledV: string = '0';
-    private disabled: boolean = false;
-
     private get disabledV(): string {
         return this._disabledV;
     }
@@ -108,9 +112,14 @@ export class ReceiptSendComponent implements OnInit {
     }
 
     public findClient() {
-        this.clientService.byPhoneNumber(this.phoneNumber).subscribe((res: Response) => {
-            this.client = res.json();
+        this.clientService.byPhoneNumber(this.phoneNumber).subscribe(res => {
+            this.client = res;
             console.log(this.client);
+
+            this.addressService.byClientId(this.client.id).subscribe((res: Response) => {
+                this.clientAddress = res.json();
+                console.log(this.clientAddress);
+            });
         });
     }
 

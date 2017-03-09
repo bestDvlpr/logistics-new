@@ -10,6 +10,7 @@ import { AddressPopupService } from './address-popup.service';
 import { AddressService } from './address.service';
 import { Location, LocationService } from '../location';
 import { Client, ClientService } from '../client';
+import { Receipt, ReceiptService } from '../receipt';
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
@@ -23,6 +24,8 @@ export class AddressDialogComponent implements OnInit {
     locations: Location[];
 
     clients: Client[];
+
+    receipts: Receipt[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
@@ -30,6 +33,7 @@ export class AddressDialogComponent implements OnInit {
         private addressService: AddressService,
         private locationService: LocationService,
         private clientService: ClientService,
+        private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['address']);
@@ -42,6 +46,8 @@ export class AddressDialogComponent implements OnInit {
             (res: Response) => { this.locations = res.json(); }, (res: Response) => this.onError(res.json()));
         this.clientService.query().subscribe(
             (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.receiptService.query().subscribe(
+            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -79,6 +85,21 @@ export class AddressDialogComponent implements OnInit {
 
     trackClientById(index: number, item: Client) {
         return item.id;
+    }
+
+    trackReceiptById(index: number, item: Receipt) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }
 

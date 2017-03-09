@@ -3,6 +3,5 @@ export class CarType {
         public id?: number,
         public name?: string,
         public description?: string,
-        public view?: string,
-    ) { }
+        public view?: string ) { }
 }

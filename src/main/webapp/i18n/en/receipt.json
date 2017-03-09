@@ -4,8 +4,7 @@
             "home": {
                 "title": "Receipts",
                 "createLabel": "Create a new Receipt",
-                "createOrEditLabel": "Create or edit a Receipt",
-                "search": "Search for Receipt"
+                "createOrEditLabel": "Create or edit a Receipt"
             },
             "created": "A new Receipt is created with identifier {{ param }}",
             "updated": "A Receipt is updated with identifier {{ param }}",
@@ -26,7 +25,9 @@
             "payMaster": "Pay Master",
             "loyaltyCard": "Loyalty Card",
             "client": "Client",
-            "productEntries": "Product Entries"
+            "productEntries": "Product Entries",
+            "cars": "Cars",
+            "addresses": "Addresses"
         }
     }
 }

@@ -131,4 +131,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }
+
+    public attachToDriver(){
+
+    }
 }

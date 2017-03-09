@@ -3,6 +3,5 @@ export class LoyaltyCard {
         public id?: number,
         public loyaltyCardID?: string,
         public loyaltyCardAmount?: number,
-        public loyaltyCardBonus?: number,
-    ) { }
+        public loyaltyCardBonus?: number ) { }
 }

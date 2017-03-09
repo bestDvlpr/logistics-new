@@ -4,6 +4,8 @@ import uz.hasan.domain.Car;
 
 import org.springframework.data.jpa.repository.*;
 
+import java.util.List;
+
 /**
  * Spring Data JPA repository for the Car entity.
  */

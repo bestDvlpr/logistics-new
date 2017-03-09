@@ -1,6 +1,7 @@
 <div>
-    <h2><span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
-        <button class="btn btn-primary float-xs-right create-receipt"
+    <h2>
+        <span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
+        <button class="btn btn-primary float-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
@@ -91,7 +92,7 @@
                         <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
                     </div>
                 </td>
-                <td class="text-xs-right">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
                         <button type="submit"
                                 [routerLink]="['../receipt', receipt.id ]"
@@ -129,8 +130,13 @@
             </tbody>
         </table>
     </div>
-    <div class="text-xs-center" *ngIf="receipts && receipts.length">
-        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    <div *ngIf="receipts && receipts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

@@ -10,6 +10,7 @@ export class ReceiptPopupService {
         private modalService: NgbModal,
         private router: Router,
         private receiptService: ReceiptService
+
     ) {}
 
     open (component: Component, id?: number | any): NgbModalRef {
@@ -31,11 +32,9 @@ export class ReceiptPopupService {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.receipt = receipt;
         modalRef.result.then(result => {
-            console.log(`Closed with: ${result}`);
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {
-            console.log(`Dismissed ${reason}`);
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         });

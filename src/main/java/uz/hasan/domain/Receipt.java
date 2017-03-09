@@ -76,6 +76,18 @@ public class Receipt implements Serializable {
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "receipt_cars",
+               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="cars_id", referencedColumnName="id"))
+    private Set<Car> cars = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "receipt_addresses",
+               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="addresses_id", referencedColumnName="id"))
+    private Set<Address> addresses = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -245,6 +257,56 @@ public class Receipt implements Serializable {
 
     public void setProductEntries(Set<ProductEntry> productEntries) {
         this.productEntries = productEntries;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public Receipt cars(Set<Car> cars) {
+        this.cars = cars;
+        return this;
+    }
+
+    public Receipt addCars(Car car) {
+        this.cars.add(car);
+        car.getReceipts().add(this);
+        return this;
+    }
+
+    public Receipt removeCars(Car car) {
+        this.cars.remove(car);
+        car.getReceipts().remove(this);
+        return this;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public Receipt addresses(Set<Address> addresses) {
+        this.addresses = addresses;
+        return this;
+    }
+
+    public Receipt addAddresses(Address address) {
+        this.addresses.add(address);
+        address.getReceipts().add(this);
+        return this;
+    }
+
+    public Receipt removeAddresses(Address address) {
+        this.addresses.remove(address);
+        address.getReceipts().remove(this);
+        return this;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     @Override

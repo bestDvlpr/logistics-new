@@ -31,6 +31,7 @@ public interface AddressMapper {
     @Mapping(source = "cityId", target = "city")
     @Mapping(source = "districtId", target = "district")
     @Mapping(source = "clientId", target = "client")
+    @Mapping(target = "receipts", ignore = true)
     Address addressDTOToAddress(AddressDTO addressDTO);
 
     List<Address> addressDTOsToAddresses(List<AddressDTO> addressDTOs);

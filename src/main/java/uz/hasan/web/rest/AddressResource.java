@@ -34,7 +34,7 @@ public class AddressResource {
     private final Logger log = LoggerFactory.getLogger(AddressResource.class);
 
     private static final String ENTITY_NAME = "address";
-        
+
     private final AddressService addressService;
 
     public AddressResource(AddressService addressService) {
@@ -111,6 +111,20 @@ public class AddressResource {
     public ResponseEntity<AddressDTO> getAddress(@PathVariable Long id) {
         log.debug("REST request to get Address : {}", id);
         AddressDTO addressDTO = addressService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(addressDTO));
+    }
+
+    /**
+     * GET  /addresses/by-client/:clientId : get the "clientId" address.
+     *
+     * @param clientId the id of client of the addressDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the addressDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/addresses/by-client/{clientId}")
+    @Timed
+    public ResponseEntity<List<AddressDTO>> getAddressByClientId(@PathVariable Long clientId) {
+        log.debug("REST request to get Address by Client: {}", clientId);
+        List<AddressDTO> addressDTO = addressService.findByClientId(clientId);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(addressDTO));
     }
 

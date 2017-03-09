@@ -12,8 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -21,10 +23,10 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class AddressServiceImpl implements AddressService{
+public class AddressServiceImpl implements AddressService {
 
     private final Logger log = LoggerFactory.getLogger(AddressServiceImpl.class);
-    
+
     private final AddressRepository addressRepository;
 
     private final AddressMapper addressMapper;
@@ -50,10 +52,10 @@ public class AddressServiceImpl implements AddressService{
     }
 
     /**
-     *  Get all the addresses.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * Get all the addresses.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -64,10 +66,10 @@ public class AddressServiceImpl implements AddressService{
     }
 
     /**
-     *  Get one address by id.
+     * Get one address by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,13 +81,28 @@ public class AddressServiceImpl implements AddressService{
     }
 
     /**
-     *  Delete the  address by id.
+     * Delete the  address by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Address : {}", id);
         addressRepository.delete(id);
+    }
+
+    @Override
+    public List<AddressDTO> findByClientId(Long clientId) {
+        if (clientId == null) {
+            return Collections.emptyList();
+        }
+
+        Optional<List<Address>> addresses = addressRepository.findByClientId(clientId);
+
+        if (addresses.isPresent()) {
+            return addressMapper.addressesToAddressDTOs(addresses.get());
+        } else {
+            return Collections.emptyList();
+        }
     }
 }

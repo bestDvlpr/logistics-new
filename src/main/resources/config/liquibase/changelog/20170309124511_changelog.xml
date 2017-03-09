@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1489063524825-1">
+        <createTable tableName="receipt_addresses">
+            <column name="receipts_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="addresses_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-2">
+        <createTable tableName="receipt_cars">
+            <column name="receipts_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cars_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-3">
+        <addPrimaryKey columnNames="receipts_id, addresses_id" tableName="receipt_addresses"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-4">
+        <addPrimaryKey columnNames="receipts_id, cars_id" tableName="receipt_cars"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-5">
+        <addForeignKeyConstraint baseColumnNames="cars_id" baseTableName="receipt_cars" constraintName="FK2fv9ybfmhtcnavds9h74wim39" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="car"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-6">
+        <addForeignKeyConstraint baseColumnNames="addresses_id" baseTableName="receipt_addresses" constraintName="FK6s55av9wt9ilbkqv6vfcmh2i7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-7">
+        <addForeignKeyConstraint baseColumnNames="receipts_id" baseTableName="receipt_addresses" constraintName="FK72pquu3a32uvci21tg2tudhof" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1489063524825-8">
+        <addForeignKeyConstraint baseColumnNames="receipts_id" baseTableName="receipt_cars" constraintName="FKgk16y7ac3lycwpvxgvlaufb3q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="receipt"/>
+    </changeSet>
+</databaseChangeLog>
