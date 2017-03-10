@@ -65,7 +65,8 @@
             "confirmpassword.placeholder": "Подтвердите новый пароль",
             "email": "E-mail",
             "email.placeholder": "Ваш e-mail",
-            "next": "Следующий"
+            "next": "Следующий",
+            "search": "Поиск"
         },
         "messages": {
             "info": {
@@ -121,6 +122,7 @@
             "save": "Сохранить",
             "attachDriver": "Прикрепить водителью",
             "sendOrder": "Отправить заявку",
+            "sendOrderTitle": "Отправить заявку № {{orderId}}",
             "view": "Просмотр"
         },
         "detail": {

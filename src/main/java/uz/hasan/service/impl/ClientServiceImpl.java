@@ -1,24 +1,20 @@
 package uz.hasan.service.impl;
 
-import uz.hasan.domain.PhoneNumber;
-import uz.hasan.repository.PhoneNumberRepository;
-import uz.hasan.service.ClientService;
-import uz.hasan.domain.Client;
-import uz.hasan.repository.ClientRepository;
-import uz.hasan.service.dto.ClientAndAddressesDTO;
-import uz.hasan.service.dto.ClientDTO;
-import uz.hasan.service.mapper.ClientAndAddressesMapper;
-import uz.hasan.service.mapper.ClientMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Client;
+import uz.hasan.domain.PhoneNumber;
+import uz.hasan.repository.ClientRepository;
+import uz.hasan.repository.PhoneNumberRepository;
+import uz.hasan.service.ClientService;
+import uz.hasan.service.dto.ClientAndAddressesDTO;
+import uz.hasan.service.dto.ClientDTO;
+import uz.hasan.service.mapper.ClientAndAddressesMapper;
+import uz.hasan.service.mapper.ClientMapper;
 
 /**
  * Service Implementation for managing Client.

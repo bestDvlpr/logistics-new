@@ -1,18 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
-import {Client} from './client.model';
+import { Client } from './client.model';
+import { DateUtils } from 'ng-jhipster';
 @Injectable()
 export class ClientService {
 
     private resourceUrl = 'api/clients';
 
-    constructor(private http: Http) {
-    }
+    constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(client: Client): Observable<Client> {
         let copy: Client = Object.assign({}, client);
+        copy.regDate = this.dateUtils.toDate(client.regDate);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -20,6 +21,8 @@ export class ClientService {
 
     update(client: Client): Observable<Client> {
         let copy: Client = Object.assign({}, client);
+
+        copy.regDate = this.dateUtils.toDate(client.regDate);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -27,14 +30,18 @@ export class ClientService {
 
     find(id: number): Observable<Client> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            return res.json();
+            let jsonResponse = res.json();
+            jsonResponse.regDate = this.dateUtils
+                .convertDateTimeFromServer(jsonResponse.regDate);
+            return jsonResponse;
         });
     }
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            ;
+            .map((res: any) => this.convertResponse(res))
+        ;
     }
 
     byPhoneNumber(phoneNumber: string): Observable<Client> {
@@ -45,6 +52,17 @@ export class ClientService {
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
+    }
+
+
+    private convertResponse(res: any): any {
+        let jsonResponse = res.json();
+        for (let i = 0; i < jsonResponse.length; i++) {
+            jsonResponse[i].regDate = this.dateUtils
+                .convertDateTimeFromServer(jsonResponse[i].regDate);
+        }
+        res._body = jsonResponse;
+        return res;
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {

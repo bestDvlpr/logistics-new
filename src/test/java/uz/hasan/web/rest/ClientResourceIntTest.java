@@ -24,8 +24,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static uz.hasan.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -45,6 +50,9 @@ public class ClientResourceIntTest {
 
     private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_REG_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_REG_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ClientRepository clientRepository;
@@ -90,7 +98,8 @@ public class ClientResourceIntTest {
     public static Client createEntity(EntityManager em) {
         Client client = new Client()
                 .firstName(DEFAULT_FIRST_NAME)
-                .lastName(DEFAULT_LAST_NAME);
+                .lastName(DEFAULT_LAST_NAME)
+                .regDate(DEFAULT_REG_DATE);
         return client;
     }
 
@@ -118,6 +127,7 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testClient.getRegDate()).isEqualTo(DEFAULT_REG_DATE);
     }
 
     @Test
@@ -153,7 +163,8 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(client.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())));
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
+            .andExpect(jsonPath("$.[*].regDate").value(hasItem(sameInstant(DEFAULT_REG_DATE))));
     }
 
     @Test
@@ -168,7 +179,8 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(client.getId().intValue()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()));
+            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
+            .andExpect(jsonPath("$.regDate").value(sameInstant(DEFAULT_REG_DATE)));
     }
 
     @Test
@@ -190,7 +202,8 @@ public class ClientResourceIntTest {
         Client updatedClient = clientRepository.findOne(client.getId());
         updatedClient
                 .firstName(UPDATED_FIRST_NAME)
-                .lastName(UPDATED_LAST_NAME);
+                .lastName(UPDATED_LAST_NAME)
+                .regDate(UPDATED_REG_DATE);
         ClientDTO clientDTO = clientMapper.clientToClientDTO(updatedClient);
 
         restClientMockMvc.perform(put("/api/clients")
@@ -204,6 +217,7 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
+        assertThat(testClient.getRegDate()).isEqualTo(UPDATED_REG_DATE);
     }
 
     @Test

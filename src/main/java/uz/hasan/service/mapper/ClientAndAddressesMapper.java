@@ -34,6 +34,7 @@ public class ClientAndAddressesMapper {
         ClientAndAddressesDTO clientDTO = new ClientAndAddressesDTO();
         clientDTO.setFirstName(client.getFirstName());
         clientDTO.setLastName(client.getLastName());
+        clientDTO.setRegDate(client.getRegDate());
 
         Long clientId = client.getId();
 

@@ -9,6 +9,10 @@
         {
             "fieldName": "lastName",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "regDate",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20170302060008",

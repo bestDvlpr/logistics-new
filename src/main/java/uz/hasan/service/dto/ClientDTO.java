@@ -1,6 +1,7 @@
 package uz.hasan.service.dto;
 
 
+import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,6 +15,8 @@ public class ClientDTO implements Serializable {
     private String firstName;
 
     private String lastName;
+
+    private ZonedDateTime regDate;
 
     public Long getId() {
         return id;
@@ -35,6 +38,13 @@ public class ClientDTO implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public ZonedDateTime getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(ZonedDateTime regDate) {
+        this.regDate = regDate;
     }
 
     @Override
@@ -64,6 +74,7 @@ public class ClientDTO implements Serializable {
             "id=" + id +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", regDate='" + regDate + "'" +
             '}';
     }
 }

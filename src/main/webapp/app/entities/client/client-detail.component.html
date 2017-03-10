@@ -12,6 +12,10 @@
         <dd>
             <span>{{client.lastName}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.client.regDate">Reg Date</span></dt>
+        <dd>
+            <span>{{client.regDate | date:'medium'}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

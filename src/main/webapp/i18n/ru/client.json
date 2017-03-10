@@ -2,21 +2,25 @@
     "logisticsApp": {
         "client" : {
             "home": {
-                "title": "Clients",
-                "createLabel": "Создать новый Client",
-                "createOrEditLabel": "Создать или отредактировать Client"
+                "title": "Клиенты",
+                "createLabel": "Создать новый Клиент",
+                "createOrEditLabel": "Создать или отредактировать Клиент"
             },
-            "created": "Новый Client создан с идентификатором {{ param }}",
-            "updated": "Client обновлен с идентификатором {{ param }}",
-            "deleted": "Client удален с идентификатором {{ param }}",
+            "created": "Новый Клиент создан с идентификатором {{ param }}",
+            "updated": "Клиент обновлен с идентификатором {{ param }}",
+            "deleted": "Клиент удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Client {{ id }}?"
+                "question": "Вы уверены что хотите удалить Клиент {{ id }}?"
             },
             "detail": {
-                "title": "Client"
+                "title": "Клиент"
             },
-            "firstName": "First Name",
-            "lastName": "Last Name"
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "regDate": "Дата регистрации",
+            "fullName": "Полное имя",
+            "clientSince": "Клиент от",
+            "selectClient": "Выбрать"
         }
     }
 }

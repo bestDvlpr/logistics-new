@@ -3,6 +3,7 @@ package uz.hasan.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -24,6 +25,9 @@ public class Client implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "reg_date")
+    private ZonedDateTime regDate;
 
     public Long getId() {
         return id;
@@ -59,6 +63,19 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
+    public ZonedDateTime getRegDate() {
+        return regDate;
+    }
+
+    public Client regDate(ZonedDateTime regDate) {
+        this.regDate = regDate;
+        return this;
+    }
+
+    public void setRegDate(ZonedDateTime regDate) {
+        this.regDate = regDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,6 +102,7 @@ public class Client implements Serializable {
             "id=" + id +
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
+            ", regDate='" + regDate + "'" +
             '}';
     }
 }

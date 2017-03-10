@@ -16,7 +16,11 @@
                 "title": "Client"
             },
             "firstName": "First Name",
-            "lastName": "Last Name"
+            "lastName": "Last Name",
+            "regDate": "Reg Date",
+            "fullName": "Full Name",
+            "clientSince": "Client since",
+            "selectClient": "Select"
         }
     }
 }

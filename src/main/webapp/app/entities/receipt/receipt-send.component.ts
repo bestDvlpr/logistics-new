@@ -33,6 +33,9 @@ export class ReceiptSendComponent implements OnInit {
     private value: any = {};
     private _disabledV: string = '0';
     private disabled: boolean = false;
+    private clientSelected: boolean = false;
+    private createClientSelected: boolean = false;
+    public isCollapsed = true;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -41,7 +44,7 @@ export class ReceiptSendComponent implements OnInit {
                 private clientService: ClientService,
                 private addressService: AddressService,
                 private productEntryService: ProductEntryService) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address']);
     }
 
     ngOnInit() {
@@ -118,4 +121,11 @@ export class ReceiptSendComponent implements OnInit {
         });
     }
 
+    public toggleClientSelected() {
+        this.clientSelected = !this.clientSelected;
+    }
+
+    public toggleCreateClientSelected() {
+        this.createClientSelected = !this.createClientSelected;
+    }
 }
