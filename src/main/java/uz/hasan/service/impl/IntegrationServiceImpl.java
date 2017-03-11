@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.dto.IntegrateDTO;
 import uz.hasan.service.dto.PaymentIntegrate;
 import uz.hasan.service.dto.ProductIntegrate;
@@ -63,6 +64,7 @@ public class IntegrationServiceImpl implements IntegrationService {
     }
 
 
+
     private void createOrUpdateReceipt(Receipt receipt, IntegrateDTO integrateDTO) throws ValidationException {
 
         if (receipt == null)
@@ -95,6 +97,14 @@ public class IntegrationServiceImpl implements IntegrationService {
         updateOrCreateProductEntries(receipt, integrateDTO.getProducts());
 
         updateOrCreatePayTypes(receipt, integrateDTO.getPayments());
+
+        updateOrCreateClient(receipt, integrateDTO.getClient());
+
+
+    }
+
+
+    private void updateOrCreateClient(Receipt savedReceipt, ClientDTO client) {
 
 
     }

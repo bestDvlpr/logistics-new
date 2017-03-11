@@ -8,4 +8,5 @@ public interface IntegrationService {
 
     Boolean integrate(List<IntegrateDTO> integrateDTOS);
 
+
 }
