@@ -1,16 +1,21 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 import uz.hasan.service.IntegrationService;
+import uz.hasan.service.dto.DriverDTO;
 import uz.hasan.service.dto.IntegrateDTO;
 import uz.hasan.service.dto.JsonApp;
 
+import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 

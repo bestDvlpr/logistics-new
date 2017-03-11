@@ -36,6 +36,8 @@ public class IntegrateDTO {
 
     private List<PaymentIntegrate> payments;
 
+    private ClientDTO client;
+
 
     public String getDocNum() {
         return docNum;
@@ -143,6 +145,11 @@ public class IntegrateDTO {
         this.wholesaleFlag = wholesaleFlag;
     }
 
+    public ClientDTO getClient() {
+        return client;
+    }
 
-
+    public void setClient(ClientDTO client) {
+        this.client = client;
+    }
 }
