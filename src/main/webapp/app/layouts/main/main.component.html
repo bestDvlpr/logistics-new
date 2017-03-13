@@ -3,11 +3,8 @@
     <router-outlet name="navbar"></router-outlet>
 </div>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <router-outlet name="sidenav"></router-outlet>
-        </div>
-        <div class="col-md-10 main_content_wrapper">
+    <div class="row main_content_wrapper">
+        <div class="col-md-12">
             <router-outlet></router-outlet>
         </div>
         <router-outlet name="popup"></router-outlet>

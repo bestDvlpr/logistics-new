@@ -132,11 +132,15 @@
     </div>
     <div *ngIf="receipts && receipts.length">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <div class="col-md-12">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
-                            (pageChange)="loadPage(page)"></ngb-pagination>
+            <div class="col-md-12">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                                (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
         </div>
     </div>
 </div>

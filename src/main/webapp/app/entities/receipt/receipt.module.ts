@@ -6,6 +6,7 @@ import {LogisticsSharedModule} from '../../shared';
 import {
     ReceiptService,
     ReceiptPopupService,
+    DataHolderService,
     ReceiptComponent,
     ReceiptDetailComponent,
     ReceiptDialogComponent,
@@ -17,6 +18,7 @@ import {
     ReceiptResolvePagingParams,
     ReceiptSendComponent,
 } from './';
+import {ReceiptSendClientComponent} from "./receipt-send-client.component";
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -36,6 +38,7 @@ let ENTITY_STATES = [
         ReceiptPopupComponent,
         ReceiptDeletePopupComponent,
         ReceiptSendComponent,
+        ReceiptSendClientComponent,
     ],
     entryComponents: [
         ReceiptComponent,
@@ -47,6 +50,7 @@ let ENTITY_STATES = [
     providers: [
         ReceiptService,
         ReceiptPopupService,
+        DataHolderService,
         ReceiptResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

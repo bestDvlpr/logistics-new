@@ -1,14 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Receipt } from './receipt.model';
+import {Receipt} from './receipt.model';
 @Injectable()
 export class ReceiptService {
 
     private resourceUrl = 'api/receipts';
+    public _client;
+    public _receipt;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(receipt: Receipt): Observable<Receipt> {
         let copy: Receipt = Object.assign({}, receipt);
@@ -33,13 +36,12 @@ export class ReceiptService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

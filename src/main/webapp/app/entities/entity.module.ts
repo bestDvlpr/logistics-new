@@ -5,7 +5,6 @@ import { LogisticsPayMasterModule } from './pay-master/pay-master.module';
 import { LogisticsLoyaltyCardModule } from './loyalty-card/loyalty-card.module';
 import { LogisticsSellerModule } from './seller/seller.module';
 import { LogisticsProductModule } from './product/product.module';
-import { LogisticsPaymentTypeModule } from './payment-type/payment-type.module';
 import { LogisticsPayTypeModule } from './pay-type/pay-type.module';
 import { LogisticsCarModelModule } from './car-model/car-model.module';
 import { LogisticsCarModule } from './car/car.module';
@@ -29,7 +28,6 @@ import { LogisticsXmlHolderModule } from './xml-holder/xml-holder.module';
         LogisticsLoyaltyCardModule,
         LogisticsSellerModule,
         LogisticsProductModule,
-        LogisticsPaymentTypeModule,
         LogisticsPayTypeModule,
         LogisticsCarModelModule,
         LogisticsCarModule,

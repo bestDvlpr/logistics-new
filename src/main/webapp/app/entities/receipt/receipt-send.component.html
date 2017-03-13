@@ -1,5 +1,5 @@
 <div *ngIf="receipt">
-    <h2 jhiTranslate="entity.action.sendOrderTitle" translateValues="{orderId: '{{receipt.id}}'}" >Send Order</h2>
+    <h2 jhiTranslate="entity.action.sendOrderTitle" translateValues="{orderId: '{{receipt.id}}'}">Send Order</h2>
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary btn-block" (click)="isCollapsed = !isCollapsed"
@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-md-2">{{receipt.docType}}</div>
                     <div class="col-md-3">
-                        <div class="row" *ngFor="let productEntry of productEntries">
+                        <div class="row" *ngFor="let productEntry of receipt.productEntries">
                             <div class="col-md-6"><span>{{productEntry.productName}}</span></div>
                             <div class="col-md-2"><span>{{productEntry.qty}}</span></div>
                             <div class="col-md-4"><span>{{productEntry.status}}</span></div>
@@ -88,87 +88,60 @@
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="col-md-6" *ngIf="client">
-                            <div class="card btn btn-default" ngbTooltip="Select Client"
+                            <div class="card bg-primary card-block btn btn-primary"
                                  [ngClass]="{active: (!clientSelected && !createClientSelected), disabled: (clientSelected||createClientSelected)}"
-                                 (click)="!clientSelected && toggleClientSelected()">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <h2 *ngIf="!clientSelected && !createClientSelected" class="h4"><span
-                                                class="fa fa-square"></span></h2>
-                                            <h2 *ngIf="clientSelected" class="h4"><span
-                                                class="fa fa-check-square"></span></h2>
-                                        </div>
-                                        <div class="col-md-11">
-                                            <h4 class="card-title"><span
-                                                jhiTranslate="logisticsApp.client.detail.title">Client</span> :
-                                                {{client.id}}
-                                            </h4>
-                                            <p class="card-text"><span jhiTranslate="logisticsApp.client.fullName">Client</span>
-                                                : {{client.firstName + ' ' + client.lastName}}</p>
-                                            <p class="card-text"><span
-                                                jhiTranslate="logisticsApp.client.clientSince">Client</span>
-                                                : {{client.regDate | date}}</p>
-                                        </div>
+                                 (click)="!clientSelected && !createClientSelected && toggleClientSelected()">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <h2 *ngIf="!clientSelected && !createClientSelected"><span
+                                            class="fa fa-square"></span></h2>
+                                        <h2 *ngIf="clientSelected"><span
+                                            class="fa fa-check-square"></span></h2>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h6><span
+                                            jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                                            {{client.id}}
+                                        </h6>
+                                        <p class="card-text">
+                                            <span jhiTranslate="logisticsApp.client.fullName">Client</span>
+                                            : {{client.firstName + ' ' + client.lastName}}
+                                            <br/>
+                                            <span jhiTranslate="logisticsApp.client.clientSince">Client</span>
+                                            : {{client.regDate | date}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6" *ngIf="client">
-                            <div class="card bg-success btn btn-success" ngbTooltip="Create Another Client"
+                            <div class="card card-block bg-success btn btn-success"
                                  [ngClass]="{active: (!createClientSelected && !clientSelected), disabled: (createClientSelected || clientSelected)}"
-                                 (click)="!createClientSelected && toggleCreateClientSelected()">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <h2 *ngIf="!clientSelected && !createClientSelected" class="h4"><span
-                                                class="fa fa-square"></span></h2>
-                                            <h2 *ngIf="createClientSelected" class="h4"><span
-                                                class="fa fa-check-square"></span></h2>
-                                        </div>
-                                        <div class="col-md-11">
-                                            <h4 class="card-title"><span
-                                                jhiTranslate="logisticsApp.client.detail.title">Client</span> :
-                                                {{client.id}}
-                                            </h4>
-                                            <p class="card-text"><span jhiTranslate="logisticsApp.client.fullName">Client</span>
-                                                : {{client.firstName + ' ' + client.lastName}}</p>
-                                        </div>
+                                 (click)="!createClientSelected && !clientSelected && toggleCreateClientSelected()">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <h2 *ngIf="!clientSelected && !createClientSelected"><span
+                                            class="fa fa-square"></span></h2>
+                                        <h2 *ngIf="createClientSelected"><span
+                                            class="fa fa-check-square"></span></h2>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h2 jhiTranslate="logisticsApp.client.addNew">Create Client</h2>
+                                        <p class="card-text" jhiTranslate="logisticsApp.client.home.createLabel">Add
+                                            Client</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="col-md-8" *ngIf="client && client.addressDTOS">
-                            <div class="card" *ngFor="let address of client.addressDTOS">
-                                &lt;!&ndash;<img class="card-img-top" src="../../../content/images/logo-jhipster.png" alt="Card image cap"/>&ndash;&gt;
-                                <div class="card-block">
-                                    <h4 class="card-title"><span
-                                        jhiTranslate="logisticsApp.address.detail.title">Address</span> :
-                                        {{address.streetAddress}}
-                                    </h4>
-                                    <p class="card-text">
-                                        <span jhiTranslate="logisticsApp.address.country">Client</span>
-                                        :
-                                        <span>{{address.countryName}}</span>
-                                        <span jhiTranslate="logisticsApp.address.region">Client</span>
-                                        :
-                                        <span>{{address.regionName}}</span>
-                                        <span jhiTranslate="logisticsApp.address.city">Client</span>
-                                        :
-                                        <span>{{address.cityName}}</span>
-                                        <span jhiTranslate="logisticsApp.address.district">Client</span>
-                                        :
-                                        <span>{{address.districtName}}</span>
-                                        <span jhiTranslate="logisticsApp.address.latitude">Client</span>
-                                        :
-                                        <span>{{address.latitude}}</span>
-                                        <span jhiTranslate="logisticsApp.address.longitude">Client</span>
-                                        :
-                                        <span>{{address.longitude}}</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>-->
+                    </div>
+                    <div class="row" *ngIf="clientSelected || createClientSelected">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-primary" (click)="nextStep()"
+                                    [routerLink]="['../receipt/' + receipt.id + '/send/client']">
+                                <span jhiTranslate="global.form.next">Next</span>
+                                <span class="fa fa-arrow-circle-right"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,12 +152,6 @@
                     class="btn btn-info btn-sm">
                 <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
-            <!--            <button type="button"
-                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
-                                replaceUrl="true"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                        </button>-->
         </div>
     </div>
     <hr>

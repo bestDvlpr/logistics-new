@@ -1,0 +1,205 @@
+<div *ngIf="receipt">
+    <h2 jhiTranslate="entity.action.sendOrderTitle" translateValues="{orderId: '{{receipt.id}}'}">Send Order</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="form-control btn btn-primary btn-block" (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}
+                            </div>
+                            <div class="col-md-3">
+                                <span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span>: <span>{{receipt.docNum}}</span>
+                            </div>
+                            <div class="col-md-3">
+                                <span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span>:
+                                <span>{{receipt.docID}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
+                                <span>{{receipt.docDate}}</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div [ngbCollapse]="isCollapsed" id="collapseExample">
+                <div class="card small">
+                    <div class="card-block">
+                        <div class="row text-muted font-weight-bold">
+                            <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span jhiTranslate="logisticsApp.productEntry.productName">Product Name</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span jhiTranslate="logisticsApp.productEntry.qty">Qty</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span jhiTranslate="logisticsApp.productEntry.status">Status</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"><span
+                                jhiTranslate="logisticsApp.receipt.wholeSaleFlag">WholeSaleFlag</span>
+                            </div>
+                            <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.status">Status</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">{{receipt.docType}}</div>
+                            <div class="col-md-6">
+                                <div class="row" *ngFor="let productEntry of receipt.productEntries">
+                                    <div class="col-md-6"><span>{{productEntry.productName}}</span></div>
+                                    <div class="col-md-2"><span>{{productEntry.qty}}</span></div>
+                                    <div class="col-md-4"><span>{{productEntry.status}}</span></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">{{receipt.wholeSaleFlag}}</div>
+                            <div class="col-md-2">{{receipt.status}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 small" *ngIf="client">
+            <div class="card bg-info card-block"
+                 [ngClass]="{active: (!clientSelected && !createClientSelected), disabled: (clientSelected||createClientSelected)}"
+                 (click)="!clientSelected && toggleClientSelected()">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                        {{client.id}}
+                        <p class="card-text">
+                            <span jhiTranslate="logisticsApp.client.fullName">Client</span>
+                            : {{client.firstName + ' ' + client.lastName}}
+                            <br/>
+                            <span jhiTranslate="logisticsApp.client.clientSince">Client</span>
+                            : {{client.regDate | date}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <jhi-alert-error></jhi-alert-error>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <label jhiTranslate="logisticsApp.phoneNumber.number">Phone Number</label>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-header bg-info">
+                                    <span jhiTranslate="logisticsApp.product.home.title"></span>
+                                </div>
+                                <div class="card-block">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th jhiTranslate="logisticsApp.productEntry.productName">Product Name</th>
+                                            <th jhiTranslate="logisticsApp.productEntry.qty">Quantity</th>
+                                            <th jhiTranslate="logisticsApp.productEntry.status">Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let product of receipt.productEntries">
+                                            <td><input type="checkbox"/></td>
+                                            <td>{{product.productName}}</td>
+                                            <td>{{product.qty}}</td>
+                                            <td>{{product.status}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card">
+                                <div class="card-header bg-info">
+                                    <span jhiTranslate="logisticsApp.client.addresses"></span>
+                                </div>
+                                <div class="card-block">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th jhiTranslate="logisticsApp.address.detail.title"></th>
+                                            <th jhiTranslate="logisticsApp.address.country">#</th>
+                                            <th jhiTranslate="logisticsApp.address.region">#</th>
+                                            <th jhiTranslate="logisticsApp.address.city">#</th>
+                                            <th jhiTranslate="logisticsApp.address.district">#</th>
+                                            <th jhiTranslate="logisticsApp.address.latitude">#</th>
+                                            <th jhiTranslate="logisticsApp.address.longitude">#</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let address of client.addressDTOS">
+                                            <td><input type="checkbox"/></td>
+                                            <td>{{address.streetAddress}}</td>
+                                            <td>{{address.countryName}}</td>
+                                            <td>{{address.regionName}}</td>
+                                            <td>{{address.cityName}}</td>
+                                            <td>{{address.districtName}}</td>
+                                            <td>{{address.latitude}}</td>
+                                            <td>{{address.longitude}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 offset-md-6">
+                            <div class="card bg-success btn btn-success">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <h2 *ngIf="!clientSelected && !createClientSelected"><span
+                                                class="fa fa-square"></span></h2>
+                                            <h2 *ngIf="clientSelected"><span
+                                                class="fa fa-check-square"></span></h2>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <h4 jhiTranslate="logisticsApp.address.home.createLabel">Create Address</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="clientSelected || createClientSelected">
+                        <div class="col-md-12">
+                            <button class="btn btn-sm btn-primary">
+                                <span jhiTranslate="global.form.next">Next</span>
+                                <span class="fa fa-arrow-circle-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info btn-sm">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+            <!--            <button type="button"
+                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>-->
+        </div>
+    </div>
+    <hr>
+</div>

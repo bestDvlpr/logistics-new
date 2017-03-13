@@ -20,7 +20,9 @@
             "regDate": "Дата регистрации",
             "fullName": "Полное имя",
             "clientSince": "Клиент от",
-            "selectClient": "Выбрать"
+            "selectClient": "Выбрать",
+            "addNew": "Добавить клиент",
+            "addresses": "Адреса"
         }
     }
 }

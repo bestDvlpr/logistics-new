@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "client" : {
+        "client": {
             "home": {
                 "title": "Clients",
                 "createLabel": "Create a new Client",
@@ -20,7 +20,9 @@
             "regDate": "Reg Date",
             "fullName": "Full Name",
             "clientSince": "Client since",
-            "selectClient": "Select"
+            "selectClient": "Select",
+            "addNew": "Add Client",
+            "addresses": "Addresses"
         }
     }
 }

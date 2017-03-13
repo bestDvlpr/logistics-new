@@ -1,3 +1,4 @@
+import {ProductEntry} from "../product-entry/product-entry.model";
 export enum DocType {
     RETURN = <any>'RETURN',
     SALES = <any>'SALES'
@@ -15,20 +16,20 @@ export enum ReceiptStatus {
     CANCELLED = <any>'CANCELLED'
 }
 export class Receipt {
-    constructor(
-        public id?: number,
-        public docNum?: string,
-        public docID?: string,
-        public docType?: DocType,
-        public previousDocID?: string,
-        public docDate?: number,
-        public wholeSaleFlag?: WholeSaleFlag,
-        public status?: ReceiptStatus,
-        public payMasterId?: number,
-        public loyaltyCardId?: number,
-        public clientId?: number,
-        public productEntriesId?: number,
-        public carsId?: number,
-        public addressesId?: number ) {
+    constructor(public id?: number,
+                public docNum?: string,
+                public docID?: string,
+                public docType?: DocType,
+                public previousDocID?: string,
+                public docDate?: number,
+                public wholeSaleFlag?: WholeSaleFlag,
+                public status?: ReceiptStatus,
+                public payMasterId?: number,
+                public loyaltyCardId?: number,
+                public clientId?: number,
+                public productEntriesId?: number,
+                public productEntries?: ProductEntry[],
+                public carsId?: number,
+                public addressesId?: number) {
     }
 }

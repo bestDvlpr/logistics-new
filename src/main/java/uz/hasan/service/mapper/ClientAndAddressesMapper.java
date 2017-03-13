@@ -21,10 +21,12 @@ public class ClientAndAddressesMapper {
 
     private final AddressMapper addressMapper;
     private final AddressRepository addressRepository;
+    private final ClientMapper clientMapper;
 
-    public ClientAndAddressesMapper(AddressMapper addressMapper, AddressRepository addressRepository) {
+    public ClientAndAddressesMapper(AddressMapper addressMapper, AddressRepository addressRepository,ClientMapper clientMapper) {
         this.addressMapper = addressMapper;
         this.addressRepository = addressRepository;
+        this.clientMapper = clientMapper;
     }
 
     public ClientAndAddressesDTO clientToClientAndAddressesDTO(Client client) {

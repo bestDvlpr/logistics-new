@@ -12,6 +12,7 @@ import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.mapper.ReceiptMapper;
+import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
 /**
  * Service Implementation for managing Receipt.
@@ -26,9 +27,12 @@ public class ReceiptServiceImpl implements ReceiptService{
 
     private final ReceiptMapper receiptMapper;
 
-    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ReceiptMapper receiptMapper) {
+    private final ReceiptProductEntriesMapper receiptProductEntriesMapper;
+
+    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ReceiptMapper receiptMapper, ReceiptProductEntriesMapper receiptProductEntriesMapper) {
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
+        this.receiptProductEntriesMapper = receiptProductEntriesMapper;
     }
 
     /**
@@ -71,8 +75,7 @@ public class ReceiptServiceImpl implements ReceiptService{
     public ReceiptDTO findOne(Long id) {
         log.debug("Request to get Receipt : {}", id);
         Receipt receipt = receiptRepository.findOneWithEagerRelationships(id);
-        ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
-        return receiptDTO;
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
     }
 
     /**
