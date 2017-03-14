@@ -18,7 +18,7 @@ import {
     ReceiptResolvePagingParams,
     ReceiptSendComponent,
 } from './';
-import {ReceiptSendClientComponent} from "./receipt-send-client.component";
+import {ReceiptSendAddressComponent} from "./receipt-send-address.component";
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -38,7 +38,7 @@ let ENTITY_STATES = [
         ReceiptPopupComponent,
         ReceiptDeletePopupComponent,
         ReceiptSendComponent,
-        ReceiptSendClientComponent,
+        ReceiptSendAddressComponent,
     ],
     entryComponents: [
         ReceiptComponent,

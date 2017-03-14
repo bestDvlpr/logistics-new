@@ -67,13 +67,17 @@
             <div class="card">
                 <div class="card-header">
                     <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone Number</label>
+                    <button class="btn btn-success float-md-right">
+                        <span class="fa fa-plus"></span>
+                        <span jhiTranslate="logisticsApp.client.home.createLabel">Create new Client</span>
+                    </button>
                 </div>
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-4">
                             <form name="number" role="form" novalidate (ngSubmit)="findClient()">
-                                <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone
-                                    Number</label>
+                                <!--<label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone
+                                    Number</label>-->
                                 <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
                                        [(ngModel)]="phoneNumber"/>
                                 <div>&nbsp;</div>
@@ -83,11 +87,7 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="col-md-8">&nbsp;</div>
-                    </div>
-                    <div class="row">&nbsp;</div>
-                    <div class="row">
-                        <div class="col-md-6" *ngIf="client">
+                        <div class="col-md-8" *ngIf="client">
                             <div class="card bg-primary card-block btn btn-primary"
                                  [ngClass]="{active: (!clientSelected && !createClientSelected), disabled: (clientSelected||createClientSelected)}"
                                  (click)="!clientSelected && !createClientSelected && toggleClientSelected()">
@@ -114,6 +114,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <!--<div class="row">
+                        <div class="col-md-6" *ngIf="client">
+
+                        </div>
                         <div class="col-md-6" *ngIf="client">
                             <div class="card card-block bg-success btn btn-success"
                                  [ngClass]="{active: (!createClientSelected && !clientSelected), disabled: (createClientSelected || clientSelected)}"
@@ -133,10 +139,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row" *ngIf="clientSelected || createClientSelected">
-                        <div class="col-md-12">
-                            <button class="btn btn-sm btn-primary" (click)="nextStep()"
+                        <div class="col-md-2 offset-md-10">
+                            <button class="btn btn-sm btn-primary btn-block" (click)="nextStep()"
                                     [routerLink]="['../receipt/' + receipt.id + '/send/client']">
                                 <span jhiTranslate="global.form.next">Next</span>
                                 <span class="fa fa-arrow-circle-right"></span>

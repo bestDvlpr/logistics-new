@@ -87,6 +87,7 @@
     </div>
     <div class="clearfix"></div>
     <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -113,7 +114,7 @@
                                         </thead>
                                         <tbody>
                                         <tr *ngFor="let product of receipt.productEntries">
-                                            <td><input type="checkbox"/></td>
+                                            <td><input type="checkbox" (change)="productChecked(product)"/></td>
                                             <td>{{product.productName}}</td>
                                             <td>{{product.qty}}</td>
                                             <td>{{product.status}}</td>
@@ -134,17 +135,21 @@
                                         <tr>
                                             <th>#</th>
                                             <th jhiTranslate="logisticsApp.address.detail.title"></th>
-                                            <th jhiTranslate="logisticsApp.address.country">#</th>
-                                            <th jhiTranslate="logisticsApp.address.region">#</th>
-                                            <th jhiTranslate="logisticsApp.address.city">#</th>
-                                            <th jhiTranslate="logisticsApp.address.district">#</th>
-                                            <th jhiTranslate="logisticsApp.address.latitude">#</th>
-                                            <th jhiTranslate="logisticsApp.address.longitude">#</th>
+                                            <th jhiTranslate="logisticsApp.address.country"></th>
+                                            <th jhiTranslate="logisticsApp.address.region"></th>
+                                            <th jhiTranslate="logisticsApp.address.city"></th>
+                                            <th jhiTranslate="logisticsApp.address.district"></th>
+                                            <th jhiTranslate="logisticsApp.address.latitude"></th>
+                                            <th jhiTranslate="logisticsApp.address.longitude"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr *ngFor="let address of client.addressDTOS">
-                                            <td><input type="checkbox"/></td>
+                                            <td>
+                                                <input type="radio" class="radio radio-button" name="address"
+                                                       [(ngModel)]="addressSelected"
+                                                       [value]="address.id" [checked]="addressSelected==address.id"/>
+                                            </td>
                                             <td>{{address.streetAddress}}</td>
                                             <td>{{address.countryName}}</td>
                                             <td>{{address.regionName}}</td>
@@ -157,6 +162,11 @@
                                     </table>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-3 offset-md-9">
+                            <button class="btn btn-primary btn-block" (click)="assignAddressToProduct()">
+                                <span jhiTranslate="logisticsApp.address.assignAddress"></span>
+                            </button>
                         </div>
                         <div class="col-md-6 offset-md-6">
                             <div class="card bg-success btn btn-success">

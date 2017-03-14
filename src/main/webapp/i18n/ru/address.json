@@ -23,7 +23,8 @@
             "city": "City",
             "district": "District",
             "client": "Client",
-            "receipts": "Receipts"
+            "receipts": "Receipts",
+            "assignAddress": "Assign Address"
         }
     }
 }

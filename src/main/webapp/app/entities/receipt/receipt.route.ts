@@ -12,7 +12,7 @@ import {ReceiptSendComponent} from './receipt-send.component';
 
 import {Principal} from '../../shared';
 import {Client} from "../client/client.model";
-import {ReceiptSendClientComponent} from "./receipt-send-client.component";
+import {ReceiptSendAddressComponent} from "./receipt-send-address.component";
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -58,7 +58,7 @@ export const receiptRoute: Routes = [
         }
     }, {
         path: 'receipt/send/client',
-        component: ReceiptSendClientComponent,
+        component: ReceiptSendAddressComponent,
         data: {
             authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
