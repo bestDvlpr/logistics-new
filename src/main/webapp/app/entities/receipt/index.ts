@@ -11,3 +11,4 @@ export * from './receipt-send-client.component';
 export * from './receipt-send-address.component';
 export * from './receipt-send-product.component';
 export * from './collapsed-receipt.component';
+export * from './receipt-new.component';

@@ -11,10 +11,10 @@ import {ReceiptDeletePopupComponent} from './receipt-delete-dialog.component';
 import {ReceiptSendClientComponent} from './receipt-send-client.component';
 
 import {Principal} from '../../shared';
-import {Client} from '../client/client.model';
 import {ReceiptSendAddressComponent} from './receipt-send-address.component';
 import {ReceiptSendProductComponent} from './receipt-send-product.component';
 import {ClientPopupComponent} from '../client/client-dialog.component';
+import {ReceiptNewComponent} from './receipt-new.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -37,6 +37,16 @@ export const receiptRoute: Routes = [
     {
         path: 'receipt',
         component: ReceiptComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt/new',
+        component: ReceiptNewComponent,
         resolve: {
             'pagingParams': ReceiptResolvePagingParams
         },

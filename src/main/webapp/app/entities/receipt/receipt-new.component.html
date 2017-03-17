@@ -16,11 +16,12 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="receipts">
+    <div class="table-responsive" *ngIf="newReceipts">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
+                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span
@@ -40,7 +41,8 @@
                 <th jhiSortBy="payMasterPayMasterName"><span
                     jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
                 </th>
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
+                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
+                    jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
@@ -48,7 +50,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let receipt of receipts ;trackBy: trackId">
+            <tr *ngFor="let receipt of newReceipts ;trackBy: trackId">
                 <td jhiHasAuthority="ROLE_ADMIN"><a [routerLink]="['../receipt', receipt.id ]">{{receipt.id}}</a></td>
                 <td>{{receipt.docNum}}</td>
                 <td>{{receipt.docID}}</td>
@@ -130,7 +132,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="receipts && receipts.length">
+    <div *ngIf="newReceipts && newReceipts.length">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>

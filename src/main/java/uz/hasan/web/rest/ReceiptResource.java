@@ -137,6 +137,20 @@ public class ReceiptResource {
     }
 
     /**
+     * GET  /receipts/count/new : get all the receipts.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the count of new receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/count/new")
+    @Timed
+    public ResponseEntity<Long> countNewReceipts() throws URISyntaxException {
+        log.debug("REST request to get count of new Receipts");
+        Long count = receiptService.countNewReceipts();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    /**
      * GET  /receipts/:id : get the "id" receipt.
      *
      * @param id the id of the receiptDTO to retrieve

@@ -33,6 +33,11 @@ export class ReceiptService {
         });
     }
 
+    newReceipts(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/new'), options);
+    }
+
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
@@ -63,6 +68,12 @@ export class ReceiptService {
     sendOrder(_receipt: Receipt): Observable<Receipt> {
         let copy: Receipt = Object.assign({}, _receipt);
         return this.http.post(this.resourceUrl.concat('/order'), copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    countNewApplications(): Observable<number> {
+        return this.http.get(this.resourceUrl.concat('/count/new')).map((res: Response) => {
             return res.json();
         });
     }

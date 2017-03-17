@@ -25,4 +25,8 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Receipt findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<Receipt> findByStatus(Pageable pageable, ReceiptStatus status);
+
+    Long countByStatus(ReceiptStatus aNew);
+
+    Page<Receipt> findAllByOrderByIdDesc(Pageable pageable);
 }

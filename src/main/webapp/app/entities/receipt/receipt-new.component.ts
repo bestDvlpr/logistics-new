@@ -12,14 +12,13 @@ import {DocTypeEnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
 
 @Component({
-    selector: 'jhi-receipt',
-    templateUrl: './receipt.component.html'
+    selector: 'jhi-receipt-new',
+    templateUrl: './receipt-new.component.html'
 })
 @DocTypeEnumAware
-export class ReceiptComponent implements OnInit, OnDestroy {
+export class ReceiptNewComponent implements OnInit, OnDestroy {
 
     currentAccount: any;
-    receipts: Receipt[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -65,17 +64,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         );
     }
 
-    loadAll() {
-        this.receiptService.query({
-            page: this.page - 1,
-            size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
-        );
-    }
-
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
@@ -91,7 +79,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.loadAll();
+        this.loadAllNew();
     }
 
     clear() {
@@ -100,12 +88,11 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
-        this.loadAll();
+        this.loadAllNew();
     }
 
     ngOnInit() {
         this.loadAllNew();
-        this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
@@ -122,7 +109,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
 
 
     registerChangeInReceipts() {
-        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllNew());
     }
 
     sort() {
@@ -138,7 +125,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
-        this.receipts = data;
+        this.newReceipts = data;
     }
 
     private onError(error) {
@@ -148,7 +135,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     public goClientSelectionStep(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.receipts) {
+        for (let res of this.newReceipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }

@@ -2,18 +2,18 @@
     "logisticsApp": {
         "receipt" : {
             "home": {
-                "title": "Receipts",
-                "createLabel": "Создать новый Receipt",
-                "createOrEditLabel": "Создать или отредактировать Receipt"
+                "title": "Заявки",
+                "createLabel": "Создать новый Заявка",
+                "createOrEditLabel": "Создать или отредактировать Заявка"
             },
-            "created": "Новый Receipt создан с идентификатором {{ param }}",
-            "updated": "Receipt обновлен с идентификатором {{ param }}",
-            "deleted": "Receipt удален с идентификатором {{ param }}",
+            "created": "Новый Заявка создан с идентификатором {{ param }}",
+            "updated": "Заявка обновлен с идентификатором {{ param }}",
+            "deleted": "Заявка удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Receipt {{ id }}?"
+                "question": "Вы уверены что хотите удалить Заявка {{ id }}?"
             },
             "detail": {
-                "title": "Receipt"
+                "title": "Заявка"
             },
             "docNum": "Doc Num",
             "docID": "Doc ID",

@@ -18,6 +18,12 @@
                     <span class="hidden-sm-down" jhiTranslate="global.menu.home">Home</span>
                 </a>
             </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="receipt/new" (click)="collapseNavbar()"  placement="bottom"  ngbTooltip="New Orders">
+                    <i class="fa fa-first-order" aria-hidden="true"></i>
+                    <span class="tag tag-pill tag-success">{{orderCount}}</span>
+                </a>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" jhiHasAuthority="ROLE_ADMIN" ngbDropdown class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle" routerLinkActive="active" ngbDropdownToggle

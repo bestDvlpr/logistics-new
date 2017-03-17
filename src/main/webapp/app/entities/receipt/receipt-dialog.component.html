@@ -117,53 +117,6 @@
                 </small>
             </div>
         </div>
-
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.payMaster" for="field_payMaster">Pay Master</label>
-            <select class="form-control" id="field_payMaster" name="payMaster" [(ngModel)]="receipt.payMasterId">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="payMasterOption.id"
-                        *ngFor="let payMasterOption of paymasters; trackBy: trackPayMasterById">
-                    {{payMasterOption.payMasterName}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.loyaltyCard" for="field_loyaltyCard">Loyalty Card</label>
-            <select class="form-control" id="field_loyaltyCard" name="loyaltyCard" [(ngModel)]="receipt.loyaltyCardId">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="loyaltyCardOption.id"
-                        *ngFor="let loyaltyCardOption of loyaltycards; trackBy: trackLoyaltyCardById">
-                    {{loyaltyCardOption.loyaltyCardID}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.client" for="field_client">Client</label>
-            <select class="form-control" id="field_client" name="client" [(ngModel)]="receipt.clientId">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">
-                    {{clientOption.firstName}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.cars" for="field_cars">Cars</label>
-            <select class="form-control" id="field_cars" multiple name="cars" [(ngModel)]="receipt.cars">
-                <option [ngValue]="getSelected(receipt.cars, carOption)"
-                        *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.receipt.addresses" for="field_addresses">Addresses</label>
-            <select class="form-control" id="field_addresses" multiple name="addresses" [(ngModel)]="receipt.addresses">
-                <option [ngValue]="getSelected(receipt.addresses, addressOption)"
-                        *ngFor="let addressOption of addresses; trackBy: trackAddressById">
-                    {{addressOption.streetAddress}}
-                </option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">

@@ -64,4 +64,11 @@ public interface ReceiptService {
      * @return the persisted entity
      */
     ReceiptDTO sendOrder(ReceiptProductEntriesDTO receiptDTO);
+
+    /**
+     * Count new receipts.
+     *
+     * @return count of new receipts
+     */
+    Long countNewReceipts();
 }

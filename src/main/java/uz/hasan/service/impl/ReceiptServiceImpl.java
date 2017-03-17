@@ -100,7 +100,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Transactional(readOnly = true)
     public Page<ReceiptProductEntriesDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Receipts");
-        Page<Receipt> result = receiptRepository.findAll(pageable);
+        Page<Receipt> result = receiptRepository.findAllByOrderByIdDesc(pageable);
         return result.map(receipt -> receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt));
     }
 
@@ -196,5 +196,15 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
         productEntryRepository.save(receipt.getProductEntries());
         return receiptMapper.receiptToReceiptDTO(receipt);
+    }
+
+    /**
+     * Count new receipts.
+     *
+     * @return count of new receipts
+     */
+    @Override
+    public Long countNewReceipts() {
+        return receiptRepository.countByStatus(ReceiptStatus.NEW);
     }
 }

@@ -6,9 +6,8 @@ import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {TranslateService} from 'ng2-translate';
 import {Router} from '@angular/router';
-import {ClientService} from "../client/client.service";
+import {ClientService} from '../client/client.service';
 import {Subscription} from 'rxjs/Rx';
-import {Location} from "../location/location.model";
 
 @Component({
     selector: 'jhi-receipt-send-address',
