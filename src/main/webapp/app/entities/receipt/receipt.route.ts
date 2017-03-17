@@ -8,11 +8,13 @@ import {ReceiptComponent} from './receipt.component';
 import {ReceiptDetailComponent} from './receipt-detail.component';
 import {ReceiptPopupComponent} from './receipt-dialog.component';
 import {ReceiptDeletePopupComponent} from './receipt-delete-dialog.component';
-import {ReceiptSendComponent} from './receipt-send.component';
+import {ReceiptSendClientComponent} from './receipt-send-client.component';
 
 import {Principal} from '../../shared';
-import {Client} from "../client/client.model";
-import {ReceiptSendAddressComponent} from "./receipt-send-address.component";
+import {Client} from '../client/client.model';
+import {ReceiptSendAddressComponent} from './receipt-send-address.component';
+import {ReceiptSendProductComponent} from './receipt-send-product.component';
+import {ClientPopupComponent} from '../client/client-dialog.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -50,15 +52,22 @@ export const receiptRoute: Routes = [
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
-        path: 'receipt/:id/send',
-        component: ReceiptSendComponent,
+        path: 'receipt/:id/send/client',
+        component: ReceiptSendClientComponent,
         data: {
             authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
-        path: 'receipt/send/client',
+        path: 'receipt/send/address',
         component: ReceiptSendAddressComponent,
+        data: {
+            authorities: ['ROLE_CASHIER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt/send/product',
+        component: ReceiptSendProductComponent,
         data: {
             authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
@@ -91,6 +100,15 @@ export const receiptPopupRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'logisticsApp.receipt.home.title'
+        },
+        outlet: 'popup'
+    },
+    {
+        path: 'receipt/client-new',
+        component: ClientPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.client.home.title'
         },
         outlet: 'popup'
     }

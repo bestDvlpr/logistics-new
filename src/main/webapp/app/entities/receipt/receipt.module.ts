@@ -16,9 +16,11 @@ import {
     receiptRoute,
     receiptPopupRoute,
     ReceiptResolvePagingParams,
-    ReceiptSendComponent,
+    ReceiptSendClientComponent,
+    ReceiptSendProductComponent,
+    CollapsedReceiptComponent,
 } from './';
-import {ReceiptSendAddressComponent} from "./receipt-send-address.component";
+import {ReceiptSendAddressComponent} from './receipt-send-address.component';
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -37,8 +39,10 @@ let ENTITY_STATES = [
         ReceiptDeleteDialogComponent,
         ReceiptPopupComponent,
         ReceiptDeletePopupComponent,
-        ReceiptSendComponent,
+        ReceiptSendClientComponent,
         ReceiptSendAddressComponent,
+        ReceiptSendProductComponent,
+        CollapsedReceiptComponent,
     ],
     entryComponents: [
         ReceiptComponent,
@@ -46,6 +50,10 @@ let ENTITY_STATES = [
         ReceiptPopupComponent,
         ReceiptDeleteDialogComponent,
         ReceiptDeletePopupComponent,
+        ReceiptSendClientComponent,
+        ReceiptSendAddressComponent,
+        ReceiptSendProductComponent,
+        CollapsedReceiptComponent,
     ],
     providers: [
         ReceiptService,

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+
+import uz.hasan.domain.Address;
 import uz.hasan.domain.enumeration.SalesType;
 import uz.hasan.domain.enumeration.SalesPlace;
 import uz.hasan.domain.enumeration.DefectFlag;
@@ -79,6 +81,10 @@ public class ProductEntryDTO implements Serializable {
 
     private String addressStreetAddress;
 
+    private AddressDTO address;
+
+    private ProductDTO product;
+
     public Long getId() {
         return id;
     }
@@ -86,6 +92,7 @@ public class ProductEntryDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -93,6 +100,7 @@ public class ProductEntryDTO implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
     public SalesType getDeliveryFlag() {
         return deliveryFlag;
     }
@@ -100,6 +108,7 @@ public class ProductEntryDTO implements Serializable {
     public void setDeliveryFlag(SalesType deliveryFlag) {
         this.deliveryFlag = deliveryFlag;
     }
+
     public SalesPlace getHallFlag() {
         return hallFlag;
     }
@@ -107,6 +116,7 @@ public class ProductEntryDTO implements Serializable {
     public void setHallFlag(SalesPlace hallFlag) {
         this.hallFlag = hallFlag;
     }
+
     public DefectFlag getDefectFlag() {
         return defectFlag;
     }
@@ -114,6 +124,7 @@ public class ProductEntryDTO implements Serializable {
     public void setDefectFlag(DefectFlag defectFlag) {
         this.defectFlag = defectFlag;
     }
+
     public VirtualFlag getVirtualFlag() {
         return virtualFlag;
     }
@@ -121,6 +132,7 @@ public class ProductEntryDTO implements Serializable {
     public void setVirtualFlag(VirtualFlag virtualFlag) {
         this.virtualFlag = virtualFlag;
     }
+
     public String getReason() {
         return reason;
     }
@@ -128,6 +140,7 @@ public class ProductEntryDTO implements Serializable {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
     public String getComment() {
         return comment;
     }
@@ -135,6 +148,7 @@ public class ProductEntryDTO implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
     public String getGuid() {
         return guid;
     }
@@ -142,6 +156,7 @@ public class ProductEntryDTO implements Serializable {
     public void setGuid(String guid) {
         this.guid = guid;
     }
+
     public BigDecimal getQty() {
         return qty;
     }
@@ -149,6 +164,7 @@ public class ProductEntryDTO implements Serializable {
     public void setQty(BigDecimal qty) {
         this.qty = qty;
     }
+
     public BigDecimal getDiscount() {
         return discount;
     }
@@ -156,6 +172,7 @@ public class ProductEntryDTO implements Serializable {
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
+
     public ReceiptStatus getStatus() {
         return status;
     }
@@ -163,6 +180,7 @@ public class ProductEntryDTO implements Serializable {
     public void setStatus(ReceiptStatus status) {
         this.status = status;
     }
+
     public Boolean getCancelled() {
         return cancelled;
     }
@@ -170,6 +188,7 @@ public class ProductEntryDTO implements Serializable {
     public void setCancelled(Boolean cancelled) {
         this.cancelled = cancelled;
     }
+
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -274,6 +293,22 @@ public class ProductEntryDTO implements Serializable {
         this.addressStreetAddress = addressStreetAddress;
     }
 
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public ProductDTO getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDTO product) {
+        this.product = product;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -285,7 +320,9 @@ public class ProductEntryDTO implements Serializable {
 
         ProductEntryDTO productEntryDTO = (ProductEntryDTO) o;
 
-        if ( ! Objects.equals(id, productEntryDTO.id)) { return false; }
+        if (!Objects.equals(id, productEntryDTO.id)) {
+            return false;
+        }
 
         return true;
     }

@@ -27,6 +27,10 @@ public final class HeaderUtil {
         return createAlert(APPLICATION_NAME + "." + entityName + ".created", param);
     }
 
+    public static HttpHeaders createEntitySentAlert(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".sent", param);
+    }
+
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
         return createAlert(APPLICATION_NAME + "." + entityName + ".updated", param);
     }

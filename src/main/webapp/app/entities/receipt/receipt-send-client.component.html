@@ -1,0 +1,220 @@
+<div *ngIf="receipt">
+    <h2 jhiTranslate="entity.action.sendOrderTitle" translateValues="{orderId: '{{receipt.id}}'}">Send Order</h2>
+    <!-- <div class="row">
+         <div class="col-md-12">
+             <button class="btn btn-primary btn-block btn-sm" (click)="isCollapsed = !isCollapsed"
+                     [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                 <div class="row">
+                     <div class="col-md-3">
+                         <span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}
+                     </div>
+                     <div class="col-md-3">
+                         <span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span>: <span>{{receipt.docNum}}</span>
+                     </div>
+                     <div class="col-md-3">
+                         <span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span>: <span>{{receipt.docID}}</span>
+                     </div>
+                     <div class="col-md-3">
+                         <span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
+                         <span>{{receipt.docDate}}</span>
+                     </div>
+                 </div>
+             </button>
+         </div>
+     </div>-->
+    <!--<div [ngbCollapse]="isCollapsed" id="collapseExample">-->
+    <!--<div class="card small">
+        <div class="card-block">
+            <div class="row text-muted font-weight-bold">
+                <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span jhiTranslate="logisticsApp.product.home.title">Products</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.wholeSaleFlag">WholeSaleFlag</span>
+                </div>
+                <div class="col-md-2"><span jhiTranslate="logisticsApp.receipt.status">Status</span></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">{{receipt.docType}}</div>
+                <div class="col-md-3">
+                    <div class="row" *ngFor="let productEntry of receipt.productEntries">
+                        <div class="col-md-6"><span>{{productEntry.productName}}</span></div>
+                        <div class="col-md-2"><span>{{productEntry.qty}}</span></div>
+                        <div class="col-md-4"><span>{{productEntry.status}}</span></div>
+                    </div>
+                </div>
+                <div class="col-md-2">{{receipt.wholeSaleFlag}}</div>
+                <div class="col-md-2">{{receipt.status}}</div>
+            </div>
+        </div>
+    </div>-->
+    <jhi-collapsed-receipt></jhi-collapsed-receipt>
+    <!--<div class="row small">
+        <div class="col-md-4" *ngIf="dataHolderService._client">
+            <div class="row">
+                <div class="col-md-10 offset-md-2 font-weight-bold text-muted">
+                    <span jhiTranslate="logisticsApp.client.detail.title">Client</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 offset-md-2 text-muted">
+                    <h1 class="display-4">
+                        <span class="fa fa-user"></span>
+                    </h1>
+                </div>
+                <div class="col-md-8">
+                    <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                    {{client.id}}
+                    <p class="card-text">
+                        <span jhiTranslate="logisticsApp.client.fullName">Client</span>
+                        : {{client.firstName + ' ' + client.lastName}}
+                        <br/>
+                        <span jhiTranslate="logisticsApp.client.clientSince">Client</span>
+                        : {{client.regDate | date}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" *ngIf="dataHolderService._receipt">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row text-muted font-weight-bold" title="Products">
+                        <div class="col-md-4">
+                            <span jhiTranslate="logisticsApp.product.home.title">Products</span>
+                        </div>
+                        <div class="col-md-8">
+                            <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let product of receipt.productEntries">
+                        <div class="col-md-2">
+                            <span>{{product.productName}}</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span>{{product.qty}}</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span>{{product.status}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.countryName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.regionName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.cityName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.districtName}}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="product.address">
+                            <span>{{product.address.streetAddress}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--</div>-->
+
+    <div class="row">&nbsp;</div>
+    <div class="row" *ngIf="!uncheckedProdsExist">
+        <div class="col-md-2 offset-md-10">
+            <button class="btn btn-primary btn-sm btn-block" (click)="sendOrder()">
+                <span class="fa fa-check-square"></span>
+                <span jhiTranslate="entity.action.sendOrder">Send Order</span>
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <jhi-alert-error></jhi-alert-error>
+    <hr>
+    <div class="row" *ngIf="uncheckedProdsExist">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <label for="phoneNumber" jhiTranslate="logisticsApp.phoneNumber.number">Phone Number</label>
+                    <div class="btn-group flex-btn-group-container float-md-right">
+                        <button class="btn btn-success btn-sm"
+                                [routerLink]="['/', { outlets: { popup: ['client-new'] } }]">
+                            <span class="fa fa-plus"></span>
+                            <span jhiTranslate="logisticsApp.client.home.createLabel">Create new Client</span>
+                            <span class="fa fa-user"></span>
+                        </button>
+                        <button class="btn btn-primary btn-sm"
+                                [routerLink]="['/', { outlets: { popup: ['phone-number-new'] } }]">
+                            <span class="fa fa-plus"></span>
+                            <span
+                                jhiTranslate="logisticsApp.phoneNumber.home.createLabel">Create new Phone Number</span>
+                            <span class="fa fa-phone"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form name="number" role="form" novalidate (ngSubmit)="findClient()">
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                       [(ngModel)]="phoneNumber"/>
+                                <div>&nbsp;</div>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <span jhiTranslate="global.form.search">Search</span>&nbsp;
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-8" *ngIf="client">
+                            <div class="card bg-primary card-block btn btn-primary"
+                                 [ngClass]="{active: (!clientSelected), disabled: (clientSelected)}"
+                                 (click)="!clientSelected && toggleClientSelected()">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <h2 *ngIf="!clientSelected"><span
+                                            class="fa fa-square"></span></h2>
+                                        <h2 *ngIf="clientSelected"><span
+                                            class="fa fa-check-square"></span></h2>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h6><span
+                                            jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                                            {{client.id}}
+                                        </h6>
+                                        <p class="card-text">
+                                            <span jhiTranslate="logisticsApp.client.fullName">Client</span>
+                                            : {{client.firstName + ' ' + client.lastName}}
+                                            <br/>
+                                            <span jhiTranslate="logisticsApp.client.clientSince">Client</span>
+                                            : {{client.regDate | date}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" *ngIf="clientSelected">
+                        <div class="col-md-2 offset-md-10">
+                            <button class="btn btn-sm btn-primary btn-block" (click)="goAddressSelectStep()">
+                                <span jhiTranslate="global.form.next">Next</span>
+                                <span class="fa fa-arrow-circle-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info btn-sm">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+        </div>
+    </div>
+    <hr>
+</div>

@@ -24,7 +24,7 @@ export class ClientDialogComponent implements OnInit {
         private clientService: ClientService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['client']);
+        this.jhiLanguageService.setLocations(['client', 'receipt', 'productEntry', 'address', 'phoneNumber', 'product']);
     }
 
     ngOnInit() {

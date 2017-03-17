@@ -24,7 +24,7 @@ import {
     ErrorComponent
 } from './layouts';
 import {SidenavComponent} from './layouts/sidenav/sidenav.component';
-import {Collapse} from './layouts/sidenav/collapse.component';
+import {CollapseDirective} from './layouts/sidenav/collapse.component';
 import {Ng2CompleterModule} from 'ng2-completer';
 import {FooterComponent} from './layouts/footer/footer.component';
 
@@ -49,7 +49,7 @@ import {FooterComponent} from './layouts/footer/footer.component';
         ActiveMenuDirective,
         FooterComponent,
         SidenavComponent,
-        Collapse
+        CollapseDirective
     ],
     providers: [
         ProfileService,

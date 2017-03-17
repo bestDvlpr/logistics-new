@@ -120,8 +120,7 @@
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.payMaster" for="field_payMaster">Pay Master</label>
-            <select class="form-control" id="field_payMaster" name="payMaster" [(ngModel)]="receipt.payMasterId"
-                    required>
+            <select class="form-control" id="field_payMaster" name="payMaster" [(ngModel)]="receipt.payMasterId">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="payMasterOption.id"
                         *ngFor="let payMasterOption of paymasters; trackBy: trackPayMasterById">
@@ -129,29 +128,15 @@
                 </option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.payMaster?.dirty && editForm.controls.payMaster?.invalid)">
-            <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.payMaster?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.loyaltyCard" for="field_loyaltyCard">Loyalty Card</label>
-            <select class="form-control" id="field_loyaltyCard" name="loyaltyCard" [(ngModel)]="receipt.loyaltyCardId"
-                    required>
+            <select class="form-control" id="field_loyaltyCard" name="loyaltyCard" [(ngModel)]="receipt.loyaltyCardId">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="loyaltyCardOption.id"
                         *ngFor="let loyaltyCardOption of loyaltycards; trackBy: trackLoyaltyCardById">
                     {{loyaltyCardOption.loyaltyCardID}}
                 </option>
             </select>
-        </div>
-        <div [hidden]="!(editForm.controls.loyaltyCard?.dirty && editForm.controls.loyaltyCard?.invalid)">
-            <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.loyaltyCard?.errors?.required"
-                   jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.receipt.client" for="field_client">Client</label>

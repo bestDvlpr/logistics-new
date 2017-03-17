@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
 
-import { PayType } from './pay-type.model';
-import { PayTypePopupService } from './pay-type-popup.service';
-import { PayTypeService } from './pay-type.service';
-import { Receipt, ReceiptService } from '../receipt';
+import {PayType} from './pay-type.model';
+import {PayTypePopupService} from './pay-type-popup.service';
+import {PayTypeService} from './pay-type.service';
+import {Receipt, ReceiptService} from '../receipt';
 @Component({
     selector: 'jhi-pay-type-dialog',
     templateUrl: './pay-type-dialog.component.html'
@@ -20,14 +20,13 @@ export class PayTypeDialogComponent implements OnInit {
     isSaving: boolean;
 
     receipts: Receipt[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private payTypeService: PayTypeService,
-        private receiptService: ReceiptService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private payTypeService: PayTypeService,
+                private receiptService: ReceiptService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['payType', 'paymentType']);
     }
 
@@ -35,13 +34,16 @@ export class PayTypeDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.receiptService.query().subscribe(
-            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.receipts = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.payType.id !== undefined) {
             this.payTypeService.update(this.payType)
@@ -52,18 +54,18 @@ export class PayTypeDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: PayType) {
-        this.eventManager.broadcast({ name: 'payTypeListModification', content: 'OK'});
+    private onSaveSuccess(result: PayType) {
+        this.eventManager.broadcast({name: 'payTypeListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -81,14 +83,13 @@ export class PayTypePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private payTypePopupService: PayTypePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private payTypePopupService: PayTypePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.payTypePopupService
                     .open(PayTypeDialogComponent, params['id']);
             } else {

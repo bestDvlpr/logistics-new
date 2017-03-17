@@ -59,7 +59,7 @@ public class ProductEntryResourceIntTest {
     private static final DefectFlag DEFAULT_DEFECT_FLAG = DefectFlag.WELL;
     private static final DefectFlag UPDATED_DEFECT_FLAG = DefectFlag.DEFECTED;
 
-    private static final VirtualFlag DEFAULT_VIRTUAL_FLAG = VirtualFlag.SOLD_PHISICALLY;
+    private static final VirtualFlag DEFAULT_VIRTUAL_FLAG = VirtualFlag.SOLD_PHYSICALLY;
     private static final VirtualFlag UPDATED_VIRTUAL_FLAG = VirtualFlag.SOLD_VIRTUALLY;
 
     private static final String DEFAULT_REASON = "AAAAAAAAAA";

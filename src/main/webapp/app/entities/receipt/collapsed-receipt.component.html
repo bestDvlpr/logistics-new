@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary btn-block btn-sm" (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            <div class="row">
+                <div class="col-md-3">
+                    <span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{dataHolderService._receipt.id}}
+                </div>
+                <div class="col-md-3">
+                    <span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span>: <span>{{dataHolderService._receipt.docNum}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span>: <span>{{dataHolderService._receipt.docID}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
+                    <span>{{dataHolderService._receipt.docDate}}</span>
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+<div [ngbCollapse]="isCollapsed" id="collapseExample">
+    <div class="row small">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-10 offset-md-2 font-weight-bold text-muted">
+                    <span jhiTranslate="logisticsApp.client.detail.title">Client</span>
+                </div>
+            </div>
+            <div class="row" *ngIf="dataHolderService._client">
+                <div class="col-md-2 offset-md-2 text-muted">
+                    <h1 class="display-4">
+                        <span class="fa fa-user"></span>
+                    </h1>
+                </div>
+                <div class="col-md-8">
+                    <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                    {{client.id}}
+                    <p class="card-text">
+                        <span jhiTranslate="logisticsApp.client.fullName">Client</span>
+                        : {{client.firstName + ' ' + client.lastName}}
+                        <br/>
+                        <span jhiTranslate="logisticsApp.client.clientSince">Client</span>
+                        : {{client.regDate | date}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" *ngIf="dataHolderService._receipt">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row text-muted font-weight-bold" title="Products">
+                        <div class="col-md-4">
+                            <span jhiTranslate="logisticsApp.product.home.title">Products</span>
+                        </div>
+                        <div class="col-md-8">
+                            <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let product of receipt.productEntries">
+                        <div class="col-md-2">
+                            <span>{{product.productName}}</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span>{{product.qty}}</span>
+                        </div>
+                        <div class="col-md-1">
+                            <span>{{product.status}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.countryName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.regionName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.cityName}}</span>
+                        </div>
+                        <div class="col-md-1" *ngIf="product.address">
+                            <span>{{product.address.districtName}}</span>
+                        </div>
+                        <div class="col-md-4" *ngIf="product.address">
+                            <span>{{product.address.streetAddress}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

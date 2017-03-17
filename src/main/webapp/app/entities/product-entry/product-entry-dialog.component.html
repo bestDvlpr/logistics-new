@@ -73,7 +73,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.virtualFlag" for="field_virtualFlag">Virtual Flag</label>
             <select class="form-control" name="virtualFlag" [(ngModel)]="productEntry.virtualFlag" id="field_virtualFlag"  required>
-                <option value="SOLD_PHISICALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_PHISICALLY">SOLD_PHISICALLY</option>
+                <option value="SOLD_PHYSICALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_PHYSICALLY">SOLD_PHYSICALLY</option>
                 <option value="SOLD_VIRTUALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_VIRTUALLY">SOLD_VIRTUALLY</option>
             </select>
             <div [hidden]="!(editForm.controls.virtualFlag?.dirty && editForm.controls.virtualFlag?.invalid)">

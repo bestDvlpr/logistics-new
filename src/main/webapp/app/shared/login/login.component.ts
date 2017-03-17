@@ -24,7 +24,7 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
         private stateStorageService: StateStorageService,
         private elementRef: ElementRef,
         private renderer: Renderer,
-        private activeModal: NgbActiveModal,
+        public activeModal: NgbActiveModal,
         private router: Router
     ) {
         this.credentials = {};

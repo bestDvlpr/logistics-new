@@ -79,7 +79,7 @@
         {
             "fieldName": "virtualFlag",
             "fieldType": "VirtualFlag",
-            "fieldValues": "SOLD_PHISICALLY,SOLD_VIRTUALLY",
+            "fieldValues": "SOLD_PHYSICALLY,SOLD_VIRTUALLY",
             "fieldValidateRules": [
                 "required"
             ]

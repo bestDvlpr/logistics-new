@@ -121,7 +121,7 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status==receiptStatusEnum.NEW"
-                            [routerLink]="['../receipt/' + receipt.id + '/send' ]"
+                            (click)="goClientSelectionStep(receipt.id)"
                             jhiHasAuthority="ROLE_CASHIER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>

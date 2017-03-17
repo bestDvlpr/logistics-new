@@ -28,14 +28,15 @@ export class PhoneNumberDialogComponent implements OnInit {
         private clientService: ClientService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['phoneNumber']);
+        this.jhiLanguageService.setLocations(['phoneNumber', 'receipt', 'productEntry', 'address', 'client', 'product']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.clientService.query().subscribe(
-            (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => { this.clients = res.json(); }, (res: Response) => this.onError(res.json())
+        );
     }
     clear () {
         this.activeModal.dismiss('cancel');

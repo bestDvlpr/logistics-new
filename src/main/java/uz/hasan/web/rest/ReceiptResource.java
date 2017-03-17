@@ -1,7 +1,9 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.springframework.http.MediaType;
 import uz.hasan.service.ReceiptService;
+import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.web.rest.util.HeaderUtil;
 import uz.hasan.web.rest.util.PaginationUtil;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -92,10 +94,10 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts")
     @Timed
-    public ResponseEntity<List<ReceiptDTO>> getAllReceipts(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Receipts");
-        Page<ReceiptDTO> page = receiptService.findAll(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -142,9 +144,9 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts/{id}")
     @Timed
-    public ResponseEntity<ReceiptDTO> getReceipt(@PathVariable Long id) {
+    public ResponseEntity<ReceiptProductEntriesDTO> getReceipt(@PathVariable Long id) {
         log.debug("REST request to get Receipt : {}", id);
-        ReceiptDTO receiptDTO = receiptService.findOne(id);
+        ReceiptProductEntriesDTO receiptDTO = receiptService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(receiptDTO));
     }
 
@@ -160,6 +162,26 @@ public class ReceiptResource {
         log.debug("REST request to delete Receipt : {}", id);
         receiptService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * POST  /receipts/order : Send receipt to logistic manager as order.
+     *
+     * @param receiptDTO the receiptDTO to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping(value = "/receipts/order", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ReceiptDTO> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTO);
+        /*if (receiptDTO.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);
+        }*/
+        ReceiptDTO result = receiptService.sendOrder(receiptDTO);
+        return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
+            .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
 }

@@ -7,5 +7,7 @@ export * from './receipt-delete-dialog.component';
 export * from './receipt-detail.component';
 export * from './receipt.component';
 export * from './receipt.route';
-export * from './receipt-send.component';
+export * from './receipt-send-client.component';
 export * from './receipt-send-address.component';
+export * from './receipt-send-product.component';
+export * from './collapsed-receipt.component';

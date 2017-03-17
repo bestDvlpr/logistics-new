@@ -1,4 +1,6 @@
-import {ProductEntry} from "../product-entry/product-entry.model";
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {Address} from '../address/address.model';
+import {Car} from '../car/car.model';
 export enum DocType {
     RETURN = <any>'RETURN',
     SALES = <any>'SALES'
@@ -16,6 +18,10 @@ export enum ReceiptStatus {
     CANCELLED = <any>'CANCELLED'
 }
 export class Receipt {
+    public productEntries: ProductEntry[];
+    public addresses: Address[];
+    public cars: Car[];
+
     constructor(public id?: number,
                 public docNum?: string,
                 public docID?: string,
@@ -26,10 +32,6 @@ export class Receipt {
                 public status?: ReceiptStatus,
                 public payMasterId?: number,
                 public loyaltyCardId?: number,
-                public clientId?: number,
-                public productEntriesId?: number,
-                public productEntries?: ProductEntry[],
-                public carsId?: number,
-                public addressesId?: number) {
+                public clientId?: number ) {
     }
 }

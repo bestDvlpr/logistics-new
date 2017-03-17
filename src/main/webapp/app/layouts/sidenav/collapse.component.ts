@@ -5,7 +5,7 @@ import {Directive, Input, HostBinding} from '@angular/core';
 
 
 @Directive({selector: '[jhiCollapse]'})
-export class Collapse {
+export class CollapseDirective {
     // style
     @HostBinding('style.height')
     private height: string;

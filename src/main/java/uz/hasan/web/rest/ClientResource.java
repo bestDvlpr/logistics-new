@@ -111,9 +111,9 @@ public class ClientResource {
      */
     @GetMapping("/clients/{id}")
     @Timed
-    public ResponseEntity<ClientDTO> getClient(@PathVariable Long id) {
+    public ResponseEntity<ClientAndAddressesDTO> getClient(@PathVariable Long id) {
         log.debug("REST request to get Client : {}", id);
-        ClientDTO clientDTO = clientService.findOne(id);
+        ClientAndAddressesDTO clientDTO = clientService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(clientDTO));
     }
 

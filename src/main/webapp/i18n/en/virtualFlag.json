@@ -2,7 +2,7 @@
     "logisticsApp": {
         "VirtualFlag" : {
             "null": "",
-            "SOLD_PHISICALLY": "SOLD_PHISICALLY",
+            "SOLD_PHYSICALLY": "SOLD_PHYSICALLY",
             "SOLD_VIRTUALLY": "SOLD_VIRTUALLY"
         }
     }

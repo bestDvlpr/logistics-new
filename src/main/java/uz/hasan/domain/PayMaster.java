@@ -28,6 +28,13 @@ public class PayMaster implements Serializable {
     @Column(name = "pay_master_name", nullable = false)
     private String payMasterName;
 
+    public PayMaster(Long payMasterId) {
+        this.id = payMasterId;
+    }
+
+    public PayMaster() {
+    }
+
     public Long getId() {
         return id;
     }

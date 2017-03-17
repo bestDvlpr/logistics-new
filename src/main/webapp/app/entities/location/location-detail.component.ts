@@ -51,7 +51,11 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.loadChildren(params['id']);
+            this.loadChildren(params['id'], {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            });
         });
         this.childLocations = [];
     }
@@ -62,7 +66,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadChildren(id: number) {
+    loadChildren(id: number, req: any) {
         this.locationService.findChildren(id, {
             page: this.page - 1,
             size: this.itemsPerPage,
@@ -115,7 +119,11 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         });
         this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.loadChildren(params['id']);
+            this.loadChildren(params['id'], {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            });
         });
     }
 }

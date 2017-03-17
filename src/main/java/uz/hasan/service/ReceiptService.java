@@ -3,7 +3,7 @@ package uz.hasan.service;
 import uz.hasan.service.dto.ReceiptDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import java.util.List;
+import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
 /**
  * Service Interface for managing Receipt.
@@ -24,7 +24,7 @@ public interface ReceiptService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptDTO> findAll(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAll(Pageable pageable);
 
     /**
      *  Get the "id" receipt.
@@ -32,7 +32,7 @@ public interface ReceiptService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    ReceiptDTO findOne(Long id);
+    ReceiptProductEntriesDTO findOne(Long id);
 
     /**
      *  Delete the "id" receipt.
@@ -56,4 +56,12 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptDTO> findAppliedReceipts(Pageable pageable);
+
+    /**
+     * Send a receipt.
+     *
+     * @param receiptDTO the entity to send
+     * @return the persisted entity
+     */
+    ReceiptDTO sendOrder(ReceiptProductEntriesDTO receiptDTO);
 }

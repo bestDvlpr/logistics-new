@@ -77,10 +77,10 @@ public class ClientServiceImpl implements ClientService{
      */
     @Override
     @Transactional(readOnly = true)
-    public ClientDTO findOne(Long id) {
+    public ClientAndAddressesDTO findOne(Long id) {
         log.debug("Request to get Client : {}", id);
         Client client = clientRepository.findOne(id);
-        ClientDTO clientDTO = clientMapper.clientToClientDTO(client);
+        ClientAndAddressesDTO clientDTO = clientAndAddressesMapper.clientToClientAndAddressesDTO(client);
         return clientDTO;
     }
 

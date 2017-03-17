@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -60,6 +61,7 @@ public class ReceiptDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getDocNum() {
         return docNum;
     }
@@ -67,6 +69,7 @@ public class ReceiptDTO implements Serializable {
     public void setDocNum(String docNum) {
         this.docNum = docNum;
     }
+
     public String getDocID() {
         return docID;
     }
@@ -74,6 +77,7 @@ public class ReceiptDTO implements Serializable {
     public void setDocID(String docID) {
         this.docID = docID;
     }
+
     public DocType getDocType() {
         return docType;
     }
@@ -81,6 +85,7 @@ public class ReceiptDTO implements Serializable {
     public void setDocType(DocType docType) {
         this.docType = docType;
     }
+
     public String getPreviousDocID() {
         return previousDocID;
     }
@@ -88,6 +93,7 @@ public class ReceiptDTO implements Serializable {
     public void setPreviousDocID(String previousDocID) {
         this.previousDocID = previousDocID;
     }
+
     public Long getDocDate() {
         return docDate;
     }
@@ -95,6 +101,7 @@ public class ReceiptDTO implements Serializable {
     public void setDocDate(Long docDate) {
         this.docDate = docDate;
     }
+
     public WholeSaleFlag getWholeSaleFlag() {
         return wholeSaleFlag;
     }
@@ -102,6 +109,7 @@ public class ReceiptDTO implements Serializable {
     public void setWholeSaleFlag(WholeSaleFlag wholeSaleFlag) {
         this.wholeSaleFlag = wholeSaleFlag;
     }
+
     public ReceiptStatus getStatus() {
         return status;
     }
@@ -185,7 +193,9 @@ public class ReceiptDTO implements Serializable {
 
         ReceiptDTO receiptDTO = (ReceiptDTO) o;
 
-        if ( ! Objects.equals(id, receiptDTO.id)) { return false; }
+        if (!Objects.equals(id, receiptDTO.id)) {
+            return false;
+        }
 
         return true;
     }

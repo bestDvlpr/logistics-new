@@ -1,3 +1,5 @@
+import {Address} from '../address/address.model';
+import {Product} from '../product/product.model';
 export enum SalesType {
     TAKEOUT_IN_TIME = <any>'TAKEOUT_IN_TIME',
     TAKEOUT = <any>'TAKEOUT',
@@ -12,7 +14,7 @@ export enum DefectFlag {
     DEFECTED = <any>'DEFECTED'
 }
 export enum VirtualFlag {
-    SOLD_PHISICALLY = <any>'SOLD_PHISICALLY',
+    SOLD_PHYSICALLY = <any>'SOLD_PHYSICALLY',
     SOLD_VIRTUALLY = <any>'SOLD_VIRTUALLY'
 }
 export enum ReceiptStatus {
@@ -23,6 +25,8 @@ export enum ReceiptStatus {
     DELIVERED = <any>'DELIVERED'
 }
 export class ProductEntry {
+    public address: Address;
+    public product: Product;
     constructor(public id?: number,
                 public price?: number,
                 public deliveryFlag?: SalesType,

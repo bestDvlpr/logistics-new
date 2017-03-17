@@ -29,6 +29,13 @@ public class Client implements Serializable {
     @Column(name = "reg_date")
     private ZonedDateTime regDate;
 
+    public Client(Long clientId) {
+        this.id = clientId;
+    }
+
+    public Client() {
+    }
+
     public Long getId() {
         return id;
     }

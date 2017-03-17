@@ -59,7 +59,7 @@ public class Receipt implements Serializable {
     @Column(name = "status", nullable = false)
     private ReceiptStatus status;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private PayMaster payMaster;
 
     @ManyToOne

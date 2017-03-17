@@ -41,6 +41,13 @@ public class LoyaltyCard implements Serializable {
     @JsonIgnore
     private Set<Receipt> receipts = new HashSet<>();
 
+    public LoyaltyCard(Long loyaltyCardId) {
+        this.id = loyaltyCardId;
+    }
+
+    public LoyaltyCard() {
+    }
+
     public Long getId() {
         return id;
     }

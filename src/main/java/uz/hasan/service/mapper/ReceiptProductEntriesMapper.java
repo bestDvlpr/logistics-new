@@ -2,8 +2,7 @@ package uz.hasan.service.mapper;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.ProductEntry;
-import uz.hasan.domain.Receipt;
+import uz.hasan.domain.*;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -11,6 +10,7 @@ import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -22,11 +22,19 @@ public class ReceiptProductEntriesMapper {
     private final ProductEntryMapper productEntryMapper;
     private final ReceiptRepository receiptRepository;
     private final ReceiptMapper receiptMapper;
+    private PayTypeMapper payTypeMapper;
+    private CarMapper carMapper;
 
-    public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper, ReceiptRepository receiptRepository, ReceiptMapper receiptMapper) {
+    public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
+                                       ReceiptRepository receiptRepository,
+                                       ReceiptMapper receiptMapper,
+                                       PayTypeMapper payTypeMapper,
+                                       CarMapper carMapper) {
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
+        this.payTypeMapper = payTypeMapper;
+        this.carMapper = carMapper;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -66,5 +74,31 @@ public class ReceiptProductEntriesMapper {
             receiptProductEntriesDTOS.add(receiptToReceiptProductEntryDTO(receipt));
         }
         return receiptProductEntriesDTOS;
+    }
+
+    public Receipt receiptProductEntryDTOToReceipt(ReceiptProductEntriesDTO receiptDTO) {
+        if (receiptDTO == null) {
+            return null;
+        }
+        Receipt receipt = new Receipt();
+        receipt.setId(receiptDTO.getId());
+        receipt.setDocType(receiptDTO.getDocType());
+        receipt.setDocNum(receiptDTO.getDocNum());
+        receipt.setDocDate(receiptDTO.getDocDate());
+        receipt.setDocID(receiptDTO.getDocID());
+        receipt.setPreviousDocID(receiptDTO.getPreviousDocID());
+        receipt.setClient(new Client(receiptDTO.getClientId()));
+        receipt.setProductEntries(new HashSet<>(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries())));
+//        receipt.setPayTypes(new HashSet<>(payTypeMapper.payTypeDTOsToPayTypes(receiptDTO.getPayTypes())));
+        if (receiptDTO.getCars() != null && !receiptDTO.getCars().isEmpty()) {
+            receipt.setCars(new HashSet<>(carMapper.carDTOsToCars(new ArrayList<>(receiptDTO.getCars()))));
+        }
+        receipt.setPayMaster(new PayMaster(receiptDTO.getPayMasterId()));
+        if (receiptDTO.getLoyaltyCardId() != null) {
+            receipt.setLoyaltyCard(new LoyaltyCard(receiptDTO.getLoyaltyCardId()));
+        }
+        receipt.setStatus(receiptDTO.getStatus());
+        receipt.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
+        return receipt;
     }
 }

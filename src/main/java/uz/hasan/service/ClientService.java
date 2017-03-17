@@ -33,7 +33,7 @@ public interface ClientService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    ClientDTO findOne(Long id);
+    ClientAndAddressesDTO findOne(Long id);
 
     /**
      *  Delete the "id" client.

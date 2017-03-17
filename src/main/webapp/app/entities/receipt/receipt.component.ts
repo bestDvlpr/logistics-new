@@ -9,6 +9,7 @@ import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 import {DocTypeEnumAware} from './doctypaware.decorator';
+import {DataHolderService} from './data-holder.service';
 
 @Component({
     selector: 'jhi-receipt',
@@ -41,8 +42,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
-                private paginationConfig: PaginationConfig) {
+                private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -132,7 +132,19 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.alertService.error(error.message, null, null);
     }
 
-    public attachToDriver(){
+    public goClientSelectionStep(receiptId: number) {
+        this.dataHolderService.clearAll();
+        let receipt: Receipt;
+        for (let res of this.receipts) {
+            if (res.id === receiptId) {
+                receipt = res;
+            }
+        }
+        this.dataHolderService._receipt = receipt;
+        this.router.navigate(['../receipt/' + receiptId + '/send/client']);
+    }
+
+    public attachToDriver() {
 
     }
 }

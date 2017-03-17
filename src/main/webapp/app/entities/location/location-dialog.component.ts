@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
 
-import { Location } from './location.model';
-import { LocationPopupService } from './location-popup.service';
-import { LocationService } from './location.service';
+import {Location} from './location.model';
+import {LocationPopupService} from './location-popup.service';
+import {LocationService} from './location.service';
 @Component({
     selector: 'jhi-location-dialog',
     templateUrl: './location-dialog.component.html'
@@ -19,13 +19,12 @@ export class LocationDialogComponent implements OnInit {
     isSaving: boolean;
 
     locations: Location[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private locationService: LocationService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private locationService: LocationService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['location', 'locationType']);
     }
 
@@ -33,13 +32,16 @@ export class LocationDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.locationService.query().subscribe(
-            (res: Response) => { this.locations = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.locations = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.location.id !== undefined) {
             this.locationService.update(this.location)
@@ -50,18 +52,18 @@ export class LocationDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Location) {
-        this.eventManager.broadcast({ name: 'locationListModification', content: 'OK'});
+    private onSaveSuccess(result: Location) {
+        this.eventManager.broadcast({name: 'locationListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -79,14 +81,13 @@ export class LocationPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private locationPopupService: LocationPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private locationPopupService: LocationPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.locationPopupService
                     .open(LocationDialogComponent, params['id']);
             } else {
