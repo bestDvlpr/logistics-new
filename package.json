@@ -88,7 +88,9 @@
     "yargs": "6.6.0"
   },
   "engines": {
-    "node": ">=6.9.0"
+    "node": "@7.2.1",
+    "npm": "@4.0.5",
+    "yarn": "@0.21.3"
   },
   "scripts": {
     "lint": "tslint src/main/webapp/app/**/*.ts --force",

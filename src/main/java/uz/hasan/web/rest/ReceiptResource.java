@@ -111,10 +111,10 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts/new")
     @Timed
-    public ResponseEntity<List<ReceiptDTO>> getAllNewReceipts(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of New Receipts");
-        Page<ReceiptDTO> page = receiptService.findAllNewReceipts(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceipts(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -128,16 +128,16 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts/applied")
     @Timed
-    public ResponseEntity<List<ReceiptDTO>> getAllAppliedReceipts(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllAppliedReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of New Receipts");
-        Page<ReceiptDTO> page = receiptService.findAppliedReceipts(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAppliedReceipts(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /receipts/count/new : get all the receipts.
+     * GET  /receipts/count/new : get count of new receipts.
      *
      * @return the ResponseEntity with status 200 (OK) and the count of new receipts in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
@@ -147,6 +147,20 @@ public class ReceiptResource {
     public ResponseEntity<Long> countNewReceipts() throws URISyntaxException {
         log.debug("REST request to get count of new Receipts");
         Long count = receiptService.countNewReceipts();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/count/applied : get count of applied receipts.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the count of new receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/count/applied")
+    @Timed
+    public ResponseEntity<Long> countAppliedReceipts() throws URISyntaxException {
+        log.debug("REST request to get count of applied Receipts");
+        Long count = receiptService.countAppliedReceipts();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 

@@ -43,8 +43,8 @@
             </select>
         </div>
         <div [hidden]="!(editForm.controls.client?.dirty && editForm.controls.client?.invalid)">
-            <small class="form-text text-danger"
-                   [hidden]="!client?.errors?.required" jhiTranslate="entity.validation.required">
+            <small class="form-text text-danger" [hidden]="!editForm.controls.client?.errors?.required"
+                   jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

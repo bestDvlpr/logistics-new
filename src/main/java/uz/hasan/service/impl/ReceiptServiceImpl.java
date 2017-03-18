@@ -136,10 +136,10 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the list of new entities
      */
     @Override
-    public Page<ReceiptDTO> findAllNewReceipts(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
         Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.NEW);
-        return result.map(receiptMapper::receiptToReceiptDTO);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
     /**
@@ -149,10 +149,10 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the list of applied entities
      */
     @Override
-    public Page<ReceiptDTO> findAppliedReceipts(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAppliedReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
         Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.APPLICATION_SENT);
-        return result.map(receiptMapper::receiptToReceiptDTO);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
     /**
@@ -206,5 +206,15 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Long countNewReceipts() {
         return receiptRepository.countByStatus(ReceiptStatus.NEW);
+    }
+
+    /**
+     * Count applied receipts.
+     *
+     * @return count of applied receipts
+     */
+    @Override
+    public Long countAppliedReceipts() {
+        return receiptRepository.countByStatus(ReceiptStatus.APPLICATION_SENT);
     }
 }

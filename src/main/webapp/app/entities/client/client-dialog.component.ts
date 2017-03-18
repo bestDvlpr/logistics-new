@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
 
-import { Client } from './client.model';
-import { ClientPopupService } from './client-popup.service';
-import { ClientService } from './client.service';
+import {Client} from './client.model';
+import {ClientPopupService} from './client-popup.service';
+import {ClientService} from './client.service';
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
@@ -15,15 +15,16 @@ import { ClientService } from './client.service';
 export class ClientDialogComponent implements OnInit {
 
     client: Client;
+    mobilePhoneNumber: string = null;
+    homePhoneNumber: string = null;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private clientService: ClientService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private clientService: ClientService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['client', 'receipt', 'productEntry', 'address', 'phoneNumber', 'product']);
     }
 
@@ -31,12 +32,17 @@ export class ClientDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
+        if (this.homePhoneNumber !== null && this.mobilePhoneNumber !== null) {
+            this.client.phoneNumbers.push(this.homePhoneNumber);
+            this.client.phoneNumbers.push(this.mobilePhoneNumber);
+        }
         if (this.client.id !== undefined) {
             this.clientService.update(this.client)
                 .subscribe((res: Client) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
@@ -46,18 +52,18 @@ export class ClientDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Client) {
-        this.eventManager.broadcast({ name: 'clientListModification', content: 'OK'});
+    private onSaveSuccess(result: Client) {
+        this.eventManager.broadcast({name: 'clientListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +77,13 @@ export class ClientPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private clientPopupService: ClientPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private clientPopupService: ClientPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.clientPopupService
                     .open(ClientDialogComponent, params['id']);
             } else {

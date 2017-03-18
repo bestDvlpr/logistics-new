@@ -38,6 +38,11 @@ export class ReceiptService {
         return this.http.get(this.resourceUrl.concat('/new'), options);
     }
 
+    appliedReceipts(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/applied'), options);
+    }
+
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
@@ -74,6 +79,12 @@ export class ReceiptService {
 
     countNewApplications(): Observable<number> {
         return this.http.get(this.resourceUrl.concat('/count/new')).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    countAppliedApplications(): Observable<number> {
+        return this.http.get(this.resourceUrl.concat('/count/applied')).map((res: Response) => {
             return res.json();
         });
     }

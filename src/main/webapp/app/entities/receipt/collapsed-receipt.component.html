@@ -59,15 +59,15 @@
                         </div>
                     </div>
                     <div class="row" *ngFor="let product of receipt.productEntries">
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <span>{{product.productName}}</span>
                         </div>
-                        <div class="col-md-1">
+                        <!--<div class="col-md-1">
                             <span>{{product.qty}}</span>
                         </div>
                         <div class="col-md-1">
                             <span>{{product.status}}</span>
-                        </div>
+                        </div>-->
                         <div class="col-md-1" *ngIf="product.address">
                             <span>{{product.address.countryName}}</span>
                         </div>

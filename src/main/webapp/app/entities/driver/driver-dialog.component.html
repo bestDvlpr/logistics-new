@@ -100,7 +100,7 @@
         </div>
         <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!status?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

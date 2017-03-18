@@ -24,7 +24,8 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-    orderCount: number = 0;
+    newOrderCount: number = 0;
+    appliedOrderCount: number = 0;
 
     constructor(private loginService: LoginService,
                 private languageHelper: JhiLanguageHelper,
@@ -49,7 +50,8 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
 
-        this.getApplicationCount();
+        this.getNewReceiptCount();
+        this.getAppliedReceiptsCount();
     }
 
     changeLanguage(languageKey: string) {
@@ -82,9 +84,15 @@ export class NavbarComponent implements OnInit {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
     }
 
-    private getApplicationCount() {
+    private getNewReceiptCount() {
         this.receiptService.countNewApplications().subscribe(count => {
-            this.orderCount = count;
+            this.newOrderCount = count;
+        });
+    }
+
+    private getAppliedReceiptsCount() {
+        this.receiptService.countAppliedApplications().subscribe(count => {
+            this.appliedOrderCount = count;
         });
     }
 }

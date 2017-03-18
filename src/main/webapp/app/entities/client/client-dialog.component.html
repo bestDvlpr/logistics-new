@@ -26,6 +26,44 @@
             <input type="text" class="form-control" name="lastName" id="field_lastName"
                    [(ngModel)]="client.lastName"/>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.phoneNumber.mobileNumber"
+                   for="mobile_number">Number</label>
+            <input type="text" class="form-control" name="mobile_number" id="mobile_number"
+                   [(ngModel)]="mobilePhoneNumber"
+                   required pattern="\+\d{12}"/>
+            <div [hidden]="!(editForm.controls.mobile_number?.dirty && editForm.controls.mobile_number?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.mobile_number?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.mobile_number?.errors?.pattern"
+                       jhiTranslate="entity.validation.pattern"
+                       translateValues="{ pattern: '\\+\\d{12}' }">
+                    This field should follow pattern "\+\d&#123;12&#125;".
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.phoneNumber.homeNumber"
+                   for="home_number">Number</label>
+            <input type="text" class="form-control" name="number" id="home_number"
+                   [(ngModel)]="homePhoneNumber"
+                   required pattern="\+\d{12}"/>
+            <div [hidden]="!(editForm.controls.number?.dirty && editForm.controls.number?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.number?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.number?.errors?.pattern" jhiTranslate="entity.validation.pattern"
+                       translateValues="{ pattern: '\\+\\d{12}' }">
+                    This field should follow pattern "\+\d&#123;12&#125;".
+                </small>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">

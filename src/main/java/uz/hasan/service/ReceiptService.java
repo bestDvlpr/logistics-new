@@ -47,7 +47,7 @@ public interface ReceiptService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptDTO> findAllNewReceipts(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable);
 
     /**
      *  Get all the applied receipts.
@@ -55,7 +55,7 @@ public interface ReceiptService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptDTO> findAppliedReceipts(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAppliedReceipts(Pageable pageable);
 
     /**
      * Send a receipt.
@@ -71,4 +71,11 @@ public interface ReceiptService {
      * @return count of new receipts
      */
     Long countNewReceipts();
+
+    /**
+     * Count applied receipts.
+     *
+     * @return count of applied receipts
+     */
+    Long countAppliedReceipts();
 }

@@ -21,7 +21,7 @@ import uz.hasan.service.mapper.ClientMapper;
  */
 @Service
 @Transactional
-public class ClientServiceImpl implements ClientService{
+public class ClientServiceImpl implements ClientService {
 
     private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
 
@@ -51,15 +51,21 @@ public class ClientServiceImpl implements ClientService{
         log.debug("Request to save Client : {}", clientDTO);
         Client client = clientMapper.clientDTOToClient(clientDTO);
         client = clientRepository.save(client);
+        for (String phone : clientDTO.getPhoneNumbers()) {
+            PhoneNumber phoneNumber = new PhoneNumber();
+            phoneNumber.setClient(client);
+            phoneNumber.setNumber(phone);
+            phoneNumberRepository.save(phoneNumber);
+        }
         ClientDTO result = clientMapper.clientToClientDTO(client);
         return result;
     }
 
     /**
-     *  Get all the clients.
+     * Get all the clients.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -70,10 +76,10 @@ public class ClientServiceImpl implements ClientService{
     }
 
     /**
-     *  Get one client by id.
+     * Get one client by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -85,9 +91,9 @@ public class ClientServiceImpl implements ClientService{
     }
 
     /**
-     *  Delete the  client by id.
+     * Delete the  client by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

@@ -173,7 +173,7 @@
         </div>
         <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!product?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
@@ -193,7 +193,7 @@
         </div>
         <div [hidden]="!(editForm.controls.receipt?.dirty && editForm.controls.receipt?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!receipt?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.receipt?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

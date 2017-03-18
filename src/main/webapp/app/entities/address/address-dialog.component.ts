@@ -11,7 +11,8 @@ import {AddressService} from './address.service';
 import {Location, LocationService} from '../location';
 import {Client, ClientService} from '../client';
 import {Receipt, ReceiptService} from '../receipt';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
+import {DataHolderService} from '../receipt/data-holder.service';
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
@@ -35,6 +36,7 @@ export class AddressDialogComponent implements OnInit {
                 private locationService: LocationService,
                 private clientService: ClientService,
                 private receiptService: ReceiptService,
+                public dataHolderService: DataHolderService,
                 private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['address', 'phoneNumber', 'receipt', 'productEntry', 'address', 'client', 'product']);
     }
@@ -83,6 +85,10 @@ export class AddressDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        if (this.dataHolderService._client !== null && this.dataHolderService._client.id !== null) {
+            this.address.clientId = this.dataHolderService._client.id;
+        }
+
         if (this.address.id !== undefined) {
             this.addressService.update(this.address)
                 .subscribe((res: Address) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));

@@ -20,6 +20,7 @@ import {
     ReceiptSendProductComponent,
     CollapsedReceiptComponent,
     ReceiptNewComponent,
+    ReceiptAppliedComponent,
 } from './';
 import {ReceiptSendAddressComponent} from './receipt-send-address.component';
 
@@ -45,6 +46,7 @@ let ENTITY_STATES = [
         ReceiptSendProductComponent,
         CollapsedReceiptComponent,
         ReceiptNewComponent,
+        ReceiptAppliedComponent,
     ],
     entryComponents: [
         ReceiptComponent,
@@ -57,6 +59,7 @@ let ENTITY_STATES = [
         ReceiptSendProductComponent,
         CollapsedReceiptComponent,
         ReceiptNewComponent,
+        ReceiptAppliedComponent,
     ],
     providers: [
         ReceiptService,

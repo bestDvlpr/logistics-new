@@ -15,6 +15,7 @@ import {ReceiptSendAddressComponent} from './receipt-send-address.component';
 import {ReceiptSendProductComponent} from './receipt-send-product.component';
 import {ClientPopupComponent} from '../client/client-dialog.component';
 import {ReceiptNewComponent} from './receipt-new.component';
+import {ReceiptAppliedComponent} from './receipt-applied.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -47,6 +48,16 @@ export const receiptRoute: Routes = [
     }, {
         path: 'receipt/new',
         component: ReceiptNewComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt/applied',
+        component: ReceiptAppliedComponent,
         resolve: {
             'pagingParams': ReceiptResolvePagingParams
         },

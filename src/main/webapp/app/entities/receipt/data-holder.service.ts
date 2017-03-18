@@ -8,10 +8,10 @@ import {ProductEntry} from '../product-entry/product-entry.model';
  */
 @Injectable()
 export class DataHolderService {
-    _receipt: Receipt;
-    _client: Client;
-    _address: Address;
-    _selectedProducts: ProductEntry[];
+    _receipt: Receipt = null;
+    _client: Client = null;
+    _address: Address = null;
+    _selectedProducts: ProductEntry[] = null;
 
     public clearAll() {
         this._receipt = null;

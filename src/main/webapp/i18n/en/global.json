@@ -39,7 +39,9 @@
                 "login": "Sign in",
                 "logout": "Sign out",
                 "register": "Register",
-                "operator": "Operator"
+                "operator": "Operator",
+                "dispatcher": "Dispatcher",
+                "manager": "Manager"
             },
             "admin": {
                 "main": "Administration",
