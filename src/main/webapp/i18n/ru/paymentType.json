@@ -2,9 +2,9 @@
     "logisticsApp": {
         "PaymentType" : {
             "null": "",
-            "CASH": "CASH",
-            "CARD": "CARD",
-            "LOYALTY_CARD": "LOYALTY_CARD"
+            "CASH": "НАЛИЧНЫЙ",
+            "CARD": "КАРТА",
+            "LOYALTY_CARD": "НАКОПИТЕЛЬНАЯ_КАРТА"
         }
     }
 }

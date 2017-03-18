@@ -14,6 +14,8 @@ public interface ProductEntryMapper {
 
     @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "product.name", target = "productName")
+    @Mapping(source = "product.id", target = "product.id")
+    @Mapping(source = "product.name", target = "product.name")
     @Mapping(source = "sellerID.id", target = "sellerIDId")
     @Mapping(source = "sellerID.sellerID", target = "sellerIDSellerID")
     @Mapping(source = "receipt.id", target = "receiptId")
@@ -24,6 +26,8 @@ public interface ProductEntryMapper {
     @Mapping(source = "attachedCar.number", target = "attachedCarNumber")
     @Mapping(source = "address.id", target = "addressId")
     @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
+    @Mapping(source = "address.id", target = "address.id")
+    @Mapping(source = "address.streetAddress", target = "address.streetAddress")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);

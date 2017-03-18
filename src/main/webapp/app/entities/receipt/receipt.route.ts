@@ -46,7 +46,7 @@ export const receiptRoute: Routes = [
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
-        path: 'receipt/new',
+        path: 'new-receipts',
         component: ReceiptNewComponent,
         resolve: {
             'pagingParams': ReceiptResolvePagingParams
@@ -56,7 +56,7 @@ export const receiptRoute: Routes = [
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
-        path: 'receipt/applied',
+        path: 'applied-receipts',
         component: ReceiptAppliedComponent,
         resolve: {
             'pagingParams': ReceiptResolvePagingParams

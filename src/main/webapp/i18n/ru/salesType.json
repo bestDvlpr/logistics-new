@@ -2,9 +2,9 @@
     "logisticsApp": {
         "SalesType" : {
             "null": "",
-            "TAKEOUT_IN_TIME": "TAKEOUT_IN_TIME",
-            "TAKEOUT": "TAKEOUT",
-            "DELIVERY": "DELIVERY"
+            "TAKEOUT_IN_TIME": "САМОВЫВОЗ_С_ХРАНЕНИЕМ",
+            "TAKEOUT": "САМОВЫВОЗ",
+            "DELIVERY": "ДОСТАВКА"
         }
     }
 }

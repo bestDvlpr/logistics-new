@@ -2,10 +2,10 @@
     "logisticsApp": {
         "LocationType" : {
             "null": "",
-            "COUNTRY": "COUNTRY",
-            "REGION": "REGION",
-            "CITY": "CITY",
-            "DISTRICT": "DISTRICT"
+            "COUNTRY": "СТРАНА",
+            "REGION": "РЕГИОН",
+            "CITY": "ГОРОД",
+            "DISTRICT": "РАЙОН"
         }
     }
 }

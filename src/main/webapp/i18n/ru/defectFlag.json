@@ -2,8 +2,8 @@
     "logisticsApp": {
         "DefectFlag" : {
             "null": "",
-            "WELL": "WELL",
-            "DEFECTED": "DEFECTED"
+            "WELL": "РАБОЧИЙ",
+            "DEFECTED": "УЦЕНЕН"
         }
     }
 }

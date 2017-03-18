@@ -2,11 +2,11 @@
     "logisticsApp": {
         "ReceiptStatus" : {
             "null": "",
-            "NEW": "NEW",
-            "APPLICATION_SENT": "APPLICATION_SENT",
-            "ATTACHED_TO_DRIVER": "ATTACHED_TO_DRIVER",
-            "DELIVERY_PROCESS": "DELIVERY_PROCESS",
-            "DELIVERED": "DELIVERED"
+            "NEW": "НОВЫЙ",
+            "APPLICATION_SENT": "ЗАЯВКА_ОТПРАВЛЕНА",
+            "ATTACHED_TO_DRIVER": "ВОДИТЕЛЬЮ_ПРИКРЕПЛЕН",
+            "DELIVERY_PROCESS": "В_ПРОЦЕССЕ_ДОСТАВКИ",
+            "DELIVERED": "ДОСТАВЛЕН"
         }
     }
 }

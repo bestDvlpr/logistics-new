@@ -2,8 +2,8 @@
     "logisticsApp": {
         "WholeSaleFlag" : {
             "null": "",
-            "RETAIL": "RETAIL",
-            "WHOLESALE": "WHOLESALE"
+            "RETAIL": "РОЗНИЧНЫЙ",
+            "WHOLESALE": "ОПТОВЫЙ"
         }
     }
 }

@@ -72,10 +72,8 @@
                         <a [routerLink]="['../location', location.parent?.id ]">{{location.parent?.name}}</a>
                     </div>
                 </td>
-                <td>
-                    <div *ngIf="location.type">
-                        <a [routerLink]="['../location-type', location.type?.id ]">{{location.type?.name}}</a>
-                    </div>
+                <td jhiTranslate="{{'logisticsApp.LocationType.' + location.type}}">
+                        {{location.type}}
                 </td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
