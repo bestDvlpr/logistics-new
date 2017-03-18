@@ -8,6 +8,7 @@ import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../
 
 import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
 import {ReceiptService} from '../../entities/receipt/receipt.service';
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'jhi-navbar',
@@ -85,13 +86,15 @@ export class NavbarComponent implements OnInit {
     }
 
     private getNewReceiptCount() {
-        this.receiptService.countNewApplications().subscribe(count => {
+        let pollData = this.receiptService.countNewApplications();
+        pollData.expand(() => Observable.timer(10000).concatMap(() => pollData)).subscribe(count => {
             this.newOrderCount = count;
         });
     }
 
     private getAppliedReceiptsCount() {
-        this.receiptService.countAppliedApplications().subscribe(count => {
+        let pollData = this.receiptService.countAppliedApplications();
+        pollData.expand(() => Observable.timer(10000).concatMap(() => pollData)).subscribe(count => {
             this.appliedOrderCount = count;
         });
     }
