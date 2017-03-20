@@ -54,6 +54,8 @@ public class ReceiptDTO implements Serializable {
 
     private Set<AddressDTO> addresses = new HashSet<>();
 
+    private ClientDTO client;
+
     public Long getId() {
         return id;
     }
@@ -180,6 +182,14 @@ public class ReceiptDTO implements Serializable {
 
     public void setAddresses(Set<AddressDTO> addresses) {
         this.addresses = addresses;
+    }
+
+    public ClientDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     @Override

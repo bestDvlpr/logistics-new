@@ -146,6 +146,16 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     public goClientSelectionStep(receiptId: number) {
+        this.saveToDataHolder(receiptId);
+        this.router.navigate(['../receipt/' + receiptId + '/send/client']);
+    }
+
+    public attachToDriver(receiptId: number) {
+        this.saveToDataHolder(receiptId);
+        this.router.navigate(['../receipt-product-to-car']);
+    }
+
+    private saveToDataHolder(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
         for (let res of this.receipts) {
@@ -154,10 +164,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         }
         this.dataHolderService._receipt = receipt;
-        this.router.navigate(['../receipt/' + receiptId + '/send/client']);
-    }
-
-    public attachToDriver() {
-
+        if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
+            this.dataHolderService._client = receipt.client;
+        }
     }
 }

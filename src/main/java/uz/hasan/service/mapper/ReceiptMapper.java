@@ -4,12 +4,13 @@ import uz.hasan.domain.*;
 import uz.hasan.service.dto.ReceiptDTO;
 
 import org.mapstruct.*;
+
 import java.util.List;
 
 /**
  * Mapper for the entity Receipt and its DTO ReceiptDTO.
  */
-@Mapper(componentModel = "spring", uses = {CarMapper.class, AddressMapper.class, })
+@Mapper(componentModel = "spring", uses = {CarMapper.class, AddressMapper.class,})
 public interface ReceiptMapper {
 
     @Mapping(source = "payMaster.id", target = "payMasterId")
@@ -18,6 +19,10 @@ public interface ReceiptMapper {
     @Mapping(source = "loyaltyCard.loyaltyCardID", target = "loyaltyCardLoyaltyCardID")
     @Mapping(source = "client.id", target = "clientId")
     @Mapping(source = "client.firstName", target = "clientFirstName")
+    @Mapping(source = "client.id", target = "client.id")
+    @Mapping(source = "client.firstName", target = "client.firstName")
+    @Mapping(source = "client.lastName", target = "client.lastName")
+    @Mapping(source = "client.regDate", target = "client.regDate")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);

@@ -27,6 +27,7 @@ export enum ReceiptStatus {
 export class ProductEntry {
     public address: Address;
     public product: Product;
+
     constructor(public id?: number,
                 public price?: number,
                 public deliveryFlag?: SalesType,
@@ -46,6 +47,7 @@ export class ProductEntry {
                 public receiptId?: number,
                 public driverId?: number,
                 public attachedCarId?: number,
-                public addressId?: number ) {
+                public attachedCarNumber?: string,
+                public addressId?: number) {
     }
 }

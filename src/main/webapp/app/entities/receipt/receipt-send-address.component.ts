@@ -57,7 +57,7 @@ export class ReceiptSendAddressComponent implements OnInit {
             this.dataHolderService._client = this.client;
             this.dataHolderService._receipt = this.receipt;
             this.dataHolderService._address = this.addressSelected;
-            this.router.navigate(['../receipt/send/product']);
+            this.router.navigate(['../receipt-send-product']);
         }
     }
 

@@ -28,6 +28,14 @@ public interface ProductEntryMapper {
     @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
     @Mapping(source = "address.id", target = "address.id")
     @Mapping(source = "address.streetAddress", target = "address.streetAddress")
+    @Mapping(source = "address.country.id", target = "address.countryId")
+    @Mapping(source = "address.country.name", target = "address.countryName")
+    @Mapping(source = "address.region.id", target = "address.regionId")
+    @Mapping(source = "address.region.name", target = "address.regionName")
+    @Mapping(source = "address.city.id", target = "address.cityId")
+    @Mapping(source = "address.city.name", target = "address.cityName")
+    @Mapping(source = "address.district.id", target = "address.districtId")
+    @Mapping(source = "address.district.name", target = "address.districtName")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);

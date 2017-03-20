@@ -9,10 +9,10 @@ import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
 
 @Component({
-    selector: 'jhi-collapsed-receipt',
-    templateUrl: 'collapsed-receipt.component.html'
+    selector: 'jhi-receipt-product-to-car',
+    templateUrl: 'receipt-product-to-car.component.html'
 })
-export class CollapsedReceiptComponent implements OnInit {
+export class ReceiptProductToCarComponent implements OnInit {
 
     receipt: Receipt;
     phoneNumber: string;
@@ -21,14 +21,13 @@ export class CollapsedReceiptComponent implements OnInit {
     productEntries: ProductEntry[];
     public productsSelected: ProductEntry[] = [];
     public isCollapsed = false;
-    productCarExists: boolean = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
                 private router: Router) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address']
+            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
         );
     }
 
@@ -36,13 +35,6 @@ export class CollapsedReceiptComponent implements OnInit {
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
         this.address = this.dataHolderService._address;
-        if (this.receipt !== null && this.receipt.productEntries !== null) {
-            for (let prod of this.receipt.productEntries) {
-                if (prod.attachedCarId !== null) {
-                    this.productCarExists = true;
-                }
-            }
-        }
     }
 
     load(id) {

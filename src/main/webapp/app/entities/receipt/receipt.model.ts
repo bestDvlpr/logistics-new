@@ -1,6 +1,7 @@
 import {ProductEntry} from '../product-entry/product-entry.model';
 import {Address} from '../address/address.model';
 import {Car} from '../car/car.model';
+import {Client} from '../client/client.model';
 export enum DocType {
     RETURN = <any>'RETURN',
     SALES = <any>'SALES'
@@ -21,6 +22,7 @@ export class Receipt {
     public productEntries: ProductEntry[];
     public addresses: Address[];
     public cars: Car[];
+    public client: Client;
 
     constructor(public id?: number,
                 public docNum?: string,

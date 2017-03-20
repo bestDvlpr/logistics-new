@@ -144,7 +144,22 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
         this.router.navigate(['../receipt/' + receiptId + '/send/client']);
     }
 
-    public attachToDriver() {
+    public attachToDriver(receiptId: number) {
+        this.saveToDataHolder(receiptId);
+        this.router.navigate(['../receipt-product-to-car']);
+    }
 
+    private saveToDataHolder(receiptId: number) {
+        this.dataHolderService.clearAll();
+        let receipt: Receipt;
+        for (let res of this.appliedReceipts) {
+            if (res.id === receiptId) {
+                receipt = res;
+            }
+        }
+        this.dataHolderService._receipt = receipt;
+        if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
+            this.dataHolderService._client = receipt.client;
+        }
     }
 }

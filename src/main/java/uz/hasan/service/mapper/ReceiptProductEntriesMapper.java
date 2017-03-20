@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
 import uz.hasan.repository.ReceiptRepository;
+import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
@@ -24,10 +25,12 @@ public class ReceiptProductEntriesMapper {
     private final ReceiptMapper receiptMapper;
     private PayTypeMapper payTypeMapper;
     private CarMapper carMapper;
+    private ClientMapper clientMapper;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptRepository receiptRepository,
                                        ReceiptMapper receiptMapper,
+                                       ClientMapper clientMapper,
                                        PayTypeMapper payTypeMapper,
                                        CarMapper carMapper) {
         this.productEntryMapper = productEntryMapper;
@@ -35,6 +38,7 @@ public class ReceiptProductEntriesMapper {
         this.receiptMapper = receiptMapper;
         this.payTypeMapper = payTypeMapper;
         this.carMapper = carMapper;
+        this.clientMapper = clientMapper;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -62,6 +66,7 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setProductEntries(productEntryDTOS);
         entriesDTO.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
         entriesDTO.setStatus(receiptDTO.getStatus());
+        entriesDTO.setClient(clientMapper.clientToClientDTO(receipt.getClient()));
         return entriesDTO;
     }
 

@@ -87,15 +87,19 @@ export class NavbarComponent implements OnInit {
 
     private getNewReceiptCount() {
         let pollData = this.receiptService.countNewApplications();
-        pollData.expand(() => Observable.timer(300000).concatMap(() => pollData)).subscribe(count => {
-            this.newOrderCount = count;
-        });
+        if (this.principal.isAuthenticated()) {
+            pollData.expand(() => Observable.timer(300000).concatMap(() => pollData)).subscribe(count => {
+                this.newOrderCount = count;
+            });
+        }
     }
 
     private getAppliedReceiptsCount() {
         let pollData = this.receiptService.countAppliedApplications();
-        pollData.expand(() => Observable.timer(300000).concatMap(() => pollData)).subscribe(count => {
-            this.appliedOrderCount = count;
-        });
+        if (this.principal.isAuthenticated()) {
+            pollData.expand(() => Observable.timer(300000).concatMap(() => pollData)).subscribe(count => {
+                this.appliedOrderCount = count;
+            });
+        }
     }
 }

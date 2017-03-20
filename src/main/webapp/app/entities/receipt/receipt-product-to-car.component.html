@@ -1,0 +1,65 @@
+<div *ngIf="receipt">
+    <h2 jhiTranslate="entity.action.sendOrderTitle" translateValues="{orderId: '{{receipt.id}}'}">Send Order</h2>
+    <jhi-collapsed-receipt></jhi-collapsed-receipt>
+    <div class="row">&nbsp;</div>
+    <jhi-alert-error></jhi-alert-error>
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <span jhiTranslate="logisticsApp.product.home.title">Products</span>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th jhiTranslate="logisticsApp.productEntry.productName">Product Name</th>
+                                    <th jhiTranslate="logisticsApp.productEntry.qty">Quantity</th>
+                                    <th jhiTranslate="logisticsApp.productEntry.status">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let product of receipt.productEntries">
+                                    <td *ngIf="!product.attachedCarId"><input type="checkbox"
+                                                                              (change)="productChecked(product)"/></td>
+                                    <td *ngIf="!product.attachedCarId">{{product.productName}}</td>
+                                    <td *ngIf="!product.attachedCarId">{{product.qty}}</td>
+                                    <td *ngIf="!product.attachedCarId">{{product.status}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <span jhiTranslate="logisticsApp.car.home.title">Cars</span>
+                </div>
+                <div class="card-block">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 offset-md-10" *ngIf="productsSelected.length>0">
+            <button class="btn btn-sm btn-primary btn-block" (click)="goClientSelectStep()">
+                <span jhiTranslate="global.form.next">Next</span>
+                <span class="fa fa-arrow-circle-right"></span>
+            </button>
+        </div>
+        <div class="col-md-12">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info btn-sm">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+        </div>
+    </div>
+    <hr>
+</div>

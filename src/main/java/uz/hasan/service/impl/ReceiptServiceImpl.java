@@ -190,11 +190,11 @@ public class ReceiptServiceImpl implements ReceiptService {
             }
         }
 
-        receipt = receiptRepository.save(receipt);
         for (ProductEntry productEntry : receipt.getProductEntries()) {
             productEntry.setStatus(ReceiptStatus.NEW);
         }
         productEntryRepository.save(receipt.getProductEntries());
+        receipt = receiptRepository.save(receipt);
         return receiptMapper.receiptToReceiptDTO(receipt);
     }
 

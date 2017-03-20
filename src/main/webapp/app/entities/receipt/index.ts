@@ -13,3 +13,4 @@ export * from './receipt-send-product.component';
 export * from './collapsed-receipt.component';
 export * from './receipt-new.component';
 export * from './receipt-applied.component';
+export * from './receipt-product-to-car.component';

@@ -89,7 +89,7 @@ export class ReceiptSendClientComponent implements OnInit {
         this.receipt.clientId = this.client.id;
         this.dataHolderService._client = this.client;
         this.dataHolderService._receipt = this.receipt;
-        this.router.navigate(['../receipt/send/address']);
+        this.router.navigate(['../receipt-send-address']);
     }
 
     public sendOrder() {
