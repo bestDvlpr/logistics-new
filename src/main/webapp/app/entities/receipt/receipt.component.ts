@@ -35,7 +35,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     receiptStatusEnum = ReceiptStatus;
-    newReceipts: Receipt[];
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -153,7 +152,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.router.navigate(['../receipt/' + receiptId + '/send/client']);
     }
 
-    public attachToDriver(receiptId: number) {
+    attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
         this.loadCars();
     }

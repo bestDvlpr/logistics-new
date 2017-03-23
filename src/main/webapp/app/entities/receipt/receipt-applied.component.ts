@@ -10,6 +10,9 @@ import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 import {DocTypeEnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
+import {Car} from "../car/car.model";
+import {ACElement} from "../../shared/autocomplete/element.model";
+import {CarService} from "../car/car.service";
 
 @Component({
     selector: 'jhi-receipt-applied',
@@ -33,6 +36,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     reverse: any;
     receiptStatusEnum = ReceiptStatus;
     appliedReceipts: Receipt[];
+    receipts: Receipt[];
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -42,6 +46,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: EventManager,
+                private carService: CarService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -132,21 +137,29 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
         this.alertService.error(error.message, null, null);
     }
 
-    public goClientSelectionStep(receiptId: number) {
-        this.dataHolderService.clearAll();
-        let receipt: Receipt;
-        for (let res of this.appliedReceipts) {
-            if (res.id === receiptId) {
-                receipt = res;
-            }
-        }
-        this.dataHolderService._receipt = receipt;
-        this.router.navigate(['../receipt/' + receiptId + '/send/client']);
+    loadCars() {
+        this.carService.idleCars().subscribe((cars: Response) => {
+            this.setACObjects(cars.json());
+        });
     }
 
-    public attachToDriver(receiptId: number) {
+    private setACObjects(cars: Car[]) {
+        if (cars !== null && cars.length > 0) {
+            let acObjects: ACElement[] = [];
+            for (let car of cars) {
+                let elem: ACElement = {};
+                elem.name = car.number;
+                elem.id = car.id;
+                acObjects.push(elem);
+            }
+            this.dataHolderService._autocompleteObjects = acObjects;
+            this.router.navigate(['../receipt-product-to-car']);
+        }
+    }
+
+    attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
-        this.router.navigate(['../receipt-product-to-car']);
+        this.loadCars();
     }
 
     private saveToDataHolder(receiptId: number) {

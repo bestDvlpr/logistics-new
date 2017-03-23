@@ -69,7 +69,7 @@
                     </span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
                           *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-pill"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
                           *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}</span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}</span>

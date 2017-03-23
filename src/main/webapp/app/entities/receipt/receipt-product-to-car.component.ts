@@ -85,7 +85,7 @@ export class ReceiptProductToCarComponent implements OnInit {
                 this.receipt = res;
             });
         }
-        this.router.navigate(['receipt']);
         this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
+        this.router.navigate(['receipt']);
     }
 }

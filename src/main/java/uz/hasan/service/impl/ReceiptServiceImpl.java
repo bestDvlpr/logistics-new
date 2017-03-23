@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Car;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.domain.Receipt;
+import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.repository.*;
 import uz.hasan.service.ReceiptService;
@@ -16,6 +18,8 @@ import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.service.mapper.ProductEntryMapper;
 import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
+
+import java.util.List;
 
 /**
  * Service Implementation for managing Receipt.
@@ -41,11 +45,13 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final LoyaltyCardRepository loyaltyCardRepository;
 
     private final ClientRepository clientRepository;
+    private final CarRepository carRepository;
 
     public ReceiptServiceImpl(ReceiptRepository receiptRepository,
                               ReceiptMapper receiptMapper,
                               ReceiptProductEntriesMapper receiptProductEntriesMapper,
                               ProductEntryMapper productEntryMapper,
+                              CarRepository carRepository,
                               ProductEntryRepository productEntryRepository,
                               LoyaltyCardRepository loyaltyCardRepository,
                               ClientRepository clientRepository,
@@ -58,6 +64,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         this.loyaltyCardRepository = loyaltyCardRepository;
         this.clientRepository = clientRepository;
         this.payMasterRepository = payMasterRepository;
+        this.carRepository = carRepository;
     }
 
     /**
@@ -228,7 +235,14 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receiptDTO == null || receiptDTO.getProductEntries() == null || receiptDTO.getProductEntries().isEmpty()) {
             return null;
         }
-        productEntryRepository.save(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries()));
+        List<ProductEntry> productEntries = productEntryRepository.save(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries()));
+        for (ProductEntry entry : productEntries) {
+            Car attachedCar = entry.getAttachedCar();
+            if (attachedCar != null) {
+                attachedCar.setStatus(CarStatus.BUSY);
+                carRepository.save(attachedCar);
+            }
+        }
         receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
         Receipt receipt = receiptRepository.save(receiptMapper.receiptDTOToReceipt(receiptDTO));
         return receiptMapper.receiptToReceiptDTO(receipt);
