@@ -283,6 +283,20 @@
                             <span jhiTranslate="global.menu.entities.order">Orders</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" [routerLink]="'car'" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-car" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.car">Cars</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" [routerLink]="'driver'" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.driver">Drivers</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer">

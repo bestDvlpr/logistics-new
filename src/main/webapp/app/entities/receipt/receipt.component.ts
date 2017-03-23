@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
 
-import {Receipt, ReceiptStatus} from './receipt.model';
+import {Receipt, ReceiptStatus, DocType, WholeSaleFlag} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {DocTypeEnumAware} from './doctypaware.decorator';
@@ -35,6 +35,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     receiptStatusEnum = ReceiptStatus;
+    docTypeEnum = DocType;
+    wholeSaleFlagEnum = WholeSaleFlag;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -54,17 +56,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.predicate = data['pagingParams'].predicate;
         });
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
-    }
-
-    loadAllNew() {
-        this.receiptService.newReceipts({
-            page: this.page - 1,
-            size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
-        );
     }
 
     loadAll() {
@@ -106,7 +97,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAllNew();
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;

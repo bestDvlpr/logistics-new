@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
 import uz.hasan.repository.ReceiptRepository;
-import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
@@ -21,22 +20,16 @@ import java.util.List;
 @Transactional
 public class ReceiptProductEntriesMapper {
     private final ProductEntryMapper productEntryMapper;
-    private final ReceiptRepository receiptRepository;
     private final ReceiptMapper receiptMapper;
-    private PayTypeMapper payTypeMapper;
     private CarMapper carMapper;
     private ClientMapper clientMapper;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
-                                       ReceiptRepository receiptRepository,
                                        ReceiptMapper receiptMapper,
                                        ClientMapper clientMapper,
-                                       PayTypeMapper payTypeMapper,
                                        CarMapper carMapper) {
         this.productEntryMapper = productEntryMapper;
-        this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
-        this.payTypeMapper = payTypeMapper;
         this.carMapper = carMapper;
         this.clientMapper = clientMapper;
     }
@@ -67,6 +60,9 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
         entriesDTO.setStatus(receiptDTO.getStatus());
         entriesDTO.setClient(clientMapper.clientToClientDTO(receipt.getClient()));
+        entriesDTO.setPreviousDocID(receiptDTO.getPreviousDocID());
+        entriesDTO.setPayMasterId(receiptDTO.getPayMasterId());
+        entriesDTO.setPayMasterPayMasterName(receiptDTO.getPayMasterPayMasterName());
         return entriesDTO;
     }
 

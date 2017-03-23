@@ -2,17 +2,16 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Response} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
 
 import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 import {DocTypeEnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
-import {Car} from "../car/car.model";
-import {ACElement} from "../../shared/autocomplete/element.model";
-import {CarService} from "../car/car.service";
+import {Car} from '../car/car.model';
+import {ACElement} from '../../shared/autocomplete/element.model';
+import {CarService} from '../car/car.service';
 
 @Component({
     selector: 'jhi-receipt-applied',

@@ -20,7 +20,8 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
+                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span
@@ -40,7 +41,8 @@
                 <th jhiSortBy="payMasterPayMasterName"><span
                     jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
                 </th>
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
+                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
+                    jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
@@ -52,12 +54,27 @@
                 <td jhiHasAuthority="ROLE_ADMIN"><a [routerLink]="['../receipt', receipt.id ]">{{receipt.id}}</a></td>
                 <td>{{receipt.docNum}}</td>
                 <td>{{receipt.docID}}</td>
-                <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
+                <td>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
+                          *ngIf="receipt.docType === docTypeEnum.SALES">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
+                          *ngIf="receipt.docType === docTypeEnum.RETURN">
+                    {{receipt.docType}}
+                    </span>
+                </td>
                 <td>{{receipt.previousDocID}}</td>
-                <td>{{receipt.docDate}}</td>
+                <td>{{receipt.docDate | date}}</td>
                 <td>
                     <span class="tag tag-primary"
-                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">
+                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
+                    *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.WHOLESALE">
+                    {{receipt.wholeSaleFlag}}
+                    </span>
+                    <span class="tag tag-success"
+                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
+                    *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.RETAIL">
                     {{receipt.wholeSaleFlag}}
                     </span>
                 </td>
@@ -71,10 +88,14 @@
                           *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
                     </span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
-                          *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}</span>
+                          *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
+                    </span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
-                        <span class="fa fa-check-circle"></span>
+                        {{receipt.status}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                          *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
                         {{receipt.status}}
                     </span>
                 </td>
