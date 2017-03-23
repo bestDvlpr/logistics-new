@@ -212,4 +212,21 @@ public class ReceiptResource {
             .body(result);
     }
 
+    /**
+     * POST  /receipts/attached : Attach receipt products to several or one car.
+     *
+     * @param receiptDTO the receiptDTO to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping(value = "/receipts/attached", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ReceiptDTO> attachOrderProducts(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTO);
+        ReceiptDTO result = receiptService.attachOrder(receiptDTO);
+        return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
+            .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
 }

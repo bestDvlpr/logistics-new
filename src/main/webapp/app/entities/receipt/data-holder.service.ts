@@ -3,6 +3,7 @@ import {Client} from '../client/client.model';
 import {Injectable, OnInit} from '@angular/core';
 import {Address} from '../address/address.model';
 import {ProductEntry} from '../product-entry/product-entry.model';
+import {ACElement} from '../../shared/autocomplete/element.model';
 /**
  * Created by hasan on 3/11/17.
  */
@@ -12,13 +13,17 @@ export class DataHolderService implements OnInit {
     _client: Client = null;
     _address: Address = null;
     _selectedProducts: ProductEntry[] = null;
+    _autocompleteObjects: ACElement[] = null;
     productCarExists: boolean = false;
+    _autocompleteSelected: ACElement = null;
 
     public clearAll() {
         this._receipt = null;
         this._client = null;
         this._address = null;
         this._selectedProducts = null;
+        this._autocompleteObjects = null;
+        this.productCarExists = false;
     }
 
     ngOnInit(): void {

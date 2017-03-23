@@ -1,5 +1,6 @@
 package uz.hasan.service.impl;
 
+import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.service.CarService;
 import uz.hasan.domain.Car;
 import uz.hasan.repository.CarRepository;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 public class CarServiceImpl implements CarService{
 
     private final Logger log = LoggerFactory.getLogger(CarServiceImpl.class);
-    
+
     private final CarRepository carRepository;
 
     private final CarMapper carMapper;
@@ -51,7 +52,7 @@ public class CarServiceImpl implements CarService{
 
     /**
      *  Get all the cars.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -87,5 +88,15 @@ public class CarServiceImpl implements CarService{
     public void delete(Long id) {
         log.debug("Request to delete Car : {}", id);
         carRepository.delete(id);
+    }
+
+    /**
+     *  Get all idle cars.
+     *
+     *  @return the list of idle car entities
+     */
+    @Override
+    public List<CarDTO> findAllIdleCars() {
+        return carMapper.carsToCarDTOs(carRepository.findByStatus(CarStatus.IDLE));
     }
 }

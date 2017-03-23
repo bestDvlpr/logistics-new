@@ -88,4 +88,11 @@ export class ReceiptService {
             return res.json();
         });
     }
+
+    attachDrivers(receipt: Receipt) {
+        let copy: Receipt = Object.assign({}, receipt);
+        return this.http.post(this.resourceUrl.concat('/attached'), copy).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

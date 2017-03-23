@@ -18,7 +18,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
         private carService: CarService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['car']);
+        this.jhiLanguageService.setLocations(['car', 'carStatus']);
     }
 
     ngOnInit() {

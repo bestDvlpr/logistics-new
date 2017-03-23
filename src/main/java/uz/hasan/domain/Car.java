@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import uz.hasan.domain.enumeration.CarStatus;
+
 /**
  * A Car.
  */
@@ -30,6 +32,10 @@ public class Car implements Serializable {
     @NotNull
     @Column(name = "deleted", nullable = false)
     private Boolean deleted;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private CarStatus status;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -82,6 +88,19 @@ public class Car implements Serializable {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public CarStatus getStatus() {
+        return status;
+    }
+
+    public Car status(CarStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(CarStatus status) {
+        this.status = status;
     }
 
     public CarModel getCarModel() {
@@ -199,6 +218,7 @@ public class Car implements Serializable {
             "id=" + id +
             ", number='" + number + "'" +
             ", deleted='" + deleted + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

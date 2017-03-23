@@ -54,28 +54,4 @@ export class CollapsedReceiptComponent implements OnInit {
     previousState() {
         window.history.back();
     }
-
-    public productChecked(product: ProductEntry) {
-        let indexProd: number = this.productsSelected.indexOf(product);
-        if (indexProd !== null && indexProd !== -1) {
-            this.productsSelected.splice(indexProd, 1);
-        } else {
-            this.productsSelected.push(product);
-        }
-    }
-
-    public goClientSelectStep() {
-        this.dataHolderService._client = this.client;
-        this.dataHolderService._receipt = this.receipt;
-        this.dataHolderService._address = this.address;
-        for (let prod of this.productsSelected) {
-            for (let pro of this.receipt.productEntries) {
-                if (prod.id === pro.id) {
-                    pro.addressId = this.address.id;
-                    pro.address = this.address;
-                }
-            }
-        }
-        this.router.navigate(['../receipt/' + this.receipt.id + '/send/client']);
-    }
 }

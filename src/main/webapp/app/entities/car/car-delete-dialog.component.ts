@@ -22,7 +22,7 @@ export class CarDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['car']);
+        this.jhiLanguageService.setLocations(['car', 'carStatus']);
     }
 
     clear () {

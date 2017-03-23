@@ -34,7 +34,7 @@ public class CarResource {
     private final Logger log = LoggerFactory.getLogger(CarResource.class);
 
     private static final String ENTITY_NAME = "car";
-        
+
     private final CarService carService;
 
     public CarResource(CarService carService) {
@@ -98,6 +98,21 @@ public class CarResource {
         Page<CarDTO> page = carService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cars");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /cars/idles : get all idle cars.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of CarStatus.IDLE cars in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/cars/idles")
+    @Timed
+    public ResponseEntity<List<CarDTO>> getAllIdleCars()
+        throws URISyntaxException {
+        log.debug("REST request to get a list of idle Cars");
+        List<CarDTO> list = carService.findAllIdleCars();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     /**

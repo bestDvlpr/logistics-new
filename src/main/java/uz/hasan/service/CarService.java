@@ -20,7 +20,7 @@ public interface CarService {
 
     /**
      *  Get all the cars.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,12 @@ public interface CarService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *
+     * Get all idle cars.
+     *
+     * @return cars
+     */
+    List<CarDTO> findAllIdleCars();
 }

@@ -78,4 +78,11 @@ public interface ReceiptService {
      * @return count of applied receipts
      */
     Long countAppliedReceipts();
+
+    /**
+     * Attach receipt products to car(s).
+     *
+     * @return receipt with attached to car products
+     */
+    ReceiptDTO attachOrder(ReceiptProductEntriesDTO receiptDTO);
 }

@@ -44,7 +44,7 @@ export class CarDialogComponent implements OnInit {
         private receiptService: ReceiptService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['car']);
+        this.jhiLanguageService.setLocations(['car', 'carStatus']);
     }
 
     ngOnInit() {

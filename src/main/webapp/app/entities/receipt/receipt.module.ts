@@ -1,5 +1,6 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import {AutocompleteComponent} from '../../shared/autocomplete/autocomplete.component';
 
 import {LogisticsSharedModule} from '../../shared';
 
@@ -49,6 +50,7 @@ let ENTITY_STATES = [
         ReceiptNewComponent,
         ReceiptAppliedComponent,
         ReceiptProductToCarComponent,
+        AutocompleteComponent
     ],
     entryComponents: [
         ReceiptComponent,

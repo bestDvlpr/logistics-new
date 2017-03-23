@@ -54,6 +54,12 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "CarStatus",
+            "fieldValues": "IDLE,BUSY",
+            "fieldValidateRules": []
         }
     ],
     "changelogDate": "20170221070600",

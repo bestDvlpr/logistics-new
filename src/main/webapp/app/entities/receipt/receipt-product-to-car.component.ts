@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {JhiLanguageService} from 'ng-jhipster';
+import {JhiLanguageService, EventManager} from 'ng-jhipster';
 import {Receipt} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ProductEntry} from '../product-entry/product-entry.model';
@@ -20,12 +20,13 @@ export class ReceiptProductToCarComponent implements OnInit {
     address: Address;
     productEntries: ProductEntry[];
     public productsSelected: ProductEntry[] = [];
-    public isCollapsed = false;
+    public prodsWithoutCar = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
-                private router: Router) {
+                private router: Router,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(
             ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
         );
@@ -35,6 +36,15 @@ export class ReceiptProductToCarComponent implements OnInit {
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
         this.address = this.dataHolderService._address;
+        this.checkProductCar();
+    }
+
+    private checkProductCar() {
+        for (let a of this.dataHolderService._receipt.productEntries) {
+            if (a.attachedCarId === null && a.attachedCarNumber === null) {
+                this.prodsWithoutCar = true;
+            }
+        }
     }
 
     load(id) {
@@ -47,7 +57,7 @@ export class ReceiptProductToCarComponent implements OnInit {
         window.history.back();
     }
 
-    public productChecked(product: ProductEntry) {
+    productChecked(product: ProductEntry) {
         let indexProd: number = this.productsSelected.indexOf(product);
         if (indexProd !== null && indexProd !== -1) {
             this.productsSelected.splice(indexProd, 1);
@@ -56,18 +66,26 @@ export class ReceiptProductToCarComponent implements OnInit {
         }
     }
 
-    public goClientSelectStep() {
-        this.dataHolderService._client = this.client;
-        this.dataHolderService._receipt = this.receipt;
-        this.dataHolderService._address = this.address;
-        for (let prod of this.productsSelected) {
-            for (let pro of this.receipt.productEntries) {
-                if (prod.id === pro.id) {
-                    pro.addressId = this.address.id;
-                    pro.address = this.address;
-                }
+    attach() {
+        if (this.dataHolderService._autocompleteSelected !== null) {
+            for (let selObj of this.productsSelected) {
+                let index: number = this.receipt.productEntries.indexOf(selObj, 0);
+                this.receipt.productEntries[index].attachedCarNumber = this.dataHolderService._autocompleteSelected.name;
+                this.receipt.productEntries[index].attachedCarId = this.dataHolderService._autocompleteSelected.id;
             }
+            this.dataHolderService._receipt = this.receipt;
         }
-        this.router.navigate(['../receipt/' + this.receipt.id + '/send/client']);
+        this.prodsWithoutCar = false;
+        this.checkProductCar();
+    }
+
+    attachDrivers() {
+        if (!this.prodsWithoutCar) {
+            this.receiptService.attachDrivers(this.receipt).subscribe(res => {
+                this.receipt = res;
+            });
+        }
+        this.router.navigate(['receipt']);
+        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
     }
 }

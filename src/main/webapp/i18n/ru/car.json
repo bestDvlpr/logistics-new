@@ -17,6 +17,7 @@
             },
             "number": "Number",
             "deleted": "Deleted",
+            "status": "Status",
             "carModel": "Car Model",
             "carColor": "Car Color",
             "type": "Type",

@@ -217,4 +217,20 @@ public class ReceiptServiceImpl implements ReceiptService {
     public Long countAppliedReceipts() {
         return receiptRepository.countByStatus(ReceiptStatus.APPLICATION_SENT);
     }
+
+    /**
+     * Attach receipt products to car(s).
+     *
+     * @return receipt with attached to car products
+     */
+    @Override
+    public ReceiptDTO attachOrder(ReceiptProductEntriesDTO receiptDTO) {
+        if (receiptDTO == null || receiptDTO.getProductEntries() == null || receiptDTO.getProductEntries().isEmpty()) {
+            return null;
+        }
+        productEntryRepository.save(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries()));
+        receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
+        Receipt receipt = receiptRepository.save(receiptMapper.receiptDTOToReceipt(receiptDTO));
+        return receiptMapper.receiptToReceiptDTO(receipt);
+    }
 }

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import uz.hasan.domain.enumeration.CarStatus;
 
 /**
  * A DTO for the Car entity.
@@ -19,6 +20,8 @@ public class CarDTO implements Serializable {
 
     @NotNull
     private Boolean deleted;
+
+    private CarStatus status;
 
     private Long carModelId;
 
@@ -52,6 +55,13 @@ public class CarDTO implements Serializable {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+    public CarStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CarStatus status) {
+        this.status = status;
     }
 
     public Long getCarModelId() {
@@ -129,6 +139,7 @@ public class CarDTO implements Serializable {
             "id=" + id +
             ", number='" + number + "'" +
             ", deleted='" + deleted + "'" +
+            ", status='" + status + "'" +
             '}';
     }
 }

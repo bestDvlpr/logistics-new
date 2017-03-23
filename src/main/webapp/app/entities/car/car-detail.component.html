@@ -12,6 +12,10 @@
         <dd>
             <span>{{car.deleted}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.car.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.CarStatus.' + car.status}}">{{car.status}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.car.carModel">Car Model</span></dt>
         <dd>
             <div *ngIf="car.carModelId">

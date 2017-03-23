@@ -33,6 +33,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import uz.hasan.domain.enumeration.CarStatus;
 /**
  * Test class for the CarResource REST controller.
  *
@@ -47,6 +48,9 @@ public class CarResourceIntTest {
 
     private static final Boolean DEFAULT_DELETED = false;
     private static final Boolean UPDATED_DELETED = true;
+
+    private static final CarStatus DEFAULT_STATUS = CarStatus.IDLE;
+    private static final CarStatus UPDATED_STATUS = CarStatus.BUSY;
 
     @Autowired
     private CarRepository carRepository;
@@ -92,7 +96,8 @@ public class CarResourceIntTest {
     public static Car createEntity(EntityManager em) {
         Car car = new Car()
                 .number(DEFAULT_NUMBER)
-                .deleted(DEFAULT_DELETED);
+                .deleted(DEFAULT_DELETED)
+                .status(DEFAULT_STATUS);
         // Add required entity
         CarModel carModel = CarModelResourceIntTest.createEntity(em);
         em.persist(carModel);
@@ -130,6 +135,7 @@ public class CarResourceIntTest {
         Car testCar = carList.get(carList.size() - 1);
         assertThat(testCar.getNumber()).isEqualTo(DEFAULT_NUMBER);
         assertThat(testCar.isDeleted()).isEqualTo(DEFAULT_DELETED);
+        assertThat(testCar.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -203,7 +209,8 @@ public class CarResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(car.getId().intValue())))
             .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
-            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())));
+            .andExpect(jsonPath("$.[*].deleted").value(hasItem(DEFAULT_DELETED.booleanValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -218,7 +225,8 @@ public class CarResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(car.getId().intValue()))
             .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
-            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()));
+            .andExpect(jsonPath("$.deleted").value(DEFAULT_DELETED.booleanValue()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -240,7 +248,8 @@ public class CarResourceIntTest {
         Car updatedCar = carRepository.findOne(car.getId());
         updatedCar
                 .number(UPDATED_NUMBER)
-                .deleted(UPDATED_DELETED);
+                .deleted(UPDATED_DELETED)
+                .status(UPDATED_STATUS);
         CarDTO carDTO = carMapper.carToCarDTO(updatedCar);
 
         restCarMockMvc.perform(put("/api/cars")
@@ -254,6 +263,7 @@ public class CarResourceIntTest {
         Car testCar = carList.get(carList.size() - 1);
         assertThat(testCar.getNumber()).isEqualTo(UPDATED_NUMBER);
         assertThat(testCar.isDeleted()).isEqualTo(UPDATED_DELETED);
+        assertThat(testCar.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

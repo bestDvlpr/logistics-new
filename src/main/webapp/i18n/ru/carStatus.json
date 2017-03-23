@@ -1,0 +1,9 @@
+{
+    "logisticsApp": {
+        "CarStatus" : {
+            "null": "",
+            "IDLE": "IDLE",
+            "BUSY": "BUSY"
+        }
+    }
+}

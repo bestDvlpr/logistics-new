@@ -2,14 +2,16 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Response} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
 
 import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 import {DocTypeEnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
+import {Car} from '../car/car.model';
+import {ACElement} from '../../shared/autocomplete/element.model';
+import {CarService} from '../car/car.service';
 
 @Component({
     selector: 'jhi-receipt',
@@ -43,6 +45,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: EventManager,
+                private carService: CarService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -152,7 +155,27 @@ export class ReceiptComponent implements OnInit, OnDestroy {
 
     public attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
-        this.router.navigate(['../receipt-product-to-car']);
+        this.loadCars();
+    }
+
+    loadCars() {
+        this.carService.idleCars().subscribe((cars: Response) => {
+            this.setACObjects(cars.json());
+        });
+    }
+
+    private setACObjects(cars: Car[]) {
+        if (cars !== null && cars.length > 0) {
+            let acObjects: ACElement[] = [];
+            for (let car of cars) {
+                let elem: ACElement = {};
+                elem.name = car.number;
+                elem.id = car.id;
+                acObjects.push(elem);
+            }
+            this.dataHolderService._autocompleteObjects = acObjects;
+            this.router.navigate(['../receipt-product-to-car']);
+        }
     }
 
     private saveToDataHolder(receiptId: number) {
