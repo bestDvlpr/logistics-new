@@ -10,9 +10,7 @@ export class Car {
                 public status?: CarStatus,
                 public carModelId?: number,
                 public carColorId?: number,
-                public typeId?: number,
-                public driversId?: number,
-                public receiptsId?: number ) {
+                public typeId?: number,) {
         this.deleted = false;
     }
 }

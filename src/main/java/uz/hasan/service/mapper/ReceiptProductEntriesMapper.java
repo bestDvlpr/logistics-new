@@ -91,9 +91,9 @@ public class ReceiptProductEntriesMapper {
         receipt.setClient(new Client(receiptDTO.getClientId()));
         receipt.setProductEntries(new HashSet<>(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries())));
 //        receipt.setPayTypes(new HashSet<>(payTypeMapper.payTypeDTOsToPayTypes(receiptDTO.getPayTypes())));
-        if (receiptDTO.getCars() != null && !receiptDTO.getCars().isEmpty()) {
+        /*if (receiptDTO.getCars() != null && !receiptDTO.getCars().isEmpty()) {
             receipt.setCars(new HashSet<>(carMapper.carDTOsToCars(new ArrayList<>(receiptDTO.getCars()))));
-        }
+        }*/
         receipt.setPayMaster(new PayMaster(receiptDTO.getPayMasterId()));
         if (receiptDTO.getLoyaltyCardId() != null) {
             receipt.setLoyaltyCard(new LoyaltyCard(receiptDTO.getLoyaltyCardId()));

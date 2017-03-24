@@ -20,9 +20,7 @@
             "status": "Status",
             "carModel": "Car Model",
             "carColor": "Car Color",
-            "type": "Type",
-            "drivers": "Drivers",
-            "receipts": "Receipts"
+            "type": "Type"
         }
     }
 }

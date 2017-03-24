@@ -32,20 +32,18 @@
             "otherEntityRelationshipName": "receipt"
         },
         {
-            "relationshipName": "cars",
-            "otherEntityName": "car",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "number",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "receipts"
-        },
-        {
             "relationshipName": "addresses",
             "otherEntityName": "address",
             "relationshipType": "many-to-many",
             "otherEntityField": "streetAddress",
             "ownerSide": true,
             "otherEntityRelationshipName": "receipts"
+        },
+        {
+            "relationshipName": "payTypes",
+            "otherEntityName": "payType",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "receipt"
         }
     ],
     "fields": [

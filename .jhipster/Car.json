@@ -26,15 +26,14 @@
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "drivers",
-            "otherEntityName": "driver",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "cars"
+            "relationshipName": "productEntries",
+            "otherEntityName": "productEntry",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "attachedCar"
         },
         {
-            "relationshipName": "receipts",
-            "otherEntityName": "receipt",
+            "relationshipName": "drivers",
+            "otherEntityName": "driver",
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "cars"

@@ -48,13 +48,13 @@ public class Car implements Serializable {
     @NotNull
     private CarType type;
 
-    @ManyToMany(mappedBy = "cars")
+    @OneToMany(mappedBy = "attachedCar")
     @JsonIgnore
-    private Set<Driver> drivers = new HashSet<>();
+    private Set<ProductEntry> productEntries = new HashSet<>();
 
     @ManyToMany(mappedBy = "cars")
     @JsonIgnore
-    private Set<Receipt> receipts = new HashSet<>();
+    private Set<Driver> drivers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -142,6 +142,31 @@ public class Car implements Serializable {
         this.type = carType;
     }
 
+    public Set<ProductEntry> getProductEntries() {
+        return productEntries;
+    }
+
+    public Car productEntries(Set<ProductEntry> productEntries) {
+        this.productEntries = productEntries;
+        return this;
+    }
+
+    public Car addProductEntries(ProductEntry productEntry) {
+        this.productEntries.add(productEntry);
+        productEntry.setAttachedCar(this);
+        return this;
+    }
+
+    public Car removeProductEntries(ProductEntry productEntry) {
+        this.productEntries.remove(productEntry);
+        productEntry.setAttachedCar(null);
+        return this;
+    }
+
+    public void setProductEntries(Set<ProductEntry> productEntries) {
+        this.productEntries = productEntries;
+    }
+
     public Set<Driver> getDrivers() {
         return drivers;
     }
@@ -165,31 +190,6 @@ public class Car implements Serializable {
 
     public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
-    }
-
-    public Set<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public Car receipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
-        return this;
-    }
-
-    public Car addReceipts(Receipt receipt) {
-        this.receipts.add(receipt);
-        receipt.getCars().add(this);
-        return this;
-    }
-
-    public Car removeReceipts(Receipt receipt) {
-        this.receipts.remove(receipt);
-        receipt.getCars().remove(this);
-        return this;
-    }
-
-    public void setReceipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
     }
 
     @Override

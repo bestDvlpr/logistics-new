@@ -1,0 +1,23 @@
+
+<div *ngIf="car">
+    <h2><span jhiTranslate="logisticsApp.car.detail.title">Car</span> {{car.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="col-md-12">
+        <table class="table table-responsive table-striped">
+
+        </table>
+    </div>
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'car/'+ car.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

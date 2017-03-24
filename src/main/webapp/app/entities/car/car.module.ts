@@ -8,6 +8,7 @@ import {
     CarPopupService,
     CarComponent,
     CarDetailComponent,
+    CarDeliveryProductsComponent,
     CarDialogComponent,
     CarPopupComponent,
     CarDeletePopupComponent,
@@ -30,6 +31,7 @@ let ENTITY_STATES = [
     declarations: [
         CarComponent,
         CarDetailComponent,
+        CarDeliveryProductsComponent,
         CarDialogComponent,
         CarDeleteDialogComponent,
         CarPopupComponent,

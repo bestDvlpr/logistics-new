@@ -59,10 +59,12 @@ public class Receipt implements Serializable {
     @Column(name = "status", nullable = false)
     private ReceiptStatus status;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private PayMaster payMaster;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private LoyaltyCard loyaltyCard;
 
     @ManyToOne
@@ -257,31 +259,6 @@ public class Receipt implements Serializable {
 
     public void setProductEntries(Set<ProductEntry> productEntries) {
         this.productEntries = productEntries;
-    }
-
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public Receipt cars(Set<Car> cars) {
-        this.cars = cars;
-        return this;
-    }
-
-    public Receipt addCars(Car car) {
-        this.cars.add(car);
-        car.getReceipts().add(this);
-        return this;
-    }
-
-    public Receipt removeCars(Car car) {
-        this.cars.remove(car);
-        car.getReceipts().remove(this);
-        return this;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
     }
 
     public Set<Address> getAddresses() {
