@@ -45,6 +45,8 @@ export class ProductEntry {
                 public productId?: number,
                 public sellerIDId?: number,
                 public receiptId?: number,
+                public receiptDocId?: string,
+                public receiptDocNum?: string,
                 public driverId?: number,
                 public attachedCarId?: number,
                 public attachedCarNumber?: string,

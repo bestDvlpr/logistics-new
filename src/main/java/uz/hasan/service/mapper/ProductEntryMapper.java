@@ -20,6 +20,7 @@ public interface ProductEntryMapper {
     @Mapping(source = "sellerID.sellerID", target = "sellerIDSellerID")
     @Mapping(source = "receipt.id", target = "receiptId")
     @Mapping(source = "receipt.docNum", target = "receiptDocNum")
+    @Mapping(source = "receipt.docID", target = "receiptDocId")
     @Mapping(source = "driver.id", target = "driverId")
     @Mapping(source = "driver.lastName", target = "driverLastName")
     @Mapping(source = "attachedCar.id", target = "attachedCarId")

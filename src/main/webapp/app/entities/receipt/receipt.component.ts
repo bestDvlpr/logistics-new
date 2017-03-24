@@ -153,6 +153,16 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         });
     }
 
+    viewReceipt(receiptId: number) {
+        for (let receipt of this.receipts) {
+            if (receipt.id === receiptId) {
+                this.dataHolderService._receipt = receipt;
+                this.dataHolderService._client = receipt.client;
+            }
+        }
+        this.router.navigate(['../receipt', receiptId]);
+    }
+
     private setACObjects(cars: Car[]) {
         if (cars !== null && cars.length > 0) {
             let acObjects: ACElement[] = [];
@@ -163,7 +173,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 acObjects.push(elem);
             }
             this.dataHolderService._autocompleteObjects = acObjects;
-            this.router.navigate(['../receipt-product-to-car']);
         }
     }
 

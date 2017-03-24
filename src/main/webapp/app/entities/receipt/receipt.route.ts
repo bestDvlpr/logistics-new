@@ -17,6 +17,7 @@ import {ClientPopupComponent} from '../client/client-dialog.component';
 import {ReceiptNewComponent} from './receipt-new.component';
 import {ReceiptAppliedComponent} from './receipt-applied.component';
 import {ReceiptProductToCarComponent} from './receipt-product-to-car.component';
+import {CollapsedReceiptComponent} from './collapsed-receipt.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -100,6 +101,13 @@ export const receiptRoute: Routes = [
         data: {
             authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'receipt-view',
+        component: CollapsedReceiptComponent,
+        data: {
+            authorities: ['ROLE_CASHIER', 'ROLE_MANAGER', 'ROLE_DISPATCHER'],
+            pageTitle: 'logisticsApp.receipt.detail.title'
         }
     }
 ];

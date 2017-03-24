@@ -69,12 +69,12 @@
                 <td>
                     <span class="tag tag-primary"
                           jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
-                    *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.WHOLESALE">
+                          *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.WHOLESALE">
                     {{receipt.wholeSaleFlag}}
                     </span>
                     <span class="tag tag-success"
                           jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
-                    *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.RETAIL">
+                          *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.RETAIL">
                     {{receipt.wholeSaleFlag}}
                     </span>
                 </td>
@@ -143,9 +143,12 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status==receiptStatusEnum.NEW"
-                            (click)="goClientSelectionStep(receipt.id)"
-                            jhiHasAuthority="ROLE_CASHIER">
+                            (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
+                            jhiHasAuthority="ROLE_DISPATCHER">
+                        <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                 </td>
             </tr>

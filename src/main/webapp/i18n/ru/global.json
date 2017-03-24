@@ -126,7 +126,8 @@
             "attachDriver": "Прикрепить водителью",
             "sendOrder": "Отправить заявку",
             "sendOrderTitle": "Отправить заявку № {{orderId}}",
-            "view": "Просмотр"
+            "view": "Просмотр",
+            "print": "Печать"
         },
         "detail": {
             "field": "Поле",

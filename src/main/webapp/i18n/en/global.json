@@ -126,7 +126,8 @@
             "attachDriver": "Attach to Drivers",
             "sendOrder": "Send Order",
             "sendOrderTitle": "Send Order # {{orderId}}",
-            "view": "View"
+            "view": "View",
+            "print": "Print"
         },
         "detail": {
             "field": "Field",
