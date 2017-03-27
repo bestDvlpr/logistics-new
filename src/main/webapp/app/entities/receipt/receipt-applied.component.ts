@@ -7,7 +7,7 @@ import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhi
 import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {DocTypeEnumAware} from './doctypaware.decorator';
+import {EnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
 import {Car} from '../car/car.model';
 import {ACElement} from '../../shared/autocomplete/element.model';
@@ -17,7 +17,7 @@ import {CarService} from '../car/car.service';
     selector: 'jhi-receipt-applied',
     templateUrl: './receipt-applied.component.html'
 })
-@DocTypeEnumAware
+@EnumAware
 export class ReceiptAppliedComponent implements OnInit, OnDestroy {
 
     currentAccount: any;

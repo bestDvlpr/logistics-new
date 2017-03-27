@@ -5,18 +5,12 @@
             "relationshipName": "payMaster",
             "otherEntityName": "payMaster",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
             "otherEntityField": "payMasterName"
         },
         {
             "relationshipName": "loyaltyCard",
             "otherEntityName": "loyaltyCard",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
             "otherEntityField": "loyaltyCardID"
         },
         {

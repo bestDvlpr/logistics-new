@@ -45,6 +45,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final LoyaltyCardRepository loyaltyCardRepository;
 
     private final ClientRepository clientRepository;
+
     private final CarRepository carRepository;
 
     public ReceiptServiceImpl(ReceiptRepository receiptRepository,

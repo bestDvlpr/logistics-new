@@ -8,14 +8,14 @@ import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
-import {DocTypeEnumAware} from './doctypaware.decorator';
+import {EnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
 
 @Component({
     selector: 'jhi-receipt-new',
     templateUrl: './receipt-new.component.html'
 })
-@DocTypeEnumAware
+@EnumAware
 export class ReceiptNewComponent implements OnInit, OnDestroy {
 
     currentAccount: any;

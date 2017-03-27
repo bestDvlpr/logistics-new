@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.car.home.title">Cars</span>
-        <button class="btn btn-primary float-right create-car" [routerLink]="['/', { outlets: { popup: ['car-new'] } }]">
+        <button class="btn btn-primary float-right create-car"
+                [routerLink]="['/', { outlets: { popup: ['car-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.car.home.createLabel">
+            <span jhiTranslate="logisticsApp.car.home.createLabel">
             Create new Car
             </span>
         </button>
@@ -16,14 +17,20 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="number"><span jhiTranslate="logisticsApp.car.number">Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.car.deleted">Deleted</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="status"><span jhiTranslate="logisticsApp.car.status">Status</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="carModelName"><span jhiTranslate="logisticsApp.car.carModel">Car Model</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="carColorName"><span jhiTranslate="logisticsApp.car.carColor">Car Color</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="typeName"><span jhiTranslate="logisticsApp.car.type">Type</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="number"><span jhiTranslate="logisticsApp.car.number">Number</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.car.deleted">Deleted</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="status"><span jhiTranslate="logisticsApp.car.status">Status</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="carModelName"><span jhiTranslate="logisticsApp.car.carModel">Car Model</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="carColorName"><span jhiTranslate="logisticsApp.car.carColor">Car Color</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="typeName"><span jhiTranslate="logisticsApp.car.type">Type</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -31,20 +38,25 @@
                 <td><a [routerLink]="['../car', car.id ]">{{car.id}}</a></td>
                 <td>{{car.number}}</td>
                 <td>{{car.deleted}}</td>
-                <td jhiTranslate="{{'logisticsApp.CarStatus.' + car.status}}">{{car.status}}</td>
+                <td>
+                    <span *ngIf="car.status === carStatusEnum.IDLE" class="tag tag-success"
+                          jhiTranslate="{{'logisticsApp.CarStatus.' + car.status}}">{{car.status}}</span>
+                    <span *ngIf="car.status === carStatusEnum.BUSY" class="tag tag-warning"
+                          jhiTranslate="{{'logisticsApp.CarStatus.' + car.status}}">{{car.status}}</span>
+                </td>
                 <td>
                     <div *ngIf="car.carModelId">
-                        <a [routerLink]="['../car-model', car.carModelId  ]" >{{car.carModelName}}</a>
+                        <a [routerLink]="['../car-model', car.carModelId  ]">{{car.carModelName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="car.carColorId">
-                        <a [routerLink]="['../car-color', car.carColorId  ]" >{{car.carColorName}}</a>
+                        <a [routerLink]="['../car-color', car.carColorId  ]">{{car.carColorName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="car.typeId">
-                        <a [routerLink]="['../car-type', car.typeId  ]" >{{car.typeName}}</a>
+                        <a [routerLink]="['../car-type', car.typeId  ]">{{car.typeName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -70,11 +82,11 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'car/'+ car.id + '/delivery-products'} }]"
+                                [routerLink]="['../car/'+ car.id + '/delivery-products']"
                                 replaceUrl="true"
                                 class="btn btn-success btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="fa fa-print"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.print">Print</span>
                         </button>
                     </div>
                 </td>
@@ -82,12 +94,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="cars && cars.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="cars && cars.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

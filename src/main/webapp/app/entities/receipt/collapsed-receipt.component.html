@@ -53,10 +53,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row text-muted font-weight-bold" title="Products">
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <span jhiTranslate="logisticsApp.product.home.title">Products</span>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
                             </div>
                             <div class="col-md-2" *ngIf="productCarExists">
@@ -67,10 +67,10 @@
                             <div class="col-md-1">
                                 <span>{{product.productName}}</span>
                             </div>
-                            <!--<div class="col-md-1" *ngIf="product.address">
-                                <span>{{product.address.countryName}}</span>
-                            </div>-->
-                            <div class="col-md-2" *ngIf="product.address">
+                            <div class="col-md-1" *ngIf="product.address">
+                                <span class="tag tag-default">{{product.status}}</span>
+                            </div>
+                            <div class="col-md-1" *ngIf="product.address">
                                 <span>{{product.address.regionName}}</span>
                             </div>
                             <div class="col-md-2" *ngIf="product.address">

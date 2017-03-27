@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import uz.hasan.service.mapper.CarProductEntriesMapper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
-public class CarServiceImpl implements CarService{
+public class CarServiceImpl implements CarService {
 
     private final Logger log = LoggerFactory.getLogger(CarServiceImpl.class);
 
@@ -30,7 +31,10 @@ public class CarServiceImpl implements CarService{
 
     private final CarMapper carMapper;
 
-    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
+    private final CarProductEntriesMapper carProductEntriesMapper;
+
+    public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarProductEntriesMapper carProductEntriesMapper) {
+        this.carProductEntriesMapper = carProductEntriesMapper;
         this.carRepository = carRepository;
         this.carMapper = carMapper;
     }
@@ -51,38 +55,38 @@ public class CarServiceImpl implements CarService{
     }
 
     /**
-     *  Get all the cars.
+     * Get all the cars.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
     public Page<CarDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Cars");
         Page<Car> result = carRepository.findAll(pageable);
-        return result.map(car -> carMapper.carToCarDTO(car));
+        return result.map(carProductEntriesMapper::carToCarAndProductEntries);
     }
 
     /**
-     *  Get one car by id.
+     * Get one car by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
     public CarDTO findOne(Long id) {
         log.debug("Request to get Car : {}", id);
         Car car = carRepository.findOne(id);
-        CarDTO carDTO = carMapper.carToCarDTO(car);
+        CarDTO carDTO = carProductEntriesMapper.carToCarAndProductEntries(car);
         return carDTO;
     }
 
     /**
-     *  Delete the  car by id.
+     * Delete the  car by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
@@ -91,9 +95,9 @@ public class CarServiceImpl implements CarService{
     }
 
     /**
-     *  Get all idle cars.
+     * Get all idle cars.
      *
-     *  @return the list of idle car entities
+     * @return the list of idle car entities
      */
     @Override
     public List<CarDTO> findAllIdleCars() {

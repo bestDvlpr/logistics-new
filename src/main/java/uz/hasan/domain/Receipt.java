@@ -59,12 +59,10 @@ public class Receipt implements Serializable {
     @Column(name = "status", nullable = false)
     private ReceiptStatus status;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     private PayMaster payMaster;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     private LoyaltyCard loyaltyCard;
 
     @ManyToOne

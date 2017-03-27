@@ -2,8 +2,8 @@
     "logisticsApp": {
         "SalesPlace" : {
             "null": "",
-            "STORE": "STORE",
-            "WAREHOUSE": "WAREHOUSE"
+            "STORE": "МАГАЗИН",
+            "WAREHOUSE": "СКЛАД"
         }
     }
 }
