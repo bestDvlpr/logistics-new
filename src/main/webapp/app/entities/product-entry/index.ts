@@ -6,3 +6,4 @@ export * from './product-entry-delete-dialog.component';
 export * from './product-entry-detail.component';
 export * from './product-entry.component';
 export * from './product-entry.route';
+export * from './product-entry-delivery.component';

@@ -1,5 +1,8 @@
 package uz.hasan.service.impl;
 
+import uz.hasan.domain.Receipt;
+import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.ProductEntryRepository;
@@ -12,9 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Service Implementation for managing ProductEntry.
@@ -29,9 +30,12 @@ public class ProductEntryServiceImpl implements ProductEntryService {
 
     private final ProductEntryMapper productEntryMapper;
 
-    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository, ProductEntryMapper productEntryMapper) {
+    private final ReceiptRepository receiptRepository;
+
+    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository, ProductEntryMapper productEntryMapper, ReceiptRepository receiptRepository) {
         this.productEntryRepository = productEntryRepository;
         this.productEntryMapper = productEntryMapper;
+        this.receiptRepository = receiptRepository;
     }
 
     /**
@@ -100,5 +104,48 @@ public class ProductEntryServiceImpl implements ProductEntryService {
         log.debug("Request to get all ProductEntries by receiptId: {}", receiptId);
         List<ProductEntry> result = productEntryRepository.findByReceiptId(receiptId);
         return productEntryMapper.productEntriesToProductEntryDTOs(result);
+    }
+
+    /**
+     * Get all the productEntries by car number.
+     *
+     * @param carNumber the car number
+     * @return the list of entities
+     */
+    @Override
+    public List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber) {
+        log.debug("Request to get new ProductEntries by car number: {}", carNumber);
+        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatus(carNumber, ReceiptStatus.NEW);
+        return productEntryMapper.productEntriesToProductEntryDTOs(result);
+    }
+
+    /**
+     * Deliver a productEntries.
+     *
+     * @param productEntryDTOs the entities to deliver
+     * @return the persisted entities
+     */
+    @Override
+    public List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs) {
+        if (productEntryDTOs.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<ProductEntryDTO> productEntryDTOS = new ArrayList<>();
+        Set<Receipt> receipts = new HashSet<>();
+        for (ProductEntryDTO dto : productEntryDTOs) {
+            dto.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+            ProductEntry productEntry = productEntryRepository.save(productEntryMapper.productEntryDTOToProductEntry(dto));
+            productEntryDTOS.add(productEntryMapper.productEntryToProductEntryDTO(productEntry));
+            Receipt receipt = productEntry.getReceipt();
+            receipts.add(receipt);
+        }
+        for (Receipt receipt : receipts) {
+            boolean ready = receipt.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERY_PROCESS));
+            if (ready) {
+                receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+                receiptRepository.save(receipt);
+            }
+        }
+        return productEntryDTOS;
     }
 }

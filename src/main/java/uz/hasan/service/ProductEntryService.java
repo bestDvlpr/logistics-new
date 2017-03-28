@@ -48,4 +48,20 @@ public interface ProductEntryService {
      *  @return the list of entities
      */
     List<ProductEntryDTO> findAllByReceiptId(Long receiptId);
+
+    /**
+     *  Get all the productEntries by car number.
+     *
+     *  @param carNumber the car number
+     *  @return the list of entities
+     */
+    List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber);
+
+    /**
+     * Deliver a productEntries.
+     *
+     * @param productEntryDTOs the entities to deliver
+     * @return the persisted entities
+     */
+    List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs);
 }

@@ -46,4 +46,11 @@ public final class HeaderUtil {
         headers.add("X-logisticsApp-params", entityName);
         return headers;
     }
+
+    public static HttpHeaders deliveryFailureAlert(String errorKey, String defaultMessage) {
+        log.error("Product entry delivery failed, {}", defaultMessage);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-logisticsApp-error", "error." + errorKey);
+        return headers;
+    }
 }

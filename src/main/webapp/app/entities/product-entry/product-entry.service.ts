@@ -61,4 +61,12 @@ export class ProductEntryService {
         }
         return options;
     }
+
+    byCarNumber(carNumber: string) {
+        return this.http.get(this.resourceUrl + '/car-entries/' + carNumber);
+    }
+
+    deliver(productEntries: ProductEntry[]) {
+        return this.http.post(this.resourceUrl.concat('/delivery'), productEntries);
+    }
 }

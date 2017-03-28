@@ -8,14 +8,14 @@
             },
             "created": "Новый Car создан с идентификатором {{ param }}",
             "updated": "Car обновлен с идентификатором {{ param }}",
-            "deleted": "Car удален с идентификатором {{ param }}",
+            "car-deleted": "Car удален с идентификатором {{ param }}",
             "delete": {
                 "question": "Вы уверены что хотите удалить Car {{ id }}?"
             },
             "detail": {
                 "title": "Car"
             },
-            "number": "Number",
+            "number": "Car Number",
             "deleted": "Deleted",
             "status": "Status",
             "carModel": "Car Model",

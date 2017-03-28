@@ -27,6 +27,7 @@ export enum ReceiptStatus {
 export class ProductEntry {
     public address: Address;
     public product: Product;
+    public selected: boolean = false;
 
     constructor(public id?: number,
                 public price?: number,

@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "productEntry" : {
+        "productEntry": {
             "home": {
                 "title": "Product Entries",
                 "createLabel": "Create a new Product Entry",
@@ -35,7 +35,10 @@
             "driver": "Driver",
             "attachedCar": "Attached Car",
             "address": "Address",
-            "productName": "Product Name"
+            "productName": "Product Name",
+            "error": {
+                "notFound": "No product entry found!"
+            }
         }
     }
 }

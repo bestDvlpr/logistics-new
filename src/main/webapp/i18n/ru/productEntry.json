@@ -1,41 +1,44 @@
 {
     "logisticsApp": {
-        "productEntry" : {
+        "productEntry": {
             "home": {
-                "title": "Product Entries",
-                "createLabel": "Создать новый Product Entry",
-                "createOrEditLabel": "Создать или отредактировать Product Entry",
-                "search": "Найти Product Entry"
+                "title": "Продукты",
+                "createLabel": "Создать новый Продукт",
+                "createOrEditLabel": "Создать или отредактировать Продукт",
+                "search": "Найти Продукт"
             },
-            "created": "Новый Product Entry создан с идентификатором {{ param }}",
-            "updated": "Product Entry обновлен с идентификатором {{ param }}",
-            "deleted": "Product Entry удален с идентификатором {{ param }}",
+            "created": "Новый Продукт создан с идентификатором {{ param }}",
+            "updated": "Продукт обновлен с идентификатором {{ param }}",
+            "deleted": "Продукт удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Product Entry {{ id }}?"
+                "question": "Вы уверены что хотите удалить Продукт {{ id }}?"
             },
             "detail": {
-                "title": "Product Entry"
+                "title": "Продукт"
             },
-            "price": "Price",
-            "deliveryFlag": "Delivery Flag",
-            "hallFlag": "Hall Flag",
-            "defectFlag": "Defect Flag",
-            "virtualFlag": "Virtual Flag",
-            "reason": "Reason",
-            "comment": "Comment",
+            "price": "Цена",
+            "deliveryFlag": "Флаг доставки",
+            "hallFlag": "Места продажи",
+            "defectFlag": "Флаг дефекта",
+            "virtualFlag": "Флаг виртуальность",
+            "reason": "Причина",
+            "comment": "Коментария",
             "guid": "Guid",
-            "qty": "Qty",
-            "discount": "Discount",
-            "status": "Status",
-            "cancelled": "Cancelled",
-            "serialNumber": "Serial Number",
-            "product": "Product",
-            "sellerID": "Seller ID",
-            "receipt": "Receipt",
-            "driver": "Driver",
-            "attachedCar": "Attached Car",
-            "address": "Address",
-            "productName": "Product Name"
+            "qty": "Кол-во",
+            "discount": "Скидка",
+            "status": "Статус",
+            "cancelled": "Отменен",
+            "serialNumber": "Серийный номер",
+            "product": "Тип",
+            "sellerID": "ID продавца",
+            "receipt": "Заявка",
+            "driver": "Водитель",
+            "attachedCar": "Машину прикреплен",
+            "address": "Адрес",
+            "productName": "Наименования",
+            "error": {
+                "notFound": "Не найдено продукты!"
+            }
         }
     }
 }

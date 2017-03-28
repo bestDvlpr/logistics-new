@@ -127,7 +127,9 @@
             "sendOrder": "Send Order",
             "sendOrderTitle": "Send Order # {{orderId}}",
             "view": "View",
-            "print": "Print"
+            "print": "Print",
+            "search": "Search",
+            "deliver": "Deliver"
         },
         "detail": {
             "field": "Field",
@@ -157,7 +159,9 @@
         "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
         "userexists": "Login name already used!",
         "emailexists": "E-mail is already in use!",
-        "idexists": "A new {{ entityName }} cannot already have an ID"
+        "idexists": "A new {{ entityName }} cannot already have an ID",
+        "listempty": "List cannot be empty!",
+        "not.found": "Nothing found!"
     },
     "footer": "This is your footer"
 }
