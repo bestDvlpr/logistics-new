@@ -197,8 +197,8 @@ public class ProductEntryServiceImpl implements ProductEntryService {
         }
 
         Car car = carRepository.findOne(productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOS).get(0).getAttachedCar().getId());
-        boolean idle = car.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED));
-        if (idle) {
+        List<ProductEntry> productEntries = productEntryRepository.findByAttachedCarNumberAndStatusNot(car.getNumber(), ReceiptStatus.DELIVERED);
+        if (productEntries == null || productEntries.isEmpty()) {
             car.setStatus(CarStatus.IDLE);
             carRepository.save(car);
         }
