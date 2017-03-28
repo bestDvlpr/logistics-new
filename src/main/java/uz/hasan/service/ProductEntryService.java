@@ -50,12 +50,20 @@ public interface ProductEntryService {
     List<ProductEntryDTO> findAllByReceiptId(Long receiptId);
 
     /**
-     *  Get all the productEntries by car number.
+     *  Get new the productEntries by car number.
      *
      *  @param carNumber the car number
      *  @return the list of entities
      */
     List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber);
+
+    /**
+     *  Get all the productEntries by car number.
+     *
+     *  @param carNumber the car number
+     *  @return the list of entities
+     */
+    List<ProductEntryDTO> findLastProductsByCarNumber(String carNumber);
 
     /**
      * Deliver a productEntries.
@@ -64,4 +72,12 @@ public interface ProductEntryService {
      * @return the persisted entities
      */
     List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs);
+
+    /**
+     * Make productEntries as delivered.
+     *
+     * @param productEntryDTOs the entities delivered
+     * @return the persisted entities
+     */
+    List<ProductEntryDTO> delivered(List<ProductEntryDTO> productEntryDTOs);
 }

@@ -129,7 +129,8 @@
             "view": "View",
             "print": "Print",
             "search": "Search",
-            "deliver": "Deliver"
+            "deliver": "Deliver",
+            "delivered": "Delivered"
         },
         "detail": {
             "field": "Field",

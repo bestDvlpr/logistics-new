@@ -84,6 +84,7 @@ build/
 *.war
 *.ear
 *.db
+*.db
 
 ######################
 # Windows
@@ -141,4 +142,4 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-!/src/main/webapp/app/entities/receipt/receipt-send-client.component.ts
+!/src/

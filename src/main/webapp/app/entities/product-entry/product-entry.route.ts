@@ -9,6 +9,7 @@ import {ProductEntryPopupComponent} from './product-entry-dialog.component';
 import {ProductEntryDeletePopupComponent} from './product-entry-delete-dialog.component';
 
 import {ProductEntryDeliveryComponent} from './product-entry-delivery.component';
+import {ProductEntryDoneComponent} from './product-entry-done.component';
 
 @Injectable()
 export class ProductEntryResolvePagingParams implements Resolve<any> {
@@ -42,7 +43,14 @@ export const productEntryRoute: Routes = [
         path: 'product-entry-delivery',
         component: ProductEntryDeliveryComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_CASHIER'],
+            pageTitle: 'logisticsApp.productEntry.home.title'
+        }
+    }, {
+        path: 'product-entry-done',
+        component: ProductEntryDoneComponent,
+        data: {
+            authorities: ['ROLE_DISPATCHER'],
             pageTitle: 'logisticsApp.productEntry.home.title'
         }
     }, {

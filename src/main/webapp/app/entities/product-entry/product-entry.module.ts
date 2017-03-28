@@ -16,6 +16,7 @@ import {
     productEntryPopupRoute,
     ProductEntryResolvePagingParams,
     ProductEntryDeliveryComponent,
+    ProductEntryDoneComponent,
 } from './';
 
 let ENTITY_STATES = [
@@ -35,7 +36,8 @@ let ENTITY_STATES = [
         ProductEntryDeleteDialogComponent,
         ProductEntryPopupComponent,
         ProductEntryDeletePopupComponent,
-        ProductEntryDeliveryComponent
+        ProductEntryDeliveryComponent,
+        ProductEntryDoneComponent
     ],
     entryComponents: [
         ProductEntryComponent,
@@ -43,7 +45,8 @@ let ENTITY_STATES = [
         ProductEntryPopupComponent,
         ProductEntryDeleteDialogComponent,
         ProductEntryDeletePopupComponent,
-        ProductEntryDeliveryComponent
+        ProductEntryDeliveryComponent,
+        ProductEntryDoneComponent
     ],
     providers: [
         ProductEntryService,

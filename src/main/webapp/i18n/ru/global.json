@@ -129,7 +129,8 @@
             "view": "Просмотр",
             "print": "Печать",
             "search": "Поиск",
-            "deliver": "Доставка"
+            "deliver": "Доставка",
+            "delivered": "Доставлен"
         },
         "detail": {
             "field": "Поле",

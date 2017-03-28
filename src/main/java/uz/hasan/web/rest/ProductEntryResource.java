@@ -78,6 +78,24 @@ public class ProductEntryResource {
     }
 
     /**
+     * POST  /product-entries/delivered : Deliver productEntries.
+     *
+     * @param productEntryDTOs the productEntryDTOs to delivery
+     * @return the ResponseEntity with status 201 (Created) and with body the new productEntryDTO, or with status 400 (Bad Request) if the productEntry has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/product-entries/delivered")
+    @Timed
+    public ResponseEntity<List<ProductEntryDTO>> productEntriesDelivered(@Valid @RequestBody List<ProductEntryDTO> productEntryDTOs) throws URISyntaxException {
+        log.debug("REST request to save ProductEntry : {}", productEntryDTOs);
+        if (productEntryDTOs.isEmpty()) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.deliveryFailureAlert("listEmpty", "A new productEntries list cannot be empty")).body(null);
+        }
+        List<ProductEntryDTO> result = productEntryService.delivered(productEntryDTOs);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
      * PUT  /product-entries : Updates an existing productEntry.
      *
      * @param productEntryDTO the productEntryDTO to update
@@ -134,7 +152,7 @@ public class ProductEntryResource {
     }
 
     /**
-     * GET  /product-entries/car-entries/:carNumber : get all the productEntries of receipt.
+     * GET  /product-entries/car-entries/:carNumber : get the productEntries attached to car and with status NEW.
      *
      * @param carNumber the receipt ID
      * @return the ResponseEntity with status 200 (OK) and the list of productEntries in body
@@ -142,11 +160,28 @@ public class ProductEntryResource {
      */
     @GetMapping("/product-entries/car-entries/{carNumber}")
     @Timed
-    public ResponseEntity<List<ProductEntryDTO>> getAllProductEntriesByAttachedCar(
+    public ResponseEntity<List<ProductEntryDTO>> getAllNewProductEntriesByAttachedCar(
         @PathVariable String carNumber
     ) throws URISyntaxException {
         log.debug("REST request to get a productEntryDTOS of ProductEntries by car number: {}", carNumber);
         List<ProductEntryDTO> productEntryDTOS = productEntryService.findNewProductsByCarNumber(carNumber);
+        return new ResponseEntity<>(productEntryDTOS, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /product-entries/car-entries/:carNumber : get all the productEntries attached to car in last 48 hours.
+     *
+     * @param carNumber the receipt ID
+     * @return the ResponseEntity with status 200 (OK) and the list of productEntries in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/product-entries/car-entries-all/{carNumber}")
+    @Timed
+    public ResponseEntity<List<ProductEntryDTO>> getAllProductEntriesByAttachedCar(
+        @PathVariable String carNumber
+    ) throws URISyntaxException {
+        log.debug("REST request to get a productEntryDTOS of ProductEntries by car number: {}", carNumber);
+        List<ProductEntryDTO> productEntryDTOS = productEntryService.findLastProductsByCarNumber(carNumber);
         return new ResponseEntity<>(productEntryDTOS, HttpStatus.OK);
     }
 
