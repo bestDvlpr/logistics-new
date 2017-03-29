@@ -54,7 +54,7 @@ export const receiptRoute: Routes = [
             'pagingParams': ReceiptResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
@@ -64,7 +64,7 @@ export const receiptRoute: Routes = [
             'pagingParams': ReceiptResolvePagingParams
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_DISPATCHER'],
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {
@@ -99,7 +99,7 @@ export const receiptRoute: Routes = [
         path: 'receipt-product-to-car',
         component: ReceiptProductToCarComponent,
         data: {
-            authorities: ['ROLE_CASHIER'],
+            authorities: ['ROLE_DISPATCHER'],
             pageTitle: 'logisticsApp.receipt.home.title'
         }
     }, {

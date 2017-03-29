@@ -91,8 +91,14 @@ export class ProductEntryDoneComponent implements OnInit, OnDestroy {
         if (indexProd !== null && indexProd !== -1) {
             if (!product.selected) {
                 this.productsSelected.push(product);
+                if (this.productsSelected.length === this.productEntries.length) {
+                    this.isAllChecked = true;
+                }
             } else {
                 this.productsSelected.splice(this.productsSelected.indexOf(product), 1);
+                if (this.isAllChecked) {
+                    this.isAllChecked = false;
+                }
             }
             product.selected = !product.selected;
         }

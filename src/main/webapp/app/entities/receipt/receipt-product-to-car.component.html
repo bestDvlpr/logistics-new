@@ -24,7 +24,9 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>
+                                        <input type="checkbox" (change)="productAllChecked()" [checked]="isAllChecked">
+                                    </th>
                                     <th jhiTranslate="logisticsApp.productEntry.productName">Product Name</th>
                                     <th jhiTranslate="logisticsApp.productEntry.qty">Quantity</th>
                                     <th jhiTranslate="logisticsApp.productEntry.status">Status</th>
@@ -32,8 +34,10 @@
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let product of receipt.productEntries">
-                                    <td *ngIf="!product.attachedCarId"><input type="checkbox"
-                                                                              (change)="productChecked(product)"/></td>
+                                    <td *ngIf="!product.attachedCarId">
+                                        <input type="checkbox" (change)="productChecked(product)"
+                                               [checked]="product.selected"/>
+                                    </td>
                                     <td *ngIf="!product.attachedCarId">{{product.productName}}</td>
                                     <td *ngIf="!product.attachedCarId">{{product.qty}}</td>
                                     <td *ngIf="!product.attachedCarId">{{product.status}}</td>

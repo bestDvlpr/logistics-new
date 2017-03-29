@@ -96,12 +96,18 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
         let indexProd: number = this.productEntries.indexOf(product);
         if (indexProd !== null && indexProd !== -1) {
             let productEntry = this.productEntries[indexProd];
-            productEntry.selected = !productEntry.selected;
             if (!productEntry.selected) {
                 this.productsSelected.push(productEntry);
+                if (this.productsSelected.length === this.productEntries.length) {
+                    this.isAllChecked = true;
+                }
             } else {
                 this.productsSelected.splice(this.productsSelected.indexOf(productEntry), 1);
+                if (this.isAllChecked) {
+                    this.isAllChecked = false;
+                }
             }
+            productEntry.selected = !productEntry.selected;
         }
     }
 

@@ -152,13 +152,13 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
                 acObjects.push(elem);
             }
             this.dataHolderService._autocompleteObjects = acObjects;
-            this.router.navigate(['../receipt-product-to-car']);
         }
     }
 
     attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
         this.loadCars();
+        this.router.navigate(['../receipt-product-to-car']);
     }
 
     private saveToDataHolder(receiptId: number) {

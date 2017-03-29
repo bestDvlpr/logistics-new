@@ -120,7 +120,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     @Override
     public List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber) {
         log.debug("Request to get new ProductEntries by car number: {}", carNumber);
-        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatus(carNumber, ReceiptStatus.NEW);
+        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatus(carNumber, ReceiptStatus.ATTACHED_TO_DRIVER);
         return productEntryMapper.productEntriesToProductEntryDTOs(result);
     }
 
@@ -133,7 +133,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     @Override
     public List<ProductEntryDTO> findLastProductsByCarNumber(String carNumber) {
         log.debug("Request to get all ProductEntries by car number: {}", carNumber);
-        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatusNot(carNumber, ReceiptStatus.DELIVERED);
+        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatus(carNumber, ReceiptStatus.DELIVERY_PROCESS);
         return productEntryMapper.productEntriesToProductEntryDTOs(result);
     }
 

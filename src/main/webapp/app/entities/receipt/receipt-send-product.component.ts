@@ -21,6 +21,7 @@ export class ReceiptSendProductComponent implements OnInit {
     productEntries: ProductEntry[];
     public productsSelected: ProductEntry[] = [];
     public isCollapsed = false;
+    isAllChecked: boolean = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -35,6 +36,7 @@ export class ReceiptSendProductComponent implements OnInit {
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
         this.address = this.dataHolderService._address;
+        this.productEntries = this.dataHolderService._receipt.productEntries;
     }
 
     load(id) {
@@ -45,15 +47,6 @@ export class ReceiptSendProductComponent implements OnInit {
 
     previousState() {
         window.history.back();
-    }
-
-    public productChecked(product: ProductEntry) {
-        let indexProd: number = this.productsSelected.indexOf(product);
-        if (indexProd !== null && indexProd !== -1) {
-            this.productsSelected.splice(indexProd, 1);
-        } else {
-            this.productsSelected.push(product);
-        }
     }
 
     public goClientSelectStep() {
@@ -69,5 +62,38 @@ export class ReceiptSendProductComponent implements OnInit {
             }
         }
         this.router.navigate(['../receipt/' + this.receipt.id + '/send/client']);
+    }
+
+    productChecked(product: ProductEntry) {
+        let indexProd: number = this.productEntries.indexOf(product);
+        if (indexProd !== null && indexProd !== -1) {
+            if (!product.selected) {
+                this.productsSelected.push(product);
+                if (this.productsSelected.length === this.productEntries.length) {
+                    this.isAllChecked = true;
+                }
+            } else {
+                this.productsSelected.splice(this.productsSelected.indexOf(product), 1);
+                if (this.isAllChecked) {
+                    this.isAllChecked = false;
+                }
+            }
+            product.selected = !product.selected;
+        }
+    }
+
+    productAllChecked() {
+        if (!this.isAllChecked) {
+            this.productsSelected = [];
+            this.productEntries.forEach(entry => {
+                entry.selected = true;
+                this.productsSelected.push(entry);
+            });
+            this.isAllChecked = !this.isAllChecked;
+        } else {
+            this.productEntries.forEach(entry => entry.selected = false);
+            this.isAllChecked = !this.isAllChecked;
+            this.productsSelected = [];
+        }
     }
 }

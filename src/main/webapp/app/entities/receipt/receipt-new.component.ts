@@ -143,8 +143,4 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
         this.dataHolderService._receipt = receipt;
         this.router.navigate(['../receipt/' + receiptId + '/send/client']);
     }
-
-    public attachToDriver() {
-
-    }
 }

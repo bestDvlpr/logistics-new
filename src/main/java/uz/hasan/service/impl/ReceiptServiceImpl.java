@@ -197,10 +197,7 @@ public class ReceiptServiceImpl implements ReceiptService {
                 receipt.setClient(null);
             }
         }
-
-        for (ProductEntry productEntry : receipt.getProductEntries()) {
-            productEntry.setStatus(ReceiptStatus.NEW);
-        }
+        receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
         productEntryRepository.save(receipt.getProductEntries());
         receipt = receiptRepository.save(receipt);
         return receiptMapper.receiptToReceiptDTO(receipt);
@@ -246,6 +243,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
         receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
         Receipt receipt = receiptRepository.save(receiptMapper.receiptDTOToReceipt(receiptDTO));
+        receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER));
+        productEntryRepository.save(receipt.getProductEntries());
         return receiptMapper.receiptToReceiptDTO(receipt);
     }
 }
