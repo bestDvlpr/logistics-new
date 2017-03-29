@@ -84,7 +84,6 @@ build/
 *.war
 *.ear
 *.db
-*.db
 
 ######################
 # Windows
@@ -142,4 +141,3 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-!/src/
