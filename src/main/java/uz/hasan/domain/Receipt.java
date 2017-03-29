@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -59,6 +60,9 @@ public class Receipt implements Serializable {
     @Column(name = "status", nullable = false)
     private ReceiptStatus status;
 
+    @Column(name = "sent_to_dc_time")
+    private ZonedDateTime sentToDCTime;
+
     @ManyToOne
     private PayMaster payMaster;
 
@@ -72,10 +76,6 @@ public class Receipt implements Serializable {
     @JsonIgnore
     private Set<ProductEntry> productEntries = new HashSet<>();
 
-    @OneToMany(mappedBy = "receipt")
-    @JsonIgnore
-    private Set<PayType> payTypes = new HashSet<>();
-
     @ManyToMany
     @JoinTable(name = "receipt_cars",
                joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
@@ -87,6 +87,10 @@ public class Receipt implements Serializable {
                joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="addresses_id", referencedColumnName="id"))
     private Set<Address> addresses = new HashSet<>();
+
+    @OneToMany(mappedBy = "receipt")
+    @JsonIgnore
+    private Set<PayType> payTypes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -187,6 +191,19 @@ public class Receipt implements Serializable {
         this.status = status;
     }
 
+    public ZonedDateTime getSentToDCTime() {
+        return sentToDCTime;
+    }
+
+    public Receipt sentToDCTime(ZonedDateTime sentToDCTime) {
+        this.sentToDCTime = sentToDCTime;
+        return this;
+    }
+
+    public void setSentToDCTime(ZonedDateTime sentToDCTime) {
+        this.sentToDCTime = sentToDCTime;
+    }
+
     public PayMaster getPayMaster() {
         return payMaster;
     }
@@ -235,14 +252,6 @@ public class Receipt implements Serializable {
         return this;
     }
 
-    public Set<PayType> getPayTypes() {
-        return payTypes;
-    }
-
-    public void setPayTypes(Set<PayType> payTypes) {
-        this.payTypes = payTypes;
-    }
-
     public Receipt addProductEntries(ProductEntry productEntry) {
         this.productEntries.add(productEntry);
         productEntry.setReceipt(this);
@@ -284,6 +293,39 @@ public class Receipt implements Serializable {
         this.addresses = addresses;
     }
 
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+
+    public Set<PayType> getPayTypes() {
+        return payTypes;
+    }
+
+    public Receipt payTypes(Set<PayType> payTypes) {
+        this.payTypes = payTypes;
+        return this;
+    }
+
+    public Receipt addPayTypes(PayType payType) {
+        this.payTypes.add(payType);
+        payType.setReceipt(this);
+        return this;
+    }
+
+    public Receipt removePayTypes(PayType payType) {
+        this.payTypes.remove(payType);
+        payType.setReceipt(null);
+        return this;
+    }
+
+    public void setPayTypes(Set<PayType> payTypes) {
+        this.payTypes = payTypes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -315,6 +357,7 @@ public class Receipt implements Serializable {
             ", docDate='" + docDate + "'" +
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
+            ", sentToDCTime='" + sentToDCTime + "'" +
             '}';
     }
 }

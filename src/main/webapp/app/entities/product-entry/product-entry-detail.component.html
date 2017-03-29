@@ -3,7 +3,7 @@
     <h2><span jhiTranslate="logisticsApp.productEntry.detail.title">Product Entry</span> {{productEntry.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.productEntry.price">Price</span></dt>
         <dd>
             <span>{{productEntry.price}}</span>
@@ -56,40 +56,52 @@
         <dd>
             <span>{{productEntry.serialNumber}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.attachedToCarTime">Attached To Car Time</span></dt>
+        <dd>
+            <span>{{productEntry.attachedToCarTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.deliveryStartTime">Delivery Start Time</span></dt>
+        <dd>
+            <span>{{productEntry.deliveryStartTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.deliveryEndTime">Delivery End Time</span></dt>
+        <dd>
+            <span>{{productEntry.deliveryEndTime | date:'medium'}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.product">Product</span></dt>
         <dd>
             <div *ngIf="productEntry.productId">
-                <a [routerLink]="['product', productEntry.productId]">{{productEntry.productName}}</a>
+                <a [routerLink]="['/product', productEntry.productId]">{{productEntry.productName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span></dt>
         <dd>
             <div *ngIf="productEntry.sellerIDId">
-                <a [routerLink]="['seller', productEntry.sellerIDId]">{{productEntry.sellerIDSellerID}}</a>
+                <a [routerLink]="['/seller', productEntry.sellerIDId]">{{productEntry.sellerIDSellerID}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span></dt>
         <dd>
             <div *ngIf="productEntry.receiptId">
-                <a [routerLink]="['receipt', productEntry.receiptId]">{{productEntry.receiptDocNum}}</a>
+                <a [routerLink]="['/receipt', productEntry.receiptId]">{{productEntry.receiptDocNum}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.driver">Driver</span></dt>
         <dd>
             <div *ngIf="productEntry.driverId">
-                <a [routerLink]="['driver', productEntry.driverId]">{{productEntry.driverLastName}}</a>
+                <a [routerLink]="['/driver', productEntry.driverId]">{{productEntry.driverLastName}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.attachedCar">Attached Car</span></dt>
         <dd>
             <div *ngIf="productEntry.attachedCarId">
-                <a [routerLink]="['car', productEntry.attachedCarId]">{{productEntry.attachedCarNumber}}</a>
+                <a [routerLink]="['/car', productEntry.attachedCarId]">{{productEntry.attachedCarNumber}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.address">Address</span></dt>
         <dd>
             <div *ngIf="productEntry.addressId">
-                <a [routerLink]="['address', productEntry.addressId]">{{productEntry.addressStreetAddress}}</a>
+                <a [routerLink]="['/address', productEntry.addressId]">{{productEntry.addressStreetAddress}}</a>
             </div>
         </dd>
     </dl>

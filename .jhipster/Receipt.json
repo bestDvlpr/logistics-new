@@ -34,6 +34,14 @@
             "otherEntityRelationshipName": "receipts"
         },
         {
+            "relationshipName": "cars",
+            "otherEntityName": "car",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "number",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "receipts"
+        },
+        {
             "relationshipName": "payTypes",
             "otherEntityName": "payType",
             "relationshipType": "one-to-many",
@@ -89,6 +97,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "sentToDCTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20170220091557",

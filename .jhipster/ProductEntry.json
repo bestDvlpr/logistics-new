@@ -129,6 +129,18 @@
         {
             "fieldName": "serialNumber",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "attachedToCarTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "deliveryStartTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "deliveryEndTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20170225072014",

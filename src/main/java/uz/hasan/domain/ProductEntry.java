@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.SalesType;
@@ -83,6 +84,15 @@ public class ProductEntry implements Serializable {
 
     @Column(name = "serial_number")
     private String serialNumber;
+
+    @Column(name = "attached_to_car_time")
+    private ZonedDateTime attachedToCarTime;
+
+    @Column(name = "delivery_start_time")
+    private ZonedDateTime deliveryStartTime;
+
+    @Column(name = "delivery_end_time")
+    private ZonedDateTime deliveryEndTime;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -281,6 +291,45 @@ public class ProductEntry implements Serializable {
         this.serialNumber = serialNumber;
     }
 
+    public ZonedDateTime getAttachedToCarTime() {
+        return attachedToCarTime;
+    }
+
+    public ProductEntry attachedToCarTime(ZonedDateTime attachedToCarTime) {
+        this.attachedToCarTime = attachedToCarTime;
+        return this;
+    }
+
+    public void setAttachedToCarTime(ZonedDateTime attachedToCarTime) {
+        this.attachedToCarTime = attachedToCarTime;
+    }
+
+    public ZonedDateTime getDeliveryStartTime() {
+        return deliveryStartTime;
+    }
+
+    public ProductEntry deliveryStartTime(ZonedDateTime deliveryStartTime) {
+        this.deliveryStartTime = deliveryStartTime;
+        return this;
+    }
+
+    public void setDeliveryStartTime(ZonedDateTime deliveryStartTime) {
+        this.deliveryStartTime = deliveryStartTime;
+    }
+
+    public ZonedDateTime getDeliveryEndTime() {
+        return deliveryEndTime;
+    }
+
+    public ProductEntry deliveryEndTime(ZonedDateTime deliveryEndTime) {
+        this.deliveryEndTime = deliveryEndTime;
+        return this;
+    }
+
+    public void setDeliveryEndTime(ZonedDateTime deliveryEndTime) {
+        this.deliveryEndTime = deliveryEndTime;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -396,6 +445,9 @@ public class ProductEntry implements Serializable {
             ", status='" + status + "'" +
             ", cancelled='" + cancelled + "'" +
             ", serialNumber='" + serialNumber + "'" +
+            ", attachedToCarTime='" + attachedToCarTime + "'" +
+            ", deliveryStartTime='" + deliveryStartTime + "'" +
+            ", deliveryEndTime='" + deliveryEndTime + "'" +
             '}';
     }
 }

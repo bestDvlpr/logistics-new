@@ -1,12 +1,12 @@
 package uz.hasan.service.dto;
 
 
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -37,6 +37,8 @@ public class ReceiptDTO implements Serializable {
 
     @NotNull
     private ReceiptStatus status;
+
+    private ZonedDateTime sentToDCTime;
 
     private Long payMasterId;
 
@@ -118,6 +120,13 @@ public class ReceiptDTO implements Serializable {
 
     public void setStatus(ReceiptStatus status) {
         this.status = status;
+    }
+    public ZonedDateTime getSentToDCTime() {
+        return sentToDCTime;
+    }
+
+    public void setSentToDCTime(ZonedDateTime sentToDCTime) {
+        this.sentToDCTime = sentToDCTime;
     }
 
     public Long getPayMasterId() {
@@ -203,9 +212,7 @@ public class ReceiptDTO implements Serializable {
 
         ReceiptDTO receiptDTO = (ReceiptDTO) o;
 
-        if (!Objects.equals(id, receiptDTO.id)) {
-            return false;
-        }
+        if ( ! Objects.equals(id, receiptDTO.id)) { return false; }
 
         return true;
     }
@@ -226,6 +233,7 @@ public class ReceiptDTO implements Serializable {
             ", docDate='" + docDate + "'" +
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
+            ", sentToDCTime='" + sentToDCTime + "'" +
             '}';
     }
 }

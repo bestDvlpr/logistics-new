@@ -1,6 +1,7 @@
 package uz.hasan.service.dto;
 
 
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import uz.hasan.domain.Address;
 import uz.hasan.domain.enumeration.SalesType;
 import uz.hasan.domain.enumeration.SalesPlace;
 import uz.hasan.domain.enumeration.DefectFlag;
@@ -56,6 +56,12 @@ public class ProductEntryDTO implements Serializable {
     private Boolean cancelled;
 
     private String serialNumber;
+
+    private ZonedDateTime attachedToCarTime;
+
+    private ZonedDateTime deliveryStartTime;
+
+    private ZonedDateTime deliveryEndTime;
 
     private Long productId;
 
@@ -197,6 +203,30 @@ public class ProductEntryDTO implements Serializable {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
+    }
+
+    public ZonedDateTime getAttachedToCarTime() {
+        return attachedToCarTime;
+    }
+
+    public void setAttachedToCarTime(ZonedDateTime attachedToCarTime) {
+        this.attachedToCarTime = attachedToCarTime;
+    }
+
+    public ZonedDateTime getDeliveryStartTime() {
+        return deliveryStartTime;
+    }
+
+    public void setDeliveryStartTime(ZonedDateTime deliveryStartTime) {
+        this.deliveryStartTime = deliveryStartTime;
+    }
+
+    public ZonedDateTime getDeliveryEndTime() {
+        return deliveryEndTime;
+    }
+
+    public void setDeliveryEndTime(ZonedDateTime deliveryEndTime) {
+        this.deliveryEndTime = deliveryEndTime;
     }
 
     public Long getProductId() {
@@ -359,6 +389,9 @@ public class ProductEntryDTO implements Serializable {
             ", status='" + status + "'" +
             ", cancelled='" + cancelled + "'" +
             ", serialNumber='" + serialNumber + "'" +
+            ", attachedToCarTime='" + attachedToCarTime + "'" +
+            ", deliveryStartTime='" + deliveryStartTime + "'" +
+            ", deliveryEndTime='" + deliveryEndTime + "'" +
             '}';
     }
 }

@@ -36,6 +36,9 @@
             "attachedCar": "Attached Car",
             "address": "Address",
             "productName": "Product Name",
+            "attachedToCarTime": "Time Attached to Car",
+            "deliveryStartTime": "Delivery Started",
+            "deliveryEndTime": "Delivery Ended",
             "error": {
                 "notFound": "No product entry found!"
             }
