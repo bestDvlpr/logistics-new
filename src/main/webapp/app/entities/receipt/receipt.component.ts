@@ -112,7 +112,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInReceipts() {
         this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
     }
@@ -150,6 +149,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     loadCars() {
         this.carService.idleCars().subscribe((cars: Response) => {
             this.setACObjects(cars.json());
+            this.router.navigate(['receipt-product-to-car']);
         });
     }
 

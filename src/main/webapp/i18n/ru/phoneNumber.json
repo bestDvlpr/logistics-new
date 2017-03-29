@@ -17,6 +17,8 @@
                 "title": "Phone Number"
             },
             "number": "Number",
+            "mobileNumber": "Mobile Phone Number",
+            "homeNumber": "Home Phone Number",
             "client": "Client"
         }
     }

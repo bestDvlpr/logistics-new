@@ -39,18 +39,9 @@
                 <th jhiSortBy="virtualFlag"><span
                     jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="reason"><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="comment"><span jhiTranslate="logisticsApp.productEntry.comment">Comment</span> <span
-                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.productEntry.status">Status</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="cancelled"><span jhiTranslate="logisticsApp.productEntry.cancelled">Cancelled</span>
-                    <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="serialNumber"><span
-                    jhiTranslate="logisticsApp.productEntry.serialNumber">Serial Number</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span>
                     <span class="fa fa-sort"></span></th>
@@ -65,8 +56,6 @@
             <tbody>
             <tr *ngFor="let productEntry of productEntries ;trackBy: trackId">
                 <td><input type="checkbox" (change)="productChecked(productEntry)" [checked]="productEntry.selected"/>
-                </td>
-                <td jhiHasAuthority="ROLE_ADMIN"><a [routerLink]="['../product-entry', productEntry.id ]">{{productEntry.id}}</a>
                 </td>
                 <td>
                     <div *ngIf="productEntry.productId">
@@ -85,28 +74,14 @@
                         {{productEntry.hallFlag}}
                     </span>
                 </td>
-                <td jhiHasAuthority="ROLE_ADMIN">
-                    <span jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}"
-                          class="tag tag-default">
-                        {{productEntry.defectFlag}}
-                    </span>
-                </td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}"
                           class="tag tag-default">
-                    {{productEntry.virtualFlag}}
+                        {{productEntry.virtualFlag}}
                     </span>
                 </td>
-                <td>{{productEntry.reason}}</td>
-                <td>{{productEntry.comment}}</td>
-                <td jhiHasAuthority="ROLE_ADMIN">{{productEntry.guid}}</td>
                 <td>{{productEntry.qty}}</td>
-                <td jhiHasAuthority="ROLE_ADMIN">{{productEntry.discount}}</td>
-                <td><!--
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}"
-                          class="tag tag-primary">
-                        {{productEntry.status}}
-                    </span>-->
+                <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-info"
                           *ngIf="productEntry.status === receiptStatusEnum.NEW">{{productEntry.status}}
                     </span>
@@ -127,21 +102,9 @@
                         {{productEntry.status}}
                     </span>
                 </td>
-                <td>{{productEntry.cancelled}}</td>
-                <td>{{productEntry.serialNumber}}</td>
-                <td jhiHasAuthority="ROLE_ADMIN">
-                    <div *ngIf="productEntry.sellerIDId">
-                        <a [routerLink]="['../seller', productEntry.sellerIDId  ]">{{productEntry.sellerIDSellerID}}</a>
-                    </div>
-                </td>
                 <td>
                     <div *ngIf="productEntry.receiptId">
                         <a [routerLink]="['../receipt', productEntry.receiptId  ]">{{productEntry.receiptDocNum}}</a>
-                    </div>
-                </td>
-                <td jhiHasAuthority="ROLE_ADMIN">
-                    <div *ngIf="productEntry.driverId">
-                        <a [routerLink]="['../driver', productEntry.driverId  ]">{{productEntry.driverLastName}}</a>
                     </div>
                 </td>
                 <td>
@@ -152,30 +115,6 @@
                 <td>
                     <div *ngIf="productEntry.addressId">
                         <a [routerLink]="['../address', productEntry.addressId  ]">{{productEntry.addressStreetAddress}}</a>
-                    </div>
-                </td>
-                <td class="text-xs-right">
-                    <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
-                        <button type="submit"
-                                [routerLink]="['../product-entry', productEntry.id ]"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'product-entry/'+ productEntry.id + '/edit'} }]"
-                                replaceUrl="true"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'product-entry/'+ productEntry.id + '/delete'} }]"
-                                replaceUrl="true"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
                     </div>
                 </td>
             </tr>

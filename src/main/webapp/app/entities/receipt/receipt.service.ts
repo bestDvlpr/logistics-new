@@ -89,7 +89,7 @@ export class ReceiptService {
         });
     }
 
-    attachDrivers(receipt: Receipt) {
+    attachDrivers(receipt: Receipt): Observable<Receipt> {
         let copy: Receipt = Object.assign({}, receipt);
         return this.http.post(this.resourceUrl.concat('/attached'), copy).map((res: Response) => {
             return res.json();

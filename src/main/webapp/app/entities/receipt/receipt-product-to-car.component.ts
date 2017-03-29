@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {JhiLanguageService, EventManager} from 'ng-jhipster';
+import {JhiLanguageService, EventManager, AlertService} from 'ng-jhipster';
 import {Receipt} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
+import {Response} from '@angular/http';
 
 @Component({
     selector: 'jhi-receipt-product-to-car',
@@ -21,10 +22,12 @@ export class ReceiptProductToCarComponent implements OnInit {
     productEntries: ProductEntry[];
     public productsSelected: ProductEntry[] = [];
     public prodsWithoutCar = false;
+    isSaving: boolean;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
+                private alertService: AlertService,
                 private router: Router,
                 private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(
@@ -79,13 +82,28 @@ export class ReceiptProductToCarComponent implements OnInit {
         this.checkProductCar();
     }
 
-    attachDrivers() {
+    attachCars() {
         if (!this.prodsWithoutCar) {
-            this.receiptService.attachDrivers(this.receipt).subscribe(res => {
-                this.receipt = res;
-            });
+            this.receiptService.attachDrivers(this.receipt).subscribe(
+                (res: Receipt) => this.onSaveSuccess(res),
+                (res: Response) => this.onSaveError(res.json())
+            );
         }
-        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         this.router.navigate(['receipt']);
+    }
+
+    private onSaveSuccess(data) {
+        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
+        this.isSaving = false;
+        console.log(data);
+    }
+
+    private onSaveError(error) {
+        this.isSaving = false;
+        this.onError(error);
+    }
+
+    private onError(error) {
+        this.alertService.error(error.message, null, null);
     }
 }

@@ -29,7 +29,7 @@
                 <td>{{phoneNumber.number}}</td>
                 <td>
                     <div *ngIf="phoneNumber.client">
-                        <a [routerLink]="['../client', phoneNumber.client?.id ]" >{{phoneNumber.client?.id}}</a>
+                        <a [routerLink]="['../client', phoneNumber.client?.id ]" >{{phoneNumber.client?.firstName + ' ' + phoneNumber.client?.lastName}}</a>
                     </div>
                 </td>
                 <td class="text-xs-right">
