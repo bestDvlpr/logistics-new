@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Driver.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class DriverServiceImpl implements DriverService{
 
     private final Logger log = LoggerFactory.getLogger(DriverServiceImpl.class);
-
+    
     private final DriverRepository driverRepository;
 
     private final DriverMapper driverMapper;
@@ -47,7 +51,7 @@ public class DriverServiceImpl implements DriverService{
 
     /**
      *  Get all the drivers.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

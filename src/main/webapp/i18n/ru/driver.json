@@ -4,8 +4,7 @@
             "home": {
                 "title": "Drivers",
                 "createLabel": "Создать новый Driver",
-                "createOrEditLabel": "Создать или отредактировать Driver",
-                "search": "Найти Driver"
+                "createOrEditLabel": "Создать или отредактировать Driver"
             },
             "created": "Новый Driver создан с идентификатором {{ param }}",
             "updated": "Driver обновлен с идентификатором {{ param }}",
@@ -22,8 +21,7 @@
             "lastName": "Last Name",
             "mobileId": "Mobile Id",
             "deleted": "Deleted",
-            "cars": "Cars",
-            "status": "Status"
+            "cars": "Cars"
         }
     }
 }

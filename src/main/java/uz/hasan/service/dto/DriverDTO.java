@@ -33,10 +33,6 @@ public class DriverDTO implements Serializable {
 
     private Set<CarDTO> cars = new HashSet<>();
 
-    private Long statusId;
-
-    private String statusName;
-
     public Long getId() {
         return id;
     }
@@ -93,22 +89,6 @@ public class DriverDTO implements Serializable {
 
     public void setCars(Set<CarDTO> cars) {
         this.cars = cars;
-    }
-
-    public Long getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(Long driverStatusId) {
-        this.statusId = driverStatusId;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String driverStatusName) {
-        this.statusName = driverStatusName;
     }
 
     @Override

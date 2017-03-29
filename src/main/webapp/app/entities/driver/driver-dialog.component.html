@@ -3,9 +3,9 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
+        <h4 class="modal-title" id="myDriverLabel" jhiTranslate="logisticsApp.driver.home.createOrEditLabel">Create or edit a Driver</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
-        <h4 class="modal-title" id="myDriverLabel" jhiTranslate="logisticsApp.driver.home.createOrEditLabel">Create or edit a Driver</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -81,26 +81,13 @@
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.driver.cars" for="field_cars">Cars</label>
-            <select class="form-control" id="field_cars" #cars="ngModel" multiple name="cars" [(ngModel)]="driver.cars" required>
-                <option [ngValue]="getSelected(driver.cars, carOption)" *ngFor="let carOption of carsArray; trackBy: trackCarById">{{carOption.number}}</option>
+            <select class="form-control" id="field_cars" multiple name="cars" [(ngModel)]="driver.cars" required>
+                <option [ngValue]="getSelected(driver.cars, carOption)" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.cars?.dirty && editForm.controls.cars?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!cars?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.driver.status" for="field_status">Status</label>
-            <select class="form-control" id="field_status" name="status" [(ngModel)]="driver.statusId"  required>
-                <option [ngValue]="null"></option>
-                <option [ngValue]="driverStatusOption.id" *ngFor="let driverStatusOption of driverstatuses; trackBy: trackDriverStatusById">{{driverStatusOption.name}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                [hidden]="!editForm.controls.cars?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

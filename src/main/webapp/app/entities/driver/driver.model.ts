@@ -8,5 +8,7 @@ export class Driver {
         public mobileId?: string,
         public deleted?: boolean,
         public carsId?: number,
-        public statusId?: number ) { }
+    ) {
+        this.deleted = false; 
+    }
 }

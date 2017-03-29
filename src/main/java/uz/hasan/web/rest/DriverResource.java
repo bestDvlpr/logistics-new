@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Driver.
@@ -32,7 +34,7 @@ public class DriverResource {
     private final Logger log = LoggerFactory.getLogger(DriverResource.class);
 
     private static final String ENTITY_NAME = "driver";
-
+        
     private final DriverService driverService;
 
     public DriverResource(DriverService driverService) {

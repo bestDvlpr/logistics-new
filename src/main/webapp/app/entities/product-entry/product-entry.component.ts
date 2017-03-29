@@ -4,15 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { ProductEntry } from './product-entry.model';
+import {DefectFlag, ProductEntry, SalesPlace, SalesType, VirtualFlag} from './product-entry.model';
 import { ProductEntryService } from './product-entry.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {ReceiptStatus} from '../receipt/receipt.model';
 
 @Component({
     selector: 'jhi-product-entry',
     templateUrl: './product-entry.component.html'
 })
+@EnumAware
 export class ProductEntryComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
@@ -29,6 +32,11 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    deliveryFlagEnum = SalesType;
+    hallFlagEnum = SalesPlace;
+    defectFlagEnum = DefectFlag;
+    virtualFlagEnum = VirtualFlag;
+    receiptStatusEnum = ReceiptStatus;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,

@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan" id="1490790317745-0">
+        <dropNotNullConstraint tableName="driver" columnName="status_id" columnDataType="int8"/>
+    </changeSet>
+    <changeSet author="hasan" id="1490790317745-01">
+        <sql>
+            update driver set status_id=null
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490790317745-1">
+        <dropForeignKeyConstraint baseTableName="driver" constraintName="FKr9ytp2gj4rnduknqgsrtyw1h4"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490790317745-2">
+        <dropTable tableName="driver_status"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490790317745-3">
+        <dropColumn columnName="status_id" tableName="driver"/>
+    </changeSet>
+</databaseChangeLog>

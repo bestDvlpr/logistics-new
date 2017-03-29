@@ -3,7 +3,7 @@
     <h2><span jhiTranslate="logisticsApp.driver.detail.title">Driver</span> {{driver.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.driver.phone">Phone</span></dt>
         <dd>
             <span>{{driver.phone}}</span>
@@ -33,12 +33,6 @@
             <span *ngFor="let cars of driver.cars; let last = last">
                 <a [routerLink]="['/car', cars?.id ]">{{cars.number}}</a>{{last ? '' : ', '}}
             </span>
-        </dd>
-        <dt><span jhiTranslate="logisticsApp.driver.status">Status</span></dt>
-        <dd>
-            <div *ngIf="driver.statusId">
-                <a [routerLink]="['driver-status', driver.statusId]">{{driver.statusName}}</a>
-            </div>
         </dd>
     </dl>
 

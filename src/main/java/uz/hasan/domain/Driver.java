@@ -52,10 +52,6 @@ public class Driver implements Serializable {
                inverseJoinColumns = @JoinColumn(name="cars_id", referencedColumnName="id"))
     private Set<Car> cars = new HashSet<>();
 
-    @ManyToOne(optional = false)
-    @NotNull
-    private DriverStatus status;
-
     public Long getId() {
         return id;
     }
@@ -165,19 +161,6 @@ public class Driver implements Serializable {
 
     public void setCars(Set<Car> cars) {
         this.cars = cars;
-    }
-
-    public DriverStatus getStatus() {
-        return status;
-    }
-
-    public Driver status(DriverStatus driverStatus) {
-        this.status = driverStatus;
-        return this;
-    }
-
-    public void setStatus(DriverStatus driverStatus) {
-        this.status = driverStatus;
     }
 
     @Override

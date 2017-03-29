@@ -11,15 +11,6 @@
             "otherEntityField": "number",
             "ownerSide": true,
             "otherEntityRelationshipName": "drivers"
-        },
-        {
-            "relationshipName": "status",
-            "otherEntityName": "driverStatus",
-            "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name"
         }
     ],
     "fields": [

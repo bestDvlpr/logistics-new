@@ -4,11 +4,11 @@ import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.Driver;
 import uz.hasan.domain.Car;
-import uz.hasan.domain.DriverStatus;
 import uz.hasan.repository.DriverRepository;
 import uz.hasan.service.DriverService;
 import uz.hasan.service.dto.DriverDTO;
 import uz.hasan.service.mapper.DriverMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -75,6 +75,9 @@ public class DriverResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restDriverMockMvc;
@@ -87,6 +90,7 @@ public class DriverResourceIntTest {
         DriverResource driverResource = new DriverResource(driverService);
         this.restDriverMockMvc = MockMvcBuilders.standaloneSetup(driverResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -109,11 +113,6 @@ public class DriverResourceIntTest {
         em.persist(cars);
         em.flush();
         driver.getCars().add(cars);
-        // Add required entity
-        DriverStatus status = DriverStatusResourceIntTest.createEntity(em);
-        em.persist(status);
-        em.flush();
-        driver.setStatus(status);
         return driver;
     }
 
