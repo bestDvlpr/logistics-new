@@ -1,0 +1,35 @@
+
+<div *ngIf="shop">
+    <h2><span jhiTranslate="logisticsApp.shop.detail.title">Shop</span> {{shop.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="logisticsApp.shop.shopId">Shop Id</span></dt>
+        <dd>
+            <span>{{shop.shopId}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.shop.name">Name</span></dt>
+        <dd>
+            <span>{{shop.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.shop.address">Address</span></dt>
+        <dd>
+            <div *ngIf="shop.addressId">
+                <a [routerLink]="['/address', shop.addressId]">{{shop.addressStreetAddress}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'shop/'+ shop.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

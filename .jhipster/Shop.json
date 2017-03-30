@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "address",
+            "otherEntityName": "address",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "streetAddress"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "shopId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170330103019",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "shop",
+    "pagination": "pagination"
+}
