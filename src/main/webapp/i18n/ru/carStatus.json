@@ -2,8 +2,8 @@
     "logisticsApp": {
         "CarStatus" : {
             "null": "",
-            "IDLE": "IDLE",
-            "BUSY": "BUSY"
+            "IDLE": "СВОБОДЕН",
+            "BUSY": "ЗАНЯТ"
         }
     }
 }

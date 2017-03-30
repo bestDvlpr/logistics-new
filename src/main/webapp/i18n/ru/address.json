@@ -2,29 +2,29 @@
     "logisticsApp": {
         "address" : {
             "home": {
-                "title": "Addresses",
-                "createLabel": "Создать новый Address",
-                "createOrEditLabel": "Создать или отредактировать Address"
+                "title": "Адрес",
+                "createLabel": "Создать новый Адрес",
+                "createOrEditLabel": "Создать или отредактировать Адрес"
             },
-            "created": "Новый Address создан с идентификатором {{ param }}",
-            "updated": "Address обновлен с идентификатором {{ param }}",
-            "deleted": "Address удален с идентификатором {{ param }}",
+            "created": "Новый Адрес создан с идентификатором {{ param }}",
+            "updated": "Адрес обновлен с идентификатором {{ param }}",
+            "deleted": "Адрес удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Address {{ id }}?"
+                "question": "Вы уверены что хотите удалить Адрес {{ id }}?"
             },
             "detail": {
-                "title": "Address"
+                "title": "Адрес"
             },
-            "streetAddress": "Street Address",
+            "streetAddress": "Адрес улицы",
             "latitude": "Latitude",
             "longitude": "Longitude",
-            "country": "Country",
-            "region": "Region",
-            "city": "City",
-            "district": "District",
-            "client": "Client",
-            "receipts": "Receipts",
-            "assignAddress": "Assign Address"
+            "country": "Страна",
+            "region": "Регион",
+            "city": "Город",
+            "district": "Район",
+            "client": "Клиент",
+            "receipts": "Заявки",
+            "assignAddress": "Назначить адрес"
         }
     }
 }

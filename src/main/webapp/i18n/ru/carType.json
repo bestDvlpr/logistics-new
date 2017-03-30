@@ -2,23 +2,23 @@
     "logisticsApp": {
         "carType" : {
             "home": {
-                "title": "Car Types",
-                "createLabel": "Создать новый Car Type",
-                "createOrEditLabel": "Создать или отредактировать Car Type",
-                "search": "Найти Car Type"
+                "title": "Типы автомобилей",
+                "createLabel": "Создать новый тип автомобилья",
+                "createOrEditLabel": "Создать или отредактировать тип автомобилья",
+                "search": "Найти тип автомобилья"
             },
-            "created": "Новый Car Type создан с идентификатором {{ param }}",
-            "updated": "Car Type обновлен с идентификатором {{ param }}",
-            "deleted": "Car Type удален с идентификатором {{ param }}",
+            "created": "Новый тип автомобилья создан с идентификатором {{ param }}",
+            "updated": "Тип автомобилья обновлен с идентификатором {{ param }}",
+            "deleted": "Тип автомобилья удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Car Type {{ id }}?"
+                "question": "Вы уверены что хотите удалить тип автомобилья {{ id }}?"
             },
             "detail": {
-                "title": "Car Type"
+                "title": "Тип автомобилья"
             },
-            "name": "Name",
-            "description": "Description",
-            "view": "View"
+            "name": "Наименования",
+            "description": "Описания",
+            "view": "Вид"
         }
     }
 }

@@ -7,28 +7,28 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Сущности",
-                "receipt": "Receipt",
+                "receipt": "Заявка",
                 "order": "Заявки",
-                "payMaster": "Pay Master",
-                "loyaltyCard": "Loyalty Card",
-                "seller": "Seller",
-                "product": "Product",
-                "paymentType": "Payment Type",
-                "payType": "Pay Type",
-                "carModel": "Car Model",
-                "car": "Car",
-                "driver": "Driver",
-                "carColor": "Car Color",
-                "carType": "Car Type",
-                "location": "Location",
-                "locationType": "Location Type",
-                "driverStatus": "Driver Status",
-                "productEntry": "Product Entry",
-                "phoneNumber": "Phone Number",
-                "client": "Client",
-                "receiptOrder": "Receipt Order",
-                "address": "Address",
-                "xmlHolder": "Xml Holder",
+                "payMaster": "Кассир",
+                "loyaltyCard": "Накопительная карта",
+                "seller": "Продавец",
+                "product": "Товар",
+                "paymentType": "Тип оплаты",
+                "payType": "Оплата",
+                "carModel": "Модель автомашины",
+                "car": "Машина",
+                "driver": "Водитель",
+                "carColor": "Цвет машины",
+                "carType": "Тип автомобилья",
+                "location": "Локация",
+                "locationType": "Тип локации",
+                "driverStatus": "Статус водителья",
+                "productEntry": "Введенный товар",
+                "phoneNumber": "Номер телефона",
+                "client": "Клиент",
+                "receiptOrder": "Заявка",
+                "address": "Адрес",
+                "xmlHolder": "Xml держатель",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -40,12 +40,12 @@
                 "logout": "Выйти",
                 "register": "Зарегистрироваться",
                 "operator": "Оператор",
-                "dispatcher": "Диспечер",
+                "dispatcher": "Диспетчер",
                 "manager": "Менеджер"
             },
             "admin": {
                 "main": "Администрирование",
-                "gateway": "Gateway",
+                "gateway": "Шлюз",
                 "userManagement": "Управление пользователями",
                 "tracker": "Трекер польз.",
                 "metrics": "Метрики",
@@ -110,7 +110,7 @@
             "id" : "ID"
         },
         "ribbon": {
-            "dev":"Development"
+            "dev":"Разработка"
         }
     },
     "entity": {
@@ -153,9 +153,9 @@
         }
     },
     "error": {
-        "internalServerError": "Internal server error",
+        "internalServerError": "Внутренняя ошибка сервера",
         "server.not.reachable": "Сервер не доступен",
-        "url.not.found": "Not found",
+        "url.not.found": "Не найден",
         "NotNull": "Поле {{fieldName}} не может быть пустым!",
         "Size": "Поле {{fieldName}} не отвечает требованиям мин/макс.го размера!",
         "userexists": "Имя пользователя уже используется!",

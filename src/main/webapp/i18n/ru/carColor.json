@@ -2,21 +2,21 @@
     "logisticsApp": {
         "carColor" : {
             "home": {
-                "title": "Car Colors",
-                "createLabel": "Создать новый Car Color",
-                "createOrEditLabel": "Создать или отредактировать Car Color",
-                "search": "Найти Car Color"
+                "title": "Цветы машины",
+                "createLabel": "Создать новый цвет машины",
+                "createOrEditLabel": "Создать или отредактировать цвет машины",
+                "search": "Найти цвет машины"
             },
-            "created": "Новый Car Color создан с идентификатором {{ param }}",
-            "updated": "Car Color обновлен с идентификатором {{ param }}",
-            "deleted": "Car Color удален с идентификатором {{ param }}",
+            "created": "Новый цвет машины создан с идентификатором {{ param }}",
+            "updated": "Цвет машины обновлен с идентификатором {{ param }}",
+            "deleted": "Цвет машины удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Car Color {{ id }}?"
+                "question": "Вы уверены что хотите удалить цвет машины {{ id }}?"
             },
             "detail": {
-                "title": "Car Color"
+                "title": "Цвет машины"
             },
-            "name": "Name"
+            "name": "Наименования"
         }
     }
 }

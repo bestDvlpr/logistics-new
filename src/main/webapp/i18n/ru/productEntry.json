@@ -2,19 +2,19 @@
     "logisticsApp": {
         "productEntry": {
             "home": {
-                "title": "Продукты",
-                "createLabel": "Создать новый Продукт",
-                "createOrEditLabel": "Создать или отредактировать Продукт",
-                "search": "Найти Продукт"
+                "title": "Товары",
+                "createLabel": "Создать новый товар",
+                "createOrEditLabel": "Создать или отредактировать товар",
+                "search": "Найти товар"
             },
-            "created": "Новый Продукт создан с идентификатором {{ param }}",
-            "updated": "Продукт обновлен с идентификатором {{ param }}",
-            "deleted": "Продукт удален с идентификатором {{ param }}",
+            "created": "Новый товар создан с идентификатором {{ param }}",
+            "updated": "Товар обновлен с идентификатором {{ param }}",
+            "deleted": "Товар удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Продукт {{ id }}?"
+                "question": "Вы уверены что хотите удалить товар {{ id }}?"
             },
             "detail": {
-                "title": "Продукт"
+                "title": "Товар"
             },
             "price": "Цена",
             "deliveryFlag": "Флаг доставки",
@@ -36,8 +36,11 @@
             "attachedCar": "Машину прикреплен",
             "address": "Адрес",
             "productName": "Наименования",
+            "attachedToCarTime": "Time Attached to Car",
+            "deliveryStartTime": "Delivery Started",
+            "deliveryEndTime": "Delivery Ended",
             "error": {
-                "notFound": "Не найдено продукты!"
+                "notFound": "Не найдено товары!"
             }
         }
     }

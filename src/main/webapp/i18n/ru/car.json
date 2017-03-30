@@ -2,25 +2,25 @@
     "logisticsApp": {
         "car" : {
             "home": {
-                "title": "Cars",
-                "createLabel": "Создать новый Car",
-                "createOrEditLabel": "Создать или отредактировать Car"
+                "title": "Машины",
+                "createLabel": "Создать новая машина",
+                "createOrEditLabel": "Создать или отредактировать машину"
             },
-            "created": "Новый Car создан с идентификатором {{ param }}",
-            "updated": "Car обновлен с идентификатором {{ param }}",
-            "car-deleted": "Car удален с идентификатором {{ param }}",
+            "created": "Новая машина создан с идентификатором {{ param }}",
+            "updated": "Машина обновлена с идентификатором {{ param }}",
+            "deleted": "Машина удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Car {{ id }}?"
+                "question": "Вы уверены что хотите удалить машину {{ id }}?"
             },
             "detail": {
-                "title": "Car"
+                "title": "Машина"
             },
-            "number": "Car Number",
-            "deleted": "Deleted",
-            "status": "Status",
-            "carModel": "Car Model",
-            "carColor": "Car Color",
-            "type": "Type"
+            "number": "Номер машины",
+            "deleted-flag": "Удален",
+            "status": "Статус",
+            "carModel": "Модел машины",
+            "carColor": "Цвет машины",
+            "type": "Тип машины"
         }
     }
 }

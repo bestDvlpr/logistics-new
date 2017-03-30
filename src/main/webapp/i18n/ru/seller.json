@@ -2,22 +2,22 @@
     "logisticsApp": {
         "seller" : {
             "home": {
-                "title": "Sellers",
-                "createLabel": "Создать новый Seller",
-                "createOrEditLabel": "Создать или отредактировать Seller",
-                "search": "Найти Seller"
+                "title": "Продавцы",
+                "createLabel": "Создать новый продавец",
+                "createOrEditLabel": "Создать или отредактировать продавца",
+                "search": "Найти продавца"
             },
-            "created": "Новый Seller создан с идентификатором {{ param }}",
-            "updated": "Seller обновлен с идентификатором {{ param }}",
-            "deleted": "Seller удален с идентификатором {{ param }}",
+            "created": "Новый продавец создан с идентификатором {{ param }}",
+            "updated": "Продавец обновлен с идентификатором {{ param }}",
+            "deleted": "Продавец удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Seller {{ id }}?"
+                "question": "Вы уверены что хотите удалить продавца {{ id }}?"
             },
             "detail": {
-                "title": "Seller"
+                "title": "Продавец"
             },
-            "sellerID": "Seller ID",
-            "sellerName": "Seller Name"
+            "sellerID": "ID продавца",
+            "sellerName": "Имя продавца"
         }
     }
 }

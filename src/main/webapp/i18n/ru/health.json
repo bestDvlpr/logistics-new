@@ -11,9 +11,9 @@
             "error": "Ошибка"
         },
         "indicator": {
-            "discoveryComposite": "Discovery Composite",
-            "refreshScope": "Microservice Refresh Scope",
-            "configServer": "Microservice Config Server",
+            "discoveryComposite": "Компоновка обнаружения",
+            "refreshScope": "Обновление Microservice Scope",
+            "configServer": "Сервер конфигурации микросервисов",
             "hystrix": "Hystrix",
             "diskSpace": "Место на диске",
             "mail": "Email",
@@ -24,8 +24,8 @@
             "status": "Статус"
         },
         "status": {
-            "UP": "UP",
-            "DOWN": "DOWN"
+            "UP": "РАБОТАЕТ",
+            "DOWN": "НЕРАБОТАЕТ"
         }
     }
 }

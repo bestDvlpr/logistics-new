@@ -2,8 +2,8 @@
     "logisticsApp": {
         "DocType" : {
             "null": "",
-            "RETURN": "RETURN",
-            "SALES": "SALES"
+            "RETURN": "ВОЗВРАТ",
+            "SALES": "ПРОДАЖА"
         }
     }
 }

@@ -18,17 +18,17 @@
             "docNum": "Doc Num",
             "docID": "Doc ID",
             "docType": "Doc Type",
-            "previousDocID": "Previous Doc ID",
+            "previousDocID": "Предыдущий Doc ID",
             "docDate": "Doc Date",
-            "wholeSaleFlag": "Whole Sale Flag",
-            "status": "Status",
-            "payMaster": "Pay Master",
-            "loyaltyCard": "Loyalty Card",
-            "client": "Client",
-            "productEntries": "Product Entries",
-            "sentToDCTime": "Sent To DC Time",
-            "cars": "Cars",
-            "addresses": "Addresses"
+            "wholeSaleFlag": "Режим торговли",
+            "status": "Статус",
+            "payMaster": "Кассир",
+            "loyaltyCard": "Накопительная карта",
+            "client": "Клиент",
+            "productEntries": "Введенные товары",
+            "sentToDCTime": "Время отправления в центру доставки",
+            "cars": "Водители",
+            "addresses": "Адреса"
         }
     }
 }

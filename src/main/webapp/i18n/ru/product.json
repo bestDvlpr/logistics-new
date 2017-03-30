@@ -2,23 +2,23 @@
     "logisticsApp": {
         "product" : {
             "home": {
-                "title": "Products",
-                "createLabel": "Создать новый Product",
-                "createOrEditLabel": "Создать или отредактировать Product",
-                "search": "Найти Product"
+                "title": "Вид товара",
+                "createLabel": "Создать новый вид товара",
+                "createOrEditLabel": "Создать или отредактировать вид товара",
+                "search": "Найти вид товара"
             },
-            "created": "Новый Product создан с идентификатором {{ param }}",
-            "updated": "Product обновлен с идентификатором {{ param }}",
-            "deleted": "Product удален с идентификатором {{ param }}",
+            "created": "Новый вид товара создан с идентификатором {{ param }}",
+            "updated": "Вид товара обновлен с идентификатором {{ param }}",
+            "deleted": "Вид товара удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Product {{ id }}?"
+                "question": "Вы уверены что хотите удалить вид товара {{ id }}?"
             },
             "detail": {
-                "title": "Product"
+                "title": "Вид товара"
             },
             "sapCode": "Sap Code",
             "sapType": "Sap Type",
-            "name": "Name",
+            "name": "Наименования",
             "uom": "Uom"
         }
     }

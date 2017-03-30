@@ -2,21 +2,21 @@
     "logisticsApp": {
         "carModel" : {
             "home": {
-                "title": "Car Models",
-                "createLabel": "Создать новый Car Model",
-                "createOrEditLabel": "Создать или отредактировать Car Model",
-                "search": "Найти Car Model"
+                "title": "Модели автомобилей",
+                "createLabel": "Создать новую модель автомобиля",
+                "createOrEditLabel": "Создать или отредактировать модель автомобиля",
+                "search": "Найти модель автомобиля"
             },
-            "created": "Новый Car Model создан с идентификатором {{ param }}",
-            "updated": "Car Model обновлен с идентификатором {{ param }}",
-            "deleted": "Car Model удален с идентификатором {{ param }}",
+            "created": "Новая модель автомобиля создан с идентификатором {{ param }}",
+            "updated": "Модель автомобиля обновлена с идентификатором {{ param }}",
+            "deleted": "Модель автомобиля удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Car Model {{ id }}?"
+                "question": "Вы уверены что хотите удалить модель автомобиля {{ id }}?"
             },
             "detail": {
-                "title": "Car Model"
+                "title": "Модель автомобиля"
             },
-            "name": "Name"
+            "name": "Наименования"
         }
     }
 }

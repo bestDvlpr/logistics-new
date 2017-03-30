@@ -2,22 +2,22 @@
     "logisticsApp": {
         "payMaster" : {
             "home": {
-                "title": "Pay Masters",
-                "createLabel": "Создать новый Pay Master",
-                "createOrEditLabel": "Создать или отредактировать Pay Master",
-                "search": "Найти Pay Master"
+                "title": "Кассир",
+                "createLabel": "Создать новый кассир",
+                "createOrEditLabel": "Создать или отредактировать кассира",
+                "search": "Найти кассира"
             },
-            "created": "Новый Pay Master создан с идентификатором {{ param }}",
-            "updated": "Pay Master обновлен с идентификатором {{ param }}",
-            "deleted": "Pay Master удален с идентификатором {{ param }}",
+            "created": "Новый кассир создан с идентификатором {{ param }}",
+            "updated": "Кассир обновлен с идентификатором {{ param }}",
+            "deleted": "Кассир удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Pay Master {{ id }}?"
+                "question": "Вы уверены что хотите удалить Кассир {{ id }}?"
             },
             "detail": {
-                "title": "Pay Master"
+                "title": "Кассир"
             },
-            "paymasterID": "Paymaster ID",
-            "payMasterName": "Pay Master Name"
+            "paymasterID": "ID кассира",
+            "payMasterName": "Имя кассира"
         }
     }
 }

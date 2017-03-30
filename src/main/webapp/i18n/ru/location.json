@@ -2,23 +2,23 @@
     "logisticsApp": {
         "location" : {
             "home": {
-                "title": "Locations",
-                "createLabel": "Создать новый Location",
-                "createOrEditLabel": "Создать или отредактировать Location",
-                "search": "Найти Location"
+                "title": "Местоположении",
+                "createLabel": "Создать новое местоположение",
+                "createOrEditLabel": "Создать или отредактировать местоположение",
+                "search": "Найти местоположения"
             },
-            "created": "Новый Location создан с идентификатором {{ param }}",
-            "updated": "Location обновлен с идентификатором {{ param }}",
-            "deleted": "Location удален с идентификатором {{ param }}",
+            "created": "Новая местоположения создан с идентификатором {{ param }}",
+            "updated": "Местоположения обновлена с идентификатором {{ param }}",
+            "deleted": "Местоположения удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Location {{ id }}?"
+                "question": "Вы уверены что хотите удалить местоположение {{ id }}?"
             },
             "detail": {
-                "title": "Location"
+                "title": "Местоположения"
             },
-            "name": "Name",
-            "type": "Type",
-            "parent": "Parent"
+            "name": "Наименования",
+            "type": "Тип",
+            "parent": "Родитель"
         }
     }
 }

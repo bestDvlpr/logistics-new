@@ -74,13 +74,21 @@
             "cachename": "Название кеша",
             "hits": "Попаданий",
             "misses": "Промахов",
-            "evictions": "Количество очисток"
+            "gets": "Cache Gets",
+            "puts": "Cache Puts",
+            "removals": "Cache Removals",
+            "evictions": "Количество очисток",
+            "hitPercent": "Cache Hit %",
+            "missPercent": "Cache Miss %",
+            "averageGetTime": "Average get time (µs)",
+            "averagePutTime": "Average put time (µs)",
+            "averageRemoveTime": "Average remove time (µs)"
         },
         "datasource": {
             "usage": "Usage",
             "title": "Статистика DataSource (время в миллисекундах)",
             "name": "Pool usage",
-            "count": "Count",
+            "count": "Количество",
             "mean": "Среднее",
             "min": "Минимум",
             "max": "Максимум",

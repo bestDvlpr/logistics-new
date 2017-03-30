@@ -20,7 +20,7 @@
             "firstName": "First Name",
             "lastName": "Last Name",
             "mobileId": "Mobile Id",
-            "deleted": "Deleted",
+            "deleted-flag": "Deleted",
             "cars": "Cars"
         }
     }

@@ -2,23 +2,23 @@
     "logisticsApp": {
         "loyaltyCard" : {
             "home": {
-                "title": "Loyalty Cards",
-                "createLabel": "Создать новый Loyalty Card",
-                "createOrEditLabel": "Создать или отредактировать Loyalty Card",
-                "search": "Найти Loyalty Card"
+                "title": "Накопительные карты",
+                "createLabel": "Создать новый накопительнюю карту",
+                "createOrEditLabel": "Создать или отредактировать накопительнюю карту",
+                "search": "Найти накопительнюю карту"
             },
-            "created": "Новый Loyalty Card создан с идентификатором {{ param }}",
-            "updated": "Loyalty Card обновлен с идентификатором {{ param }}",
-            "deleted": "Loyalty Card удален с идентификатором {{ param }}",
+            "created": "Новый накопительная карта создана с идентификатором {{ param }}",
+            "updated": "Накопительная карта обновлена с идентификатором {{ param }}",
+            "deleted": "Накопительная карта удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Loyalty Card {{ id }}?"
+                "question": "Вы уверены что хотите удалить накопительнюю карту {{ id }}?"
             },
             "detail": {
-                "title": "Loyalty Card"
+                "title": "Накопительная карта"
             },
-            "loyaltyCardID": "Loyalty Card ID",
-            "loyaltyCardAmount": "Loyalty Card Amount",
-            "loyaltyCardBonus": "Loyalty Card Bonus"
+            "loyaltyCardID": "ID накопительной карты",
+            "loyaltyCardAmount": "Сумма накопительной карты",
+            "loyaltyCardBonus": "Бонусы в накопительной карты"
         }
     }
 }

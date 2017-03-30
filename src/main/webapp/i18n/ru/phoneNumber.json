@@ -2,24 +2,24 @@
     "logisticsApp": {
         "phoneNumber" : {
             "home": {
-                "title": "Phone Numbers",
-                "createLabel": "Создать новый Phone Number",
-                "createOrEditLabel": "Создать или отредактировать Phone Number",
-                "search": "Найти Phone Number"
+                "title": "Телефонные номера",
+                "createLabel": "Создать новый номер телефона",
+                "createOrEditLabel": "Создать или отредактировать номер телефона",
+                "search": "Найти номер телефона"
             },
-            "created": "Новый Phone Number создан с идентификатором {{ param }}",
-            "updated": "Phone Number обновлен с идентификатором {{ param }}",
-            "deleted": "Phone Number удален с идентификатором {{ param }}",
+            "created": "Новый номер телефона создан с идентификатором {{ param }}",
+            "updated": "Номер телефона обновлен с идентификатором {{ param }}",
+            "deleted": "Номер телефона удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Phone Number {{ id }}?"
+                "question": "Вы уверены что хотите удалить номер телефона{{ id }}?"
             },
             "detail": {
-                "title": "Phone Number"
+                "title": "Номер телефона"
             },
-            "number": "Number",
-            "mobileNumber": "Mobile Phone Number",
-            "homeNumber": "Home Phone Number",
-            "client": "Client"
+            "number": "Номер",
+            "mobileNumber": "Мобильный номер телефона",
+            "homeNumber": "Домашный номер телефона",
+            "client": "Клиент"
         }
     }
 }
