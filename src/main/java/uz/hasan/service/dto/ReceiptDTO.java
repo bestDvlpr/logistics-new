@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -40,6 +41,8 @@ public class ReceiptDTO implements Serializable {
 
     private ZonedDateTime sentToDCTime;
 
+    private ZonedDateTime deliveredTime;
+
     private Long payMasterId;
 
     private String payMasterPayMasterName;
@@ -52,9 +55,11 @@ public class ReceiptDTO implements Serializable {
 
     private String clientFirstName;
 
-    private Set<CarDTO> cars = new HashSet<>();
-
     private Set<AddressDTO> addresses = new HashSet<>();
+
+    private Long sentById;
+
+    private String sentByLogin;
 
     private ClientDTO client;
 
@@ -121,12 +126,21 @@ public class ReceiptDTO implements Serializable {
     public void setStatus(ReceiptStatus status) {
         this.status = status;
     }
+
     public ZonedDateTime getSentToDCTime() {
         return sentToDCTime;
     }
 
     public void setSentToDCTime(ZonedDateTime sentToDCTime) {
         this.sentToDCTime = sentToDCTime;
+    }
+
+    public ZonedDateTime getDeliveredTime() {
+        return deliveredTime;
+    }
+
+    public void setDeliveredTime(ZonedDateTime deliveredTime) {
+        this.deliveredTime = deliveredTime;
     }
 
     public Long getPayMasterId() {
@@ -139,6 +153,14 @@ public class ReceiptDTO implements Serializable {
 
     public String getPayMasterPayMasterName() {
         return payMasterPayMasterName;
+    }
+
+    public ClientDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     public void setPayMasterPayMasterName(String payMasterPayMasterName) {
@@ -177,14 +199,6 @@ public class ReceiptDTO implements Serializable {
         this.clientFirstName = clientFirstName;
     }
 
-    public Set<CarDTO> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<CarDTO> cars) {
-        this.cars = cars;
-    }
-
     public Set<AddressDTO> getAddresses() {
         return addresses;
     }
@@ -193,12 +207,20 @@ public class ReceiptDTO implements Serializable {
         this.addresses = addresses;
     }
 
-    public ClientDTO getClient() {
-        return client;
+    public Long getSentById() {
+        return sentById;
     }
 
-    public void setClient(ClientDTO client) {
-        this.client = client;
+    public void setSentById(Long userId) {
+        this.sentById = userId;
+    }
+
+    public String getSentByLogin() {
+        return sentByLogin;
+    }
+
+    public void setSentByLogin(String userLogin) {
+        this.sentByLogin = userLogin;
     }
 
     @Override
@@ -212,7 +234,9 @@ public class ReceiptDTO implements Serializable {
 
         ReceiptDTO receiptDTO = (ReceiptDTO) o;
 
-        if ( ! Objects.equals(id, receiptDTO.id)) { return false; }
+        if (!Objects.equals(id, receiptDTO.id)) {
+            return false;
+        }
 
         return true;
     }
@@ -234,6 +258,7 @@ public class ReceiptDTO implements Serializable {
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
             ", sentToDCTime='" + sentToDCTime + "'" +
+            ", deliveredTime='" + deliveredTime + "'" +
             '}';
     }
 }

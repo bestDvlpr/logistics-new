@@ -63,6 +63,9 @@ public class Receipt implements Serializable {
     @Column(name = "sent_to_dc_time")
     private ZonedDateTime sentToDCTime;
 
+    @Column(name = "delivered_time")
+    private ZonedDateTime deliveredTime;
+
     @ManyToOne
     private PayMaster payMaster;
 
@@ -91,6 +94,9 @@ public class Receipt implements Serializable {
     @OneToMany(mappedBy = "receipt")
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
+
+    @ManyToOne
+    private User sentBy;
 
     public Long getId() {
         return id;
@@ -204,6 +210,19 @@ public class Receipt implements Serializable {
         this.sentToDCTime = sentToDCTime;
     }
 
+    public ZonedDateTime getDeliveredTime() {
+        return deliveredTime;
+    }
+
+    public Receipt deliveredTime(ZonedDateTime deliveredTime) {
+        this.deliveredTime = deliveredTime;
+        return this;
+    }
+
+    public void setDeliveredTime(ZonedDateTime deliveredTime) {
+        this.deliveredTime = deliveredTime;
+    }
+
     public PayMaster getPayMaster() {
         return payMaster;
     }
@@ -293,14 +312,6 @@ public class Receipt implements Serializable {
         this.addresses = addresses;
     }
 
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
-    }
-
     public Set<PayType> getPayTypes() {
         return payTypes;
     }
@@ -324,6 +335,19 @@ public class Receipt implements Serializable {
 
     public void setPayTypes(Set<PayType> payTypes) {
         this.payTypes = payTypes;
+    }
+
+    public User getSentBy() {
+        return sentBy;
+    }
+
+    public Receipt sentBy(User user) {
+        this.sentBy = user;
+        return this;
+    }
+
+    public void setSentBy(User user) {
+        this.sentBy = user;
     }
 
     @Override
@@ -358,6 +382,7 @@ public class Receipt implements Serializable {
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
             ", sentToDCTime='" + sentToDCTime + "'" +
+            ", deliveredTime='" + deliveredTime + "'" +
             '}';
     }
 }

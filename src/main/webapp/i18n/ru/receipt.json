@@ -27,8 +27,11 @@
             "client": "Клиент",
             "productEntries": "Введенные товары",
             "sentToDCTime": "Время отправления в центру доставки",
+            "deliveredTime": "Время доставки",
             "cars": "Водители",
-            "addresses": "Адреса"
+            "addresses": "Адреса",
+            "payTypes": "Payments",
+            "sentBy": "Sent by"
         }
     }
 }

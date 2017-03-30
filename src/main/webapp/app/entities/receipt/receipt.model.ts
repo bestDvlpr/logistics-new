@@ -35,6 +35,8 @@ export class Receipt {
                 public payMasterId?: number,
                 public loyaltyCardId?: number,
                 public sentToDCTime?: any,
-                public clientId?: number) {
+                public clientId?: number,
+                public payTypesId?: number,
+                public sentById?: number, ) {
     }
 }

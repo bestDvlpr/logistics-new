@@ -36,6 +36,10 @@
         <dd>
             <span>{{receipt.sentToDCTime | date:'medium'}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.deliveredTime">Delivered Time</span></dt>
+        <dd>
+            <span>{{receipt.deliveredTime | date:'medium'}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span></dt>
         <dd>
             <div *ngIf="receipt.payMasterId">
@@ -59,6 +63,16 @@
             <span *ngFor="let addresses of receipt.addresses; let last = last">
                 <a [routerLink]="['/address', addresses?.id ]">{{addresses.streetAddress}}</a>{{last ? '' : ', '}}
             </span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.cars">Cars</span></dt>
+        <dd>
+            <span *ngFor="let cars of receipt.cars; let last = last">
+                <a [routerLink]="['/car', cars?.id ]">{{cars.number}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.sentBy">Sent By</span></dt>
+        <dd>
+            {{receipt.sentByLogin}}
         </dd>
     </dl>
 

@@ -27,8 +27,11 @@
             "client": "Client",
             "productEntries": "Product Entries",
             "sentToDCTime": "Sent To DC Time",
+            "deliveredTime": "Delivered Time",
             "cars": "Cars",
-            "addresses": "Addresses"
+            "addresses": "Addresses",
+            "payTypes": "Payments",
+            "sentBy": "Sent by"
         }
     }
 }

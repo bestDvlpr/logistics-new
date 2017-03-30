@@ -47,7 +47,6 @@ public class ReceiptProductEntriesMapper {
         ReceiptProductEntriesDTO entriesDTO = new ReceiptProductEntriesDTO();
         entriesDTO.setAddresses(receiptDTO.getAddresses());
         entriesDTO.setId(receiptDTO.getId());
-        entriesDTO.setCars(receiptDTO.getCars());
         entriesDTO.setClientFirstName(receiptDTO.getClientFirstName());
         entriesDTO.setClientId(receiptDTO.getClientId());
         entriesDTO.setDocID(receiptDTO.getDocID());
