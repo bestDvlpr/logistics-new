@@ -29,6 +29,9 @@
             "status": "Статус",
             "cancelled": "Отменен",
             "serialNumber": "Серийный номер",
+            "attachedToCarTime": "Время прикрепления доставщику",
+            "deliveryStartTime": "Время начало доставки",
+            "deliveryEndTime": "Время доставления",
             "product": "Тип",
             "sellerID": "ID продавца",
             "receipt": "Заявка",
@@ -36,9 +39,9 @@
             "attachedCar": "Машину прикреплен",
             "address": "Адрес",
             "productName": "Наименования",
-            "attachedToCarTime": "Time Attached to Car",
-            "deliveryStartTime": "Delivery Started",
-            "deliveryEndTime": "Delivery Ended",
+            "attachedToDriverBy": "Attached To Driver By",
+            "deliveryItemsSentBy": "Delivery Items Sent By",
+            "markedAsDelivered": "Marked As Delivered",
             "error": {
                 "notFound": "Не найдено товары!"
             }

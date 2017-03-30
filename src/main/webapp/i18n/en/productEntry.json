@@ -29,6 +29,9 @@
             "status": "Status",
             "cancelled": "Cancelled",
             "serialNumber": "Serial Number",
+            "attachedToCarTime": "Attached To Car Time",
+            "deliveryStartTime": "Delivery Start Time",
+            "deliveryEndTime": "Delivery End Time",
             "product": "Product",
             "sellerID": "Seller ID",
             "receipt": "Receipt",
@@ -36,9 +39,9 @@
             "attachedCar": "Attached Car",
             "address": "Address",
             "productName": "Product Name",
-            "attachedToCarTime": "Time Attached to Car",
-            "deliveryStartTime": "Delivery Started",
-            "deliveryEndTime": "Delivery Ended",
+            "attachedToDriverBy": "Attached To Driver By",
+            "deliveryItemsSentBy": "Delivery Items Sent By",
+            "markedAsDelivered": "Marked As Delivered",
             "error": {
                 "notFound": "No product entry found!"
             }

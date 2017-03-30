@@ -37,6 +37,7 @@ export class Receipt {
                 public sentToDCTime?: any,
                 public clientId?: number,
                 public payTypesId?: number,
-                public sentById?: number, ) {
+                public sentById?: number,
+                public markedAsDeliveredById?: number, ) {
     }
 }

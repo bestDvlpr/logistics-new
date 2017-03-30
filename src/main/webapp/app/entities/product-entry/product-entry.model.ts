@@ -54,6 +54,9 @@ export class ProductEntry {
                 public attachedToCarTime?: any,
                 public deliveryStartTime?: any,
                 public deliveryEndTime?: any,
+                public attachedToDriverById?: number,
+                public deliveryItemsSentById?: number,
+                public markedAsDeliveredId?: number,
                 public addressId?: number) {
     }
 }

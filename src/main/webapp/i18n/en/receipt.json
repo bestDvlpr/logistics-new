@@ -31,7 +31,8 @@
             "cars": "Cars",
             "addresses": "Addresses",
             "payTypes": "Payments",
-            "sentBy": "Sent by"
+            "sentBy": "Sent by",
+            "markedAsDeliveredBy": "Marked As Delivered By"
         }
     }
 }

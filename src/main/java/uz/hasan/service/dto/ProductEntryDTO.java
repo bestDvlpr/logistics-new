@@ -5,8 +5,6 @@ import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.SalesType;
@@ -86,6 +84,18 @@ public class ProductEntryDTO implements Serializable {
     private Long addressId;
 
     private String addressStreetAddress;
+
+    private Long attachedToDriverById;
+
+    private String attachedToDriverByLogin;
+
+    private Long deliveryItemsSentById;
+
+    private String deliveryItemsSentByLogin;
+
+    private Long markedAsDeliveredId;
+
+    private String markedAsDeliveredLogin;
 
     private AddressDTO address;
 
@@ -323,6 +333,54 @@ public class ProductEntryDTO implements Serializable {
 
     public void setAddressStreetAddress(String addressStreetAddress) {
         this.addressStreetAddress = addressStreetAddress;
+    }
+
+    public Long getAttachedToDriverById() {
+        return attachedToDriverById;
+    }
+
+    public void setAttachedToDriverById(Long userId) {
+        this.attachedToDriverById = userId;
+    }
+
+    public String getAttachedToDriverByLogin() {
+        return attachedToDriverByLogin;
+    }
+
+    public void setAttachedToDriverByLogin(String userLogin) {
+        this.attachedToDriverByLogin = userLogin;
+    }
+
+    public Long getDeliveryItemsSentById() {
+        return deliveryItemsSentById;
+    }
+
+    public void setDeliveryItemsSentById(Long userId) {
+        this.deliveryItemsSentById = userId;
+    }
+
+    public String getDeliveryItemsSentByLogin() {
+        return deliveryItemsSentByLogin;
+    }
+
+    public void setDeliveryItemsSentByLogin(String userLogin) {
+        this.deliveryItemsSentByLogin = userLogin;
+    }
+
+    public Long getMarkedAsDeliveredId() {
+        return markedAsDeliveredId;
+    }
+
+    public void setMarkedAsDeliveredId(Long userId) {
+        this.markedAsDeliveredId = userId;
+    }
+
+    public String getMarkedAsDeliveredLogin() {
+        return markedAsDeliveredLogin;
+    }
+
+    public void setMarkedAsDeliveredLogin(String userLogin) {
+        this.markedAsDeliveredLogin = userLogin;
     }
 
     public AddressDTO getAddress() {

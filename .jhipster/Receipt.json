@@ -46,6 +46,14 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "receipt"
+        },
+        {
+            "relationshipName": "markedAsDeliveredBy",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "receipt"
         }
     ],
     "fields": [

@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1490865689052-1">
+        <addColumn tableName="product_entry">
+            <column name="attached_to_driver_by_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-2">
+        <addColumn tableName="product_entry">
+            <column name="delivery_items_sent_by_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-3">
+        <addColumn tableName="product_entry">
+            <column name="marked_as_delivered_by_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-4">
+        <addForeignKeyConstraint baseColumnNames="marked_as_delivered_by_id" baseTableName="product_entry" constraintName="FKeu6jkokb3wnqhyc0n9ocf0n3b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-5">
+        <addForeignKeyConstraint baseColumnNames="attached_to_driver_by_id" baseTableName="product_entry" constraintName="FKlgq4l8bl436pujo1lqmnp42u8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-6">
+        <addForeignKeyConstraint baseColumnNames="delivery_items_sent_by_id" baseTableName="product_entry" constraintName="FKpj4ingh488w4fkfr6d92y46bl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-7">
+        <addColumn tableName="receipt">
+            <column name="marked_as_delivered_by_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490865689052-8">
+        <addForeignKeyConstraint baseColumnNames="marked_as_delivered_by_id" baseTableName="receipt" constraintName="FK_receipt_marked_as_delivered_by_user_id" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

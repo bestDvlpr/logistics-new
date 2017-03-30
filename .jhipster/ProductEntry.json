@@ -42,6 +42,30 @@
             "otherEntityName": "address",
             "relationshipType": "many-to-one",
             "otherEntityField": "streetAddress"
+        },
+        {
+            "relationshipName": "attachedToDriverBy",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "productEntry"
+        },
+        {
+            "relationshipName": "deliveryItemsSentBy",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "productEntry"
+        },
+        {
+            "relationshipName": "markedAsDeliveredBy",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "productEntry"
         }
     ],
     "fields": [

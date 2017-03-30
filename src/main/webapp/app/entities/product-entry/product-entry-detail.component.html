@@ -104,6 +104,18 @@
                 <a [routerLink]="['/address', productEntry.addressId]">{{productEntry.addressStreetAddress}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.attachedToDriverBy">Attached To Driver By</span></dt>
+        <dd>
+            {{productEntry.attachedToDriverByLogin}}
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy">Delivery Items Sent By</span></dt>
+        <dd>
+            {{productEntry.deliveryItemsSentByLogin}}
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.markedAsDelivered">Marked As Delivered</span></dt>
+        <dd>
+            {{productEntry.markedAsDeliveredLogin}}
+        </dd>
     </dl>
 
     <button type="submit"

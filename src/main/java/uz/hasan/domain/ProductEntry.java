@@ -114,6 +114,15 @@ public class ProductEntry implements Serializable {
     @ManyToOne
     private Address address;
 
+    @ManyToOne
+    private User attachedToDriverBy;
+
+    @ManyToOne
+    private User deliveryItemsSentBy;
+
+    @ManyToOne
+    private User markedAsDeliveredBy;
+
     public Long getId() {
         return id;
     }
@@ -406,6 +415,45 @@ public class ProductEntry implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public User getAttachedToDriverBy() {
+        return attachedToDriverBy;
+    }
+
+    public ProductEntry attachedToDriverBy(User user) {
+        this.attachedToDriverBy = user;
+        return this;
+    }
+
+    public void setAttachedToDriverBy(User user) {
+        this.attachedToDriverBy = user;
+    }
+
+    public User getDeliveryItemsSentBy() {
+        return deliveryItemsSentBy;
+    }
+
+    public ProductEntry deliveryItemsSentBy(User user) {
+        this.deliveryItemsSentBy = user;
+        return this;
+    }
+
+    public void setDeliveryItemsSentBy(User user) {
+        this.deliveryItemsSentBy = user;
+    }
+
+    public User getMarkedAsDeliveredBy() {
+        return markedAsDeliveredBy;
+    }
+
+    public ProductEntry markedAsDelivered(User user) {
+        this.markedAsDeliveredBy = user;
+        return this;
+    }
+
+    public void setMarkedAsDeliveredBy(User user) {
+        this.markedAsDeliveredBy = user;
     }
 
     @Override

@@ -98,6 +98,9 @@ public class Receipt implements Serializable {
     @ManyToOne
     private User sentBy;
 
+    @ManyToOne
+    private User markedAsDeliveredBy;
+
     public Long getId() {
         return id;
     }
@@ -348,6 +351,19 @@ public class Receipt implements Serializable {
 
     public void setSentBy(User user) {
         this.sentBy = user;
+    }
+
+    public User getMarkedAsDeliveredBy() {
+        return markedAsDeliveredBy;
+    }
+
+    public Receipt markedAsDelivered(User user) {
+        this.markedAsDeliveredBy = user;
+        return this;
+    }
+
+    public void setMarkedAsDeliveredBy(User user) {
+        this.markedAsDeliveredBy = user;
     }
 
     @Override

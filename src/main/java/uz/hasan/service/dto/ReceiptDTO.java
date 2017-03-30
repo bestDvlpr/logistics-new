@@ -63,6 +63,10 @@ public class ReceiptDTO implements Serializable {
 
     private ClientDTO client;
 
+    private Long markedAsDeliveredById;
+
+    private Long markedAsDeliveredByLogin;
+
     public Long getId() {
         return id;
     }
@@ -221,6 +225,22 @@ public class ReceiptDTO implements Serializable {
 
     public void setSentByLogin(String userLogin) {
         this.sentByLogin = userLogin;
+    }
+
+    public Long getMarkedAsDeliveredById() {
+        return markedAsDeliveredById;
+    }
+
+    public void setMarkedAsDeliveredById(Long markedAsDeliveredById) {
+        this.markedAsDeliveredById = markedAsDeliveredById;
+    }
+
+    public Long getMarkedAsDeliveredByLogin() {
+        return markedAsDeliveredByLogin;
+    }
+
+    public void setMarkedAsDeliveredByLogin(Long markedAsDeliveredByLogin) {
+        this.markedAsDeliveredByLogin = markedAsDeliveredByLogin;
     }
 
     @Override
