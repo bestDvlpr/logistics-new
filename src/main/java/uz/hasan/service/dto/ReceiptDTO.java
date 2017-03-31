@@ -65,7 +65,11 @@ public class ReceiptDTO implements Serializable {
 
     private Long markedAsDeliveredById;
 
-    private Long markedAsDeliveredByLogin;
+    private String markedAsDeliveredByLogin;
+
+    private Long shopId;
+
+    private String shopName;
 
     public Long getId() {
         return id;
@@ -235,12 +239,28 @@ public class ReceiptDTO implements Serializable {
         this.markedAsDeliveredById = markedAsDeliveredById;
     }
 
-    public Long getMarkedAsDeliveredByLogin() {
+    public String getMarkedAsDeliveredByLogin() {
         return markedAsDeliveredByLogin;
     }
 
-    public void setMarkedAsDeliveredByLogin(Long markedAsDeliveredByLogin) {
+    public void setMarkedAsDeliveredByLogin(String markedAsDeliveredByLogin) {
         this.markedAsDeliveredByLogin = markedAsDeliveredByLogin;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package uz.hasan.web.rest.vm;
 
+import uz.hasan.domain.Shop;
 import uz.hasan.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 import java.time.ZonedDateTime;
@@ -25,10 +27,10 @@ public class ManagedUserVM extends UserDTO {
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-                        Set<String> authorities) {
+                         Long shopId, String shopName, Set<String> authorities) {
 
-        super(id, login, firstName, lastName, email, activated,  imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities);
+        super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate, shopId, shopName, authorities);
 
         this.password = password;
     }

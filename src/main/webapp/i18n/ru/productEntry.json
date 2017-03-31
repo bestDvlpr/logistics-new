@@ -41,7 +41,8 @@
             "productName": "Наименования",
             "attachedToDriverBy": "Attached To Driver By",
             "deliveryItemsSentBy": "Delivery Items Sent By",
-            "markedAsDelivered": "Marked As Delivered",
+            "markedAsDeliveredBy": "Marked As Delivered By",
+            "shopId": "Shop ID",
             "error": {
                 "notFound": "Не найдено товары!"
             }

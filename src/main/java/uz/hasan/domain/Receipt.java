@@ -80,12 +80,6 @@ public class Receipt implements Serializable {
     private Set<ProductEntry> productEntries = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "receipt_cars",
-               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="cars_id", referencedColumnName="id"))
-    private Set<Car> cars = new HashSet<>();
-
-    @ManyToMany
     @JoinTable(name = "receipt_addresses",
                joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="addresses_id", referencedColumnName="id"))
@@ -100,6 +94,9 @@ public class Receipt implements Serializable {
 
     @ManyToOne
     private User markedAsDeliveredBy;
+
+    @ManyToOne
+    private Shop shop;
 
     public Long getId() {
         return id;
@@ -357,13 +354,26 @@ public class Receipt implements Serializable {
         return markedAsDeliveredBy;
     }
 
-    public Receipt markedAsDelivered(User user) {
+    public Receipt markedAsDeliveredBy(User user) {
         this.markedAsDeliveredBy = user;
         return this;
     }
 
     public void setMarkedAsDeliveredBy(User user) {
         this.markedAsDeliveredBy = user;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public Receipt shopId(Shop shop) {
+        this.shop = shop;
+        return this;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     @Override

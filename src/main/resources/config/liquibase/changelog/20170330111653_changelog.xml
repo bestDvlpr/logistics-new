@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1490872659370-1">
+        <addColumn tableName="product_entry">
+            <column name="shop_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-2">
+        <addColumn tableName="receipt">
+            <column name="shop_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-3">
+        <addForeignKeyConstraint baseColumnNames="shop_id" baseTableName="product_entry" constraintName="FK6bxlqf1xxse0ry999b0ewd9iq" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="shop"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-4">
+        <addForeignKeyConstraint baseColumnNames="shop_id" baseTableName="receipt" constraintName="FKtkyildg8ui9g2n2jpmbkawlpu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="shop"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-5">
+        <dropForeignKeyConstraint baseTableName="receipt_cars" constraintName="FK2fv9ybfmhtcnavds9h74wim39"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-6">
+        <dropForeignKeyConstraint baseTableName="receipt_cars" constraintName="FKgk16y7ac3lycwpvxgvlaufb3q"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1490872659370-7">
+        <dropTable tableName="receipt_cars"/>
+    </changeSet>
+</databaseChangeLog>

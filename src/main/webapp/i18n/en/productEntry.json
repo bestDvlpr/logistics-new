@@ -41,7 +41,8 @@
             "productName": "Product Name",
             "attachedToDriverBy": "Attached To Driver By",
             "deliveryItemsSentBy": "Delivery Items Sent By",
-            "markedAsDelivered": "Marked As Delivered",
+            "markedAsDeliveredBy": "Marked As Delivered By",
+            "shopId": "Shop ID",
             "error": {
                 "notFound": "No product entry found!"
             }

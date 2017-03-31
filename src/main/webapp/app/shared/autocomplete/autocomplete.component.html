@@ -3,8 +3,8 @@
         <input id="object" type="text" class="validate filter-input form-control" [(ngModel)]="query.name" (keyup)=filter()>
     </div>
     <div class="suggestions" *ngIf="filteredList.length > 0">
-        <ul *ngFor="let item of filteredList">
-            <li class="dropdown-item">
+        <ul>
+            <li class="dropdown-item" *ngFor="let item of filteredList">
                 <a (click)="select(item)">{{item.name}}</a>
             </li>
         </ul>

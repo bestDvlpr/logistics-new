@@ -66,6 +66,12 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "productEntry"
+        },
+        {
+            "relationshipName": "shop",
+            "otherEntityName": "shop",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "shopId"
         }
     ],
     "fields": [

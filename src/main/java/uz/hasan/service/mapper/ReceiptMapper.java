@@ -23,6 +23,8 @@ public interface ReceiptMapper {
     @Mapping(source = "client.firstName", target = "client.firstName")
     @Mapping(source = "client.lastName", target = "client.lastName")
     @Mapping(source = "client.regDate", target = "client.regDate")
+    @Mapping(source = "shop.id", target = "shopId")
+    @Mapping(source = "shop.name", target = "shopName")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);

@@ -19,7 +19,6 @@ export class AutocompleteComponent implements OnInit {
     ngOnInit() {
         if (this.dataHolderService._autocompleteObjects !== null && this.dataHolderService._autocompleteObjects.length > 0) {
             this.objects = this.dataHolderService._autocompleteObjects;
-            console.log(this.objects);
         }
     }
 

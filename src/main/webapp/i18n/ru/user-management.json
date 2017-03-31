@@ -25,6 +25,7 @@
         "createdBy": "Создал",
         "createdDate": "Дата создания",
         "lastModifiedBy": "Изменено",
-        "lastModifiedDate": "Дата изменения"
+        "lastModifiedDate": "Дата изменения",
+        "shop": "Shop"
     }
 }

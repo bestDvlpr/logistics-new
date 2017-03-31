@@ -57,6 +57,8 @@ export class ProductEntry {
                 public attachedToDriverById?: number,
                 public deliveryItemsSentById?: number,
                 public markedAsDeliveredId?: number,
-                public addressId?: number) {
+                public addressId?: number,
+                public shopId?: number,
+                public shopName?: string, ) {
     }
 }

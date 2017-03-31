@@ -64,12 +64,6 @@
                 <a [routerLink]="['/address', addresses?.id ]">{{addresses.streetAddress}}</a>{{last ? '' : ', '}}
             </span>
         </dd>
-        <dt><span jhiTranslate="logisticsApp.receipt.cars">Cars</span></dt>
-        <dd>
-            <span *ngFor="let cars of receipt.cars; let last = last">
-                <a [routerLink]="['/car', cars?.id ]">{{cars.number}}</a>{{last ? '' : ', '}}
-            </span>
-        </dd>
         <dt><span jhiTranslate="logisticsApp.receipt.sentBy">Sent By</span></dt>
         <dd>
             {{receipt.sentByLogin}}
@@ -77,6 +71,12 @@
         <dt><span jhiTranslate="logisticsApp.receipt.markedAsDeliveredBy">Marked As Delivered By</span></dt>
         <dd>
             {{receipt.markedAsDeliveredByLogin}}
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.receipt.shopId">Shop Id</span></dt>
+        <dd>
+            <div *ngIf="receipt.shopId">
+                <a [routerLink]="['/shop', receipt.shopId]">{{receipt.shopName}}</a>
+            </div>
         </dd>
     </dl>
 

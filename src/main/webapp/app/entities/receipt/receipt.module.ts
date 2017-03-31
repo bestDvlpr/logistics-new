@@ -1,6 +1,5 @@
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {AutocompleteComponent} from '../../shared/autocomplete/autocomplete.component';
 
 import {LogisticsSharedModule} from '../../shared';
 
@@ -25,6 +24,7 @@ import {
     ReceiptProductToCarComponent,
     ReceiptSendAddressComponent,
 } from './';
+import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -34,7 +34,8 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
+        AutocompleteModule
     ],
     declarations: [
         ReceiptComponent,
@@ -49,8 +50,7 @@ let ENTITY_STATES = [
         CollapsedReceiptComponent,
         ReceiptNewComponent,
         ReceiptAppliedComponent,
-        ReceiptProductToCarComponent,
-        AutocompleteComponent
+        ReceiptProductToCarComponent
     ],
     entryComponents: [
         ReceiptComponent,

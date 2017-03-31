@@ -123,6 +123,9 @@ public class ProductEntry implements Serializable {
     @ManyToOne
     private User markedAsDeliveredBy;
 
+    @ManyToOne
+    private Shop shop;
+
     public Long getId() {
         return id;
     }
@@ -447,13 +450,26 @@ public class ProductEntry implements Serializable {
         return markedAsDeliveredBy;
     }
 
-    public ProductEntry markedAsDelivered(User user) {
+    public ProductEntry markedAsDeliveredBy(User user) {
         this.markedAsDeliveredBy = user;
         return this;
     }
 
     public void setMarkedAsDeliveredBy(User user) {
         this.markedAsDeliveredBy = user;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public ProductEntry shop(Shop shop) {
+        this.shop = shop;
+        return this;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     @Override

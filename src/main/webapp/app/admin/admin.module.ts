@@ -31,12 +31,14 @@ import {
     UserResolve,
     UserModalService
 } from './';
+import {AutocompleteModule} from '../shared/autocomplete/autocomplete.module';
 
 
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(adminState, { useHash: true })
+        RouterModule.forRoot(adminState, { useHash: true }),
+        AutocompleteModule
     ],
     declarations: [
         AuditsComponent,

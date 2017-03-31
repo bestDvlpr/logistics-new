@@ -37,6 +37,8 @@ public interface ProductEntryMapper {
     @Mapping(source = "address.city.name", target = "address.cityName")
     @Mapping(source = "address.district.id", target = "address.districtId")
     @Mapping(source = "address.district.name", target = "address.districtName")
+    @Mapping(source = "shop.id", target = "shopId")
+    @Mapping(source = "shop.name", target = "shopName")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);

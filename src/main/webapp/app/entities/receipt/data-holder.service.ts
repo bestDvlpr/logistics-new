@@ -21,9 +21,10 @@ export class DataHolderService implements OnInit {
         this._receipt = null;
         this._client = null;
         this._address = null;
-        this._selectedProducts = null;
-        this._autocompleteObjects = null;
+        this._selectedProducts = [];
+        this._autocompleteObjects = [];
         this.productCarExists = false;
+        this._autocompleteSelected = null;
     }
 
     ngOnInit(): void {

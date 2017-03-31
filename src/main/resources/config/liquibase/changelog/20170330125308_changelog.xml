@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1490793540000-1">
+        <sql>
+            ALTER TABLE product_entry ALTER attached_to_car_time DROP DEFAULT
+            ,ALTER attached_to_car_time type varchar(255);
+
+            ALTER TABLE product_entry ALTER delivery_end_time DROP DEFAULT
+            ,ALTER delivery_end_time type varchar(255);
+
+            ALTER TABLE product_entry ALTER delivery_start_time DROP DEFAULT
+            ,ALTER delivery_start_time type varchar(255);
+
+            ALTER TABLE receipt ALTER sent_to_dc_time DROP DEFAULT
+            ,ALTER sent_to_dc_time type varchar(255);
+
+            ALTER TABLE receipt ALTER delivered_time DROP DEFAULT
+            ,ALTER delivered_time type varchar(255);
+
+            ALTER TABLE product_entry ALTER attached_to_car_time DROP DEFAULT
+            ,ALTER attached_to_car_time type timestamp USING attached_to_car_time::timestamp;
+
+            ALTER TABLE product_entry ALTER delivery_end_time DROP DEFAULT
+            ,ALTER delivery_end_time type timestamp USING delivery_end_time::timestamp;
+
+            ALTER TABLE product_entry ALTER delivery_start_time DROP DEFAULT
+            ,ALTER delivery_start_time type timestamp USING delivery_start_time::timestamp;
+
+            ALTER TABLE receipt ALTER sent_to_dc_time DROP DEFAULT
+            ,ALTER sent_to_dc_time type timestamp USING sent_to_dc_time::timestamp;
+
+            ALTER TABLE receipt ALTER delivered_time DROP DEFAULT
+            ,ALTER delivered_time type timestamp USING delivered_time::timestamp;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

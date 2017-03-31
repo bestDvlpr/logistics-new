@@ -3,6 +3,7 @@ package uz.hasan.service;
 import uz.hasan.domain.Authority;
 import uz.hasan.domain.User;
 import uz.hasan.repository.AuthorityRepository;
+import uz.hasan.repository.ShopRepository;
 import uz.hasan.repository.UserRepository;
 import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.security.SecurityUtils;
@@ -36,10 +37,13 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    private final ShopRepository shopRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, ShopRepository shopRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.shopRepository = shopRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -130,6 +134,7 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
+        user.setShop(shopRepository.findOne(userDTO.getShopId()));
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -162,6 +167,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setShop(shopRepository.findOne(userDTO.getShopId()));
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()

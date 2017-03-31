@@ -32,6 +32,7 @@
             "addresses": "Addresses",
             "payTypes": "Payments",
             "sentBy": "Sent by",
+            "shopId": "Shop ID",
             "markedAsDeliveredBy": "Marked As Delivered By"
         }
     }

@@ -38,6 +38,8 @@ export class Receipt {
                 public clientId?: number,
                 public payTypesId?: number,
                 public sentById?: number,
+                public shopId?: number,
+                public shopName?: number,
                 public markedAsDeliveredById?: number, ) {
     }
 }

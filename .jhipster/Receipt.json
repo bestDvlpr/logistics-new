@@ -54,6 +54,12 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "receipt"
+        },
+        {
+            "relationshipName": "shopId",
+            "otherEntityName": "shop",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [

@@ -112,9 +112,15 @@
         <dd>
             {{productEntry.deliveryItemsSentByLogin}}
         </dd>
-        <dt><span jhiTranslate="logisticsApp.productEntry.markedAsDelivered">Marked As Delivered</span></dt>
+        <dt><span jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy">Marked As Delivered By</span></dt>
         <dd>
-            {{productEntry.markedAsDeliveredLogin}}
+            {{productEntry.markedAsDeliveredByLogin}}
+        </dd>
+        <dt><span jhiTranslate="logisticsApp.productEntry.shop">Shop</span></dt>
+        <dd>
+            <div *ngIf="productEntry.shopId">
+                <a [routerLink]="['/shop', productEntry.shopId]">{{productEntry.shopShopId}}</a>
+            </div>
         </dd>
     </dl>
 
