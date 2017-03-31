@@ -139,6 +139,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     loadCars() {
         this.carService.idleCars().subscribe((cars: Response) => {
             this.setACObjects(cars.json());
+            this.router.navigate(['receipt-product-to-car']);
         });
     }
 

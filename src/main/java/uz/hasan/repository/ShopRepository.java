@@ -10,6 +10,7 @@ import java.util.List;
  * Spring Data JPA repository for the Shop entity.
  */
 @SuppressWarnings("unused")
-public interface ShopRepository extends JpaRepository<Shop,Long> {
+public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+    Shop findByShopId(String shopId);
 }

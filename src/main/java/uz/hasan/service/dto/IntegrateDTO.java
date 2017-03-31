@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class IntegrateDTO {
 
+    private String shopId;
+
     private String docNum;
 
     private String docID;
@@ -38,6 +40,13 @@ public class IntegrateDTO {
 
     private ClientDTO client;
 
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
 
     public String getDocNum() {
         return docNum;

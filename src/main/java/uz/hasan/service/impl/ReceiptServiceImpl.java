@@ -152,7 +152,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.NEW);
+        Page<Receipt> result = receiptRepository.findByStatusAndShopId(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 

@@ -29,4 +29,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Long countByStatus(ReceiptStatus aNew);
 
     Page<Receipt> findAllByOrderByIdDesc(Pageable pageable);
+
+    Page<Receipt> findByStatusAndShopId(Pageable pageable, ReceiptStatus status, String shopId);
 }

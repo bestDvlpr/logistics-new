@@ -47,6 +47,9 @@ public class IntegrationServiceImpl implements IntegrationService {
     @Inject
     private PayTypeRepository payTypeRepository;
 
+    @Inject
+    private ShopRepository shopRepository;
+
     @Override
     public Boolean integrate(List<IntegrateDTO> integrateDTOS) {
         for (IntegrateDTO integrateDTO : integrateDTOS) {
@@ -92,6 +95,7 @@ public class IntegrationServiceImpl implements IntegrationService {
         if (receipt.getStatus() == null)
             receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
 
+        receipt.setShop(shopRepository.findByShopId(integrateDTO.getShopId()));
         receipt = receiptRepository.save(receipt);
 
         updateOrCreateProductEntries(receipt, integrateDTO.getProducts());
@@ -181,7 +185,6 @@ public class IntegrationServiceImpl implements IntegrationService {
 
 
     }
-
 
     private void updateOrCreatePayTypes(Receipt savedReceipt, List<PaymentIntegrate> paymentIntegrates) {
         Set<PayType> payTypes = savedReceipt.getPayTypes();
