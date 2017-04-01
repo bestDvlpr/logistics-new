@@ -2,6 +2,8 @@ package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
+import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.web.rest.util.HeaderUtil;
@@ -103,6 +105,23 @@ public class ReceiptResource {
     }
 
     /**
+     * GET  /receipts : get all the receipts by shop id.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/by-shop-id")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllReceiptsByShopId(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllReceiptsByShopId(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/by-shop-id");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
      * GET  /receipts : get all {@link uz.hasan.domain.enumeration.ReceiptStatus}.NEW the receipts.
      *
      * @param pageable the pagination information
@@ -114,7 +133,7 @@ public class ReceiptResource {
     public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of New Receipts");
-        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceipts(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceiptsByShopId(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

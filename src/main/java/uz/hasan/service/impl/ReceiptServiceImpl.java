@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.Car;
-import uz.hasan.domain.ProductEntry;
-import uz.hasan.domain.Receipt;
+import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.repository.*;
+import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -22,6 +21,7 @@ import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service Implementation for managing Receipt.
@@ -144,15 +144,29 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     /**
-     * Get all the new receipts.
+     * Get all the new receipts by shop id.
      *
      * @param pageable the pagination information
      * @return the list of new entities
      */
     @Override
-    public Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAllNewReceiptsByShopId(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatusAndShopId(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
+        Page<Receipt> result = receiptRepository.findByStatusAndShopShopId(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     * Get all receipts by shopId.
+     *
+     * @param pageable the pagination information
+     * @return the list of new entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findAllReceiptsByShopId(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        String shopId = userService.getUserWithAuthorities().getShop().getShopId();
+        Page<Receipt> result = receiptRepository.findByShopShopIdOrderByIdDesc(pageable, shopId);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -219,7 +233,14 @@ public class ReceiptServiceImpl implements ReceiptService {
      */
     @Override
     public Long countNewReceipts() {
-        return receiptRepository.countByStatus(ReceiptStatus.NEW);
+        User userWithAuthorities = userService.getUserWithAuthorities();
+        Set<Authority> authorities = userWithAuthorities.getAuthorities();
+        if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER))) {
+            return receiptRepository.countByStatus(ReceiptStatus.NEW);
+        } else {
+            return receiptRepository.getCountByStatusAndShopId(ReceiptStatus.NEW, userWithAuthorities.getShop().getShopId());
+        }
     }
 
     /**

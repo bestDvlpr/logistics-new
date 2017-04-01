@@ -67,11 +67,19 @@ public class IntegrationServiceImpl implements IntegrationService {
     }
 
 
-
     private void createOrUpdateReceipt(Receipt receipt, IntegrateDTO integrateDTO) throws ValidationException {
 
         if (receipt == null)
             receipt = new Receipt();
+
+        if (integrateDTO.getProducts().isEmpty()) {
+            return;
+        }
+
+        boolean anyMatch = integrateDTO.getProducts().stream().anyMatch(productIntegrate -> productIntegrate.getDeliveryFlag().equals(String.valueOf(SalesType.DELIVERY.ordinal())));
+        if (!anyMatch) {
+            return;
+        }
 
         DocType docType = DocType.get(integrateDTO.getDocType());
 
@@ -93,7 +101,7 @@ public class IntegrationServiceImpl implements IntegrationService {
         receipt.setWholeSaleFlag(wholeSaleFlag);
         receipt.setDocType(docType);
         if (receipt.getStatus() == null)
-            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            receipt.setStatus(ReceiptStatus.NEW);
 
         receipt.setShop(shopRepository.findByShopId(integrateDTO.getShopId()));
         receipt = receiptRepository.save(receipt);

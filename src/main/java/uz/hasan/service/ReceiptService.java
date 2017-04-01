@@ -42,12 +42,21 @@ public interface ReceiptService {
     void delete(Long id);
 
     /**
-     *  Get all the new receipts.
+     *  Get all the new receipts by shop id.
      *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAllNewReceiptsByShopId(Pageable pageable);
+
+
+    /**
+     *  Get all receipts by shop id.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findAllReceiptsByShopId(Pageable pageable);
 
     /**
      *  Get all the applied receipts.

@@ -32,8 +32,8 @@
                 <th jhiSortBy="virtualFlag"><span
                     jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="guid"><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span> <span
-                    class="fa fa-sort"></span></th>
+                <!--<th jhiSortBy="guid"><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span> <span
+                    class="fa fa-sort"></span></th>-->
                 <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.productEntry.status">Status</span> <span
@@ -101,7 +101,7 @@
                     {{productEntry.virtualFlag}}
                     </span>
                 </td>
-                <td>{{productEntry.guid}}</td>
+                <!--<td>{{productEntry.guid}}</td>-->
                 <td>{{productEntry.qty}}</td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-info"

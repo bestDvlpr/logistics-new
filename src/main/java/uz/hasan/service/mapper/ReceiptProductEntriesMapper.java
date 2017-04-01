@@ -40,9 +40,7 @@ public class ReceiptProductEntriesMapper {
         }
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
         List<ProductEntry> productEntries = new ArrayList<>();
-        for (ProductEntry entry : receipt.getProductEntries()) {
-            productEntries.add(entry);
-        }
+        productEntries.addAll(receipt.getProductEntries());
         List<ProductEntryDTO> productEntryDTOS = productEntryMapper.productEntriesToProductEntryDTOs(productEntries);
         ReceiptProductEntriesDTO entriesDTO = new ReceiptProductEntriesDTO();
         entriesDTO.setAddresses(receiptDTO.getAddresses());
@@ -62,6 +60,8 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setPreviousDocID(receiptDTO.getPreviousDocID());
         entriesDTO.setPayMasterId(receiptDTO.getPayMasterId());
         entriesDTO.setPayMasterPayMasterName(receiptDTO.getPayMasterPayMasterName());
+        entriesDTO.setShopId(receiptDTO.getShopId());
+        entriesDTO.setShopName(receiptDTO.getShopName());
         return entriesDTO;
     }
 

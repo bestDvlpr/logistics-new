@@ -95,4 +95,9 @@ export class ReceiptService {
             return res.json();
         });
     }
+
+    allByShopId(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/by-shop-id'), options);
+    }
 }

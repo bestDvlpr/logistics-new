@@ -69,6 +69,17 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         );
     }
 
+    loadAllByShopId() {
+        this.receiptService.allByShopId({
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        }).subscribe(
+            (res: Response) => this.onSuccess(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
@@ -84,7 +95,19 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.loadAll();
+        let isDCEmployee = false;
+        for (let auth of this.currentAccount.authorities) {
+            if (auth === 'ROLE_ADMIN' ||
+                auth === 'ROLE_MANAGER' ||
+                auth === 'ROLE_DISPATCHER') {
+                isDCEmployee = true;
+            }
+        }
+        if (isDCEmployee) {
+            this.loadAll();
+        } else {
+            this.loadAllByShopId();
+        }
     }
 
     clear() {
@@ -97,9 +120,21 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            let isDCEmployee = false;
+            for (let auth of this.currentAccount.authorities) {
+                if (auth === 'ROLE_ADMIN' ||
+                    auth === 'ROLE_MANAGER' ||
+                    auth === 'ROLE_DISPATCHER') {
+                    isDCEmployee = true;
+                }
+            }
+            if (isDCEmployee) {
+                this.loadAll();
+            } else {
+                this.loadAllByShopId();
+            }
         });
         this.registerChangeInReceipts();
     }
