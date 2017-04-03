@@ -41,6 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class AddressResourceIntTest {
 
     private static final String DEFAULT_STREET_ADDRESS = "AAAAAAAAAA";

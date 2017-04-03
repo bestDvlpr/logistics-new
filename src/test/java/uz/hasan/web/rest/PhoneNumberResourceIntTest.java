@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class PhoneNumberResourceIntTest {
 
     private static final String DEFAULT_NUMBER = "+411388344962";

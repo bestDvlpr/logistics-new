@@ -39,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class DriverResourceIntTest {
 
     private static final String DEFAULT_PHONE = "+676043188055";

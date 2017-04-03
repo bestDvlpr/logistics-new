@@ -1,8 +1,8 @@
 id;name;parent_id;type
-1651;Uzbekistan;;COUNTRY
-1652;Tashkent;1651;COUNTRY
-1751;Olmazor;1652;COUNTRY
-1752;Buxoro;1651;COUNTRY
-4151;Rometon;1752;COUNTRY
-4152;asda2;4151;COUNTRY
-4401;2-chimboy kochasi;1751;COUNTRY
+1;Uzbekistan;null;COUNTRY
+2;Tashkent;1;COUNTRY
+3;Olmazor;2;COUNTRY
+4;Buxoro;1;COUNTRY
+5;Rometon;4;COUNTRY
+6;asda2;5;COUNTRY
+7;2-chimboy kochasi;3;COUNTRY

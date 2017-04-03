@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1490793540001-1">
+        <sql>
+            UPDATE product_entry SET attached_to_car_time=null,
+            delivery_end_time=null, delivery_start_time=null;
+
+            UPDATE receipt SET sent_to_dc_time=null, delivered_time=null;
+        </sql>
+        <dropColumn tableName="product_entry" columnName="attached_to_car_time"/>
+        <dropColumn tableName="product_entry" columnName="delivery_end_time"/>
+        <dropColumn tableName="product_entry" columnName="delivery_start_time"/>
+        <dropColumn tableName="receipt" columnName="sent_to_dc_time"/>
+        <dropColumn tableName="receipt" columnName="delivered_time"/>
+        <addColumn tableName="product_entry">
+            <column name="attached_to_car_time" type="timestamp"/>
+            <column name="delivery_end_time" type="timestamp"/>
+            <column name="delivery_start_time" type="timestamp"/>
+        </addColumn>
+        <addColumn tableName="receipt">
+            <column name="sent_to_dc_time" type="timestamp"/>
+            <column name="delivered_time" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

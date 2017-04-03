@@ -40,6 +40,7 @@ import uz.hasan.domain.enumeration.PaymentType;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class PayTypeResourceIntTest {
 
     private static final String DEFAULT_SAP_CODE = "AAAAAAAAAA";

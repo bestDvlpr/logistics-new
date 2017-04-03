@@ -1,5 +1,5 @@
 id;first_name;last_name;city_id;region_id;street_id;address
-1;Anvar;Sodiqov;1652;1751;4401;10-uy
-2;Nodir;Sodiqov;1652;1751;4401;20-uy
-3;Zafar;Sodiqov;1652;1751;4401;30-uy
-4;Oktam;Sodiqov;1652;1751;4401;40-uy
+1;Anvar;Sodiqov;2;3;7;10-uy
+2;Nodir;Sodiqov;2;3;7;20-uy
+3;Zafar;Sodiqov;2;3;7;30-uy
+4;Oktam;Sodiqov;2;3;7;40-uy

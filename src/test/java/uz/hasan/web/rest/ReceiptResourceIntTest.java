@@ -43,6 +43,7 @@ import uz.hasan.domain.enumeration.ReceiptStatus;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class ReceiptResourceIntTest {
 
     private static final String DEFAULT_DOC_NUM = "AAAAAAAAAA";

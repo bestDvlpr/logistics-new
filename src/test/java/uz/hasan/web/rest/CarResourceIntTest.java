@@ -41,6 +41,7 @@ import uz.hasan.domain.enumeration.CarStatus;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class CarResourceIntTest {
 
     private static final String DEFAULT_NUMBER = "AAAAAAAAAA";

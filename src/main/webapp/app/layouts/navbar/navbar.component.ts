@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit {
     private getNewReceiptCount() {
         let pollData = this.receiptService.countNewApplications();
         if (this.principal.isAuthenticated()) {
-            pollData.expand(() => Observable.timer(60000).concatMap(() => pollData)).subscribe(count => {
+            pollData.expand(() => Observable.timer(10000).concatMap(() => pollData)).subscribe(count => {
                 this.newOrderCount = count;
             });
         }
@@ -97,7 +97,7 @@ export class NavbarComponent implements OnInit {
     private getAppliedReceiptsCount() {
         let pollData = this.receiptService.countAppliedApplications();
         if (this.principal.isAuthenticated()) {
-            pollData.expand(() => Observable.timer(60000).concatMap(() => pollData)).subscribe(count => {
+            pollData.expand(() => Observable.timer(10000).concatMap(() => pollData)).subscribe(count => {
                 this.appliedOrderCount = count;
             });
         }

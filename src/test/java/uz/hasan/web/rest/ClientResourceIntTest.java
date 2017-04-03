@@ -28,7 +28,9 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static uz.hasan.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,6 +52,9 @@ public class ClientResourceIntTest {
 
     private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PHONE_NUMBER = "+998909000000";
+    private static final String UPDATED_PHONE_NUMBER = "+998712404040";
 
     private static final ZonedDateTime DEFAULT_REG_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_REG_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
@@ -79,6 +84,8 @@ public class ClientResourceIntTest {
 
     private Client client;
 
+    private Set<String> phoneNumbers;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -91,15 +98,15 @@ public class ClientResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
     public static Client createEntity(EntityManager em) {
         Client client = new Client()
-                .firstName(DEFAULT_FIRST_NAME)
-                .lastName(DEFAULT_LAST_NAME)
-                .regDate(DEFAULT_REG_DATE);
+            .firstName(DEFAULT_FIRST_NAME)
+            .lastName(DEFAULT_LAST_NAME)
+            .regDate(DEFAULT_REG_DATE);
         return client;
     }
 
@@ -115,7 +122,9 @@ public class ClientResourceIntTest {
 
         // Create the Client
         ClientDTO clientDTO = clientMapper.clientToClientDTO(client);
-
+        Set<String> phoneNumbers = new HashSet<>();
+        phoneNumbers.add(DEFAULT_PHONE_NUMBER);
+        clientDTO.setPhoneNumbers(phoneNumbers);
         restClientMockMvc.perform(post("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
@@ -127,7 +136,6 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
-        assertThat(testClient.getRegDate()).isEqualTo(DEFAULT_REG_DATE);
     }
 
     @Test
@@ -139,7 +147,9 @@ public class ClientResourceIntTest {
         Client existingClient = new Client();
         existingClient.setId(1L);
         ClientDTO existingClientDTO = clientMapper.clientToClientDTO(existingClient);
-
+        Set<String> phoneNumbers = new HashSet<>();
+        phoneNumbers.add(DEFAULT_PHONE_NUMBER);
+        existingClientDTO.setPhoneNumbers(phoneNumbers);
         // An entity with an existing ID cannot be created, so this API call must fail
         restClientMockMvc.perform(post("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -201,11 +211,13 @@ public class ClientResourceIntTest {
         // Update the client
         Client updatedClient = clientRepository.findOne(client.getId());
         updatedClient
-                .firstName(UPDATED_FIRST_NAME)
-                .lastName(UPDATED_LAST_NAME)
-                .regDate(UPDATED_REG_DATE);
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .regDate(UPDATED_REG_DATE);
         ClientDTO clientDTO = clientMapper.clientToClientDTO(updatedClient);
-
+        Set<String> phoneNumbers = new HashSet<>();
+        phoneNumbers.add(DEFAULT_PHONE_NUMBER);
+        clientDTO.setPhoneNumbers(phoneNumbers);
         restClientMockMvc.perform(put("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
@@ -227,7 +239,9 @@ public class ClientResourceIntTest {
 
         // Create the Client
         ClientDTO clientDTO = clientMapper.clientToClientDTO(client);
-
+        Set<String> phoneNumbers = new HashSet<>();
+        phoneNumbers.add(DEFAULT_PHONE_NUMBER);
+        clientDTO.setPhoneNumbers(phoneNumbers);
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restClientMockMvc.perform(put("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)

@@ -1,6 +1,7 @@
 package uz.hasan.service.dto;
 
 
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class ClientDTO implements Serializable {
 
     private ZonedDateTime regDate;
 
+    @NotNull
     private Set<String> phoneNumbers;
 
     public Long getId() {
