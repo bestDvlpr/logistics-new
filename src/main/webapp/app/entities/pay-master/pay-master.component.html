@@ -1,11 +1,13 @@
 <div>
     <h2><span jhiTranslate="logisticsApp.payMaster.home.title">Pay Masters</span>
-        <button class="btn btn-primary float-xs-right create-pay-master" [routerLink]="['/', { outlets: { popup: ['pay-master-new'] } }]">
+        <button class="btn btn-primary float-xs-right create-pay-master"
+                [routerLink]="['/', { outlets: { popup: ['pay-master-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.payMaster.home.createLabel">
+            <span jhiTranslate="logisticsApp.payMaster.home.createLabel">
             Create new Pay Master
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">
@@ -17,10 +19,13 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="paymasterID"><span jhiTranslate="logisticsApp.payMaster.paymasterID">Paymaster ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="payMasterName"><span jhiTranslate="logisticsApp.payMaster.payMasterName">Pay Master Name</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="paymasterID"><span jhiTranslate="logisticsApp.payMaster.paymasterID">Paymaster ID</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="payMasterName"><span
+                    jhiTranslate="logisticsApp.payMaster.payMasterName">Pay Master Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -56,8 +61,8 @@
             </tbody>
         </table>
     </div>
-        <div class="text-xs-center" *ngIf="payMasters && payMasters.length">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
+    <div class="text-xs-center" *ngIf="payMasters && payMasters.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
 </div>

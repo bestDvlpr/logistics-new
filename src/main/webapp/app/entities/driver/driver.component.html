@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.driver.home.title">Drivers</span>
-        <button class="btn btn-primary float-right create-driver" [routerLink]="['/', { outlets: { popup: ['driver-new'] } }]">
+        <button class="btn btn-primary float-xs-right create-driver" [routerLink]="['/', { outlets: { popup: ['driver-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="logisticsApp.driver.home.createLabel">
             Create new Driver
@@ -63,12 +63,8 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="drivers && drivers.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+        <div class="text-xs-center" *ngIf="drivers && drivers.length">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
 </div>

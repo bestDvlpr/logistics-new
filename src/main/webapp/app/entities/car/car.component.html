@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.car.home.title">Cars</span>
-        <button class="btn btn-primary float-right create-car"
+        <button class="btn btn-primary float-xs-right create-car"
                 [routerLink]="['/', { outlets: { popup: ['car-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.car.home.createLabel">
@@ -94,13 +94,8 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="cars && cars.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
-                            (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
+    <div class="text-xs-center" *ngIf="cars && cars.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
     </div>
 </div>

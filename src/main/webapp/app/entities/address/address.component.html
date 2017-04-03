@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
-        <button class="btn btn-primary float-right create-address" [routerLink]="['/', { outlets: { popup: ['address-new'] } }]">
+        <button class="btn btn-primary float-xs-right create-address"
+                [routerLink]="['/', { outlets: { popup: ['address-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.address.home.createLabel">
+            <span jhiTranslate="logisticsApp.address.home.createLabel">
             Create new Address
             </span>
         </button>
@@ -16,16 +17,25 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="streetAddress"><span jhiTranslate="logisticsApp.address.streetAddress">Street Address</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="latitude"><span jhiTranslate="logisticsApp.address.latitude">Latitude</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="longitude"><span jhiTranslate="logisticsApp.address.longitude">Longitude</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="countryName"><span jhiTranslate="logisticsApp.address.country">Country</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="regionName"><span jhiTranslate="logisticsApp.address.region">Region</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="cityName"><span jhiTranslate="logisticsApp.address.city">City</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="districtName"><span jhiTranslate="logisticsApp.address.district">District</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.address.client">Client</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="streetAddress"><span
+                    jhiTranslate="logisticsApp.address.streetAddress">Street Address</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="latitude"><span jhiTranslate="logisticsApp.address.latitude">Latitude</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="longitude"><span jhiTranslate="logisticsApp.address.longitude">Longitude</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="countryName"><span jhiTranslate="logisticsApp.address.country">Country</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="regionName"><span jhiTranslate="logisticsApp.address.region">Region</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="cityName"><span jhiTranslate="logisticsApp.address.city">City</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="districtName"><span jhiTranslate="logisticsApp.address.district">District</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.address.client">Client</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -36,27 +46,27 @@
                 <td>{{address.longitude}}</td>
                 <td>
                     <div *ngIf="address.countryId">
-                        <a [routerLink]="['../location', address.countryId  ]" >{{address.countryName}}</a>
+                        <a [routerLink]="['../location', address.countryId  ]">{{address.countryName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="address.regionId">
-                        <a [routerLink]="['../location', address.regionId  ]" >{{address.regionName}}</a>
+                        <a [routerLink]="['../location', address.regionId  ]">{{address.regionName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="address.cityId">
-                        <a [routerLink]="['../location', address.cityId  ]" >{{address.cityName}}</a>
+                        <a [routerLink]="['../location', address.cityId  ]">{{address.cityName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="address.districtId">
-                        <a [routerLink]="['../location', address.districtId  ]" >{{address.districtName}}</a>
+                        <a [routerLink]="['../location', address.districtId  ]">{{address.districtName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="address.clientId">
-                        <a [routerLink]="['../client', address.clientId  ]" >{{address.clientFirstName}}</a>
+                        <a [routerLink]="['../client', address.clientId  ]">{{address.clientFirstName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -87,12 +97,8 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="addresses && addresses.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
-        </div>
+    <div class="text-xs-center" *ngIf="addresses && addresses.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
-        <button class="btn btn-primary float-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
+        <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
@@ -155,17 +155,8 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="receipts && receipts.length">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
-                                (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
-        </div>
+    <div class="text-xs-center" *ngIf="receipts && receipts.length">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
     </div>
 </div>
