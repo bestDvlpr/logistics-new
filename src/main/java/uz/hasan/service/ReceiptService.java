@@ -19,6 +19,14 @@ public interface ReceiptService {
     ReceiptDTO save(ReceiptDTO receiptDTO);
 
     /**
+     * Save a receipt.
+     *
+     * @param receiptDTO the entity to save
+     * @return the persisted entity
+     */
+    ReceiptProductEntriesDTO save(ReceiptProductEntriesDTO receiptDTO);
+
+    /**
      *  Get all the receipts.
      *
      *  @param pageable the pagination information

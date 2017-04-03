@@ -2,6 +2,7 @@ package uz.hasan.service.impl;
 
 import uz.hasan.domain.Car;
 import uz.hasan.domain.Receipt;
+import uz.hasan.domain.User;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.repository.CarRepository;
@@ -9,6 +10,7 @@ import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.ProductEntryRepository;
+import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.mapper.ProductEntryMapper;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -35,12 +38,14 @@ public class ProductEntryServiceImpl implements ProductEntryService {
 
     private final ReceiptRepository receiptRepository;
     private final CarRepository carRepository;
+    private final UserService userService;
 
-    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository, ProductEntryMapper productEntryMapper, ReceiptRepository receiptRepository, CarRepository carRepository) {
+    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository, ProductEntryMapper productEntryMapper, ReceiptRepository receiptRepository, CarRepository carRepository, UserService userService) {
         this.productEntryRepository = productEntryRepository;
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.carRepository = carRepository;
+        this.userService = userService;
     }
 
     /**
@@ -148,15 +153,25 @@ public class ProductEntryServiceImpl implements ProductEntryService {
         if (productEntryDTOs.isEmpty()) {
             return Collections.emptyList();
         }
-        List<ProductEntryDTO> productEntryDTOS = new ArrayList<>();
+
         Set<Receipt> receipts = new HashSet<>();
-        for (ProductEntryDTO dto : productEntryDTOs) {
-            dto.setStatus(ReceiptStatus.DELIVERY_PROCESS);
-            ProductEntry productEntry = productEntryRepository.save(productEntryMapper.productEntryDTOToProductEntry(dto));
-            productEntryDTOS.add(productEntryMapper.productEntryToProductEntryDTO(productEntry));
-            Receipt receipt = productEntry.getReceipt();
+        List<ProductEntry> productEntries = productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        List<ProductEntry> resultList = new ArrayList<>();
+
+        for (ProductEntry entry : productEntries) {
+
+            entry.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+            entry.setDeliveryItemsSentBy(userService.getUserWithAuthorities());
+            entry.setDeliveryStartTime(ZonedDateTime.now());
+
+            ProductEntry saveResult = productEntryRepository.save(entry);
+            resultList.add(saveResult);
+
+            Receipt receipt = saveResult.getReceipt();
             receipts.add(receipt);
+
         }
+
         for (Receipt receipt : receipts) {
             boolean ready = receipt.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERY_PROCESS));
             if (ready) {
@@ -164,7 +179,8 @@ public class ProductEntryServiceImpl implements ProductEntryService {
                 receiptRepository.save(receipt);
             }
         }
-        return productEntryDTOS;
+
+        return productEntryMapper.productEntriesToProductEntryDTOs(resultList);
     }
 
     /**
@@ -177,14 +193,23 @@ public class ProductEntryServiceImpl implements ProductEntryService {
         if (productEntryDTOs.isEmpty()) {
             return Collections.emptyList();
         }
-        List<ProductEntryDTO> productEntryDTOS = new ArrayList<>();
-        Set<Receipt> receipts = new HashSet<>();
 
-        for (ProductEntryDTO dto : productEntryDTOs) {
-            dto.setStatus(ReceiptStatus.DELIVERED);
-            ProductEntry productEntry = productEntryRepository.save(productEntryMapper.productEntryDTOToProductEntry(dto));
-            productEntryDTOS.add(productEntryMapper.productEntryToProductEntryDTO(productEntry));
-            Receipt receipt = productEntry.getReceipt();
+        Set<Receipt> receipts = new HashSet<>();
+        List<ProductEntry> productEntries = productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        List<ProductEntry> resultList = new ArrayList<>();
+
+        User currentUser = userService.getUserWithAuthorities();// Get current user
+
+        for (ProductEntry productEntry : productEntries) {
+
+            productEntry.setStatus(ReceiptStatus.DELIVERED);
+            productEntry.setDeliveryEndTime(ZonedDateTime.now());
+            productEntry.setMarkedAsDeliveredBy(currentUser);
+
+            ProductEntry result = productEntryRepository.save(productEntry);
+            resultList.add(result);
+
+            Receipt receipt = result.getReceipt();
             receipts.add(receipt);
         }
 
@@ -192,17 +217,20 @@ public class ProductEntryServiceImpl implements ProductEntryService {
             boolean ready = receipt.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED));
             if (ready) {
                 receipt.setStatus(ReceiptStatus.DELIVERED);
+                receipt.setDeliveredTime(ZonedDateTime.now());
+                receipt.setMarkedAsDeliveredBy(currentUser);
+
                 receiptRepository.save(receipt);
             }
         }
 
-        Car car = carRepository.findOne(productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOS).get(0).getAttachedCar().getId());
-        List<ProductEntry> productEntries = productEntryRepository.findByAttachedCarNumberAndStatusNot(car.getNumber(), ReceiptStatus.DELIVERED);
-        if (productEntries == null || productEntries.isEmpty()) {
+        Car car = carRepository.findOne(resultList.get(0).getAttachedCar().getId());
+        Long notYetDeliveredProductEntries = productEntryRepository.countByAttachedCarNumberAndStatusNot(car.getNumber(), ReceiptStatus.DELIVERED);
+        if (notYetDeliveredProductEntries == null || notYetDeliveredProductEntries > 1) {
             car.setStatus(CarStatus.IDLE);
             carRepository.save(car);
         }
 
-        return productEntryDTOS;
+        return productEntryMapper.productEntriesToProductEntryDTOs(resultList);
     }
 }

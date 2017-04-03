@@ -13,6 +13,7 @@ import uz.hasan.repository.*;
 import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UserService;
+import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.service.mapper.ProductEntryMapper;
@@ -99,8 +100,56 @@ public class ReceiptServiceImpl implements ReceiptService {
                 receipt.setPayMaster(null);
             }
         }
+
+        if (receipt.getLoyaltyCard() != null && receipt.getLoyaltyCard().getId() == null) {
+            if (receipt.getLoyaltyCard().getLoyaltyCardAmount() != null) {
+                loyaltyCardRepository.save(receipt.getLoyaltyCard());
+            } else {
+                receipt.setLoyaltyCard(null);
+            }
+        }
+
         receipt = receiptRepository.save(receipt);
         ReceiptDTO result = receiptMapper.receiptToReceiptDTO(receipt);
+        return result;
+    }
+
+    /**
+     * Save a receipt.
+     *
+     * @param receiptDTO the entity to save
+     * @return the persisted entity
+     */
+    @Override
+    public ReceiptProductEntriesDTO save(ReceiptProductEntriesDTO receiptDTO) {
+        log.debug("Request to save Receipt : {}", receiptDTO);
+        Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
+        if (receipt.getClient() != null) {
+            if (receipt.getClient().getFirstName() != null) {
+                clientRepository.save(receipt.getClient());
+            } else {
+                receipt.setClient(null);
+            }
+        }
+
+        if (receipt.getPayMaster() != null) {
+            if (receipt.getPayMaster().getPayMasterName() != null) {
+                payMasterRepository.save(receipt.getPayMaster());
+            } else {
+                receipt.setPayMaster(null);
+            }
+        }
+
+        if (receipt.getLoyaltyCard() != null && receipt.getLoyaltyCard().getId() == null) {
+            if (receipt.getLoyaltyCard().getLoyaltyCardAmount() != null) {
+                loyaltyCardRepository.save(receipt.getLoyaltyCard());
+            } else {
+                receipt.setLoyaltyCard(null);
+            }
+        }
+
+        receipt = receiptRepository.save(receipt);
+        ReceiptProductEntriesDTO result = receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
         return result;
     }
 
@@ -191,31 +240,9 @@ public class ReceiptServiceImpl implements ReceiptService {
      */
     @Override
     public ReceiptDTO sendOrder(ReceiptProductEntriesDTO receiptDTO) {
+
         Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
 
-        if (receipt.getPayMaster() != null && receipt.getPayMaster().getId() == null) {
-            if (receipt.getPayMaster().getPayMasterName() != null) {
-                payMasterRepository.save(receipt.getPayMaster());
-            } else {
-                receipt.setPayMaster(null);
-            }
-        }
-
-        if (receipt.getLoyaltyCard() != null && receipt.getLoyaltyCard().getId() == null) {
-            if (receipt.getLoyaltyCard().getLoyaltyCardAmount() != null) {
-                loyaltyCardRepository.save(receipt.getLoyaltyCard());
-            } else {
-                receipt.setLoyaltyCard(null);
-            }
-        }
-
-        if (receipt.getClient() != null && receipt.getClient().getId() == null) {
-            if (receipt.getClient().getFirstName() != null) {
-                clientRepository.save(receipt.getClient());
-            } else {
-                receipt.setClient(null);
-            }
-        }
         receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
         productEntryRepository.save(receipt.getProductEntries());
 
@@ -263,18 +290,24 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receiptDTO == null || receiptDTO.getProductEntries() == null || receiptDTO.getProductEntries().isEmpty()) {
             return null;
         }
-        List<ProductEntry> productEntries = productEntryRepository.save(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries()));
+
+        List<ProductEntryDTO> productEntryDTOs = receiptDTO.getProductEntries();
+        List<ProductEntry> productEntryList = productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        productEntryList.forEach(productEntry -> productEntry.setAttachedToCarTime(ZonedDateTime.now()));
+        productEntryList.forEach(productEntry -> productEntry.setAttachedToDriverBy(userService.getUserWithAuthorities()));
+        productEntryList.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER));
+        List<ProductEntry> productEntries = productEntryRepository.save(productEntryList);
+
         for (ProductEntry entry : productEntries) {
             Car attachedCar = entry.getAttachedCar();
-            if (attachedCar != null) {
+            if (attachedCar != null) { // TODO: 4/3/17 mark as busy when car is fully occupied
                 attachedCar.setStatus(CarStatus.BUSY);
                 carRepository.save(attachedCar);
             }
         }
+
         receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
-        Receipt receipt = receiptRepository.save(receiptMapper.receiptDTOToReceipt(receiptDTO));
-        receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER));
-        productEntryRepository.save(receipt.getProductEntries());
-        return receiptMapper.receiptToReceiptDTO(receipt);
+
+        return save(receiptDTO);
     }
 }

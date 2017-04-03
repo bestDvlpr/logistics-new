@@ -37,6 +37,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     receiptStatusEnum = ReceiptStatus;
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
+    isDCEmployee: boolean;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -95,15 +96,15 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        let isDCEmployee = false;
+        this.isDCEmployee = false;
         for (let auth of this.currentAccount.authorities) {
             if (auth === 'ROLE_ADMIN' ||
                 auth === 'ROLE_MANAGER' ||
                 auth === 'ROLE_DISPATCHER') {
-                isDCEmployee = true;
+                this.isDCEmployee = true;
             }
         }
-        if (isDCEmployee) {
+        if (this.isDCEmployee) {
             this.loadAll();
         } else {
             this.loadAllByShopId();
@@ -122,15 +123,15 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
-            let isDCEmployee = false;
+            this.isDCEmployee = false;
             for (let auth of this.currentAccount.authorities) {
                 if (auth === 'ROLE_ADMIN' ||
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
-                    isDCEmployee = true;
+                    this.isDCEmployee = true;
                 }
             }
-            if (isDCEmployee) {
+            if (this.isDCEmployee) {
                 this.loadAll();
             } else {
                 this.loadAllByShopId();
@@ -148,7 +149,11 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInReceipts() {
-        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
+        if (this.isDCEmployee) {
+            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
+        } else {
+            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByShopId());
+        }
     }
 
     sort() {
