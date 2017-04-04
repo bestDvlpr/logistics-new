@@ -78,7 +78,9 @@ export class ProductEntryDoneComponent implements OnInit, OnDestroy {
     private onSuccess(data) {
         this.productEntries = data;
         if (this.productEntries.length <= 0) {
-            this.alertService.error(this.translateService.instant('logisticsApp.productEntry.error.notFound'));
+            this.translateService.get('logisticsApp.productEntry.error.notFound').subscribe(title => {
+                this.alertService.error(title);
+            });
         }
     }
 

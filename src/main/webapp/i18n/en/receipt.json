@@ -33,7 +33,11 @@
             "payTypes": "Payments",
             "sentBy": "Sent by",
             "shopId": "Shop ID",
-            "markedAsDeliveredBy": "Marked As Delivered By"
+            "markedAsDeliveredBy": "Marked As Delivered By",
+            "startTime": "Start Time",
+            "endTime": "End Time",
+            "deliveryMessage": "Delivery process starts in an hour and for 48 hours products will be delivered!",
+            "deliveryTimeMessage": "Delivery process happens from {{time1}} to {{time2}}!"
         }
     }
 }

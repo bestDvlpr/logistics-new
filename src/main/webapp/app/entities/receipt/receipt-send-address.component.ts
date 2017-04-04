@@ -8,6 +8,7 @@ import {TranslateService} from 'ng2-translate';
 import {Router} from '@angular/router';
 import {ClientService} from '../client/client.service';
 import {Subscription} from 'rxjs/Rx';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'jhi-receipt-send-address',
@@ -27,7 +28,8 @@ export class ReceiptSendAddressComponent implements OnInit {
                 public dataHolderService: DataHolderService,
                 private clientService: ClientService,
                 private eventManager: EventManager,
-                private router: Router) {
+                private router: Router,
+                private datePipe: DatePipe) {
         this.jhiLanguageService.setLocations(
             ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address']
         );
@@ -51,7 +53,9 @@ export class ReceiptSendAddressComponent implements OnInit {
 
     public goSelectProductStep() {
         if (!this.addressSelected) {
-            this.alertService.error(this.translateService.instant('error.emailexists'));
+            this.translateService.get('error.emailexists').subscribe(title => {
+                this.alertService.error(title);
+            });
         } else {
             this.receipt.addresses.push(this.addressSelected);
             this.dataHolderService._client = this.client;

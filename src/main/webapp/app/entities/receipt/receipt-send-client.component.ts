@@ -94,7 +94,9 @@ export class ReceiptSendClientComponent implements OnInit {
 
     public sendOrder() {
         if (this.uncheckedProdsExist) {
-            this.alertService.error(this.translateService.instant('error.NotNull'));
+            this.translateService.get('error.NotNull').subscribe(title => {
+                this.alertService.error(title);
+            });
         } else {
             this.receiptService.sendOrder(this.receipt).subscribe(
                 (res: Receipt) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json())

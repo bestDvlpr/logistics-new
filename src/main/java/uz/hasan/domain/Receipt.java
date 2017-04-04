@@ -66,6 +66,12 @@ public class Receipt implements Serializable {
     @Column(name = "delivered_time")
     private ZonedDateTime deliveredTime;
 
+    @Column(name = "from_time")
+    private String fromTime;
+
+    @Column(name = "to_time")
+    private String toTime;
+
     @ManyToOne
     private PayMaster payMaster;
 
@@ -221,6 +227,32 @@ public class Receipt implements Serializable {
 
     public void setDeliveredTime(ZonedDateTime deliveredTime) {
         this.deliveredTime = deliveredTime;
+    }
+
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public Receipt fromTime(String fromTime) {
+        this.fromTime = fromTime;
+        return this;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public String getToTime() {
+        return toTime;
+    }
+
+    public Receipt toTime(String toTime) {
+        this.toTime = toTime;
+        return this;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
     }
 
     public PayMaster getPayMaster() {
@@ -409,6 +441,8 @@ public class Receipt implements Serializable {
             ", status='" + status + "'" +
             ", sentToDCTime='" + sentToDCTime + "'" +
             ", deliveredTime='" + deliveredTime + "'" +
+            ", fromTime='" + fromTime + "'" +
+            ", toTime='" + toTime + "'" +
             '}';
     }
 }

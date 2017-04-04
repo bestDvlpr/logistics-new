@@ -39,7 +39,9 @@ export class Receipt {
                 public payTypesId?: number,
                 public sentById?: number,
                 public shopId?: number,
-                public shopName?: number,
+                public shopName?: string,
+                public fromTime?: string,
+                public toTime?: string,
                 public markedAsDeliveredById?: number, ) {
     }
 }

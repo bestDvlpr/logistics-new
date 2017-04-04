@@ -56,7 +56,7 @@
             "otherEntityRelationshipName": "receipt"
         },
         {
-            "relationshipName": "shopId",
+            "relationshipName": "shop",
             "otherEntityName": "shop",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
@@ -119,6 +119,14 @@
         {
             "fieldName": "deliveredTime",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "fromTime",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "toTime",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170220091557",

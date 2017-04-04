@@ -7,6 +7,7 @@ import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'jhi-receipt-send-product',
@@ -22,6 +23,9 @@ export class ReceiptSendProductComponent implements OnInit {
     public productsSelected: ProductEntry[] = [];
     public isCollapsed = false;
     isAllChecked: boolean = false;
+    formattedStartTime: string;
+    startTime: any = null;
+    endTime: any = null;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -50,8 +54,14 @@ export class ReceiptSendProductComponent implements OnInit {
     }
 
     public goClientSelectStep() {
-        this.dataHolderService._client = this.client;
+        if (this.startTime !== null && this.endTime !== null) {
+            this.receipt.fromTime = ((this.startTime.hour < 10) ? '0' + this.startTime.hour : this.startTime.hour) +
+                ':' + ((this.startTime.minute < 10) ? '0' + this.startTime.minute : this.startTime.minute);
+            this.receipt.toTime = ((this.endTime.hour < 10) ? '0' + this.endTime.hour : this.endTime.hour) +
+                ':' + ((this.endTime.minute < 10) ? '0' + this.endTime.minute : this.endTime.minute);
+        }
         this.dataHolderService._receipt = this.receipt;
+        this.dataHolderService._client = this.client;
         this.dataHolderService._address = this.address;
         for (let prod of this.productsSelected) {
             for (let pro of this.receipt.productEntries) {
