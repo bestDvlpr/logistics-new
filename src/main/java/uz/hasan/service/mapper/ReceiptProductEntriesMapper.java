@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.repository.ShopRepository;
+import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
@@ -22,20 +23,23 @@ import java.util.List;
 public class ReceiptProductEntriesMapper {
     private final ProductEntryMapper productEntryMapper;
     private final ReceiptMapper receiptMapper;
-    private CarMapper carMapper;
-    private ClientMapper clientMapper;
-    private ShopRepository shopRepository;
+    private final CarMapper carMapper;
+    private final ClientMapper clientMapper;
+    private final ShopRepository shopRepository;
+    private final UserService userService;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptMapper receiptMapper,
                                        ClientMapper clientMapper,
                                        ShopRepository shopRepository,
-                                       CarMapper carMapper) {
+                                       CarMapper carMapper,
+                                       UserService userService) {
         this.productEntryMapper = productEntryMapper;
         this.receiptMapper = receiptMapper;
         this.carMapper = carMapper;
         this.shopRepository = shopRepository;
         this.clientMapper = clientMapper;
+        this.userService = userService;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -93,10 +97,6 @@ public class ReceiptProductEntriesMapper {
         receipt.setPreviousDocID(receiptDTO.getPreviousDocID());
         receipt.setClient(new Client(receiptDTO.getClientId()));
         receipt.setProductEntries(new HashSet<>(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries())));
-//        receipt.setPayTypes(new HashSet<>(payTypeMapper.payTypeDTOsToPayTypes(receiptDTO.getPayTypes())));
-        /*if (receiptDTO.getCars() != null && !receiptDTO.getCars().isEmpty()) {
-            receipt.setCars(new HashSet<>(carMapper.carDTOsToCars(new ArrayList<>(receiptDTO.getCars()))));
-        }*/
         receipt.setPayMaster(new PayMaster(receiptDTO.getPayMasterId()));
         if (receiptDTO.getLoyaltyCardId() != null) {
             receipt.setLoyaltyCard(new LoyaltyCard(receiptDTO.getLoyaltyCardId()));
@@ -104,6 +104,11 @@ public class ReceiptProductEntriesMapper {
         receipt.setStatus(receiptDTO.getStatus());
         receipt.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
         receipt.setShop(shopRepository.findOne(receiptDTO.getShopId()));
+        receipt.setFromTime(receiptDTO.getFromTime());
+        receipt.setToTime(receiptDTO.getToTime());
+        receipt.setSentToDCTime(receiptDTO.getSentToDCTime());
+        receipt.setMarkedAsDeliveredBy(userService.getUserWithAuthorities(receiptDTO.getClientId()));
+        receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
         return receipt;
     }
 }

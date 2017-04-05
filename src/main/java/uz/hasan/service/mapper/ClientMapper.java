@@ -12,10 +12,12 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {})
 public interface ClientMapper {
 
+    @Mapping(target = "phoneNumbers", ignore = true)
     ClientDTO clientToClientDTO(Client client);
 
     List<ClientDTO> clientsToClientDTOs(List<Client> clients);
 
+    @Mapping(target = "phoneNumbers", ignore = true)
     Client clientDTOToClient(ClientDTO clientDTO);
 
     List<Client> clientDTOsToClients(List<ClientDTO> clientDTOs);

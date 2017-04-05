@@ -1,5 +1,11 @@
 package uz.hasan.service.impl;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import uz.hasan.domain.Car;
 import uz.hasan.domain.Receipt;
 import uz.hasan.domain.User;
@@ -7,6 +13,7 @@ import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.repository.CarRepository;
 import uz.hasan.repository.ReceiptRepository;
+import uz.hasan.service.ExcelService;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.ProductEntryRepository;
@@ -20,6 +27,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -39,13 +50,20 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     private final ReceiptRepository receiptRepository;
     private final CarRepository carRepository;
     private final UserService userService;
+    private final ExcelService excelService;
 
-    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository, ProductEntryMapper productEntryMapper, ReceiptRepository receiptRepository, CarRepository carRepository, UserService userService) {
+    public ProductEntryServiceImpl(ProductEntryRepository productEntryRepository,
+                                   ProductEntryMapper productEntryMapper,
+                                   ReceiptRepository receiptRepository,
+                                   CarRepository carRepository,
+                                   UserService userService,
+                                   ExcelService excelService) {
         this.productEntryRepository = productEntryRepository;
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.carRepository = carRepository;
         this.userService = userService;
+        this.excelService = excelService;
     }
 
     /**
@@ -149,7 +167,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
      * @return the persisted entities
      */
     @Override
-    public List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs) {
+    public List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs){
         if (productEntryDTOs.isEmpty()) {
             return Collections.emptyList();
         }
@@ -172,13 +190,33 @@ public class ProductEntryServiceImpl implements ProductEntryService {
 
         }
 
+        HSSFWorkbook workbook = new HSSFWorkbook();
         for (Receipt receipt : receipts) {
             boolean ready = receipt.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERY_PROCESS));
             if (ready) {
                 receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
                 receiptRepository.save(receipt);
+                workbook = excelService.createInvoiceSheet(workbook, new ArrayList<>(receipt.getProductEntries()));
+            } else {
+                List<ProductEntry> sortedProds = new ArrayList<>();
+                for (ProductEntry entry : productEntries) {
+                    if (Objects.equals(entry.getReceipt().getId(), receipt.getId())) {
+                        sortedProds.add(entry);
+                    }
+                }
+                workbook = excelService.createInvoiceSheet(workbook, sortedProds);
             }
         }
+
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(new File("/home/hasan/Invoice.xlsx"), false);
+            workbook.write(outputStream);
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return productEntryMapper.productEntriesToProductEntryDTOs(resultList);
     }

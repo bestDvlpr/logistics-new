@@ -214,8 +214,15 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAllReceiptsByShopId(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        String shopId = userService.getUserWithAuthorities().getShop().getShopId();
-        Page<Receipt> result = receiptRepository.findByShopShopIdOrderByIdDesc(pageable, shopId);
+
+        User userWithAuthorities = userService.getUserWithAuthorities();
+        Page<Receipt> result;
+        if (userWithAuthorities.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
+            String shopId = userWithAuthorities.getShop().getShopId();
+            result = receiptRepository.findByShopShopIdOrderByIdDesc(pageable, shopId);
+        } else {
+            result = receiptRepository.findAll(pageable);
+        }
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -263,7 +270,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         User userWithAuthorities = userService.getUserWithAuthorities();
         Set<Authority> authorities = userWithAuthorities.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
-            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER))) {
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER))||
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
             return receiptRepository.countByStatus(ReceiptStatus.NEW);
         } else {
             return receiptRepository.getCountByStatusAndShopId(ReceiptStatus.NEW, userWithAuthorities.getShop().getShopId());

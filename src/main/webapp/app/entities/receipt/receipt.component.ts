@@ -12,6 +12,7 @@ import {DataHolderService} from './data-holder.service';
 import {Car} from '../car/car.model';
 import {ACElement} from '../../shared/autocomplete/element.model';
 import {CarService} from '../car/car.service';
+import {isUndefined} from "util";
 
 @Component({
     selector: 'jhi-receipt',
@@ -149,6 +150,27 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInReceipts() {
+        this.isDCEmployee = false;
+        if (this.currentAccount === null || isUndefined(this.currentAccount)) {
+            this.principal.identity().then((account) => {
+                this.currentAccount = account;
+                for (let auth of this.currentAccount.authorities) { //todo extract block to a method
+                    if (auth === 'ROLE_ADMIN' ||
+                        auth === 'ROLE_MANAGER' ||
+                        auth === 'ROLE_DISPATCHER') {
+                        this.isDCEmployee = true;
+                    }
+                }
+            });
+        } else {
+            for (let auth of this.currentAccount.authorities) {
+                if (auth === 'ROLE_ADMIN' ||
+                    auth === 'ROLE_MANAGER' ||
+                    auth === 'ROLE_DISPATCHER') {
+                    this.isDCEmployee = true;
+                }
+            }
+        }
         if (this.isDCEmployee) {
             this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
         } else {

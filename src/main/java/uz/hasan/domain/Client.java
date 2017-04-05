@@ -1,10 +1,14 @@
 package uz.hasan.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Client.
@@ -28,6 +32,10 @@ public class Client implements Serializable {
 
     @Column(name = "reg_date")
     private ZonedDateTime regDate;
+
+    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    private Set<PhoneNumber> phoneNumbers = new HashSet<>();
 
     public Client(Long clientId) {
         this.id = clientId;
@@ -81,6 +89,14 @@ public class Client implements Serializable {
 
     public void setRegDate(ZonedDateTime regDate) {
         this.regDate = regDate;
+    }
+
+    public Set<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(Set<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 
     @Override

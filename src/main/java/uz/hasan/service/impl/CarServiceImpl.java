@@ -101,6 +101,6 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public List<CarDTO> findAllIdleCars() {
-        return carMapper.carsToCarDTOs(carRepository.findByStatus(CarStatus.IDLE));
+        return carMapper.carsToCarDTOs(carRepository.findAll());
     }
 }
