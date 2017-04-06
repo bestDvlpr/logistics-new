@@ -58,7 +58,9 @@
                 "database": "База данных",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
-            "language": "Язык"
+            "language": "Язык",
+            "newReceipts": "Новые заявки",
+            "appliedReceipts": "Принятые заявки"
         },
         "form": {
             "username": "Логин",

@@ -31,7 +31,7 @@ export class ReceiptSendAddressComponent implements OnInit {
                 private router: Router,
                 private datePipe: DatePipe) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address']
+            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
         );
     }
 

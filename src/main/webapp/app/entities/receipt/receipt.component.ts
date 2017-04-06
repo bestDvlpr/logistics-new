@@ -12,7 +12,7 @@ import {DataHolderService} from './data-holder.service';
 import {Car} from '../car/car.model';
 import {ACElement} from '../../shared/autocomplete/element.model';
 import {CarService} from '../car/car.service';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
 
 @Component({
     selector: 'jhi-receipt',
@@ -57,7 +57,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car']);
     }
 
     loadAll() {
@@ -154,7 +154,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         if (this.currentAccount === null || isUndefined(this.currentAccount)) {
             this.principal.identity().then((account) => {
                 this.currentAccount = account;
-                for (let auth of this.currentAccount.authorities) { //todo extract block to a method
+                for (let auth of this.currentAccount.authorities) { // todo extract block to a method
                     if (auth === 'ROLE_ADMIN' ||
                         auth === 'ROLE_MANAGER' ||
                         auth === 'ROLE_DISPATCHER') {
@@ -211,7 +211,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     loadCars() {
         this.carService.idleCars().subscribe((cars: Response) => {
             this.setACObjects(cars.json());
-            this.router.navigate(['receipt-product-to-car']);
+            this.router.navigate(['../receipt-product-to-car']);
         });
     }
 

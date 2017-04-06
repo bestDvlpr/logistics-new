@@ -159,7 +159,6 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
         this.loadCars();
-        this.router.navigate(['../receipt-product-to-car']);
     }
 
     private saveToDataHolder(receiptId: number) {

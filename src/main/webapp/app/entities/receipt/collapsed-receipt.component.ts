@@ -28,7 +28,7 @@ export class CollapsedReceiptComponent implements OnInit {
                 public dataHolderService: DataHolderService,
                 private router: Router) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address']
+            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
         );
     }
 
