@@ -1,6 +1,13 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "phoneNumbers",
+            "otherEntityName": "phoneNumber",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "client"
+        }
+    ],
     "fields": [
         {
             "fieldName": "firstName",
@@ -13,6 +20,52 @@
         {
             "fieldName": "regDate",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "bankName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bankFilialRegion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bankAccountNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "16",
+            "fieldValidateRulesMaxlength": "24"
+        },
+        {
+            "fieldName": "mfo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "5",
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "tin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "9",
+            "fieldValidateRulesMaxlength": "9"
+        },
+        {
+            "fieldName": "okonx",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "oked",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170302060008",

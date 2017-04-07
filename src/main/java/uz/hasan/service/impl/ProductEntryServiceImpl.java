@@ -1,24 +1,19 @@
 package uz.hasan.service.impl;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
-import uz.hasan.domain.Car;
-import uz.hasan.domain.Receipt;
-import uz.hasan.domain.User;
+import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.enumeration.XDocTemplate;
+import uz.hasan.invoice.Product;
 import uz.hasan.repository.CarRepository;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ExcelService;
 import uz.hasan.service.ProductEntryService;
-import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.ProductEntryRepository;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
+import uz.hasan.service.mapper.CustomProductEntriesMapper;
 import uz.hasan.service.mapper.ProductEntryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -46,6 +40,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     private final ProductEntryRepository productEntryRepository;
 
     private final ProductEntryMapper productEntryMapper;
+    private final CustomProductEntriesMapper customProductEntriesMapper;
 
     private final ReceiptRepository receiptRepository;
     private final CarRepository carRepository;
@@ -57,13 +52,15 @@ public class ProductEntryServiceImpl implements ProductEntryService {
                                    ReceiptRepository receiptRepository,
                                    CarRepository carRepository,
                                    UserService userService,
-                                   ExcelService excelService) {
+                                   ExcelService excelService,
+                                   CustomProductEntriesMapper customProductEntriesMapper) {
         this.productEntryRepository = productEntryRepository;
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.carRepository = carRepository;
         this.userService = userService;
         this.excelService = excelService;
+        this.customProductEntriesMapper = customProductEntriesMapper;
     }
 
     /**
@@ -167,13 +164,13 @@ public class ProductEntryServiceImpl implements ProductEntryService {
      * @return the persisted entities
      */
     @Override
-    public List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs){
+    public void deliver(List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response) {
         if (productEntryDTOs.isEmpty()) {
-            return Collections.emptyList();
+            return;
         }
 
         Set<Receipt> receipts = new HashSet<>();
-        List<ProductEntry> productEntries = productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        List<ProductEntry> productEntries = customProductEntriesMapper.productEntryDTOsToProductEntries(productEntryDTOs);
         List<ProductEntry> resultList = new ArrayList<>();
 
         for (ProductEntry entry : productEntries) {
@@ -196,7 +193,9 @@ public class ProductEntryServiceImpl implements ProductEntryService {
             if (ready) {
                 receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
                 receiptRepository.save(receipt);
-                workbook = excelService.createInvoiceSheet(workbook, new ArrayList<>(receipt.getProductEntries()));
+
+                Map<String, Object> hashMap = createHashMap(new ArrayList<>(receipt.getProductEntries()));
+                excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
             } else {
                 List<ProductEntry> sortedProds = new ArrayList<>();
                 for (ProductEntry entry : productEntries) {
@@ -204,21 +203,84 @@ public class ProductEntryServiceImpl implements ProductEntryService {
                         sortedProds.add(entry);
                     }
                 }
-                workbook = excelService.createInvoiceSheet(workbook, sortedProds);
+//                workbook = excelService.createInvoiceSheet(workbook, sortedProds);
+                Map<String, Object> hashMap = createHashMap(sortedProds);
+                excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, sortedProds.get(0).getReceipt().getDocID(), hashMap, response);
             }
         }
 
-        FileOutputStream outputStream = null;
-        try {
+//        FileOutputStream outputStream = null;
+        /*try {
             outputStream = new FileOutputStream(new File("/home/hasan/Invoice.xlsx"), false);
             workbook.write(outputStream);
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+
+        return;
+    }
+
+    private Map<String, Object> createHashMap(List<ProductEntry> productEntries) {
+        if (productEntries == null || productEntries.isEmpty()) {
+            return null;
+        }
+        Map<String, Object> result = new HashMap<>();
+        ProductEntry productEntry = productEntries.get(0);
+        Shop shop = productEntry.getShop();
+        result.put("shopAddress", (shop != null && shop.getAddress() != null) ? shop.getAddress().getStreetAddress() : "");
+        result.put("shopBankAccountNumber", (shop != null) ? shop.getBankAccountNumber() : "");
+        result.put("shopBankBranchRegion", (shop != null) ? shop.getBankBranchRegion() : "");
+        result.put("shopBankName", (shop != null) ? shop.getBankName() : "");
+        result.put("shopBankMfo", (shop != null) ? shop.getMfo() : "");
+        result.put("shopName", (shop != null) ? shop.getName() : "");
+        result.put("shopOkonx", (shop != null) ? shop.getOkonx() : "");
+        result.put("shopOked", (shop != null) ? shop.getOked() : "");
+        result.put("shopTin", (shop != null) ? shop.getTin() : "");
+        /* add client fields*/
+        Receipt receipt = productEntry.getReceipt();
+        Client client = null;
+        if (receipt != null) {
+            client = receipt.getClient();
+        }
+        result.put("clientAddress", (client == null || client.getAddresses().isEmpty()) ? "" : client.getAddresses().iterator().next().getStreetAddress());
+        result.put("clientBankAccountNumber", (client != null && client.getBankAccountNumber() != null) ? client.getBankAccountNumber() : "");
+        result.put("clientBankBranchRegion", (client != null && client.getBankFilialRegion() != null) ? client.getBankFilialRegion() : "");
+        result.put("clientBankName", (client != null && client.getBankName() != null) ? client.getBankName() : "");
+        result.put("clientBankMfo", (client != null && client.getMfo() != null) ? client.getMfo() : "");
+        result.put("clientOkonx", (client != null && client.getOkonx() != null) ? client.getOkonx() : "");
+        result.put("clientOked", (client != null && client.getOked() != null) ? client.getOked() : "");
+        result.put("clientTin", (client != null && client.getTin() != null) ? client.getTin() : "");
+        result.put("clientFirstName", (client != null && client.getFirstName() != null) ? client.getFirstName() : "");
+        result.put("clientLastName", (client != null && client.getLastName() != null) ? client.getLastName() : "");
+        result.put("clientPhoneNumbers", (client == null || client.getPhoneNumbers().isEmpty()) ? "" : client.getPhoneNumbers().iterator().next());
+        result.put("receiptDocId", (receipt != null) ? receipt.getDocID() : "");
+        result.put("receiptId", receipt != null ? receipt.getId() : "");
+        List<uz.hasan.invoice.Product> products = new ArrayList<>();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (ProductEntry entry : productEntries) {
+            Product product = new Product();
+            product.setDeliveryStartTime(formatter.format(Date.from(entry.getDeliveryStartTime().toInstant())));            product.setPrice(String.valueOf(entry.getPrice()));
+            product.setProductName((entry.getProduct() != null && entry.getProduct().getName() != null) ? entry.getProduct().getName() : "");
+            product.setQuantity(String.valueOf(entry.getQty()));
+            product.setReceiptId((receipt != null && receipt.getId() != null) ? String.valueOf(receipt.getId()) : "");
+            product.setDocId((receipt != null && receipt.getDocID() != null) ? receipt.getDocID() : "");
+            product.setCarNumber((entry.getAttachedCar() != null && !entry.getAttachedCar().getDrivers().isEmpty()) ? entry.getAttachedCar().getNumber() : "");
+            products.add(product);
+//            result.put("shopPhoneNumbers", shop.getPhoneNumbers()); // TODO: 06.04.2017 add phoneNumbers attr. to shop model
+        /* add product fields*/
+            totalPrice = totalPrice.add(entry.getPrice() != null ? entry.getPrice() : BigDecimal.ZERO);
         }
 
-
-        return productEntryMapper.productEntriesToProductEntryDTOs(resultList);
+        result.put("product", products);
+        if (!products.isEmpty()) {
+            result.put("deliveryStartTime", formatter.format(Date.from(productEntries.get(0).getDeliveryStartTime().toInstant())));
+        }
+        result.put("sumPrice", totalPrice);
+        return result;
     }
 
     /**

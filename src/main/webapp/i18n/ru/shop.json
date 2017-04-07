@@ -2,22 +2,29 @@
     "logisticsApp": {
         "shop" : {
             "home": {
-                "title": "Shops",
-                "createLabel": "Создать новый Shop",
-                "createOrEditLabel": "Создать или отредактировать Shop"
+                "title": "Магазины",
+                "createLabel": "Создать новый магазин",
+                "createOrEditLabel": "Создать или отредактировать магазин"
             },
-            "created": "Новый Shop создан с идентификатором {{ param }}",
-            "updated": "Shop обновлен с идентификатором {{ param }}",
-            "deleted": "Shop удален с идентификатором {{ param }}",
+            "created": "Новый магазин создан с идентификатором {{ param }}",
+            "updated": "Магазин обновлен с идентификатором {{ param }}",
+            "deleted": "Магазин удален с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Shop {{ id }}?"
+                "question": "Вы уверены что хотите удалить магазин {{ id }}?"
             },
             "detail": {
-                "title": "Shop"
+                "title": "Магазин"
             },
-            "shopId": "Shop Id",
-            "name": "Name",
-            "address": "Address"
+            "shopId": "Магазин Id",
+            "name": "Наименования",
+            "bankAccountNumber": "Расчетный счет",
+            "bankName": "Имя банка",
+            "bankBranchRegion": "Регион Филиала банка",
+            "mfo": "МФО",
+            "tin": "ИНН",
+            "okonx": "ОКОНХ",
+            "oked": "ОКЕД",
+            "address": "Адрес"
         }
     }
 }

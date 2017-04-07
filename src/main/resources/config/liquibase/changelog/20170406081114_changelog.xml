@@ -1,0 +1,73 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="admmp (generated)" id="1491466281083-1">
+        <addColumn tableName="client">
+            <column name="bank_account_number" type="varchar(24)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-2">
+        <addColumn tableName="shop">
+            <column name="bank_account_number" type="varchar(24)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-3">
+        <addColumn tableName="shop">
+            <column name="bank_branch_region" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-4">
+        <addColumn tableName="client">
+            <column name="bank_filial_region" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-5">
+        <addColumn tableName="client">
+            <column name="bank_name" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-6">
+        <addColumn tableName="shop">
+            <column name="bank_name" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-7">
+        <addColumn tableName="client">
+            <column name="mfo" type="varchar(5)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-8">
+        <addColumn tableName="shop">
+            <column name="mfo" type="varchar(5)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-9">
+        <addColumn tableName="client">
+            <column name="oked" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-10">
+        <addColumn tableName="shop">
+            <column name="oked" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-11">
+        <addColumn tableName="client">
+            <column name="okonx" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-12">
+        <addColumn tableName="shop">
+            <column name="okonx" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-13">
+        <addColumn tableName="client">
+            <column name="tin" type="varchar(9)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="admmp (generated)" id="1491466281083-14">
+        <addColumn tableName="shop">
+            <column name="tin" type="varchar(9)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

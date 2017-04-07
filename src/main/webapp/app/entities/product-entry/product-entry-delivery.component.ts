@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Response} from '@angular/http';
+import {Response, ResponseContentType} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
@@ -9,6 +9,7 @@ import {ProductEntryService} from './product-entry.service';
 import {EnumAware} from '../receipt/doctypaware.decorator';
 import {ReceiptStatus, WholeSaleFlag} from '../receipt/receipt.model';
 import {TranslateService} from 'ng2-translate';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'jhi-product-entry-delivery',
@@ -130,8 +131,21 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
 
     deliverProducts() {
         this.productEntryService.deliver(this.productsSelected).subscribe((res: Response) => {
-            this.productsSelected = res.json();
-            this.router.navigate(['/']);
+            this.onSuccessDocx(res);
         });
+    }
+
+    private onSuccessDocx(res: Response) {
+        let mediaType = 'application/octet-stream;charset=UTF-8';
+        let blob = new Blob([res.blob()], {type: mediaType});
+        let receiptNumber: string = this.productsSelected.pop().receiptId + '';
+        let filename = receiptNumber + '_invoice.docx';
+
+        try {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+        } catch (ex) {
+            FileSaver.saveAs(blob, filename);
+        }
+        this.router.navigate(['/']);
     }
 }

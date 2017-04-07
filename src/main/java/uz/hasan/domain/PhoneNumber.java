@@ -22,7 +22,7 @@ public class PhoneNumber implements Serializable {
 
     @NotNull
     @Pattern(regexp = "\\+\\d{12}")
-    @Column(name = "number", nullable = false)
+    @Column(name = "number", nullable = false, unique = true)
     private String number;
 
     @ManyToOne(optional = false)

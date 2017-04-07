@@ -22,7 +22,14 @@
             "clientSince": "Клиент от",
             "selectClient": "Выбрать",
             "addNew": "Добавить клиент",
-            "addresses": "Адреса"
+            "addresses": "Адреса",
+            "bankName": "Наименования банка",
+            "bankFilialRegion": "Регион филиала банка",
+            "bankAccountNumber": "Расчетный счет",
+            "mfo": "МФО",
+            "tin": "ИНН",
+            "okonx": "ОКОНХ",
+            "oked": "ОКЕД"
         }
     }
 }

@@ -22,6 +22,52 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "bankAccountNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "16",
+            "fieldValidateRulesMaxlength": "24"
+        },
+        {
+            "fieldName": "bankName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bankBranchRegion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mfo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "5",
+            "fieldValidateRulesMaxlength": "5"
+        },
+        {
+            "fieldName": "tin",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "9",
+            "fieldValidateRulesMaxlength": "9"
+        },
+        {
+            "fieldName": "okonx",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "oked",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170330103019",

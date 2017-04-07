@@ -49,6 +49,7 @@ public interface ProductEntryMapper {
     @Mapping(source = "driverId", target = "driver")
     @Mapping(source = "attachedCarId", target = "attachedCar")
     @Mapping(source = "addressId", target = "address")
+    @Mapping(source = "shopId", target = "shop.id")
     ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO);
 
     List<ProductEntry> productEntryDTOsToProductEntries(List<ProductEntryDTO> productEntryDTOs);

@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "client": {
+        "client" : {
             "home": {
                 "title": "Clients",
                 "createLabel": "Create a new Client",
@@ -21,8 +21,15 @@
             "fullName": "Full Name",
             "clientSince": "Client since",
             "selectClient": "Select",
-            "addNew": "Add Client",
-            "addresses": "Addresses"
+            "addNew": "Add new client",
+            "addresses": "Addresses",
+            "bankName": "Bank Name",
+            "bankFilialRegion": "Bank Filial Region",
+            "bankAccountNumber": "Bank Account Number",
+            "mfo": "Mfo",
+            "tin": "Tin",
+            "okonx": "Okonx",
+            "oked": "Oked"
         }
     }
 }

@@ -1,17 +1,30 @@
 package uz.hasan.service.impl;
 
+import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
+import fr.opensagres.xdocreport.template.IContext;
+import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
+import uz.hasan.domain.enumeration.XDocTemplate;
 import uz.hasan.service.ExcelService;
 import uz.hasan.service.UserService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -23,6 +36,7 @@ import java.util.*;
 @Transactional
 public class ExcelServiceImpl implements ExcelService {
 
+    private final Logger log = LoggerFactory.getLogger(ExcelServiceImpl.class);
     private final UserService userService;
 
     public ExcelServiceImpl(UserService userService) {
@@ -244,5 +258,71 @@ public class ExcelServiceImpl implements ExcelService {
         }
 
         return workbook;
+    }
+
+    @Override
+    public void generateDocx(XDocTemplate template, String docNumber, Map<String, Object> map, HttpServletResponse response) {
+
+        String language = LocaleContextHolder.getLocale().getLanguage();
+        String fileName = language + File.separator + template.getName();
+
+        InputStream in = getInputStream(response, template.getName());
+
+        try {
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Velocity);
+
+            IContext context = report.createContext();
+
+//            prepareUtils(context);
+
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                context.put(entry.getKey(), entry.getValue());
+            }
+
+            response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE + ";charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + docNumber +"_"+ template.getName() + "\"");
+
+            report.process(context, response.getOutputStream());
+
+        } catch (IOException | XDocReportException e) {
+            log.error(e.getLocalizedMessage());
+        }
+    }
+
+    private InputStream getInputStream(HttpServletResponse response, String fileName) {
+        String folderName = "doc";
+        InputStream in = null;
+        String homePathFile = System.getProperty("user.home") + File.separator + folderName + File.separator + fileName;
+        String resourcePathFile = folderName + File.separator + fileName;
+        try {
+            in = new FileInputStream(homePathFile);
+        } catch (FileNotFoundException e) {
+            log.warn("File " + fileName + " not found in user home directory!");
+            if (SystemUtils.IS_OS_LINUX) {
+                in = ExcelServiceImpl.class.getResourceAsStream(File.separator + resourcePathFile);
+            } else if (SystemUtils.IS_OS_WINDOWS) {
+                in = ExcelServiceImpl.class.getClassLoader().getResourceAsStream(resourcePathFile);
+            }
+        }
+
+        if (in == null) {
+            String s = fileName + " not found!";
+            printResponse(response, s);
+            return null;
+        }
+
+        return in;
+    }
+
+    private void printResponse(HttpServletResponse response, String s) {
+        response.setHeader("X-logisticsApp-alert", s);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        try {
+            response.getWriter().println(s);
+        } catch (IOException e) {
+            log.warn("Cannot write to response.");
+        }
     }
 }

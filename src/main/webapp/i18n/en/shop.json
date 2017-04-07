@@ -17,6 +17,13 @@
             },
             "shopId": "Shop Id",
             "name": "Name",
+            "bankAccountNumber": "Bank Account Number",
+            "bankName": "Bank Name",
+            "bankBranchRegion": "Bank Branch Region",
+            "mfo": "Mfo",
+            "tin": "Tin",
+            "okonx": "Okonx",
+            "oked": "Oked",
             "address": "Address"
         }
     }

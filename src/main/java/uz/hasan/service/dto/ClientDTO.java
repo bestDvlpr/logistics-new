@@ -1,7 +1,7 @@
 package uz.hasan.service.dto;
 
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,6 +22,23 @@ public class ClientDTO implements Serializable {
 
     @NotNull
     private Set<String> phoneNumbers;
+
+    private String bankName;
+
+    private String bankFilialRegion;
+
+    @Size(min = 16, max = 24)
+    private String bankAccountNumber;
+
+    @Size(min = 5, max = 5)
+    private String mfo;
+
+    @Size(min = 9, max = 9)
+    private String tin;
+
+    private String okonx;
+
+    private String oked;
 
     public Long getId() {
         return id;
@@ -63,6 +80,56 @@ public class ClientDTO implements Serializable {
         this.phoneNumbers = phoneNumbers;
     }
 
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+    public String getBankFilialRegion() {
+        return bankFilialRegion;
+    }
+
+    public void setBankFilialRegion(String bankFilialRegion) {
+        this.bankFilialRegion = bankFilialRegion;
+    }
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+    public void setBankAccountNumber(String bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
+    }
+    public String getMfo() {
+        return mfo;
+    }
+
+    public void setMfo(String mfo) {
+        this.mfo = mfo;
+    }
+    public String getTin() {
+        return tin;
+    }
+
+    public void setTin(String tin) {
+        this.tin = tin;
+    }
+    public String getOkonx() {
+        return okonx;
+    }
+
+    public void setOkonx(String okonx) {
+        this.okonx = okonx;
+    }
+    public String getOked() {
+        return oked;
+    }
+
+    public void setOked(String oked) {
+        this.oked = oked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -74,9 +141,7 @@ public class ClientDTO implements Serializable {
 
         ClientDTO clientDTO = (ClientDTO) o;
 
-        if (!Objects.equals(id, clientDTO.id)) {
-            return false;
-        }
+        if ( ! Objects.equals(id, clientDTO.id)) { return false; }
 
         return true;
     }
@@ -93,6 +158,13 @@ public class ClientDTO implements Serializable {
             ", firstName='" + firstName + "'" +
             ", lastName='" + lastName + "'" +
             ", regDate='" + regDate + "'" +
+            ", bankName='" + bankName + "'" +
+            ", bankFilialRegion='" + bankFilialRegion + "'" +
+            ", bankAccountNumber='" + bankAccountNumber + "'" +
+            ", mfo='" + mfo + "'" +
+            ", tin='" + tin + "'" +
+            ", okonx='" + okonx + "'" +
+            ", oked='" + oked + "'" +
             '}';
     }
 }

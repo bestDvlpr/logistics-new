@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fields templateEngineKind="Velocity" >
+	<description><![CDATA[]]></description>
+	<field name="shopAddress" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopBankAccountNumber" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopBankBranchRegion" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopBankName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopBankMfo" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopOkonx" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopOked" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopTin" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="shopPhoneNumbers" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientAddress" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientBankAccountNumber" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientBankBranchRegion" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientBankName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientBankMfo" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientOkonx" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientOked" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientTin" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientFirstName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientLastName" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="clientPhoneNumbers" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="sumPrice" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="receiptDocId" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="receiptId" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="deliveryStartTime" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.CarNumber" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.DeliveryStartTime" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.DocId" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.Price" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.ProductName" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.Quantity" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="product.ReceiptId" list="true" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+</fields>

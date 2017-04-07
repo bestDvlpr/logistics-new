@@ -16,6 +16,7 @@ import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
+import uz.hasan.service.mapper.CustomProductEntriesMapper;
 import uz.hasan.service.mapper.ProductEntryMapper;
 import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
@@ -52,6 +53,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final CarRepository carRepository;
 
     private final UserService userService;
+    private final CustomProductEntriesMapper customProductEntryMapper;
 
     public ReceiptServiceImpl(ReceiptRepository receiptRepository,
                               ReceiptMapper receiptMapper,
@@ -62,7 +64,8 @@ public class ReceiptServiceImpl implements ReceiptService {
                               LoyaltyCardRepository loyaltyCardRepository,
                               ClientRepository clientRepository,
                               PayMasterRepository payMasterRepository,
-                              UserService userService) {
+                              UserService userService,
+                              CustomProductEntriesMapper customProductEntryMapper) {
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
         this.receiptProductEntriesMapper = receiptProductEntriesMapper;
@@ -73,6 +76,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         this.payMasterRepository = payMasterRepository;
         this.carRepository = carRepository;
         this.userService = userService;
+        this.customProductEntryMapper = customProductEntryMapper;
     }
 
     /**
@@ -253,7 +257,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
         productEntryRepository.save(receipt.getProductEntries());
 
-        receipt.setSentBy(userService.getUserWithAuthorities());
+        User userWithAuthorities = userService.getUserWithAuthorities();
+        receipt.setSentBy(userWithAuthorities);
         receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
         receipt.setSentToDCTime(ZonedDateTime.now());
         receipt = receiptRepository.save(receipt);
@@ -300,7 +305,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
 
         List<ProductEntryDTO> productEntryDTOs = receiptDTO.getProductEntries();
-        List<ProductEntry> productEntryList = productEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        List<ProductEntry> productEntryList = customProductEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
         productEntryList.forEach(productEntry -> productEntry.setAttachedToCarTime(ZonedDateTime.now()));
         productEntryList.forEach(productEntry -> productEntry.setAttachedToDriverBy(userService.getUserWithAuthorities()));
         productEntryList.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER));

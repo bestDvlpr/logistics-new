@@ -4,6 +4,7 @@ import uz.hasan.service.dto.ProductEntryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public interface ProductEntryService {
      * @param productEntryDTOs the entities to deliver
      * @return the persisted entities
      */
-    List<ProductEntryDTO> deliver(List<ProductEntryDTO> productEntryDTOs);
+    void deliver(List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response);
 
     /**
      * Make productEntries as delivered.

@@ -1,6 +1,7 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.springframework.http.MediaType;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.web.rest.util.HeaderUtil;
 import uz.hasan.web.rest.util.PaginationUtil;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -68,13 +70,13 @@ public class ProductEntryResource {
      */
     @PostMapping("/product-entries/delivery")
     @Timed
-    public ResponseEntity<List<ProductEntryDTO>> deliverProductEntries(@Valid @RequestBody List<ProductEntryDTO> productEntryDTOs) throws URISyntaxException {
+    @ResponseBody
+    public void deliverProductEntries(@Valid @RequestBody List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response) throws URISyntaxException {
         log.debug("REST request to save ProductEntry : {}", productEntryDTOs);
         if (productEntryDTOs.isEmpty()) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.deliveryFailureAlert("listEmpty", "A new productEntries list cannot be empty")).body(null);
+            response.addHeader("listEmpty", "A new productEntries list cannot be empty");
         }
-        List<ProductEntryDTO> result = productEntryService.deliver(productEntryDTOs);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        productEntryService.deliver(productEntryDTOs, response);
     }
 
     /**

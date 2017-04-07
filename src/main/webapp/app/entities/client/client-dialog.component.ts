@@ -40,6 +40,7 @@ export class ClientDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.homePhoneNumber !== null && this.mobilePhoneNumber !== null) {
+            this.client.phoneNumbers = [];
             this.client.phoneNumbers.push(this.homePhoneNumber);
             this.client.phoneNumbers.push(this.mobilePhoneNumber);
         }

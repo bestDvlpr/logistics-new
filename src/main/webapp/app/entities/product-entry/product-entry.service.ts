@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Http, Response, URLSearchParams, BaseRequestOptions, ResponseContentType} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 
 import {ProductEntry} from './product-entry.model';
@@ -75,6 +75,7 @@ export class ProductEntryService {
     }
 
     deliver(productEntries: ProductEntry[]) {
-        return this.http.post(this.resourceUrl.concat('/delivery'), productEntries);
+        let mediaType = ResponseContentType.Blob;
+        return this.http.post(this.resourceUrl.concat('/delivery'), productEntries, {responseType: mediaType});
     }
 }

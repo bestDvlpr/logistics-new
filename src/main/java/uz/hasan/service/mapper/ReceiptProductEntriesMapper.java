@@ -3,6 +3,8 @@ package uz.hasan.service.mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
+import uz.hasan.repository.ClientRepository;
+import uz.hasan.repository.PayMasterRepository;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.repository.ShopRepository;
 import uz.hasan.service.UserService;
@@ -23,23 +25,32 @@ import java.util.List;
 public class ReceiptProductEntriesMapper {
     private final ProductEntryMapper productEntryMapper;
     private final ReceiptMapper receiptMapper;
-    private final CarMapper carMapper;
     private final ClientMapper clientMapper;
     private final ShopRepository shopRepository;
     private final UserService userService;
+    private final ClientRepository clientRepository;
+    private final CustomProductEntriesMapper customProductEntryMapper;
+    private final PayMasterRepository payMasterRepository;
+    private final AddressMapper addressMapper;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptMapper receiptMapper,
                                        ClientMapper clientMapper,
                                        ShopRepository shopRepository,
-                                       CarMapper carMapper,
-                                       UserService userService) {
+                                       UserService userService,
+                                       ClientRepository clientRepository,
+                                       CustomProductEntriesMapper customProductEntriesMapper,
+                                       PayMasterRepository payMasterRepository,
+                                       AddressMapper addressMapper) {
         this.productEntryMapper = productEntryMapper;
         this.receiptMapper = receiptMapper;
-        this.carMapper = carMapper;
         this.shopRepository = shopRepository;
         this.clientMapper = clientMapper;
         this.userService = userService;
+        this.clientRepository = clientRepository;
+        this.customProductEntryMapper = customProductEntriesMapper;
+        this.payMasterRepository = payMasterRepository;
+        this.addressMapper = addressMapper;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -95,20 +106,22 @@ public class ReceiptProductEntriesMapper {
         receipt.setDocDate(receiptDTO.getDocDate());
         receipt.setDocID(receiptDTO.getDocID());
         receipt.setPreviousDocID(receiptDTO.getPreviousDocID());
-        receipt.setClient(new Client(receiptDTO.getClientId()));
-        receipt.setProductEntries(new HashSet<>(productEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries())));
-        receipt.setPayMaster(new PayMaster(receiptDTO.getPayMasterId()));
+        receipt.setClient(receiptDTO.getClientId() != null ? clientRepository.findOne(receiptDTO.getClientId()) : null);
+        receipt.setProductEntries(new HashSet<>(customProductEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries())));
+        receipt.setPayMaster(receiptDTO.getPayMasterId() != null ? payMasterRepository.findOne(receiptDTO.getPayMasterId()) : null);
         if (receiptDTO.getLoyaltyCardId() != null) {
-            receipt.setLoyaltyCard(new LoyaltyCard(receiptDTO.getLoyaltyCardId()));
+            receipt.setLoyaltyCard(receiptDTO.getLoyaltyCardId() != null ? new LoyaltyCard(receiptDTO.getLoyaltyCardId()) : null);
         }
         receipt.setStatus(receiptDTO.getStatus());
         receipt.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
-        receipt.setShop(shopRepository.findOne(receiptDTO.getShopId()));
+        receipt.setShop(receiptDTO.getShopId() != null ? shopRepository.findOne(receiptDTO.getShopId()) : null);
         receipt.setFromTime(receiptDTO.getFromTime());
         receipt.setToTime(receiptDTO.getToTime());
         receipt.setSentToDCTime(receiptDTO.getSentToDCTime());
-        receipt.setMarkedAsDeliveredBy(userService.getUserWithAuthorities(receiptDTO.getClientId()));
+        receipt.setMarkedAsDeliveredBy(receiptDTO.getMarkedAsDeliveredById() != null ? userService.getUserWithAuthorities(receiptDTO.getMarkedAsDeliveredById()) : null);
         receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
+        receipt.setAddresses(receiptDTO.getAddresses() != null ? new HashSet<>(addressMapper.addressDTOsToAddresses(new ArrayList<>(receiptDTO.getAddresses()))) : null);
+        receipt.setSentBy(receiptDTO.getSentById() != null ? userService.getUserWithAuthorities(receiptDTO.getSentById()) : null);
         return receipt;
     }
 }

@@ -20,6 +20,23 @@ public class ShopDTO implements Serializable {
     @NotNull
     private String name;
 
+    @Size(min = 16, max = 24)
+    private String bankAccountNumber;
+
+    private String bankName;
+
+    private String bankBranchRegion;
+
+    @Size(min = 5, max = 5)
+    private String mfo;
+
+    @Size(min = 9, max = 9)
+    private String tin;
+
+    private String okonx;
+
+    private String oked;
+
     private Long addressId;
 
     private String addressStreetAddress;
@@ -44,6 +61,55 @@ public class ShopDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+    public void setBankAccountNumber(String bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
+    }
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+    public String getBankBranchRegion() {
+        return bankBranchRegion;
+    }
+
+    public void setBankBranchRegion(String bankBranchRegion) {
+        this.bankBranchRegion = bankBranchRegion;
+    }
+    public String getMfo() {
+        return mfo;
+    }
+
+    public void setMfo(String mfo) {
+        this.mfo = mfo;
+    }
+    public String getTin() {
+        return tin;
+    }
+
+    public void setTin(String tin) {
+        this.tin = tin;
+    }
+    public String getOkonx() {
+        return okonx;
+    }
+
+    public void setOkonx(String okonx) {
+        this.okonx = okonx;
+    }
+    public String getOked() {
+        return oked;
+    }
+
+    public void setOked(String oked) {
+        this.oked = oked;
     }
 
     public Long getAddressId() {
@@ -89,6 +155,13 @@ public class ShopDTO implements Serializable {
             "id=" + id +
             ", shopId='" + shopId + "'" +
             ", name='" + name + "'" +
+            ", bankAccountNumber='" + bankAccountNumber + "'" +
+            ", bankName='" + bankName + "'" +
+            ", bankBranchRegion='" + bankBranchRegion + "'" +
+            ", mfo='" + mfo + "'" +
+            ", tin='" + tin + "'" +
+            ", okonx='" + okonx + "'" +
+            ", oked='" + oked + "'" +
             '}';
     }
 }

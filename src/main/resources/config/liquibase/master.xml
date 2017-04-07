@@ -120,5 +120,7 @@
     <!--<include file="classpath:config/liquibase/changelog/20170330125308_changelog.xml" relativeToChangelogFile="false"/>-->
     <include file="classpath:config/liquibase/changelog/20170331092558_changelog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170404070650_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170406081114_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170407125851_changelog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
