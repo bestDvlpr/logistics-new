@@ -1,8 +1,8 @@
 id;name;parent_id;type
 1;Uzbekistan;null;COUNTRY
-2;Tashkent;1;COUNTRY
-3;Olmazor;2;COUNTRY
-4;Buxoro;1;COUNTRY
-5;Rometon;4;COUNTRY
-6;asda2;5;COUNTRY
-7;2-chimboy kochasi;3;COUNTRY
+2;Tashkent;1;REGION
+3;Tashkent;1;CITY
+4;Olmazor;3;DISTRICT
+5;Buxoro;1;REGION
+6;Buxoro;5;CITY
+7;Rometon;6;DISTRICT
