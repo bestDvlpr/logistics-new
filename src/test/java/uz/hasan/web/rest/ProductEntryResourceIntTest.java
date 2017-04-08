@@ -5,6 +5,7 @@ import uz.hasan.LogisticsApp;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.domain.Product;
 import uz.hasan.domain.Receipt;
+import uz.hasan.domain.Shop;
 import uz.hasan.repository.ProductEntryRepository;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.service.dto.ProductEntryDTO;
@@ -87,6 +88,9 @@ public class ProductEntryResourceIntTest {
     private static final String DEFAULT_SERIAL_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_SERIAL_NUMBER = "BBBBBBBBBB";
 
+    private static final String SHOP_ID = "AAAAAAAAAA";
+    private static final String SHOP_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ProductEntryRepository productEntryRepository;
 
@@ -140,10 +144,13 @@ public class ProductEntryResourceIntTest {
                 .cancelled(DEFAULT_CANCELLED)
                 .serialNumber(DEFAULT_SERIAL_NUMBER);
         // Add required entity
+        Shop shop = ShopResourceIntTest.createEntity(em);
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
+        em.persist(shop);
         em.flush();
         productEntry.setProduct(product);
+        productEntry.setShop(shop);
         // Add required entity
         Receipt receipt = ReceiptResourceIntTest.createEntity(em);
         em.persist(receipt);
