@@ -50,7 +50,7 @@
                 <td>{{receipt.docID}}</td>
                 <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
                 <td>{{receipt.previousDocID}}</td>
-                <td>{{receipt.docDate}}</td>
+                <td>{{receipt.docDate | date}}</td>
                 <td>
                     <span class="tag tag-primary"
                           jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">

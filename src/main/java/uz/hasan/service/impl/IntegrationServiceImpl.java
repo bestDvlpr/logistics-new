@@ -1,5 +1,6 @@
 package uz.hasan.service.impl;
 
+import org.thymeleaf.expression.Calendars;
 import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.*;
 import uz.hasan.domain.enumeration.PaymentType;
@@ -16,6 +17,13 @@ import uz.hasan.service.dto.ProductIntegrate;
 
 import javax.inject.Inject;
 import javax.xml.bind.ValidationException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -71,8 +79,11 @@ public class IntegrationServiceImpl implements IntegrationService {
 
         if (receipt == null)
             receipt = new Receipt();
+        /* create date without time to compare old receipts*/
+        LocalDate localDate = LocalDate.now();
+        Date today = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        if (integrateDTO.getProducts().isEmpty()) {
+        if (integrateDTO.getProducts().isEmpty() || new Date(integrateDTO.getDocDate()).before(today)) {
             return;
         }
 

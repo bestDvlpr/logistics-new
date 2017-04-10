@@ -20,8 +20,9 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="number"><span jhiTranslate="logisticsApp.car.number">Number</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.car.deleted-flag">Deleted</span> <span
-                    class="fa fa-sort"></span></th>
+                <!--<th jhiSortBy="deleted">
+                    <span jhiTranslate="logisticsApp.car.deleted-flag">Deleted</span>
+                    <span class="fa fa-sort"></span></th>-->
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.car.status">Status</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="carModelName"><span jhiTranslate="logisticsApp.car.carModel">Car Model</span> <span
@@ -37,7 +38,10 @@
             <tr *ngFor="let car of cars ;trackBy: trackId">
                 <td><a [routerLink]="['../car', car.id ]">{{car.id}}</a></td>
                 <td>{{car.number}}</td>
-                <td>{{car.deleted}}</td>
+                <!--<td>-->
+                    <!--<span class="fa fa-close" *ngIf="!car.deleted"></span>-->
+                    <!--<span class="fa fa-check" *ngIf="car.deleted"></span>-->
+                <!--</td>-->
                 <td>
                     <span *ngIf="car.status === carStatusEnum.IDLE" class="tag tag-success"
                           jhiTranslate="{{'logisticsApp.CarStatus.' + car.status}}">{{car.status}}</span>

@@ -167,7 +167,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Transactional(readOnly = true)
     public Page<ReceiptProductEntriesDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Receipts");
-        Page<Receipt> result = receiptRepository.findAllByOrderByIdDesc(pageable);
+        Page<Receipt> result = receiptRepository.findAllByOrderByDocDateDesc(pageable);
         return result.map(receipt -> receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt));
     }
 
@@ -223,7 +223,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         Page<Receipt> result;
         if (userWithAuthorities.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
             String shopId = userWithAuthorities.getShop().getShopId();
-            result = receiptRepository.findByShopShopIdOrderByIdDesc(pageable, shopId);
+            result = receiptRepository.findByShopShopIdOrderByDocDateDesc(pageable, shopId);
         } else {
             result = receiptRepository.findAll(pageable);
         }
