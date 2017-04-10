@@ -5,7 +5,7 @@
         "logged": {
             "message": "Вы вошли как пользователь \"{{username}}\"."
         },
-        "question": "Если у Вас возникли вопросы по JHipster:",
+        "question": "Если у Вас возникли вопросы по Logistics System:",
         "link": {
             "homepage": "JHipster домашняя страница",
             "stackoverflow": "JHipster на Stack Overflow",

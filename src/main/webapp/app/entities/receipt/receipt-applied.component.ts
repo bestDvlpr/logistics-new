@@ -76,7 +76,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/receipt'], {
+        this.router.navigate(['/applied-receipt'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
