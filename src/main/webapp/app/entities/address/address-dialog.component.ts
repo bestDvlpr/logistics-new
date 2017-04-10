@@ -24,7 +24,6 @@ export class AddressDialogComponent implements OnInit {
     isSaving: boolean;
     countries: Location[];
     regions: Location[];
-    cities: Location[];
     districts: Location[];
     clients: Client[];
     receipts: Receipt[];
@@ -44,7 +43,7 @@ export class AddressDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.locationService.findCountries().subscribe(
+        this.locationService.findCountryList().subscribe(
             (res: Response) => {
                 this.countries = res.json();
             }, (res: Response) => this.onError(res.json()));
@@ -59,21 +58,14 @@ export class AddressDialogComponent implements OnInit {
     }
 
     setRegions() {
-        this.locationService.findChildren(this.address.countryId).subscribe(
+        this.locationService.findChildList(this.address.countryId).subscribe(
             (res: Response) => {
                 this.regions = res.json();
             }, (res: Response) => this.onError(res.json()));
     }
 
-    setCities() {
-        this.locationService.findChildren(this.address.regionId).subscribe(
-            (res: Response) => {
-                this.cities = res.json();
-            }, (res: Response) => this.onError(res.json()));
-    }
-
     setDistricts() {
-        this.locationService.findChildren(this.address.cityId).subscribe(
+        this.locationService.findChildList(this.address.regionId).subscribe(
             (res: Response) => {
                 this.districts = res.json();
             }, (res: Response) => this.onError(res.json()));

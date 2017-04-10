@@ -89,6 +89,20 @@ public class LocationService {
     }
 
     /**
+     * Get location children by parent ID.
+     *
+     * @param parentId the id of the parent entity
+     * @return the entity list
+     */
+    public List<Location> findChildren(Long parentId) {
+        if (parentId == null) {
+            return null;
+        }
+        log.debug("Request to get children of Location: {}", parentId);
+        return locationRepository.findByParentId(parentId);
+    }
+
+    /**
      * Get country locations.
      *
      * @return the entity list
@@ -96,5 +110,15 @@ public class LocationService {
     public Page<Location> findByParentIdIsNull(Pageable pageable) {
         log.debug("Request to get country Locations");
         return locationRepository.findByParentIdIsNull(pageable);
+    }
+
+    /**
+     * Get country locations.
+     *
+     * @return the entity list
+     */
+    public List<Location> findByParentIdIsNull() {
+        log.debug("Request to get country Locations");
+        return locationRepository.findByParentIdIsNull();
     }
 }

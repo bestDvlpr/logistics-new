@@ -6,7 +6,6 @@ export class Address {
         public longitude?: string,
         public countryId?: number,
         public regionId?: number,
-        public cityId?: number,
         public districtId?: number,
         public clientId?: number,
         public receiptsId?: number ) {

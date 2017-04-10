@@ -103,7 +103,7 @@
             </tbody>
         </table>
     </div>
-    <div class="text-xs-center" *ngIf="locations && locations.length">
+    <div class="text-xs-center" *ngIf="childLocations && childLocations.length">
         <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadChildren(location.id, page)"></ngb-pagination>
     </div>

@@ -129,6 +129,21 @@ public class LocationResource {
     }
 
     /**
+     * GET  /locations/children-list/:id : get children of the "id" location.
+     *
+     * @param id the id of the location to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the locations, or with status 404 (Not Found)
+     */
+    @GetMapping("/locations/child-list/{id}")
+    @Timed
+    public ResponseEntity<List<Location>> getChildLocationList(@PathVariable Long id)
+        throws URISyntaxException {
+        log.debug("REST request to get child Locations of : {}", id);
+        List<Location> children = locationService.findChildren(id);
+        return new ResponseEntity<>(children, HttpStatus.OK);
+    }
+
+    /**
      * GET  /locations/countries : get country locations.
      *
      * @return the ResponseEntity with status 200 (OK) and with body the locations, or with status 404 (Not Found)
@@ -141,6 +156,20 @@ public class LocationResource {
         Page<Location> countries = locationService.findByParentIdIsNull(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(countries, "/api/locations/countries");
         return new ResponseEntity<>(countries.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /locations/countries : get country locations.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the locations, or with status 404 (Not Found)
+     */
+    @GetMapping("/locations/country-list")
+    @Timed
+    public ResponseEntity<List<Location>> getCountryList(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get only country Locations");
+        List<Location> countries = locationService.findByParentIdIsNull();
+        return new ResponseEntity<>(countries, HttpStatus.OK);
     }
 
     /**

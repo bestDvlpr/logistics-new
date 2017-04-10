@@ -17,4 +17,8 @@ public interface LocationRepository extends JpaRepository<Location,Long> {
     Page<Location> findByParentId(Pageable pageable, Long parentId);
 
     Page<Location> findByParentIdIsNull(Pageable pageable);
+
+    List<Location> findByParentId(Long parentId);
+
+    List<Location> findByParentIdIsNull();
 }

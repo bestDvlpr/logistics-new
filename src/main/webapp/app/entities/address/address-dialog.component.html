@@ -46,7 +46,7 @@
         <div class="form-group">
             <label jhiTranslate="logisticsApp.address.region" for="field_region">Region</label>
             <select class="form-control" id="field_region" name="region" [(ngModel)]="address.regionId" required
-                    (ngModelChange)="setCities()">
+                    (ngModelChange)="setDistricts()">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="locationOption.id"
                         *ngFor="let locationOption of regions; trackBy: trackLocationById">{{locationOption.name}}
@@ -58,16 +58,6 @@
                    [hidden]="!editForm.controls.region?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="logisticsApp.address.city" for="field_city">City</label>
-            <select class="form-control" id="field_city" name="city"
-                    [(ngModel)]="address.cityId" (ngModelChange)="setDistricts()">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="locationOption.id"
-                        *ngFor="let locationOption of cities; trackBy: trackLocationById">{{locationOption.name}}
-                </option>
-            </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.address.district" for="field_district">District</label>
