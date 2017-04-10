@@ -46,7 +46,7 @@ public class IntegrationResource {
     @PostMapping(value = "/integrate", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<JsonApp> integrate(@RequestBody List<IntegrateDTO> integrateDTOs) throws URISyntaxException {
-        log.debug("REST request to save DriverStatus : {}", integrateDTOs);
+        log.debug("REST request to save Receipt : {}", integrateDTOs);
 
 
         Boolean success = integrationService.integrate(integrateDTOs);
