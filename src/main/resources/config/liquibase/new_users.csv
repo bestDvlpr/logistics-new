@@ -1,8 +1,8 @@
 id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;created_date;last_modified_by;shop_id
 5;dispatcher;$2a$10$tbm6KxMuLNAf8T9UqtaPBukaZM.zVC7Ug4DGR/MlUnRz89nhY2f/W;Dispatcher;Dispatcher;dispatcher@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;null
 6;manager;$2a$10$AaXlLxLg96zBa08XyifbXukeBSFmNdxsQaPkI8W7Rgeqe231joAV2;Manager;Manager;manager@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;null
-7;cashier_qoratosh;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Cashier;Cashier;cashier_qoratosh@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1101
-8;cashier_rohat;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Cashier;Cashier;cashier_rohat@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1102
-9;cashier_ipak;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Cashier;Cashier;cashier_ipak@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1104
-10;cashier_sergeli;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Cashier;Cashier;cashier_sereli@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1103
-11;cashier_qoqon;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Cashier;Cashier;cashier_qoqon@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1201
+7;operator_qoratosh;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;operator;operator;operator_qoratosh@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1101
+8;operator_rohat;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;operator;operator;operator_rohat@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1102
+9;operator_ipak;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;operator;operator;operator_ipak@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1104
+10;operator_sergeli;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;operator;operator;operator_sereli@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1103
+11;operator_qoqon;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;operator;operator;operator_qoqon@localhost;;true;en;system;2017-02-21 13:22:17.226043;system;1201
