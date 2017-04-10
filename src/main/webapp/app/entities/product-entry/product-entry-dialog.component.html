@@ -1,5 +1,3 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
@@ -174,6 +172,20 @@
         <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
             <small class="form-text text-danger"
                 [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="logisticsApp.shop.name" for="field_shop">Product</label>
+            <select class="form-control" id="field_shop" name="shop" [(ngModel)]="productEntry.shopId"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.shop?.dirty && editForm.controls.shop?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.shop?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

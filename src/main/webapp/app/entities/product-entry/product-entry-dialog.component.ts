@@ -15,6 +15,8 @@ import { Driver, DriverService } from '../driver';
 import { Car, CarService } from '../car';
 import { Address, AddressService } from '../address';
 import { User, UserService } from '../../shared';
+import {Shop} from '../shop/shop.model';
+import {ShopService} from '../shop/shop.service';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -35,6 +37,8 @@ export class ProductEntryDialogComponent implements OnInit {
 
     cars: Car[];
 
+    shops: Shop[];
+
     addresses: Address[];
 
     users: User[];
@@ -50,6 +54,7 @@ export class ProductEntryDialogComponent implements OnInit {
         private carService: CarService,
         private addressService: AddressService,
         private userService: UserService,
+        private shopService: ShopService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
@@ -72,6 +77,8 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
         this.userService.query().subscribe(
             (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.shopService.query().subscribe(
+            (res: Response) => { this.shops = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
