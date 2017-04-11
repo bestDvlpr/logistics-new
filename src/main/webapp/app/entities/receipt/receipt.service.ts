@@ -102,6 +102,6 @@ export class ReceiptService {
 
     downloadReceipt(receiptId: number) {
         let mediaType = ResponseContentType.Blob;
-        return this.http.post(this.resourceUrl.concat('/sent-receipt/').concat(receiptId + ''), {responseType: mediaType});
+        return this.http.get(this.resourceUrl.concat('/sent-receipt/').concat(receiptId + ''), {responseType: mediaType});
     }
 }

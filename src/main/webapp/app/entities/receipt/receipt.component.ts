@@ -264,7 +264,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     private onSuccessDocx(res: Response, receiptId: number) {
         let mediaType = 'application/octet-stream;charset=UTF-8';
         let blob = new Blob([res.blob()], {type: mediaType});
-        let receiptNumber: string = receiptId + '';
+        let receiptNumber = receiptId + '';
         let filename = receiptNumber + '_invoice.docx';
 
         try {

@@ -255,7 +255,7 @@ public class ReceiptResource {
      * @param receiptId the Receipt id to download
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/receipts/sent-receipt/{receiptId}")
+    @GetMapping(value = "/receipts/sent-receipt/{receiptId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @Timed
     @ResponseBody
     public void downloadReceipt(@PathVariable Long receiptId, HttpServletResponse response) throws URISyntaxException {

@@ -348,12 +348,12 @@ public class ReceiptServiceImpl implements ReceiptService {
         result.put("clientTin", (client != null && client.getTin() != null) ? client.getTin() : "");
         result.put("clientFirstName", (client != null && client.getFirstName() != null) ? client.getFirstName() : "");
         result.put("clientLastName", (client != null && client.getLastName() != null) ? client.getLastName() : "");
-        if ((client == null || client.getPhoneNumbers().isEmpty())) {
+        if (client != null || !client.getPhoneNumbers().isEmpty()) {
             List<String> phoneNumbers = new ArrayList<>();
             for (PhoneNumber number : client.getPhoneNumbers()) {
                 phoneNumbers.add(number.getNumber());
             }
-            result.put("clientPhoneNumbers", phoneNumbers.isEmpty() ? "" : client.getPhoneNumbers().iterator().next());
+            result.put("clientPhoneNumbers", phoneNumbers);
         }
         result.put("receiptDocId", (receipt != null) ? receipt.getDocID() : "");
         result.put("receiptId", receipt != null ? receipt.getId() : "");
