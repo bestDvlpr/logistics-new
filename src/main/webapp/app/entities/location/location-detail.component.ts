@@ -6,6 +6,7 @@ import {LocationService} from './location.service';
 import {Response} from '@angular/http';
 import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'jhi-location-detail',
@@ -25,6 +26,8 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
     reverse: any;
     previousPage: any;
     routeData: any;
+    eventSubscriber: Subscription;
+    parentId: number;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private locationService: LocationService,
@@ -51,13 +54,11 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.loadChildren(params['id'], {
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            });
+            this.loadChildren(params['id']);
+            this.parentId = params['id'];
         });
         this.childLocations = [];
+        this.registerChangeInLocations();
     }
 
     load(id) {
@@ -66,7 +67,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadChildren(id: number, req: any) {
+    loadChildren(id: number) {
         this.locationService.findChildren(id, {
             page: this.page - 1,
             size: this.itemsPerPage,
@@ -119,11 +120,11 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         });
         this.route.params.subscribe(params => {
             this.load(params['id']);
-            this.loadChildren(params['id'], {
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            });
+            this.loadChildren(params['id']);
         });
+    }
+
+    registerChangeInLocations() {
+        this.eventSubscriber = this.eventManager.subscribe('locationListModification', (response) => this.loadChildren(this.parentId));
     }
 }
