@@ -153,7 +153,8 @@ public class ReceiptProductEntriesMapper {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            receipt.setDeliveryDate(formatter.parse(receiptDTO.getDeliveryDate()).getTime());
+            String deliveryDate = receiptDTO.getDeliveryDate();
+            receipt.setDeliveryDate(deliveryDate != null ? formatter.parse(deliveryDate).getTime() : null);
         } catch (ParseException e) {
             e.printStackTrace();
         }

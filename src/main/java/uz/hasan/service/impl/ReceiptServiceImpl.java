@@ -309,8 +309,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = receiptRepository.findOne(receiptId);
         Set<ProductEntry> productEntries = receipt.getProductEntries();
 
-        receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
-        receiptRepository.save(receipt);
+//        receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+//        receiptRepository.save(receipt);
 
         Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
         excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
