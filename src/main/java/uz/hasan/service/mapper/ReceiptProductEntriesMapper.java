@@ -3,10 +3,7 @@ package uz.hasan.service.mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
-import uz.hasan.repository.ClientRepository;
-import uz.hasan.repository.PayMasterRepository;
-import uz.hasan.repository.ReceiptRepository;
-import uz.hasan.repository.ShopRepository;
+import uz.hasan.repository.*;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -32,6 +29,7 @@ public class ReceiptProductEntriesMapper {
     private final CustomProductEntriesMapper customProductEntryMapper;
     private final PayMasterRepository payMasterRepository;
     private final AddressMapper addressMapper;
+    private final UserRepository userRepository;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptMapper receiptMapper,
@@ -41,7 +39,8 @@ public class ReceiptProductEntriesMapper {
                                        ClientRepository clientRepository,
                                        CustomProductEntriesMapper customProductEntriesMapper,
                                        PayMasterRepository payMasterRepository,
-                                       AddressMapper addressMapper) {
+                                       AddressMapper addressMapper,
+                                       UserRepository userRepository) {
         this.productEntryMapper = productEntryMapper;
         this.receiptMapper = receiptMapper;
         this.shopRepository = shopRepository;
@@ -51,6 +50,7 @@ public class ReceiptProductEntriesMapper {
         this.customProductEntryMapper = customProductEntriesMapper;
         this.payMasterRepository = payMasterRepository;
         this.addressMapper = addressMapper;
+        this.userRepository = userRepository;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -70,8 +70,6 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setDocDate(receiptDTO.getDocDate());
         entriesDTO.setDocNum(receiptDTO.getDocNum());
         entriesDTO.setDocType(receiptDTO.getDocType());
-        entriesDTO.setLoyaltyCardId(receiptDTO.getLoyaltyCardId());
-        entriesDTO.setLoyaltyCardLoyaltyCardID(receiptDTO.getLoyaltyCardLoyaltyCardID());
         entriesDTO.setProductEntries(productEntryDTOS);
         entriesDTO.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
         entriesDTO.setStatus(receiptDTO.getStatus());
@@ -81,6 +79,20 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setPayMasterPayMasterName(receiptDTO.getPayMasterPayMasterName());
         entriesDTO.setShopId(receiptDTO.getShopId());
         entriesDTO.setShopName(receiptDTO.getShopName());
+        entriesDTO.setFromTime(receipt.getFromTime());
+        entriesDTO.setToTime(receipt.getToTime());
+        entriesDTO.setSentToDCTime(receipt.getSentToDCTime());
+        LoyaltyCard loyaltyCard = receipt.getLoyaltyCard();
+        entriesDTO.setLoyaltyCardId(loyaltyCard == null ? null : loyaltyCard.getId());
+        entriesDTO.setLoyaltyCardLoyaltyCardID(loyaltyCard == null ? null : loyaltyCard.getLoyaltyCardID());
+        User markedAsDeliveredBy = receipt.getMarkedAsDeliveredBy();
+        entriesDTO.setMarkedAsDeliveredById(markedAsDeliveredBy == null ? null : markedAsDeliveredBy.getId());
+        entriesDTO.setMarkedAsDeliveredByLogin(markedAsDeliveredBy == null ? null : markedAsDeliveredBy.getLogin());
+        entriesDTO.setDeliveredTime(receipt.getDeliveredTime());
+        User sentBy = receipt.getSentBy();
+        entriesDTO.setSentById(sentBy == null ? null : sentBy.getId());
+        entriesDTO.setSentByLogin(sentBy == null ? null : sentBy.getLogin());
+
         return entriesDTO;
     }
 
@@ -121,7 +133,7 @@ public class ReceiptProductEntriesMapper {
         receipt.setMarkedAsDeliveredBy(receiptDTO.getMarkedAsDeliveredById() != null ? userService.getUserWithAuthorities(receiptDTO.getMarkedAsDeliveredById()) : null);
         receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
         receipt.setAddresses(receiptDTO.getAddresses() != null ? new HashSet<>(addressMapper.addressDTOsToAddresses(new ArrayList<>(receiptDTO.getAddresses()))) : null);
-        receipt.setSentBy(receiptDTO.getSentById() != null ? userService.getUserWithAuthorities(receiptDTO.getSentById()) : null);
+        receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
         return receipt;
     }
 }

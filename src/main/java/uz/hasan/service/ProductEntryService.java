@@ -1,5 +1,6 @@
 package uz.hasan.service;
 
+import uz.hasan.domain.ProductEntry;
 import uz.hasan.service.dto.ProductEntryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service Interface for managing ProductEntry.

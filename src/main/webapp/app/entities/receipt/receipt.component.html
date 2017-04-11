@@ -142,7 +142,7 @@
                             jhiHasAuthority="ROLE_DISPATCHER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status==receiptStatusEnum.NEW"
+                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
                             (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
@@ -150,6 +150,11 @@
                             jhiHasAuthority="ROLE_DISPATCHER">
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
+                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                        <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
+                    </button>
+
                 </td>
             </tr>
             </tbody>

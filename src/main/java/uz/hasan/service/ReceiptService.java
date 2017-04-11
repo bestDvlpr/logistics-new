@@ -5,18 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Service Interface for managing Receipt.
  */
 public interface ReceiptService {
 
-    /**
-     * Save a receipt.
-     *
-     * @param receiptDTO the entity to save
-     * @return the persisted entity
-     */
-    ReceiptDTO save(ReceiptDTO receiptDTO);
 
     /**
      * Save a receipt.
@@ -80,7 +75,7 @@ public interface ReceiptService {
      * @param receiptDTO the entity to send
      * @return the persisted entity
      */
-    ReceiptDTO sendOrder(ReceiptProductEntriesDTO receiptDTO);
+    ReceiptProductEntriesDTO sendOrder(ReceiptProductEntriesDTO receiptDTO);
 
     /**
      * Count new receipts.
@@ -101,5 +96,7 @@ public interface ReceiptService {
      *
      * @return receipt with attached to car products
      */
-    ReceiptDTO attachOrder(ReceiptProductEntriesDTO receiptDTO);
+    ReceiptProductEntriesDTO attachOrder(ReceiptProductEntriesDTO receiptDTO);
+
+    void download(Long receiptId, HttpServletResponse response);
 }

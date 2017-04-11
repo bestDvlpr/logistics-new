@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Http, Response, URLSearchParams, BaseRequestOptions, ResponseContentType} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 
 import {Receipt} from './receipt.model';
@@ -98,5 +98,10 @@ export class ReceiptService {
     allByShopId(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/by-shop-id'), options);
+    }
+
+    downloadReceipt(receiptId: number) {
+        let mediaType = ResponseContentType.Blob;
+        return this.http.post(this.resourceUrl.concat('/sent-receipt/').concat(receiptId + ''), {responseType: mediaType});
     }
 }

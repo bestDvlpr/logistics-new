@@ -57,7 +57,9 @@ export class ProductEntryDialogComponent implements OnInit {
         private shopService: ShopService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
+        this.jhiLanguageService.setLocations(
+            ['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus', 'shop']
+        );
     }
 
     ngOnInit() {
@@ -134,7 +136,7 @@ export class ProductEntryDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackUserById(index: number, item: User) {
+    trackShopById(index: number, item: Shop) {
         return item.id;
     }
 }

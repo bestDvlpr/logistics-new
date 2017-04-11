@@ -14,6 +14,8 @@ import { Client, ClientService } from '../client';
 import { ProductEntry, ProductEntryService } from '../product-entry';
 import { Car, CarService } from '../car';
 import { Address, AddressService } from '../address';
+import {Shop} from '../shop/shop.model';
+import {ShopService} from '../shop/shop.service';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -34,6 +36,8 @@ export class ReceiptDialogComponent implements OnInit {
 
     cars: Car[];
 
+    shops: Shop[];
+
     addresses: Address[];
     constructor(
         public activeModal: NgbActiveModal,
@@ -46,9 +50,10 @@ export class ReceiptDialogComponent implements OnInit {
         private productEntryService: ProductEntryService,
         private carService: CarService,
         private addressService: AddressService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private shopService: ShopService
     ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'shop']);
     }
 
     ngOnInit() {
@@ -66,6 +71,8 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
         this.addressService.query().subscribe(
             (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.shopService.query().subscribe(
+            (res: Response) => { this.shops = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -97,39 +104,8 @@ export class ReceiptDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackPayMasterById(index: number, item: PayMaster) {
+    trackShopById(index: number, item: Shop) {
         return item.id;
-    }
-
-    trackLoyaltyCardById(index: number, item: LoyaltyCard) {
-        return item.id;
-    }
-
-    trackClientById(index: number, item: Client) {
-        return item.id;
-    }
-
-    trackProductEntryById(index: number, item: ProductEntry) {
-        return item.id;
-    }
-
-    trackCarById(index: number, item: Car) {
-        return item.id;
-    }
-
-    trackAddressById(index: number, item: Address) {
-        return item.id;
-    }
-
-    getSelected(selectedVals: Array<any>, option: any) {
-        if (selectedVals) {
-            for (let i = 0; i < selectedVals.length; i++) {
-                if (option.id === selectedVals[i].id) {
-                    return selectedVals[i];
-                }
-            }
-        }
-        return option;
     }
 }
 

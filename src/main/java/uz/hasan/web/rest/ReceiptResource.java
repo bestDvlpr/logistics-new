@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -54,12 +55,12 @@ public class ReceiptResource {
      */
     @PostMapping("/receipts")
     @Timed
-    public ResponseEntity<ReceiptDTO> createReceipt(@Valid @RequestBody ReceiptDTO receiptDTO) throws URISyntaxException {
+    public ResponseEntity<ReceiptProductEntriesDTO> createReceipt(@Valid @RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
         log.debug("REST request to save Receipt : {}", receiptDTO);
         if (receiptDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);
         }
-        ReceiptDTO result = receiptService.save(receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.save(receiptDTO);
         return ResponseEntity.created(new URI("/api/receipts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,12 +77,12 @@ public class ReceiptResource {
      */
     @PutMapping("/receipts")
     @Timed
-    public ResponseEntity<ReceiptDTO> updateReceipt(@Valid @RequestBody ReceiptDTO receiptDTO) throws URISyntaxException {
+    public ResponseEntity<ReceiptProductEntriesDTO> updateReceipt(@Valid @RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
         log.debug("REST request to update Receipt : {}", receiptDTO);
         if (receiptDTO.getId() == null) {
             return createReceipt(receiptDTO);
         }
-        ReceiptDTO result = receiptService.save(receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.save(receiptDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, receiptDTO.getId().toString()))
             .body(result);
@@ -220,12 +221,12 @@ public class ReceiptResource {
      */
     @PostMapping(value = "/receipts/order", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ReceiptDTO> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+    public ResponseEntity<ReceiptProductEntriesDTO> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
         log.debug("REST request to send Receipt : {}", receiptDTO);
         /*if (receiptDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);
         }*/
-        ReceiptDTO result = receiptService.sendOrder(receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.sendOrder(receiptDTO);
         return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
             .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -240,12 +241,29 @@ public class ReceiptResource {
      */
     @PostMapping(value = "/receipts/attached", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ReceiptDTO> attachOrderProducts(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+    public ResponseEntity<ReceiptProductEntriesDTO> attachOrderProducts(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
         log.debug("REST request to send Receipt : {}", receiptDTO);
-        ReceiptDTO result = receiptService.attachOrder(receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.attachOrder(receiptDTO);
         return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
             .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * POST  /receipt/sent-receipt : Download receipt.
+     *
+     * @param receiptId the Receipt id to download
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/receipts/sent-receipt/{receiptId}")
+    @Timed
+    @ResponseBody
+    public void downloadReceipt(@PathVariable Long receiptId, HttpServletResponse response) throws URISyntaxException {
+        log.debug("REST request to download Receipt : {}", receiptId);
+        if (receiptId == null) {
+            response.addHeader("listEmpty", "A Receipt id cannot be empty");
+        }
+        receiptService.download(receiptId, response);
     }
 
 }

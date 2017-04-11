@@ -7,10 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
+import uz.hasan.domain.Product;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.enumeration.XDocTemplate;
+import uz.hasan.invoice.*;
 import uz.hasan.repository.*;
 import uz.hasan.security.AuthoritiesConstants;
+import uz.hasan.service.ExcelService;
+import uz.hasan.service.ProductEntryService;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
@@ -21,9 +26,14 @@ import uz.hasan.service.mapper.ProductEntryMapper;
 import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Set;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalField;
+import java.time.temporal.TemporalUnit;
+import java.util.*;
 
 /**
  * Service Implementation for managing Receipt.
@@ -53,7 +63,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final CarRepository carRepository;
 
     private final UserService userService;
+
     private final CustomProductEntriesMapper customProductEntryMapper;
+
+    private final ExcelService excelService;
 
     public ReceiptServiceImpl(ReceiptRepository receiptRepository,
                               ReceiptMapper receiptMapper,
@@ -65,7 +78,8 @@ public class ReceiptServiceImpl implements ReceiptService {
                               ClientRepository clientRepository,
                               PayMasterRepository payMasterRepository,
                               UserService userService,
-                              CustomProductEntriesMapper customProductEntryMapper) {
+                              CustomProductEntriesMapper customProductEntryMapper,
+                              ExcelService excelService) {
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
         this.receiptProductEntriesMapper = receiptProductEntriesMapper;
@@ -77,45 +91,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         this.carRepository = carRepository;
         this.userService = userService;
         this.customProductEntryMapper = customProductEntryMapper;
-    }
-
-    /**
-     * Save a receipt.
-     *
-     * @param receiptDTO the entity to save
-     * @return the persisted entity
-     */
-    @Override
-    public ReceiptDTO save(ReceiptDTO receiptDTO) {
-        log.debug("Request to save Receipt : {}", receiptDTO);
-        Receipt receipt = receiptMapper.receiptDTOToReceipt(receiptDTO);
-        if (receipt.getClient() != null) {
-            if (receipt.getClient().getFirstName() != null) {
-                clientRepository.save(receipt.getClient());
-            } else {
-                receipt.setClient(null);
-            }
-        }
-
-        if (receipt.getPayMaster() != null) {
-            if (receipt.getPayMaster().getPayMasterName() != null) {
-                payMasterRepository.save(receipt.getPayMaster());
-            } else {
-                receipt.setPayMaster(null);
-            }
-        }
-
-        if (receipt.getLoyaltyCard() != null && receipt.getLoyaltyCard().getId() == null) {
-            if (receipt.getLoyaltyCard().getLoyaltyCardAmount() != null) {
-                loyaltyCardRepository.save(receipt.getLoyaltyCard());
-            } else {
-                receipt.setLoyaltyCard(null);
-            }
-        }
-
-        receipt = receiptRepository.save(receipt);
-        ReceiptDTO result = receiptMapper.receiptToReceiptDTO(receipt);
-        return result;
+        this.excelService = excelService;
     }
 
     /**
@@ -250,7 +226,7 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the persisted entity
      */
     @Override
-    public ReceiptDTO sendOrder(ReceiptProductEntriesDTO receiptDTO) {
+    public ReceiptProductEntriesDTO sendOrder(ReceiptProductEntriesDTO receiptDTO) {
 
         Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
 
@@ -262,7 +238,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
         receipt.setSentToDCTime(ZonedDateTime.now());
         receipt = receiptRepository.save(receipt);
-        return receiptMapper.receiptToReceiptDTO(receipt);
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
     }
 
     /**
@@ -275,7 +251,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         User userWithAuthorities = userService.getUserWithAuthorities();
         Set<Authority> authorities = userWithAuthorities.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
-            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER))||
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
             return receiptRepository.countByStatus(ReceiptStatus.NEW);
         } else {
@@ -299,7 +275,7 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return receipt with attached to car products
      */
     @Override
-    public ReceiptDTO attachOrder(ReceiptProductEntriesDTO receiptDTO) {
+    public ReceiptProductEntriesDTO attachOrder(ReceiptProductEntriesDTO receiptDTO) {
         if (receiptDTO == null || receiptDTO.getProductEntries() == null || receiptDTO.getProductEntries().isEmpty()) {
             return null;
         }
@@ -322,5 +298,90 @@ public class ReceiptServiceImpl implements ReceiptService {
         receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
 
         return save(receiptDTO);
+    }
+
+    @Override
+    public void download(Long receiptId, HttpServletResponse response) {
+        if (receiptId == null) {
+            return;
+        }
+
+        Receipt receipt = receiptRepository.findOne(receiptId);
+        Set<ProductEntry> productEntries = receipt.getProductEntries();
+
+        receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+        receiptRepository.save(receipt);
+
+        Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
+        excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
+    }
+
+    private Map<String, Object> createHashMap(List<ProductEntry> productEntries) {
+        if (productEntries == null || productEntries.isEmpty()) {
+            return null;
+        }
+        Map<String, Object> result = new HashMap<>();
+        ProductEntry productEntry = productEntries.get(0);
+        Shop shop = productEntry.getShop();
+        result.put("shopAddress", (shop != null && shop.getAddress() != null) ? shop.getAddress().getStreetAddress() : "");
+        result.put("shopBankAccountNumber", (shop != null) ? shop.getBankAccountNumber() : "");
+        result.put("shopBankBranchRegion", (shop != null) ? shop.getBankBranchRegion() : "");
+        result.put("shopBankName", (shop != null) ? shop.getBankName() : "");
+        result.put("shopBankMfo", (shop != null) ? shop.getMfo() : "");
+        result.put("shopName", (shop != null) ? shop.getName() : "");
+        result.put("shopOkonx", (shop != null) ? shop.getOkonx() : "");
+        result.put("shopOked", (shop != null) ? shop.getOked() : "");
+        result.put("shopTin", (shop != null) ? shop.getTin() : "");
+        /* add client fields*/
+        Receipt receipt = productEntry.getReceipt();
+        Client client = null;
+        if (receipt != null) {
+            client = receipt.getClient();
+        }
+        result.put("clientAddress", (client == null || client.getAddresses().isEmpty()) ? "" : client.getAddresses().iterator().next().getStreetAddress());
+        result.put("clientBankAccountNumber", (client != null && client.getBankAccountNumber() != null) ? client.getBankAccountNumber() : "");
+        result.put("clientBankBranchRegion", (client != null && client.getBankFilialRegion() != null) ? client.getBankFilialRegion() : "");
+        result.put("clientBankName", (client != null && client.getBankName() != null) ? client.getBankName() : "");
+        result.put("clientBankMfo", (client != null && client.getMfo() != null) ? client.getMfo() : "");
+        result.put("clientOkonx", (client != null && client.getOkonx() != null) ? client.getOkonx() : "");
+        result.put("clientOked", (client != null && client.getOked() != null) ? client.getOked() : "");
+        result.put("clientTin", (client != null && client.getTin() != null) ? client.getTin() : "");
+        result.put("clientFirstName", (client != null && client.getFirstName() != null) ? client.getFirstName() : "");
+        result.put("clientLastName", (client != null && client.getLastName() != null) ? client.getLastName() : "");
+        if ((client == null || client.getPhoneNumbers().isEmpty())) {
+            List<String> phoneNumbers = new ArrayList<>();
+            for (PhoneNumber number : client.getPhoneNumbers()) {
+                phoneNumbers.add(number.getNumber());
+            }
+            result.put("clientPhoneNumbers", phoneNumbers.isEmpty() ? "" : client.getPhoneNumbers().iterator().next());
+        }
+        result.put("receiptDocId", (receipt != null) ? receipt.getDocID() : "");
+        result.put("receiptId", receipt != null ? receipt.getId() : "");
+        List<uz.hasan.invoice.Product> products = new ArrayList<>();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (ProductEntry entry : productEntries) {
+            uz.hasan.invoice.Product product = new uz.hasan.invoice.Product();
+            product.setDeliveryStartTime(entry.getDeliveryStartTime() != null ? formatter.format(Date.from(entry.getDeliveryStartTime().toInstant())) : null);
+            product.setPrice(String.valueOf(entry.getPrice()));
+            product.setProductName((entry.getProduct() != null && entry.getProduct().getName() != null) ? entry.getProduct().getName() : "");
+            product.setQuantity(String.valueOf(entry.getQty()));
+            product.setReceiptId((receipt != null && receipt.getId() != null) ? String.valueOf(receipt.getId()) : "");
+            product.setDocId((receipt != null && receipt.getDocID() != null) ? receipt.getDocID() : "");
+            product.setCarNumber((entry.getAttachedCar() != null && !entry.getAttachedCar().getDrivers().isEmpty()) ? entry.getAttachedCar().getNumber() : "");
+            products.add(product);
+//            result.put("shopPhoneNumbers", shop.getPhoneNumbers()); // TODO: 06.04.2017 add phoneNumbers attr. to shop model
+        /* add product fields*/
+            totalPrice = totalPrice.add(entry.getPrice() != null ? entry.getPrice() : BigDecimal.ZERO);
+        }
+
+        result.put("product", products);
+        if (!products.isEmpty()) {
+            result.put("deliveryStartTime", formatter.format(receipt != null && receipt.getDocDate() != null ? new Date(receipt.getDocDate() + (3600 * 1000)) : Date.from(ZonedDateTime.now().plusHours(1).toInstant())));
+        }
+        result.put("sumPrice", totalPrice);
+        return result;
     }
 }

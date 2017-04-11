@@ -13,6 +13,8 @@ import {Car} from '../car/car.model';
 import {ACElement} from '../../shared/autocomplete/element.model';
 import {CarService} from '../car/car.service';
 import {isUndefined} from 'util';
+import {ProductEntryService} from '../product-entry/product-entry.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'jhi-receipt',
@@ -49,7 +51,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private eventManager: EventManager,
                 private carService: CarService,
-                private dataHolderService: DataHolderService) {
+                private dataHolderService: DataHolderService,
+                private productEntryService: ProductEntryService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -250,5 +253,25 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
             this.dataHolderService._client = receipt.client;
         }
+    }
+
+    downloadReceipt(receiptId: number) {
+        this.receiptService.downloadReceipt(receiptId).subscribe((res: Response) => {
+            this.onSuccessDocx(res, receiptId);
+        });
+    }
+
+    private onSuccessDocx(res: Response, receiptId: number) {
+        let mediaType = 'application/octet-stream;charset=UTF-8';
+        let blob = new Blob([res.blob()], {type: mediaType});
+        let receiptNumber: string = receiptId + '';
+        let filename = receiptNumber + '_invoice.docx';
+
+        try {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+        } catch (ex) {
+            FileSaver.saveAs(blob, filename);
+        }
+        this.router.navigate(['/']);
     }
 }

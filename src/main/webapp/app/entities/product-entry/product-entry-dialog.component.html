@@ -177,7 +177,7 @@
         </div>
 
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.shop.name" for="field_shop">Product</label>
+            <label jhiTranslate="logisticsApp.shop.detail.title" for="field_shop">Product</label>
             <select class="form-control" id="field_shop" name="shop" [(ngModel)]="productEntry.shopId"  required>
                 <option [ngValue]="null"></option>
                 <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.name}}</option>

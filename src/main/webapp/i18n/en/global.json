@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Logistics",
+        "title": "MEDIAPARK-TMS",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
@@ -133,7 +133,8 @@
             "print": "Print",
             "search": "Search",
             "deliver": "Deliver",
-            "delivered": "Delivered"
+            "delivered": "Delivered",
+            "download": "Download"
         },
         "detail": {
             "field": "Field",

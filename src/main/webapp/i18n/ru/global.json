@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Logistics",
+        "title": "MEDIAPARK-TMS",
         "browsehappy": "Ваш браузер <strong>устарел</strong>. Пожалуйста <a href=\"http://browsehappy.com/?locale=ru\">обновите ваш браузер</a>.",
         "menu": {
             "home": "Главная",
@@ -20,7 +20,7 @@
                 "driver": "Водитель",
                 "carColor": "Цвет машины",
                 "carType": "Тип автомобилья",
-                "location": "Локация",
+                "location": "Местоположения",
                 "locationType": "Тип локации",
                 "driverStatus": "Статус водителья",
                 "productEntry": "Введенный товар",
@@ -133,7 +133,8 @@
             "print": "Печать",
             "search": "Поиск",
             "deliver": "Доставка",
-            "delivered": "Доставлен"
+            "delivered": "Доставлен",
+            "download": "Download"
         },
         "detail": {
             "field": "Поле",
