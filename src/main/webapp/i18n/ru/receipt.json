@@ -37,7 +37,8 @@
             "startTime": "Время начало",
             "endTime": "Время конца",
             "deliveryMessage": "Процесс доставки начинается через час и в течении 48 часов товары будет доставлены!",
-            "deliveryTimeMessage": "Доставка случится с {{time1}} по {{time2}}!"
+            "deliveryTimeMessage": "Доставка случится с {{time1}} по {{time2}}!",
+            "deliveryDate": "Дата Доставки"
         }
     }
 }

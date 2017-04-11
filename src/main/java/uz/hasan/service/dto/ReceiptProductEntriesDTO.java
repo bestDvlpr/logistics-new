@@ -19,12 +19,22 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     private List<ProductEntryDTO> productEntries;
 
+    private String deliveryDate;
+
     public List<ProductEntryDTO> getProductEntries() {
         return productEntries;
     }
 
     public void setProductEntries(List<ProductEntryDTO> productEntries) {
         this.productEntries = productEntries;
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     @Override

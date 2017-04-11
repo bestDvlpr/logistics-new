@@ -42,6 +42,7 @@ export class Receipt {
                 public shopName?: string,
                 public fromTime?: string,
                 public toTime?: string,
-                public markedAsDeliveredById?: number, ) {
+                public markedAsDeliveredById?: number,
+                public deliveryDate?: string) {
     }
 }

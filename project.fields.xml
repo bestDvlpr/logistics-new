@@ -79,6 +79,15 @@
 	<field name="deliveryStartTime" list="false" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
+	<field name="fromTime" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="toTime" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="deliveryDate" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
 	<field name="product.CarNumber" list="true" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>

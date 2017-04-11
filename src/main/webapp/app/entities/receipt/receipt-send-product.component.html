@@ -58,6 +58,11 @@
                             <label for="endTime" jhiTranslate="logisticsApp.receipt.endTime">End Time</label>
                             <ngb-timepicker [(ngModel)]="endTime" id="endTime" name="endTime"></ngb-timepicker>
                         </div>
+                        <div class="col-md-3" *ngIf="!receipt.toTime">
+                            <label for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</label>
+                            <ngb-datepicker [(ngModel)]="deliveryDate" id="deliveryDate" name="deliveryDate" (click)="showDate()"></ngb-datepicker>
+                        </div>
+
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row" *ngIf="productsSelected.length>0">

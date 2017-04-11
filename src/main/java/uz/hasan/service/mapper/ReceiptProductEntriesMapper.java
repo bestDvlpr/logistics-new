@@ -9,10 +9,9 @@ import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author: hasan @date: 3/11/17.
@@ -58,10 +57,15 @@ public class ReceiptProductEntriesMapper {
             return null;
         }
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(receipt);
+
         List<ProductEntry> productEntries = new ArrayList<>();
+
         productEntries.addAll(receipt.getProductEntries());
+
         List<ProductEntryDTO> productEntryDTOS = productEntryMapper.productEntriesToProductEntryDTOs(productEntries);
+
         ReceiptProductEntriesDTO entriesDTO = new ReceiptProductEntriesDTO();
+
         entriesDTO.setAddresses(receiptDTO.getAddresses());
         entriesDTO.setId(receiptDTO.getId());
         entriesDTO.setClientFirstName(receiptDTO.getClientFirstName());
@@ -82,16 +86,28 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setFromTime(receipt.getFromTime());
         entriesDTO.setToTime(receipt.getToTime());
         entriesDTO.setSentToDCTime(receipt.getSentToDCTime());
+
         LoyaltyCard loyaltyCard = receipt.getLoyaltyCard();
+
         entriesDTO.setLoyaltyCardId(loyaltyCard == null ? null : loyaltyCard.getId());
         entriesDTO.setLoyaltyCardLoyaltyCardID(loyaltyCard == null ? null : loyaltyCard.getLoyaltyCardID());
+
         User markedAsDeliveredBy = receipt.getMarkedAsDeliveredBy();
+
         entriesDTO.setMarkedAsDeliveredById(markedAsDeliveredBy == null ? null : markedAsDeliveredBy.getId());
         entriesDTO.setMarkedAsDeliveredByLogin(markedAsDeliveredBy == null ? null : markedAsDeliveredBy.getLogin());
         entriesDTO.setDeliveredTime(receipt.getDeliveredTime());
+
         User sentBy = receipt.getSentBy();
+
         entriesDTO.setSentById(sentBy == null ? null : sentBy.getId());
         entriesDTO.setSentByLogin(sentBy == null ? null : sentBy.getLogin());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Long deliveryDate = receipt.getDeliveryDate();
+        if (deliveryDate != null) {
+            entriesDTO.setDeliveryDate(formatter.format(new Date(deliveryDate)));
+        }
 
         return entriesDTO;
     }
@@ -134,6 +150,14 @@ public class ReceiptProductEntriesMapper {
         receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
         receipt.setAddresses(receiptDTO.getAddresses() != null ? new HashSet<>(addressMapper.addressDTOsToAddresses(new ArrayList<>(receiptDTO.getAddresses()))) : null);
         receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            receipt.setDeliveryDate(formatter.parse(receiptDTO.getDeliveryDate()).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return receipt;
     }
 }

@@ -359,7 +359,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         result.put("receiptId", receipt != null ? receipt.getId() : "");
         List<uz.hasan.invoice.Product> products = new ArrayList<>();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (ProductEntry entry : productEntries) {
@@ -382,6 +382,9 @@ public class ReceiptServiceImpl implements ReceiptService {
             result.put("deliveryStartTime", formatter.format(receipt != null && receipt.getDocDate() != null ? new Date(receipt.getDocDate() + (3600 * 1000)) : Date.from(ZonedDateTime.now().plusHours(1).toInstant())));
         }
         result.put("sumPrice", totalPrice);
+        result.put("fromTime", (receipt == null || receipt.getFromTime() == null) ? "" : receipt.getFromTime());
+        result.put("toTime", (receipt == null || receipt.getToTime() == null) ? "" : receipt.getToTime());
+        result.put("deliveryDate", (receipt == null || receipt.getDeliveryDate() == null) ? "" : formatter.format(new Date(receipt.getDeliveryDate())));
         return result;
     }
 }

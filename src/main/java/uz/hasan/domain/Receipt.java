@@ -72,6 +72,9 @@ public class Receipt implements Serializable {
     @Column(name = "to_time")
     private String toTime;
 
+    @Column(name = "delivery_date")
+    private Long deliveryDate;
+
     @ManyToOne
     private PayMaster payMaster;
 
@@ -255,6 +258,19 @@ public class Receipt implements Serializable {
         this.toTime = toTime;
     }
 
+    public Long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public Receipt deliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+        return this;
+    }
+
+    public void setDeliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
     public PayMaster getPayMaster() {
         return payMaster;
     }
@@ -399,7 +415,7 @@ public class Receipt implements Serializable {
         return shop;
     }
 
-    public Receipt shopId(Shop shop) {
+    public Receipt shop(Shop shop) {
         this.shop = shop;
         return this;
     }
@@ -443,6 +459,7 @@ public class Receipt implements Serializable {
             ", deliveredTime='" + deliveredTime + "'" +
             ", fromTime='" + fromTime + "'" +
             ", toTime='" + toTime + "'" +
+            ", deliveryDate='" + deliveryDate + "'" +
             '}';
     }
 }

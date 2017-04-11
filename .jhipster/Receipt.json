@@ -127,6 +127,10 @@
         {
             "fieldName": "toTime",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "deliveryDate",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20170220091557",

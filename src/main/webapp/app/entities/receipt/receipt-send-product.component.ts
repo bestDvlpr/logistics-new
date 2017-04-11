@@ -7,7 +7,6 @@ import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
-import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'jhi-receipt-send-product',
@@ -26,6 +25,7 @@ export class ReceiptSendProductComponent implements OnInit {
     formattedStartTime: string;
     startTime: any = null;
     endTime: any = null;
+    deliveryDate: any = null;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -59,6 +59,10 @@ export class ReceiptSendProductComponent implements OnInit {
                 ':' + ((this.startTime.minute < 10) ? '0' + this.startTime.minute : this.startTime.minute);
             this.receipt.toTime = ((this.endTime.hour < 10) ? '0' + this.endTime.hour : this.endTime.hour) +
                 ':' + ((this.endTime.minute < 10) ? '0' + this.endTime.minute : this.endTime.minute);
+        }
+        if (this.deliveryDate !== null) {
+            this.receipt.deliveryDate = ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day) +
+                '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) + '-' + this.deliveryDate.year;
         }
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;
@@ -105,5 +109,9 @@ export class ReceiptSendProductComponent implements OnInit {
             this.isAllChecked = !this.isAllChecked;
             this.productsSelected = [];
         }
+    }
+
+    showDate() {
+        console.log(this.deliveryDate);
     }
 }
