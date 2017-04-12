@@ -272,6 +272,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         } catch (ex) {
             FileSaver.saveAs(blob, filename);
         }
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
     }
 }

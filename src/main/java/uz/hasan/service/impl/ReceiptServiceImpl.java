@@ -230,9 +230,11 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
 
-        receipt.getProductEntries().forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
-        productEntryRepository.save(receipt.getProductEntries());
-
+        Set<ProductEntry> productEntries = receipt.getProductEntries();
+        productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
+        productEntryRepository.save(productEntries);
+        Set<Address> addresses = new HashSet<>();
+        productEntries.forEach(productEntry -> addresses.add(productEntry.getAddress()));
         User userWithAuthorities = userService.getUserWithAuthorities();
         receipt.setSentBy(userWithAuthorities);
         receipt.setStatus(ReceiptStatus.APPLICATION_SENT);

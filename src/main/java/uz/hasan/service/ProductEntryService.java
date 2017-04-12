@@ -76,7 +76,7 @@ public interface ProductEntryService {
      * @param productEntryDTOs the entities to deliver
      * @return the persisted entities
      */
-    void deliver(List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response);
+    void deliver(List<ProductEntryDTO> productEntryDTOs);
 
     /**
      * Make productEntries as delivered.

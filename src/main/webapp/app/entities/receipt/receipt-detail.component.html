@@ -3,7 +3,7 @@
     <h2><span jhiTranslate="logisticsApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
+    <!--<dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span></dt>
         <dd>
             <span>{{receipt.docNum}}</span>
@@ -78,18 +78,18 @@
                 <a [routerLink]="['/shop', receipt.shopId]">{{receipt.shopName}}</a>
             </div>
         </dd>
-    </dl>
-
+    </dl>-->
+    <jhi-collapsed-receipt></jhi-collapsed-receipt>
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button"
+    <!--<button type="button"
             [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+    </button>-->
 </div>

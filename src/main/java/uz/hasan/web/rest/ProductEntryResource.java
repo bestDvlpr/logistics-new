@@ -71,12 +71,13 @@ public class ProductEntryResource {
     @PostMapping("/product-entries/delivery")
     @Timed
     @ResponseBody
-    public void deliverProductEntries(@Valid @RequestBody List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response) throws URISyntaxException {
+    public void deliverProductEntries(@Valid @RequestBody List<ProductEntryDTO> productEntryDTOs) throws URISyntaxException {
         log.debug("REST request to save ProductEntry : {}", productEntryDTOs);
         if (productEntryDTOs.isEmpty()) {
-            response.addHeader("listEmpty", "A new productEntries list cannot be empty");
+//            response.addHeader("listEmpty", "A new productEntries list cannot be empty");
+            return;
         }
-        productEntryService.deliver(productEntryDTOs, response);
+        productEntryService.deliver(productEntryDTOs);
     }
 
     /**

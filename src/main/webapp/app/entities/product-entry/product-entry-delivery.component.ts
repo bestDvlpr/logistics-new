@@ -136,7 +136,7 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
     }
 
     private onSuccessDocx(res: Response) {
-        let mediaType = 'application/octet-stream;charset=UTF-8';
+        /*let mediaType = 'application/octet-stream;charset=UTF-8';
         let blob = new Blob([res.blob()], {type: mediaType});
         let receiptNumber: string = this.productsSelected.pop().receiptId + '';
         let filename = receiptNumber + '_invoice.docx';
@@ -145,7 +145,7 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
             window.navigator.msSaveOrOpenBlob(blob, filename);
         } catch (ex) {
             FileSaver.saveAs(blob, filename);
-        }
+        }*/
         this.router.navigate(['/']);
     }
 }

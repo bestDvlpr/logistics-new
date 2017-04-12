@@ -164,7 +164,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
      * @return the persisted entities
      */
     @Override
-    public void deliver(List<ProductEntryDTO> productEntryDTOs, HttpServletResponse response) {
+    public void deliver(List<ProductEntryDTO> productEntryDTOs) {
         if (productEntryDTOs.isEmpty()) {
             return;
         }
