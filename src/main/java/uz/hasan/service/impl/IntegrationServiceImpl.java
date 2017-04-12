@@ -111,8 +111,8 @@ public class IntegrationServiceImpl implements IntegrationService {
         receipt.setLoyaltyCard(loyaltyCard);
         receipt.setWholeSaleFlag(wholeSaleFlag);
         receipt.setDocType(docType);
-        if (receipt.getStatus() == null)
-            receipt.setStatus(ReceiptStatus.NEW);
+//        if (receipt.getStatus() == null)
+        receipt.setStatus(ReceiptStatus.NEW);
 
         receipt.setShop(shopRepository.findByShopId(integrateDTO.getShopId()));
         receipt = receiptRepository.save(receipt);
@@ -180,7 +180,7 @@ public class IntegrationServiceImpl implements IntegrationService {
                         productEntry.setPrice(productIntegrate.getPrice());
                         productEntry.setReason(productIntegrate.getReason());
                         productEntry.setGuid(productIntegrate.getGuid());
-                        productEntry.setStatus(ReceiptStatus.APPLICATION_SENT);
+                        productEntry.setStatus(ReceiptStatus.NEW);
                         productEntry.setDeliveryFlag(salesType);
                         productEntry.setHallFlag(salesPlace);
                         productEntry.setDefectFlag(defectFlag);

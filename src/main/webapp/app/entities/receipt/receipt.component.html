@@ -46,9 +46,9 @@
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.shopId">Client</span> <span
+                <th jhiSortBy="shopId"><span jhiTranslate="logisticsApp.receipt.shopId">Shop</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.addresses">Client</span> <span
+                <th jhiSortBy="addresses"><span jhiTranslate="logisticsApp.receipt.addresses">Addresses</span> <span
                     class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
@@ -127,10 +127,11 @@
                     <div *ngIf="receipt.addresses">
                         <ul>
                             <li *ngFor="let address of receipt.addresses">
-                                {{address.streetAddress+','+address.districtName +
-                                ',' + address.cityName?address.cityName : '' +
-                                ',' + address.regionName?address.regionName : '' +
-                                ',' + address.countryName}}
+                                {{address.streetAddress+','}}
+                                {{address.districtName+','}}
+                                {{address.cityName?address.cityName + ',' : ''}}
+                                {{address.regionName?address.regionName + ',' : ''}}
+                                {{address.countryName}}
                             </li>
                         </ul>
                     </div>

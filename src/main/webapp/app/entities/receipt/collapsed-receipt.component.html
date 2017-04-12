@@ -68,7 +68,7 @@
                                 <span>{{product.productName}}</span>
                             </div>
                             <div class="col-md-1" *ngIf="product.address">
-                                <span class="tag tag-default">{{product.status}}</span>
+                                <span class="tag tag-default" jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
                             </div>
                             <div class="col-md-1" *ngIf="product.address">
                                 <span>{{product.address.regionName}}</span>
