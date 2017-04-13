@@ -340,6 +340,21 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receipt != null) {
             client = receipt.getClient();
         }
+        if (receipt != null) {
+            client = receipt.getClient();
+        }
+        if (client == null || client.getAddresses().isEmpty()) {
+            result.put("clientAddress", "");
+        } else {
+            Address address = client.getAddresses().iterator().next();
+            String streetAddress = "";
+            streetAddress += address.getStreetAddress() + ", ";
+            streetAddress += address.getDistrict().getName() + ", ";
+            streetAddress += (address.getCity() != null) ? address.getCity().getName() + ", " : "";
+            streetAddress += address.getRegion().getName() + ", ";
+            streetAddress += address.getCountry().getName();
+            result.put("clientAddress", streetAddress);
+        }
         result.put("clientAddress", (client == null || client.getAddresses().isEmpty()) ? "" : client.getAddresses().iterator().next().getStreetAddress());
         result.put("clientBankAccountNumber", (client != null && client.getBankAccountNumber() != null) ? client.getBankAccountNumber() : "");
         result.put("clientBankBranchRegion", (client != null && client.getBankFilialRegion() != null) ? client.getBankFilialRegion() : "");

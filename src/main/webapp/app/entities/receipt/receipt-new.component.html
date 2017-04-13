@@ -20,6 +20,8 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
+                    class="fa fa-sort"></span></th>
                 <!--<th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span
@@ -46,6 +48,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let receipt of newReceipts ;trackBy: trackId">
+                <td>{{receipt.id}}</td>
                 <!--<td>{{receipt.docNum}}</td>
                 <td>{{receipt.docID}}</td>
                 <td jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}">{{receipt.docType}}</td>
