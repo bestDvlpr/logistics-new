@@ -94,7 +94,7 @@ public class Receipt implements Serializable {
                inverseJoinColumns = @JoinColumn(name="addresses_id", referencedColumnName="id"))
     private Set<Address> addresses = new HashSet<>();
 
-    @OneToMany(mappedBy = "receipt")
+    @OneToMany(mappedBy = "receipt", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
 

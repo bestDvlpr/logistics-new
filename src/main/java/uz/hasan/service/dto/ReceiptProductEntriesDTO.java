@@ -19,7 +19,7 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     private List<ProductEntryDTO> productEntries;
 
-    private String deliveryDate;
+    private Long deliveryDate;
 
     public List<ProductEntryDTO> getProductEntries() {
         return productEntries;
@@ -29,11 +29,11 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
         this.productEntries = productEntries;
     }
 
-    public String getDeliveryDate() {
+    public Long getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Long deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -56,6 +56,7 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
     public String toString() {
         return "ReceiptProductEntriesDTO{" +
             "productEntries=" + productEntries +
+            ", deliveryDate=" + deliveryDate +
             '}';
     }
 }

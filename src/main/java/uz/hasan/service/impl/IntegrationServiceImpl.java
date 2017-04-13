@@ -81,11 +81,11 @@ public class IntegrationServiceImpl implements IntegrationService {
             receipt = new Receipt();
         /* create date without time to compare old receipts*/
         LocalDate localDate = LocalDate.now();
-        Date today = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//        Date today = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        if (integrateDTO.getProducts().isEmpty() || new Date(integrateDTO.getDocDate()).before(today)) {
+        /*if (integrateDTO.getProducts().isEmpty() || new Date(integrateDTO.getDocDate()).before(today)) {
             return;
-        }
+        }*/
 
         boolean anyMatch = integrateDTO.getProducts().stream().anyMatch(productIntegrate -> productIntegrate.getDeliveryFlag().equals(String.valueOf(SalesType.DELIVERY.ordinal())));
         if (!anyMatch) {

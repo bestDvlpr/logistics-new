@@ -103,11 +103,11 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setSentById(sentBy == null ? null : sentBy.getId());
         entriesDTO.setSentByLogin(sentBy == null ? null : sentBy.getLogin());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        Long deliveryDate = receipt.getDeliveryDate();
-        if (deliveryDate != null) {
-            entriesDTO.setDeliveryDate(formatter.format(new Date(deliveryDate)));
-        }
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//        Long deliveryDate = receipt.getDeliveryDate();
+//        if (deliveryDate != null) {
+            entriesDTO.setDeliveryDate(receipt.getDeliveryDate());
+//        }
 
         return entriesDTO;
     }
@@ -151,13 +151,13 @@ public class ReceiptProductEntriesMapper {
         receipt.setAddresses(receiptDTO.getAddresses() != null ? new HashSet<>(addressMapper.addressDTOsToAddresses(new ArrayList<>(receiptDTO.getAddresses()))) : null);
         receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            String deliveryDate = receiptDTO.getDeliveryDate();
-            receipt.setDeliveryDate(deliveryDate != null ? formatter.parse(deliveryDate).getTime() : null);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+//        try {
+            Long deliveryDate = receiptDTO.getDeliveryDate();
+            receipt.setDeliveryDate(deliveryDate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
         return receipt;
     }

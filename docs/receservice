@@ -2,6 +2,7 @@ package uz.hasan.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import uz.hasan.service.mapper.ProductEntryMapper;
 import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -68,6 +70,8 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     private final ExcelService excelService;
 
+    private final EntityManager entityManager;
+
     public ReceiptServiceImpl(ReceiptRepository receiptRepository,
                               ReceiptMapper receiptMapper,
                               ReceiptProductEntriesMapper receiptProductEntriesMapper,
@@ -79,7 +83,8 @@ public class ReceiptServiceImpl implements ReceiptService {
                               PayMasterRepository payMasterRepository,
                               UserService userService,
                               CustomProductEntriesMapper customProductEntryMapper,
-                              ExcelService excelService) {
+                              ExcelService excelService,
+                              EntityManager entityManager) {
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
         this.receiptProductEntriesMapper = receiptProductEntriesMapper;
@@ -92,6 +97,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         this.userService = userService;
         this.customProductEntryMapper = customProductEntryMapper;
         this.excelService = excelService;
+        this.entityManager = entityManager;
     }
 
     /**
@@ -232,15 +238,85 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Set<ProductEntry> productEntries = receipt.getProductEntries();
         productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
-        productEntryRepository.save(productEntries);
-        Set<Address> addresses = new HashSet<>();
-        productEntries.forEach(productEntry -> addresses.add(productEntry.getAddress()));
-        User userWithAuthorities = userService.getUserWithAuthorities();
-        receipt.setSentBy(userWithAuthorities);
-        receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
-        receipt.setSentToDCTime(ZonedDateTime.now());
-        receipt = receiptRepository.save(receipt);
+        // 1. Check whether product entries addresses are the same
+        Address address = productEntries.iterator().next().getAddress();
+        boolean allWithTheSameAddress = productEntries.stream().allMatch(productEntry -> productEntry.getAddress().equals(address));
+        // 2. If they are the same, then continue as usual
+        if (allWithTheSameAddress) {
+            receipt = sendReceiptWithProds(receipt, productEntries);
+        } else {// 3. If they are not the same:
+            // 3.0. Collect all addresses
+            Set<Address> addresses = new HashSet<>();
+            productEntries.forEach(productEntry -> addresses.add(productEntry.getAddress()));
+            Set<ProductEntry> extracted = new HashSet<>();//to collect by address
+            for (ProductEntry productEntry : productEntries) {
+                if (productEntry.getAddress().equals(address)) {
+                    extracted.add(productEntry);
+                }
+            }
+            receipt.setProductEntries(extracted);
+            Set<Address> forReceipt = new HashSet<>();
+            forReceipt.add(address);
+            receipt.setAddresses(forReceipt);
+            Receipt saved = sendReceiptWithProds(receipt, extracted);
+            addresses.remove(address);
+            // 3.1. Create new receipt and save
+            for (Address addrs : addresses) {
+                Set<ProductEntry> sorted = new HashSet<>();
+                // 3.2. Collect products with the same address
+                for (ProductEntry productEntry : productEntries) {
+                    if (productEntry.getAddress().equals(addrs)) {
+                        sorted.add(productEntry);
+                    }
+                }
+                // 3.3. Detach the receipt to save it again
+                entityManager.detach(saved);
+                saved.setId(null);
+                // 3.4. Set collected products to receipt and save
+                saved.setProductEntries(sorted);
+                Set<Address> addressSet = new HashSet<>();
+                addressSet.add(addrs);
+                saved.setAddresses(addressSet);
+                sorted.forEach(productEntry -> productEntry.setReceipt(null));
+                sendReceiptWithProds(saved, sorted);
+            }
+            // 4. Redo the steps of 3.1, 3.2, 3.3, 3.4
+        }
+
         return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
+    }
+
+    private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries) {
+        Receipt result;
+        User userWithAuthorities = userService.getUserWithAuthorities();
+        if (receipt.getId()==null) {
+            Receipt newReceipt = new Receipt();
+            BeanUtils.copyProperties(receipt, newReceipt);
+            newReceipt.setAddresses(receipt.getAddresses());
+            newReceipt.setProductEntries(productEntries);
+            newReceipt.setLoyaltyCard(receipt.getLoyaltyCard());
+            newReceipt.setClient(receipt.getClient());
+            newReceipt.setShop(receipt.getShop());
+            newReceipt.setPayMaster(receipt.getPayMaster());
+            HashSet<PayType> objects = new HashSet<>();
+            objects.addAll(receipt.getPayTypes());
+            newReceipt.setPayTypes(objects);
+            newReceipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
+            newReceipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            newReceipt.setSentToDCTime(ZonedDateTime.now());
+            newReceipt.setSentBy(userWithAuthorities);
+            result = receiptRepository.save(newReceipt);
+        } else {
+            receipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
+            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            receipt.setSentToDCTime(ZonedDateTime.now());
+            receipt.setSentBy(userWithAuthorities);
+            result = receiptRepository.save(receipt);
+        }
+
+        productEntries.forEach(productEntry -> productEntry.setReceipt(result));
+        productEntryRepository.save(productEntries);
+        return result;
     }
 
     /**
@@ -340,7 +416,18 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receipt != null) {
             client = receipt.getClient();
         }
-        result.put("clientAddress", (client == null || client.getAddresses().isEmpty()) ? "" : client.getAddresses().iterator().next().getStreetAddress());
+        if (client == null || client.getAddresses().isEmpty()) {
+            result.put("clientAddress", "");
+        } else {
+            Address address = client.getAddresses().iterator().next();
+            String streetAddress = "";
+            streetAddress += address.getStreetAddress() + ", ";
+            streetAddress += address.getDistrict().getName();
+            streetAddress += (address.getCity() != null) ? address.getCity().getName() + ", " : "";
+            streetAddress += address.getRegion().getName() + ", ";
+            streetAddress += address.getCountry().getName();
+            result.put("clientAddress", streetAddress);
+        }
         result.put("clientBankAccountNumber", (client != null && client.getBankAccountNumber() != null) ? client.getBankAccountNumber() : "");
         result.put("clientBankBranchRegion", (client != null && client.getBankFilialRegion() != null) ? client.getBankFilialRegion() : "");
         result.put("clientBankName", (client != null && client.getBankName() != null) ? client.getBankName() : "");

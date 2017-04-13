@@ -192,7 +192,6 @@ public class ProductEntryServiceImpl implements ProductEntryService {
             if (ready) {
                 receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
                 receiptRepository.save(receipt);
-
             }
         }
     }

@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
 
-import {Receipt, ReceiptStatus} from './receipt.model';
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {EnumAware} from './doctypaware.decorator';
@@ -34,6 +34,8 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     receiptStatusEnum = ReceiptStatus;
+    docTypeEnum = DocType;
+    wholeSaleFlagEnum = WholeSaleFlag;
     appliedReceipts: Receipt[];
     receipts: Receipt[];
 

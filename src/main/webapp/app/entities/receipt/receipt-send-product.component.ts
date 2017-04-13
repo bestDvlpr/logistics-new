@@ -61,9 +61,9 @@ export class ReceiptSendProductComponent implements OnInit {
                 ':' + ((this.endTime.minute < 10) ? '0' + this.endTime.minute : this.endTime.minute);
         }
         if (this.deliveryDate !== null) {
-            this.receipt.deliveryDate = ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day) +
+            this.receipt.deliveryDate = new Date(((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day) +
                 '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
-                '-' + this.deliveryDate.year;
+                '-' + this.deliveryDate.year).getTime();
         }
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;

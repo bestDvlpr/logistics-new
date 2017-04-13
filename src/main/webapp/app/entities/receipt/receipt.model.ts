@@ -43,6 +43,6 @@ export class Receipt {
                 public fromTime?: string,
                 public toTime?: string,
                 public markedAsDeliveredById?: number,
-                public deliveryDate?: string) {
+                public deliveryDate?: number ) {
     }
 }

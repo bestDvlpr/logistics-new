@@ -318,6 +318,8 @@ public class ReceiptDTO implements Serializable {
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
             ", sentToDCTime='" + sentToDCTime + "'" +
+            ", fromTime='" + fromTime + "'" +
+            ", toTime='" + toTime + "'" +
             ", deliveredTime='" + deliveredTime + "'" +
             '}';
     }

@@ -28,7 +28,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/logistics
+        url: jdbc:postgresql://localhost:5432/logistics_dev
         username: logistics
         password: QAZxsw123$
     jpa:

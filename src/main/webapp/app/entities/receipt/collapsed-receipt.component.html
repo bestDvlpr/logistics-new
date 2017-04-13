@@ -56,7 +56,10 @@
                             <div class="col-md-2">
                                 <span jhiTranslate="logisticsApp.product.home.title">Products</span>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-2">
+                                <span jhiTranslate="logisticsApp.productEntry.status">Status</span>
+                            </div>
+                            <div class="col-md-6">
                                 <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
                             </div>
                             <div class="col-md-2" *ngIf="productCarExists">
@@ -64,19 +67,19 @@
                             </div>
                         </div>
                         <div class="row" *ngFor="let product of receipt.productEntries">
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <span>{{product.productName}}</span>
                             </div>
-                            <div class="col-md-1" *ngIf="product.address">
+                            <div class="col-md-2" *ngIf="product.address">
                                 <span class="tag tag-default" jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
                             </div>
                             <div class="col-md-1" *ngIf="product.address">
                                 <span>{{product.address.regionName}}</span>
                             </div>
-                            <div class="col-md-2" *ngIf="product.address">
+                            <div class="col-md-1" *ngIf="product.address">
                                 <span>{{product.address.cityName}}</span>
                             </div>
-                            <div class="col-md-2" *ngIf="product.address">
+                            <div class="col-md-1" *ngIf="product.address">
                                 <span>{{product.address.districtName}}</span>
                             </div>
                             <div class="col-md-3" *ngIf="product.address">
