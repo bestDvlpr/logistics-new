@@ -72,13 +72,4 @@ public interface ReceiptMapper {
         car.setId(id);
         return car;
     }
-
-    default Address addressFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Address address = new Address();
-        address.setId(id);
-        return address;
-    }
 }

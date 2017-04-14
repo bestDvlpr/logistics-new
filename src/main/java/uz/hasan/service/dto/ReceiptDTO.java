@@ -4,8 +4,6 @@ package uz.hasan.service.dto;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.DocType;
@@ -55,7 +53,7 @@ public class ReceiptDTO implements Serializable {
 
     private String clientFirstName;
 
-    private Set<AddressDTO> addresses = new HashSet<>();
+    private AddressDTO address;
 
     private Long sentById;
 
@@ -211,12 +209,12 @@ public class ReceiptDTO implements Serializable {
         this.clientFirstName = clientFirstName;
     }
 
-    public Set<AddressDTO> getAddresses() {
-        return addresses;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setAddresses(Set<AddressDTO> addresses) {
-        this.addresses = addresses;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     public Long getSentById() {

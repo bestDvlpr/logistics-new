@@ -215,13 +215,13 @@ public class ReceiptResource {
     /**
      * POST  /receipts/order : Send receipt to logistic manager as order.
      *
-     * @param receiptDTOs the receiptDTOs to send
-     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTOs, or with status 400 (Bad Request) if the receipt has already sent
+     * @param receiptDTO the receiptDTO to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping(value = "/receipts/order", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<ReceiptProductEntriesDTO>> sendOrder(@RequestBody List<ReceiptProductEntriesDTO> receiptDTOs) throws URISyntaxException {
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTOs) throws URISyntaxException {
         log.debug("REST request to send Receipt : {}", receiptDTOs);
         /*if (receiptDTOs.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);

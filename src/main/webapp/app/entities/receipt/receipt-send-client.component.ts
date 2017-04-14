@@ -9,7 +9,9 @@ import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Response} from '@angular/http';
 import {EventManager} from 'ng-jhipster';
-import {Address} from "../address/address.model";
+import {Address} from '../address/address.model';
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {receiptPopupRoute} from './receipt.route';
 
 @Component({
     selector: 'jhi-receipt-send-client',
@@ -100,14 +102,14 @@ export class ReceiptSendClientComponent implements OnInit {
             });
         } else {
             this.receiptService.sendOrder(this.receipt).subscribe(
-                (res: Receipt) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json())
+                (res: Receipt[]) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json())
             );
             this.router.navigate(['receipt']);
         }
 
     }
 
-    private onSaveSuccess(result: Receipt) {
+    private onSaveSuccess(result: Receipt[]) {
         this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         this.isSaving = false;
     }

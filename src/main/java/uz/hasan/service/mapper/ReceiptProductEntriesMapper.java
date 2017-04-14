@@ -9,8 +9,6 @@ import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -66,7 +64,7 @@ public class ReceiptProductEntriesMapper {
 
         ReceiptProductEntriesDTO entriesDTO = new ReceiptProductEntriesDTO();
 
-        entriesDTO.setAddresses(receiptDTO.getAddresses());
+        entriesDTO.setAddress(receipt.getAddress() == null ? null : addressMapper.addressToAddressDTO(receipt.getAddress()));
         entriesDTO.setId(receiptDTO.getId());
         entriesDTO.setClientFirstName(receiptDTO.getClientFirstName());
         entriesDTO.setClientId(receiptDTO.getClientId());
@@ -106,7 +104,7 @@ public class ReceiptProductEntriesMapper {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 //        Long deliveryDate = receipt.getDeliveryDate();
 //        if (deliveryDate != null) {
-            entriesDTO.setDeliveryDate(receipt.getDeliveryDate());
+        entriesDTO.setDeliveryDate(receipt.getDeliveryDate());
 //        }
 
         return entriesDTO;
@@ -148,13 +146,13 @@ public class ReceiptProductEntriesMapper {
         receipt.setSentToDCTime(receiptDTO.getSentToDCTime());
         receipt.setMarkedAsDeliveredBy(receiptDTO.getMarkedAsDeliveredById() != null ? userService.getUserWithAuthorities(receiptDTO.getMarkedAsDeliveredById()) : null);
         receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
-        receipt.setAddress(receiptDTO.getAddresses() != null ? addressMapper.addressDTOToAddress(receiptDTO.getAddresses().iterator().next()) : null);
+        receipt.setAddress(receiptDTO.getAddress() != null ? addressMapper.addressDTOToAddress(receiptDTO.getAddress()) : null);
         receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
 
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 //        try {
-            Long deliveryDate = receiptDTO.getDeliveryDate();
-            receipt.setDeliveryDate(deliveryDate);
+        Long deliveryDate = receiptDTO.getDeliveryDate();
+        receipt.setDeliveryDate(deliveryDate);
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }

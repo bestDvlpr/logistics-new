@@ -76,7 +76,7 @@ public interface ReceiptService {
      * @param receiptDTO the entity to send
      * @return the persisted entity
      */
-    List<ReceiptProductEntriesDTO> sendOrder(List<ReceiptProductEntriesDTO> receiptDTO);
+    List<ReceiptProductEntriesDTO> sendOrder(ReceiptProductEntriesDTO receiptDTO);
 
     /**
      * Count new receipts.

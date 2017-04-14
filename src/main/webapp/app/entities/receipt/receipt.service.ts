@@ -69,9 +69,9 @@ export class ReceiptService {
         return options;
     }
 
-    sendOrder(_receipt: Receipt): Observable<Receipt> {
-        let copy: Receipt = Object.assign({}, _receipt);
-        return this.http.post(this.resourceUrl.concat('/order'), copy).map((res: Response) => {
+    sendOrder(_receipt: Receipt): Observable<Receipt[]> {
+        // let copy: Receipt[] = Object.assign({}, _receipt);
+        return this.http.post(this.resourceUrl.concat('/order'), _receipt).map((res: Response) => {
             return res.json();
         });
     }

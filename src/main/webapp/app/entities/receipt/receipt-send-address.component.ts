@@ -57,6 +57,9 @@ export class ReceiptSendAddressComponent implements OnInit {
                 this.alertService.error(title);
             });
         } else {
+            if (this.receipt.addresses === null) {
+                this.receipt.addresses = [];
+            }
             this.receipt.addresses.push(this.addressSelected);
             this.dataHolderService._client = this.client;
             this.dataHolderService._receipt = this.receipt;

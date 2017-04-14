@@ -51,28 +51,26 @@
                         </div>
                         <div class="col-md-12">&nbsp;</div>
                         <div class="col-md-3">
-                            <div *ngIf="!receipt.fromTime">
+                            <div>
                                 <label for="startTime" jhiTranslate="logisticsApp.receipt.startTime">Start Time</label>
-                                <ngb-timepicker [(ngModel)]="fromTime" id="startTime"></ngb-timepicker>
+                                <ngb-timepicker [(ngModel)]="startTime" id="startTime"></ngb-timepicker>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div *ngIf="!receipt.toTime">
+                            <div>
                                 <label for="endTime" jhiTranslate="logisticsApp.receipt.endTime">End Time</label>
-                                <ngb-timepicker [(ngModel)]="toTime" id="endTime"></ngb-timepicker>
+                                <ngb-timepicker [(ngModel)]="endTime" id="endTime"></ngb-timepicker>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div *ngIf="!receipt.deliveryDate">
-                                <label for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</label>
-                                <ngb-datepicker [minDate]="minDate" [(ngModel)]="deliveryDate" id="deliveryDate"
-                                                [startDate]="minDate"
-                                                name="deliveryDate"></ngb-datepicker>
-                            </div>
+                            <label for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</label>
+                            <ngb-datepicker [minDate]="minDate" [(ngModel)]="deliveryDate" id="deliveryDate"
+                                            [startDate]="minDate" (click)="setDeliveryDate()"
+                                            name="deliveryDate"></ngb-datepicker>
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" *ngIf="productsSelected.length>0 && fromTime && toTime && deliveryDate">
+                    <div class="row" *ngIf="productsSelected.length>0 && startTime && endTime && receipt.deliveryDate">
                         <div class="col-md-2 offset-md-7">
                             <button class="btn btn-sm btn-primary btn-block" (click)="goClientSelectStep()">
                                 <span jhiTranslate="global.form.next">Next</span>

@@ -20,7 +20,7 @@ export enum ReceiptStatus {
 }
 export class Receipt {
     public productEntries: ProductEntry[];
-    public addresses: Address[];
+    public addresses: Address[] = [];
     public cars: Car[];
     public client: Client;
 
@@ -43,6 +43,7 @@ export class Receipt {
                 public fromTime?: string,
                 public toTime?: string,
                 public markedAsDeliveredById?: number,
-                public deliveryDate?: number ) {
+                public deliveryDate?: number,
+                public address?: Address) {
     }
 }

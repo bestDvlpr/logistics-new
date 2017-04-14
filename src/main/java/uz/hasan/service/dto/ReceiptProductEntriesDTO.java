@@ -21,6 +21,8 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     private Long deliveryDate;
 
+    private Set<AddressDTO> addresses;
+
     public List<ProductEntryDTO> getProductEntries() {
         return productEntries;
     }
@@ -35,6 +37,14 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     public void setDeliveryDate(Long deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public Set<AddressDTO> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<AddressDTO> addresses) {
+        this.addresses = addresses;
     }
 
     @Override

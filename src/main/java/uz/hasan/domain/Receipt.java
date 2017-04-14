@@ -88,7 +88,7 @@ public class Receipt implements Serializable {
     @JsonIgnore
     private Set<ProductEntry> productEntries = new HashSet<>();
 
-    @OneToMany(mappedBy = "receipt")
+    @OneToMany(mappedBy = "receipt", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
 

@@ -135,17 +135,15 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="receipt.addresses">
-                        <ul>
-                            <li *ngFor="let address of receipt.addresses">
-                                {{address.streetAddress+','}}
-                                {{address.districtName+','}}
-                                {{address.cityName?address.cityName + ',' : ''}}
-                                {{address.regionName?address.regionName + ',' : ''}}
-                                {{address.countryName}}
-                            </li>
-                        </ul>
-                    </div>
+                    <ul *ngIf="receipt.address">
+                        <li>
+                            {{receipt.address.streetAddress+','}}
+                            {{receipt.address.districtName+','}}
+                            {{receipt.address.cityName ? receipt.address.cityName + ',' : ''}}
+                            {{receipt.address.regionName ? receipt.address.regionName + ',' : ''}}
+                            {{receipt.address.countryName}}
+                        </li>
+                    </ul>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
