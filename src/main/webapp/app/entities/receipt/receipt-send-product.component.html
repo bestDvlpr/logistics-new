@@ -44,28 +44,35 @@
                             <div class="alert alert-success">
                                 <span jhiTranslate="logisticsApp.receipt.deliveryMessage"></span>
                                 <!--<span jhiTranslate="logisticsApp.receipt.deliveryTimeMessage"
-                                      *ngIf="receipt.fromTime && receipt.toTime"
-                                      translateValues="{time1:'{{receipt.fromTime}}', time2:'{{receipt.toTime}}'}">
+                                      translateValues="{time1:'{{receipt.fromTime.hour+ ':' + receipt.fromTime.minute}}',
+                                       time2:'{{receipt.toTime.hour+':'+receipt.toTime.minute}}'}">
                                 </span>-->
                             </div>
                         </div>
                         <div class="col-md-12">&nbsp;</div>
-                        <div class="col-md-3" *ngIf="!receipt.fromTime">
-                            <label for="startTime" jhiTranslate="logisticsApp.receipt.startTime">Start Time</label>
-                            <ngb-timepicker [(ngModel)]="startTime" id="startTime" name="startTime"></ngb-timepicker>
+                        <div class="col-md-3">
+                            <div *ngIf="!receipt.fromTime">
+                                <label for="startTime" jhiTranslate="logisticsApp.receipt.startTime">Start Time</label>
+                                <ngb-timepicker [(ngModel)]="fromTime" id="startTime"></ngb-timepicker>
+                            </div>
                         </div>
-                        <div class="col-md-3" *ngIf="!receipt.toTime">
-                            <label for="endTime" jhiTranslate="logisticsApp.receipt.endTime">End Time</label>
-                            <ngb-timepicker [(ngModel)]="endTime" id="endTime" name="endTime"></ngb-timepicker>
+                        <div class="col-md-3">
+                            <div *ngIf="!receipt.toTime">
+                                <label for="endTime" jhiTranslate="logisticsApp.receipt.endTime">End Time</label>
+                                <ngb-timepicker [(ngModel)]="toTime" id="endTime"></ngb-timepicker>
+                            </div>
                         </div>
-                        <div class="col-md-3" *ngIf="!receipt.toTime">
-                            <label for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</label>
-                            <ngb-datepicker [(ngModel)]="deliveryDate" id="deliveryDate" name="deliveryDate" (click)="showDate()"></ngb-datepicker>
+                        <div class="col-md-3">
+                            <div *ngIf="!receipt.deliveryDate">
+                                <label for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</label>
+                                <ngb-datepicker [minDate]="minDate" [(ngModel)]="deliveryDate" id="deliveryDate"
+                                                [startDate]="minDate"
+                                                name="deliveryDate"></ngb-datepicker>
+                            </div>
                         </div>
-
                     </div>
                     <div class="row">&nbsp;</div>
-                    <div class="row" *ngIf="productsSelected.length>0">
+                    <div class="row" *ngIf="productsSelected.length>0 && fromTime && toTime && deliveryDate">
                         <div class="col-md-2 offset-md-7">
                             <button class="btn btn-sm btn-primary btn-block" (click)="goClientSelectStep()">
                                 <span jhiTranslate="global.form.next">Next</span>

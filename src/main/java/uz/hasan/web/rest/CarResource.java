@@ -101,6 +101,21 @@ public class CarResource {
     }
 
     /**
+     * GET  /cars : get all the cars.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of cars in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/cars/without-pagination")
+    @Timed
+    public ResponseEntity<List<CarDTO>> getAllCars()
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Cars");
+        List<CarDTO> page = carService.findAll();
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    /**
      * GET  /cars/idles : get all idle cars.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of CarStatus.IDLE cars in body

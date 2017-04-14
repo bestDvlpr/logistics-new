@@ -7,7 +7,7 @@ import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
-
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'jhi-receipt-send-product',
     templateUrl: 'receipt-send-product.component.html'
@@ -26,6 +26,7 @@ export class ReceiptSendProductComponent implements OnInit {
     startTime: any = null;
     endTime: any = null;
     deliveryDate: any = null;
+    minDate: NgbDateStruct;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -37,10 +38,13 @@ export class ReceiptSendProductComponent implements OnInit {
     }
 
     ngOnInit() {
+        let date = new Date();
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
         this.address = this.dataHolderService._address;
         this.productEntries = this.dataHolderService._receipt.productEntries;
+        this.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+        console.log(this.minDate);
     }
 
     load(id) {
@@ -62,8 +66,8 @@ export class ReceiptSendProductComponent implements OnInit {
         }
         if (this.deliveryDate !== null) {
             this.receipt.deliveryDate = new Date(this.deliveryDate.year +
-            '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
-            '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
+                '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
+                '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
         }
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;
@@ -112,7 +116,7 @@ export class ReceiptSendProductComponent implements OnInit {
         }
     }
 
-    showDate() {
-        console.log(this.deliveryDate);
+    setDeliveryDate() {
+        this.receipt.deliveryDate = this.deliveryDate;
     }
 }

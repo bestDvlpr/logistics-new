@@ -103,4 +103,17 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findAllIdleCars() {
         return carMapper.carsToCarDTOs(carRepository.findAll());
     }
+
+    /**
+     * Get all the cars.
+     *
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<CarDTO> findAll() {
+        log.debug("Request to get all Cars");
+        List<Car> result = carRepository.findAll();
+        return carMapper.carsToCarDTOs(result);
+    }
 }

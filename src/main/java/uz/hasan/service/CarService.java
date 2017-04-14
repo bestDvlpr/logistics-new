@@ -48,4 +48,11 @@ public interface CarService {
      * @return cars
      */
     List<CarDTO> findAllIdleCars();
+
+    /**
+     *  Get all the cars.
+     *
+     *  @return the list of entities
+     */
+    List<CarDTO> findAll();
 }

@@ -37,6 +37,10 @@ export class CarService {
             ;
     }
 
+    allWithoutPagination(): Observable<Response> {
+        return this.http.get(this.resourceUrl.concat('/without-pagination'));
+    }
+
     idleCars(): Observable<Response> {
         return this.http.get(this.resourceUrl.concat('/idles'));
     }
