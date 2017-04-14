@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Service Interface for managing Receipt.
@@ -75,7 +76,7 @@ public interface ReceiptService {
      * @param receiptDTO the entity to send
      * @return the persisted entity
      */
-    ReceiptProductEntriesDTO sendOrder(ReceiptProductEntriesDTO receiptDTO);
+    List<ReceiptProductEntriesDTO> sendOrder(List<ReceiptProductEntriesDTO> receiptDTO);
 
     /**
      * Count new receipts.

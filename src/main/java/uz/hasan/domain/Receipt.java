@@ -88,13 +88,7 @@ public class Receipt implements Serializable {
     @JsonIgnore
     private Set<ProductEntry> productEntries = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "receipt_addresses",
-               joinColumns = @JoinColumn(name="receipts_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="addresses_id", referencedColumnName="id"))
-    private Set<Address> addresses = new HashSet<>();
-
-    @OneToMany(mappedBy = "receipt", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "receipt")
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
 
@@ -106,6 +100,9 @@ public class Receipt implements Serializable {
 
     @ManyToOne
     private Shop shop;
+
+    @ManyToOne
+    private Address address;
 
     public Long getId() {
         return id;
@@ -335,31 +332,6 @@ public class Receipt implements Serializable {
         this.productEntries = productEntries;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public Receipt addresses(Set<Address> addresses) {
-        this.addresses = addresses;
-        return this;
-    }
-
-    public Receipt addAddresses(Address address) {
-        this.addresses.add(address);
-        address.getReceipts().add(this);
-        return this;
-    }
-
-    public Receipt removeAddresses(Address address) {
-        this.addresses.remove(address);
-        address.getReceipts().remove(this);
-        return this;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-
     public Set<PayType> getPayTypes() {
         return payTypes;
     }
@@ -422,6 +394,19 @@ public class Receipt implements Serializable {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Receipt address(Address address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

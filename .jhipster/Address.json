@@ -39,13 +39,6 @@
             "otherEntityName": "client",
             "relationshipType": "many-to-one",
             "otherEntityField": "firstName"
-        },
-        {
-            "relationshipName": "receipts",
-            "otherEntityName": "receipt",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "addresses"
         }
     ],
     "fields": [

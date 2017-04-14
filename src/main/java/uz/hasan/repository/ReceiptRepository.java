@@ -18,10 +18,10 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     Receipt findFirstByDocID(String docID);
 
-    @Query("select distinct receipt from Receipt receipt left join fetch receipt.addresses")
+    @Query("select distinct receipt from Receipt receipt")
     List<Receipt> findAllWithEagerRelationships();
 
-    @Query("select receipt from Receipt receipt left join fetch receipt.addresses where receipt.id =:id")
+    @Query("select receipt from Receipt receipt where receipt.id =:id")
     Receipt findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<Receipt> findByStatus(Pageable pageable, ReceiptStatus status);

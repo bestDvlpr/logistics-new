@@ -148,7 +148,7 @@ public class ReceiptProductEntriesMapper {
         receipt.setSentToDCTime(receiptDTO.getSentToDCTime());
         receipt.setMarkedAsDeliveredBy(receiptDTO.getMarkedAsDeliveredById() != null ? userService.getUserWithAuthorities(receiptDTO.getMarkedAsDeliveredById()) : null);
         receipt.setDeliveredTime(receiptDTO.getDeliveredTime());
-        receipt.setAddresses(receiptDTO.getAddresses() != null ? new HashSet<>(addressMapper.addressDTOsToAddresses(new ArrayList<>(receiptDTO.getAddresses()))) : null);
+        receipt.setAddress(receiptDTO.getAddresses() != null ? addressMapper.addressDTOToAddress(receiptDTO.getAddresses().iterator().next()) : null);
         receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
 
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");

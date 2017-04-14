@@ -215,21 +215,19 @@ public class ReceiptResource {
     /**
      * POST  /receipts/order : Send receipt to logistic manager as order.
      *
-     * @param receiptDTO the receiptDTO to send
-     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
+     * @param receiptDTOs the receiptDTOs to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTOs, or with status 400 (Bad Request) if the receipt has already sent
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping(value = "/receipts/order", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ReceiptProductEntriesDTO> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
-        log.debug("REST request to send Receipt : {}", receiptDTO);
-        /*if (receiptDTO.getId() != null) {
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> sendOrder(@RequestBody List<ReceiptProductEntriesDTO> receiptDTOs) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTOs);
+        /*if (receiptDTOs.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);
         }*/
-        ReceiptProductEntriesDTO result = receiptService.sendOrder(receiptDTO);
-        return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
-            .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        List<ReceiptProductEntriesDTO> result = receiptService.sendOrder(receiptDTOs);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
@@ -244,7 +242,7 @@ public class ReceiptResource {
     public ResponseEntity<ReceiptProductEntriesDTO> attachOrderProducts(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
         log.debug("REST request to send Receipt : {}", receiptDTO);
         ReceiptProductEntriesDTO result = receiptService.attachOrder(receiptDTO);
-        return ResponseEntity.created(new URI("/api/receipts/order" + result.getId()))
+        return ResponseEntity.created(new URI("/api/receipts/attached" + result.getId()))
             .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

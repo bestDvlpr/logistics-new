@@ -226,21 +226,28 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the persisted entity
      */
     @Override
-    public ReceiptProductEntriesDTO sendOrder(ReceiptProductEntriesDTO receiptDTO) {
+    public List<ReceiptProductEntriesDTO> sendOrder(List<ReceiptProductEntriesDTO> receiptDTOs) {
 
-        Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
+        List<Receipt> receipts = new ArrayList<>();
+        List<Receipt> result = new ArrayList<>();
+        for (ReceiptProductEntriesDTO entriesDTO : receiptDTOs) {
+            receipts.add(receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(entriesDTO));
+        }
+        for (Receipt receipt : receipts) {
+            Set<ProductEntry> productEntries = receipt.getProductEntries();
+            productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
+            productEntryRepository.save(productEntries);
+            Address address = productEntries.iterator().next().getAddress();
+            User userWithAuthorities = userService.getUserWithAuthorities();
+            receipt.setSentBy(userWithAuthorities);
+            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            receipt.setSentToDCTime(ZonedDateTime.now());
+            receipt.setAddress(address);
+            receipt = receiptRepository.save(receipt);
+            result.add(receipt);
+        }
+        return receiptProductEntriesMapper.receiptsToReceiptProductEntryDTOs(result);
 
-        Set<ProductEntry> productEntries = receipt.getProductEntries();
-        productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
-        productEntryRepository.save(productEntries);
-        Set<Address> addresses = new HashSet<>();
-        productEntries.forEach(productEntry -> addresses.add(productEntry.getAddress()));
-        User userWithAuthorities = userService.getUserWithAuthorities();
-        receipt.setSentBy(userWithAuthorities);
-        receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
-        receipt.setSentToDCTime(ZonedDateTime.now());
-        receipt = receiptRepository.save(receipt);
-        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
     }
 
     /**

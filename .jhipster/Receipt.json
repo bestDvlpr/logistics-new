@@ -26,14 +26,6 @@
             "otherEntityRelationshipName": "receipt"
         },
         {
-            "relationshipName": "addresses",
-            "otherEntityName": "address",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "streetAddress",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "receipts"
-        },
-        {
             "relationshipName": "payTypes",
             "otherEntityName": "payType",
             "relationshipType": "one-to-many",
@@ -60,6 +52,12 @@
             "otherEntityName": "shop",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "address",
+            "otherEntityName": "address",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "streetAddress"
         }
     ],
     "fields": [

@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1492147875421-0">
+        <addColumn tableName="receipt">
+            <column name="address_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1492147875421-1">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="receipt" constraintName="FK7kusas1xen7pxyqxy6brtxihm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1492147875421-2">
+        <sql>
+            update receipt set address_id=(select addresses_id from receipt_addresses where receipts_id=receipt.id limit 1);
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1492147875421-3">
+        <dropForeignKeyConstraint baseTableName="receipt_addresses" constraintName="FK6s55av9wt9ilbkqv6vfcmh2i7"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1492147875421-4">
+        <dropForeignKeyConstraint baseTableName="receipt_addresses" constraintName="FK72pquu3a32uvci21tg2tudhof"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1492147875421-5">
+        <dropTable tableName="receipt_addresses"/>
+    </changeSet>
+</databaseChangeLog>

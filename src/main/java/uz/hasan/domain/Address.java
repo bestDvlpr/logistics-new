@@ -1,12 +1,9 @@
 package uz.hasan.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,10 +47,6 @@ public class Address implements Serializable {
 
     @ManyToOne
     private Client client;
-
-    @ManyToMany(mappedBy = "addresses")
-    @JsonIgnore
-    private Set<Receipt> receipts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -165,31 +158,6 @@ public class Address implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Set<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public Address receipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
-        return this;
-    }
-
-    public Address addReceipts(Receipt receipt) {
-        this.receipts.add(receipt);
-        receipt.getAddresses().add(this);
-        return this;
-    }
-
-    public Address removeReceipts(Receipt receipt) {
-        this.receipts.remove(receipt);
-        receipt.getAddresses().remove(this);
-        return this;
-    }
-
-    public void setReceipts(Set<Receipt> receipts) {
-        this.receipts = receipts;
     }
 
     @Override

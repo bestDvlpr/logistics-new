@@ -9,6 +9,7 @@ import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Response} from '@angular/http';
 import {EventManager} from 'ng-jhipster';
+import {Address} from "../address/address.model";
 
 @Component({
     selector: 'jhi-receipt-send-client',
