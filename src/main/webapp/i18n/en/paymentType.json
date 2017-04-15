@@ -1,10 +1,15 @@
 {
     "logisticsApp": {
-        "PaymentType" : {
+        "PaymentType": {
             "null": "",
             "CASH": "CASH",
             "CARD": "CARD",
-            "LOYALTY_CARD": "LOYALTY_CARD"
+            "ZSRT": "GIFT CERTIFICATE",
+            "ZCUP": "COUPON",
+            "ZSRTC": "CERTIFICATE WITH CHANGE",
+            "ZBAL": "PAYMENT WITH SCORE",
+            "ZCUPS": "COUPON WITH CHANGE",
+            "LOYALTY_CARD": "LOYALTY CARD"
         }
     }
 }

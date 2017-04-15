@@ -39,8 +39,10 @@
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="wholeSaleFlag"><span
+                <!--<th jhiSortBy="wholeSaleFlag"><span
                     jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span> <span
+                    class="fa fa-sort"></span></th>-->
+                <th jhiSortBy="cars"><span jhiTranslate="logisticsApp.receipt.cars">Cars</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
                     class="fa fa-sort"></span></th>
@@ -81,7 +83,7 @@
                 <td>{{receipt.toTime}}</td>
                 <td>{{receipt.deliveryDate | date}}</td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                <td>
+                <!--<td>
                     <span class="tag tag-primary"
                           jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
                           *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.WHOLESALE">
@@ -92,6 +94,11 @@
                           *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.RETAIL">
                     {{receipt.wholeSaleFlag}}
                     </span>
+                </td>-->
+                <td>
+                    <div *ngIf="receipt.productEntries && receipt.productEntries[0] && receipt.productEntries[0].attachedCarNumber">
+                        {{receipt.productEntries[0].attachedCarNumber}}
+                    </div>
                 </td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-info"
@@ -135,15 +142,14 @@
                     </div>
                 </td>
                 <td>
-                    <ul *ngIf="receipt.address">
-                        <li>
-                            {{receipt.address.streetAddress+','}}
-                            {{receipt.address.districtName+','}}
-                            {{receipt.address.cityName ? receipt.address.cityName + ',' : ''}}
-                            {{receipt.address.regionName ? receipt.address.regionName + ',' : ''}}
-                            {{receipt.address.countryName}}
-                        </li>
-                    </ul>
+                    <div *ngIf="receipt.address">
+                        <span class="fa fa-location-arrow"></span>
+                        {{receipt.address.streetAddress+','}}
+                        {{receipt.address.districtName+','}}
+                        {{receipt.address.cityName?receipt.address.cityName + ',' : ''}}
+                        {{receipt.address.regionName?receipt.address.regionName + ',' : ''}}
+                        {{receipt.address.countryName}}
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
@@ -171,18 +177,22 @@
                     <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
                             *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT"
                             jhiHasAuthority="ROLE_DISPATCHER">
+                        <span class="fa fa-car"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
                             (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
+                        <span class="fa fa-send"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
                             jhiHasAuthority="ROLE_DISPATCHER">
+                        <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
                             jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                        <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>
 

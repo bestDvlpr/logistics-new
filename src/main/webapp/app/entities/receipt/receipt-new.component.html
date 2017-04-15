@@ -89,6 +89,7 @@
                 <td class="text-right">
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status==receiptStatusEnum.NEW"
                             (click)="goClientSelectionStep(receipt.id)">
+                        <span class="fa fa-send"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                 </td>

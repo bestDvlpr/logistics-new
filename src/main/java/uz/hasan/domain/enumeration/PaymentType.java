@@ -9,7 +9,13 @@ public enum PaymentType {
     CASH, CARD, ZSRT, ZCUP, ZSRTC, ZBAL, ZCUPS, LOYALTY_CARD;
 
     /**
-     * Type - тип оплаты (значения CASH – наличные, CARD – карточка, ZSRT – подарочный сертификат, ZCUP – купон, ZSRTC – сдача с сетртификата, ZCUPS – сдача с купона, ZBAL – оплата баллами )
+     * Type - тип оплаты (значения CASH – наличные,
+     * CARD – карточка,
+     * ZSRT – подарочный сертификат,
+     * ZCUP – купон,
+     * ZSRTC – сдача с сетртификата,
+     * ZCUPS – сдача с купона,
+     * ZBAL – оплата баллами )
      */
 
     public static PaymentType get(String type) throws ValidationException {

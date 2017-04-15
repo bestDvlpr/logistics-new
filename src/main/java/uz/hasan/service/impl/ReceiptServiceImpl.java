@@ -304,6 +304,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             newReceipt.setId(null);
             result = receiptRepository.save(newReceipt);
         } else {
+            receipt.setAddress(productEntries.iterator().next().getAddress());
             receipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
             receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
             receipt.setSentToDCTime(ZonedDateTime.now());
