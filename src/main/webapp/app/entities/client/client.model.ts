@@ -1,6 +1,8 @@
 import {Address} from '../address/address.model';
+import {PhoneNumber} from '../phone-number/phone-number.model';
 export class Client {
     public phoneNumbers: string[] = [];
+    public numbers: PhoneNumber[] = [];
 
     constructor(public id?: number,
                 public firstName?: string,

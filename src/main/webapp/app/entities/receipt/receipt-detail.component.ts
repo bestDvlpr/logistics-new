@@ -1,8 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {JhiLanguageService} from 'ng-jhipster';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService, JhiLanguageService} from 'ng-jhipster';
 import {Receipt} from './receipt.model';
 import {ReceiptService} from './receipt.service';
+import {Response} from '@angular/http';
+import {DataHolderService} from './data-holder.service';
 
 @Component({
     selector: 'jhi-receipt-detail',
@@ -15,6 +17,9 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
+                private router: Router,
+                private alertService: AlertService,
+                private dataHolderService: DataHolderService,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
     }
@@ -28,6 +33,8 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.receiptService.find(id).subscribe(receipt => {
             this.receipt = receipt;
+            this.dataHolderService._receipt = this.receipt;
+            this.dataHolderService._client = this.receipt.client;
         });
     }
 
@@ -37,6 +44,30 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    takenOut() {
+        this.receiptService.takenOut(this.receipt).subscribe(
+            (res: Response) => this.onSuccess(res.json()),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
+    delivered() {
+        this.receiptService.delivered(this.receipt).subscribe(
+            (res: Response) => this.onSuccess(res.json()),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
+    private onSuccess(res: Receipt) {
+        if (res !== null) {
+            this.router.navigate(['../../receipt']);
+        }
+    }
+
+    private onError(error) {
+        this.alertService.error(error.message, null, null);
     }
 
 }

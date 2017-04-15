@@ -99,5 +99,22 @@ public interface ReceiptService {
      */
     ReceiptProductEntriesDTO attachOrder(ReceiptProductEntriesDTO receiptDTO);
 
+    /**
+     * Download receipt as ms-word document.
+     */
     void download(Long receiptId, HttpServletResponse response);
+
+    /**
+     * Mark receipt and its products as delivered.
+     *
+     * @return receipt with attached to car products
+     */
+    ReceiptProductEntriesDTO delivered(ReceiptProductEntriesDTO receiptDTO);
+
+    /**
+     * Mark receipt and its products as taken out.
+     *
+     * @return receipt with attached to car products
+     */
+    ReceiptProductEntriesDTO takenOut(ReceiptProductEntriesDTO receiptDTO);
 }

@@ -22,7 +22,7 @@ export class PhoneNumberDeleteDialogComponent {
         public activeModal: NgbActiveModal,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['phoneNumber']);
+        this.jhiLanguageService.setLocations(['phoneNumber', 'phoneType']);
     }
 
     clear () {

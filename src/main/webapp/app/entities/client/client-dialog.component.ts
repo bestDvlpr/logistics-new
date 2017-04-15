@@ -8,15 +8,18 @@ import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
 import {Client} from './client.model';
 import {ClientPopupService} from './client-popup.service';
 import {ClientService} from './client.service';
+import {PhoneNumber, PhoneType} from '../phone-number/phone-number.model';
+import {EnumAware} from '../receipt/doctypaware.decorator';
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
 })
+@EnumAware
 export class ClientDialogComponent implements OnInit {
 
     client: Client;
-    mobilePhoneNumber: string = null;
-    homePhoneNumber: string = null;
+    mobilePhoneNumber: PhoneNumber = new PhoneNumber;
+    homePhoneNumber: PhoneNumber = new PhoneNumber;
     authorities: any[];
     isSaving: boolean;
 
@@ -31,6 +34,16 @@ export class ClientDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        if (this.client !== null && this.client.numbers !== null) {
+            for (let number of this.client.numbers) {
+                if (number.type === PhoneType.MOBILE) {
+                    this.mobilePhoneNumber = number;
+                }
+                if (number.type === PhoneType.HOME) {
+                    this.homePhoneNumber = number;
+                }
+            }
+        }
     }
 
     clear() {
@@ -40,9 +53,11 @@ export class ClientDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.homePhoneNumber !== null && this.mobilePhoneNumber !== null) {
-            this.client.phoneNumbers = [];
-            this.client.phoneNumbers.push(this.homePhoneNumber);
-            this.client.phoneNumbers.push(this.mobilePhoneNumber);
+            this.homePhoneNumber.type = PhoneType.HOME;
+            this.mobilePhoneNumber.type = PhoneType.MOBILE;
+
+            this.client.numbers = [];
+            this.client.numbers.push(this.homePhoneNumber, this.mobilePhoneNumber);
         }
         if (this.client.id !== undefined) {
             this.clientService.update(this.client)

@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import uz.hasan.domain.enumeration.PhoneType;
+
 /**
  * A PhoneNumber.
  */
@@ -24,6 +26,10 @@ public class PhoneNumber implements Serializable {
     @Pattern(regexp = "\\+\\d{12}")
     @Column(name = "number", nullable = false, unique = true)
     private String number;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private PhoneType type;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -48,6 +54,19 @@ public class PhoneNumber implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public PhoneType getType() {
+        return type;
+    }
+
+    public PhoneNumber type(PhoneType type) {
+        this.type = type;
+        return this;
+    }
+
+    public void setType(PhoneType type) {
+        this.type = type;
     }
 
     public Client getClient() {
@@ -88,6 +107,7 @@ public class PhoneNumber implements Serializable {
         return "PhoneNumber{" +
             "id=" + id +
             ", number='" + number + "'" +
+            ", type='" + type + "'" +
             '}';
     }
 }

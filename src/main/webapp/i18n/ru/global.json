@@ -134,7 +134,8 @@
             "search": "Поиск",
             "deliver": "Доставка",
             "delivered": "Доставлен",
-            "download": "Скачать"
+            "download": "Скачать",
+            "takeOut": "Самовывоз"
         },
         "detail": {
             "field": "Поле",

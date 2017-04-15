@@ -1,6 +1,7 @@
 import {DocType, ReceiptStatus, WholeSaleFlag} from './receipt.model';
 import {CarStatus} from '../car/car.model';
 import {DefectFlag, SalesPlace, SalesType, VirtualFlag} from '../product-entry/product-entry.model';
+import {PhoneType} from '../phone-number/phone-number.model';
 /**
  * Created by hasan on 3/3/17.
  */
@@ -13,4 +14,5 @@ export function EnumAware(constructor: Function) {
     constructor.prototype.SalesPlace = SalesPlace;
     constructor.prototype.DefectFlag = DefectFlag;
     constructor.prototype.VirtualFlag = VirtualFlag;
+    constructor.prototype.PhoneType = PhoneType;
 }

@@ -38,8 +38,7 @@ export const phoneNumberRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'logisticsApp.phoneNumber.home.title'
     }
-  },
-    {
+  }, {
     path: 'phone-number/:id',
     component: PhoneNumberDetailComponent,
     data: {

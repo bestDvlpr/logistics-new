@@ -134,7 +134,8 @@
             "search": "Search",
             "deliver": "Deliver",
             "delivered": "Delivered",
-            "download": "Download"
+            "download": "Download",
+            "takeOut": "Takeout"
         },
         "detail": {
             "field": "Field",

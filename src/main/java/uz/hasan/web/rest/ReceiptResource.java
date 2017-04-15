@@ -248,6 +248,40 @@ public class ReceiptResource {
     }
 
     /**
+     * POST  /receipts/delivered : Make receipt and its products as delivered.
+     *
+     * @param receiptDTO the receiptDTO to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping(value = "/receipts/delivered", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ReceiptProductEntriesDTO> delivered(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.delivered(receiptDTO);
+        return ResponseEntity.created(new URI("/api/receipts/delivered" + result.getId()))
+            .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * POST  /receipts/taken-out : Make receipt and its products as taken out by client.
+     *
+     * @param receiptDTO the receiptDTO to send
+     * @return the ResponseEntity with status 200 (OK) and with body the sent receiptDTO, or with status 400 (Bad Request) if the receipt has already sent
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping(value = "/receipts/taken-out", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ReceiptProductEntriesDTO> takenOut(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTO);
+        ReceiptProductEntriesDTO result = receiptService.takenOut(receiptDTO);
+        return ResponseEntity.created(new URI("/api/receipts/taken-out" + result.getId()))
+            .headers(HeaderUtil.createEntitySentAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
      * POST  /receipt/sent-receipt : Download receipt.
      *
      * @param receiptId the Receipt id to download

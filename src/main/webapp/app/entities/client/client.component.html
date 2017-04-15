@@ -20,6 +20,7 @@
             <th jhiSortBy="firstName"><span jhiTranslate="logisticsApp.client.firstName">First Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="lastName"><span jhiTranslate="logisticsApp.client.lastName">Last Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="regDate"><span jhiTranslate="logisticsApp.client.regDate">Reg Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="numbers"><span jhiTranslate="logisticsApp.client.phoneNumbers">Phone Numbers</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,6 +30,14 @@
                 <td>{{client.firstName}}</td>
                 <td>{{client.lastName}}</td>
                 <td>{{client.regDate | date:'medium'}}</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let number of client.numbers">
+                            <span class="tag tag-primary">{{number.type}}</span>
+                            <span>{{number.number}}</span>
+                        </li>
+                    </ul>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -3,15 +3,19 @@
     <h2><span jhiTranslate="logisticsApp.phoneNumber.detail.title">Phone Number</span> {{phoneNumber.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row">
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="logisticsApp.phoneNumber.number">Number</span></dt>
         <dd>
             <span>{{phoneNumber.number}}</span>
         </dd>
+        <dt><span jhiTranslate="logisticsApp.phoneNumber.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'logisticsApp.PhoneType.' + phoneNumber.type}}">{{phoneNumber.type}}</span>
+        </dd>
         <dt><span jhiTranslate="logisticsApp.phoneNumber.client">Client</span></dt>
         <dd>
             <div *ngIf="phoneNumber.client">
-                <a [routerLink]="['client', phoneNumber.client?.id]">{{phoneNumber.client?.id}}</a>
+                <a [routerLink]="['/client', phoneNumber.client?.id]">{{phoneNumber.client?.id}}</a>
             </div>
         </dd>
     </dl>

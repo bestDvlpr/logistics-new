@@ -16,6 +16,9 @@ import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.mapper.ClientAndAddressesMapper;
 import uz.hasan.service.mapper.ClientMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Service Implementation for managing Client.
  */
@@ -47,17 +50,20 @@ public class ClientServiceImpl implements ClientService {
      * @return the persisted entity
      */
     @Override
-    public ClientDTO save(ClientDTO clientDTO) {
-        log.debug("Request to save Client : {}", clientDTO);
-        Client client = clientMapper.clientDTOToClient(clientDTO);
-        client = clientRepository.save(client);
-        for (String phone : clientDTO.getPhoneNumbers()) {
-            PhoneNumber phoneNumber = new PhoneNumber();
-            phoneNumber.setClient(client);
-            phoneNumber.setNumber(phone);
-            phoneNumberRepository.save(phoneNumber);
+    public ClientAndAddressesDTO save(ClientAndAddressesDTO clientDTO) {
+        if (clientDTO==null){
+            return null;
         }
-        ClientDTO result = clientMapper.clientToClientDTO(client);
+        log.debug("Request to save Client : {}", clientDTO);
+        Client client = clientAndAddressesMapper.clientAndAddressesDTOToClient(clientDTO);
+        client = clientRepository.save(client);
+        List<PhoneNumber> toSave = new ArrayList<>();
+        for (PhoneNumber phone : clientDTO.getNumbers()) {
+            phone.setClient(client);
+            toSave.add(phone);
+        }
+        phoneNumberRepository.save(toSave);
+        ClientAndAddressesDTO result = clientAndAddressesMapper.clientToClientAndAddressesDTO(client);
         return result;
     }
 
@@ -69,10 +75,10 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ClientDTO> findAll(Pageable pageable) {
+    public Page<ClientAndAddressesDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Clients");
         Page<Client> result = clientRepository.findAll(pageable);
-        return result.map(client -> clientMapper.clientToClientDTO(client));
+        return result.map(clientAndAddressesMapper::clientToClientAndAddressesDTO);
     }
 
     /**

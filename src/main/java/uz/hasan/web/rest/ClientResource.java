@@ -52,13 +52,13 @@ public class ClientResource {
      */
     @PostMapping("/clients")
     @Timed
-    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO clientDTO) throws URISyntaxException {
+    public ResponseEntity<ClientAndAddressesDTO> createClient(@Valid @RequestBody ClientAndAddressesDTO clientDTO) throws URISyntaxException {
         log.debug("REST request to save Client : {}", clientDTO);
         if (clientDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new client cannot already have an ID")).body(null);
         }
         clientDTO.setRegDate(ZonedDateTime.now());
-        ClientDTO result = clientService.save(clientDTO);
+        ClientAndAddressesDTO result = clientService.save(clientDTO);
         return ResponseEntity.created(new URI("/api/clients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -75,12 +75,12 @@ public class ClientResource {
      */
     @PutMapping("/clients")
     @Timed
-    public ResponseEntity<ClientDTO> updateClient(@RequestBody ClientDTO clientDTO) throws URISyntaxException {
+    public ResponseEntity<ClientAndAddressesDTO> updateClient(@RequestBody ClientAndAddressesDTO clientDTO) throws URISyntaxException {
         log.debug("REST request to update Client : {}", clientDTO);
         if (clientDTO.getId() == null) {
             return createClient(clientDTO);
         }
-        ClientDTO result = clientService.save(clientDTO);
+        ClientAndAddressesDTO result = clientService.save(clientDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, clientDTO.getId().toString()))
             .body(result);
@@ -95,10 +95,10 @@ public class ClientResource {
      */
     @GetMapping("/clients")
     @Timed
-    public ResponseEntity<List<ClientDTO>> getAllClients(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ClientAndAddressesDTO>> getAllClients(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Clients");
-        Page<ClientDTO> page = clientService.findAll(pageable);
+        Page<ClientAndAddressesDTO> page = clientService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/clients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -120,7 +120,7 @@ public class ClientResource {
     /**
      * GET  /clients/:id : get the "id" client.
      *
-     * @param id the id of the clientDTO to retrieve
+     * @param phoneNumber the id of the clientDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the clientDTO, or with status 404 (Not Found)
      */
     @GetMapping("/clients/by-phone/{phoneNumber}")

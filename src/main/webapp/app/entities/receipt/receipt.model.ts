@@ -16,7 +16,8 @@ export enum ReceiptStatus {
     ATTACHED_TO_DRIVER = <any>'ATTACHED_TO_DRIVER',
     DELIVERY_PROCESS = <any>'DELIVERY_PROCESS',
     DELIVERED = <any>'DELIVERED',
-    CANCELLED = <any>'CANCELLED'
+    CANCELLED = <any>'CANCELLED',
+    TAKEOUT = <any>'TAKEOUT'
 }
 export class Receipt {
     public productEntries: ProductEntry[];

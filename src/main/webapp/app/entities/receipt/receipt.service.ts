@@ -104,4 +104,16 @@ export class ReceiptService {
         let mediaType = ResponseContentType.Blob;
         return this.http.get(this.resourceUrl.concat('/sent-receipt/').concat(receiptId + ''), {responseType: mediaType});
     }
+
+    delivered(receipt: Receipt): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/delivered'), receipt).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    takenOut(receipt: Receipt): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/taken-out'), receipt).map((res: Response) => {
+            return res;
+        });
+    }
 }

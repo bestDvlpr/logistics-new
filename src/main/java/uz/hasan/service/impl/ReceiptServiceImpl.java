@@ -282,41 +282,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         return receiptProductEntriesMapper.receiptsToReceiptProductEntryDTOs(results);
     }
 
-    private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
-        Receipt result;
-        User userWithAuthorities = userService.getUserWithAuthorities();
-        if (isNew) {
-            Receipt newReceipt = new Receipt();
-            BeanUtils.copyProperties(receipt, newReceipt);
-            newReceipt.setAddress(productEntries.iterator().next().getAddress());
-            newReceipt.setProductEntries(productEntries);
-            newReceipt.setLoyaltyCard(receipt.getLoyaltyCard());
-            newReceipt.setClient(receipt.getClient());
-            newReceipt.setShop(receipt.getShop());
-            newReceipt.setPayMaster(receipt.getPayMaster());
-            HashSet<PayType> objects = new HashSet<>();
-            objects.addAll(receipt.getPayTypes());
-            newReceipt.setPayTypes(objects);
-            newReceipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
-            newReceipt.setStatus(ReceiptStatus.APPLICATION_SENT);
-            newReceipt.setSentToDCTime(ZonedDateTime.now());
-            newReceipt.setSentBy(userWithAuthorities);
-            newReceipt.setId(null);
-            result = receiptRepository.save(newReceipt);
-        } else {
-            receipt.setAddress(productEntries.iterator().next().getAddress());
-            receipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
-            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
-            receipt.setSentToDCTime(ZonedDateTime.now());
-            receipt.setSentBy(userWithAuthorities);
-            result = receiptRepository.save(receipt);
-        }
-
-        productEntries.forEach(productEntry -> productEntry.setReceipt(result));
-        productEntryRepository.save(productEntries);
-        return result;
-    }
-
     /**
      * Count new receipts.
      *
@@ -376,6 +341,9 @@ public class ReceiptServiceImpl implements ReceiptService {
         return save(receiptDTO);
     }
 
+    /**
+     * Download receipt as ms-word document.
+     */
     @Override
     public void download(Long receiptId, HttpServletResponse response) {
         if (receiptId == null) {
@@ -387,6 +355,69 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
         excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
+    }
+
+    /**
+     * Mark receipt and its products as delivered.
+     *
+     * @return receipt with attached to car products
+     */
+    @Override
+    public ReceiptProductEntriesDTO delivered(ReceiptProductEntriesDTO receiptDTO) {
+        if (receiptDTO == null) {
+            return null;
+        }
+
+        return setStatusAndSave(receiptDTO, ReceiptStatus.DELIVERED);
+    }
+
+    /**
+     * Mark receipt and its products as taken out.
+     *
+     * @return receipt with attached to car products
+     */
+    @Override
+    public ReceiptProductEntriesDTO takenOut(ReceiptProductEntriesDTO receiptDTO) {
+        if (receiptDTO == null) {
+            return null;
+        }
+
+        return setStatusAndSave(receiptDTO, ReceiptStatus.TAKEOUT);
+    }
+
+    private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
+        Receipt result;
+        User userWithAuthorities = userService.getUserWithAuthorities();
+        if (isNew) {
+            Receipt newReceipt = new Receipt();
+            BeanUtils.copyProperties(receipt, newReceipt);
+            newReceipt.setAddress(productEntries.iterator().next().getAddress());
+            newReceipt.setProductEntries(productEntries);
+            newReceipt.setLoyaltyCard(receipt.getLoyaltyCard());
+            newReceipt.setClient(receipt.getClient());
+            newReceipt.setShop(receipt.getShop());
+            newReceipt.setPayMaster(receipt.getPayMaster());
+            HashSet<PayType> objects = new HashSet<>();
+            objects.addAll(receipt.getPayTypes());
+            newReceipt.setPayTypes(objects);
+            newReceipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
+            newReceipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            newReceipt.setSentToDCTime(ZonedDateTime.now());
+            newReceipt.setSentBy(userWithAuthorities);
+            newReceipt.setId(null);
+            result = receiptRepository.save(newReceipt);
+        } else {
+            receipt.setAddress(productEntries.iterator().next().getAddress());
+            receipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
+            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            receipt.setSentToDCTime(ZonedDateTime.now());
+            receipt.setSentBy(userWithAuthorities);
+            result = receiptRepository.save(receipt);
+        }
+
+        productEntries.forEach(productEntry -> productEntry.setReceipt(result));
+        productEntryRepository.save(productEntries);
+        return result;
     }
 
     private Map<String, Object> createHashMap(List<ProductEntry> productEntries) {
@@ -411,7 +442,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receipt != null) {
             client = receipt.getClient();
         }
-        if (receipt == null || receipt.getAddress()==null) {
+        if (receipt == null || receipt.getAddress() == null) {
             result.put("clientAddress", "");
         } else {
             Address address = receipt.getAddress();
@@ -470,5 +501,17 @@ public class ReceiptServiceImpl implements ReceiptService {
         result.put("toTime", (receipt == null || receipt.getToTime() == null) ? "" : receipt.getToTime());
         result.put("deliveryDate", (receipt == null || receipt.getDeliveryDate() == null) ? "" : formatter.format(new Date(receipt.getDeliveryDate())));
         return result;
+    }
+
+    private ReceiptProductEntriesDTO setStatusAndSave(ReceiptProductEntriesDTO receiptDTO, ReceiptStatus status) {
+        Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
+        receipt.setStatus(status);
+
+        Set<ProductEntry> productEntries = receipt.getProductEntries();
+        productEntries.forEach(productEntry -> productEntry.setStatus(status));
+
+        receiptRepository.save(receipt);
+        productEntryRepository.save(productEntries);
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
     }
 }

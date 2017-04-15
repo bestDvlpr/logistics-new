@@ -1,0 +1,10 @@
+{
+    "logisticsApp": {
+        "PhoneType" : {
+            "null": "",
+            "MOBILE": "MOBILE",
+            "HOME": "HOME",
+            "WORK": "WORK"
+        }
+    }
+}

@@ -1,16 +1,15 @@
 <div>
-    <h2><span jhiTranslate="logisticsApp.phoneNumber.home.title">Phone Numbers</span>
-        <button class="btn btn-primary float-xs-right create-phone-number" [routerLink]="['/', { outlets: { popup: ['phone-number-new'] } }]">
+    <h2>
+        <span jhiTranslate="logisticsApp.phoneNumber.home.title">Phone Numbers</span>
+        <button class="btn btn-primary float-right create-phone-number" [routerLink]="['/', { outlets: { popup: ['phone-number-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="logisticsApp.phoneNumber.home.createLabel">
             Create new Phone Number
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
-
-    <div class="container-fluid">
-        <div class="row">
-        </div>
+    <div class="row">
     </div>
     <br/>
     <div class="table-responsive" *ngIf="phoneNumbers">
@@ -19,6 +18,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="number"><span jhiTranslate="logisticsApp.phoneNumber.number">Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type"><span jhiTranslate="logisticsApp.phoneNumber.type">Type</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="client.id"><span jhiTranslate="logisticsApp.phoneNumber.client">Client</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -27,12 +27,13 @@
             <tr *ngFor="let phoneNumber of phoneNumbers ;trackBy: trackId">
                 <td><a [routerLink]="['../phone-number', phoneNumber.id ]">{{phoneNumber.id}}</a></td>
                 <td>{{phoneNumber.number}}</td>
+                <td jhiTranslate="{{'logisticsApp.PhoneType.' + phoneNumber.type}}">{{phoneNumber.type}}</td>
                 <td>
                     <div *ngIf="phoneNumber.client">
-                        <a [routerLink]="['../client', phoneNumber.client?.id ]" >{{phoneNumber.client?.firstName + ' ' + phoneNumber.client?.lastName}}</a>
+                        <a [routerLink]="['../client', phoneNumber.client?.id ]" >{{phoneNumber.client?.id}}</a>
                     </div>
                 </td>
-                <td class="text-xs-right">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['../phone-number', phoneNumber.id ]"
@@ -60,8 +61,12 @@
             </tbody>
         </table>
     </div>
-        <div class="text-xs-center" *ngIf="phoneNumbers && phoneNumbers.length">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        <div *ngIf="phoneNumbers && phoneNumbers.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
         </div>
 </div>

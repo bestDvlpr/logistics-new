@@ -120,6 +120,10 @@
                           *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
                         {{receipt.status}}
                     </span>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                          *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
+                        {{receipt.status}}
+                    </span>
                 </td>
                 <td>
                     <div *ngIf="receipt.payMasterId">
@@ -186,7 +190,7 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
-                            jhiHasAuthority="ROLE_DISPATCHER">
+                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER">
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>

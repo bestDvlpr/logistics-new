@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "phoneNumber" : {
+        "phoneNumber": {
             "home": {
                 "title": "Телефонные номера",
                 "createLabel": "Создать новый номер телефона",
@@ -19,6 +19,7 @@
             "number": "Номер",
             "mobileNumber": "Мобильный номер телефона",
             "homeNumber": "Домашный номер телефона",
+            "type": "Тип",
             "client": "Клиент"
         }
     }

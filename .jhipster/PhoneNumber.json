@@ -20,6 +20,11 @@
                 "pattern"
             ],
             "fieldValidateRulesPattern": "\\+\\d{12}"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "PhoneType",
+            "fieldValues": "MOBILE,HOME,WORK"
         }
     ],
     "changelogDate": "20170302055522",

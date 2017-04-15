@@ -17,7 +17,7 @@ public interface ClientService {
      * @param clientDTO the entity to save
      * @return the persisted entity
      */
-    ClientDTO save(ClientDTO clientDTO);
+    ClientAndAddressesDTO save(ClientAndAddressesDTO clientDTO);
 
     /**
      *  Get all the clients.
@@ -25,7 +25,7 @@ public interface ClientService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ClientDTO> findAll(Pageable pageable);
+    Page<ClientAndAddressesDTO> findAll(Pageable pageable);
 
     /**
      *  Get the "id" client.

@@ -1,6 +1,8 @@
 package uz.hasan.service.dto;
 
 
+import uz.hasan.domain.PhoneNumber;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +13,7 @@ import java.util.Objects;
 public class ClientAndAddressesDTO extends ClientDTO implements Serializable {
 
     private List<AddressDTO> addressDTOS;
+    private List<PhoneNumber> numbers;
 
     public List<AddressDTO> getAddressDTOS() {
         return addressDTOS;
@@ -18,6 +21,14 @@ public class ClientAndAddressesDTO extends ClientDTO implements Serializable {
 
     public void setAddressDTOS(List<AddressDTO> addressDTOS) {
         this.addressDTOS = addressDTOS;
+    }
+
+    public List<PhoneNumber> getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(List<PhoneNumber> numbers) {
+        this.numbers = numbers;
     }
 
     @Override

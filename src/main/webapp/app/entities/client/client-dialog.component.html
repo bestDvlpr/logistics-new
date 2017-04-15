@@ -30,7 +30,7 @@
             <label class="form-control-label" jhiTranslate="logisticsApp.phoneNumber.mobileNumber"
                    for="mobile_number">Number</label>
             <input type="text" class="form-control" name="mobile_number" id="mobile_number"
-                   [(ngModel)]="mobilePhoneNumber"
+                   [(ngModel)]="mobilePhoneNumber.number"
                    required pattern="\+\d{12}"/>
             <div [hidden]="!(editForm.controls.mobile_number?.dirty && editForm.controls.mobile_number?.invalid)">
                 <small class="form-text text-danger"
@@ -50,7 +50,7 @@
             <label class="form-control-label" jhiTranslate="logisticsApp.phoneNumber.homeNumber"
                    for="home_number">Number</label>
             <input type="text" class="form-control" name="number" id="home_number"
-                   [(ngModel)]="homePhoneNumber"
+                   [(ngModel)]="homePhoneNumber.number"
                    required pattern="\+\d{12}"/>
             <div [hidden]="!(editForm.controls.number?.dirty && editForm.controls.number?.invalid)">
                 <small class="form-text text-danger"

@@ -9,6 +9,7 @@ import uz.hasan.service.dto.AddressDTO;
 import uz.hasan.service.dto.ClientAndAddressesDTO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,26 @@ public class ClientAndAddressesMapper {
             List<AddressDTO> addressDTOS = addressMapper.addressesToAddressDTOs(byClientId.get());
             clientDTO.setAddressDTOS(addressDTOS);
         }
+        clientDTO.setNumbers(new ArrayList<>(client.getPhoneNumbers()));
         return clientDTO;
+    }
+
+    public Client clientAndAddressesDTOToClient(ClientAndAddressesDTO clientAndAddressesDTO) {
+        if (clientAndAddressesDTO == null) {
+            return null;
+        }
+        Client client = new Client();
+        client.setFirstName(clientAndAddressesDTO.getFirstName());
+        client.setLastName(clientAndAddressesDTO.getLastName());
+        client.setRegDate(clientAndAddressesDTO.getRegDate());
+
+        Long clientId = clientAndAddressesDTO.getId();
+
+        client.setId(clientId);
+        Optional<List<Address>> byClientId = addressRepository.findByClientId(clientId);
+        byClientId.ifPresent(addresses -> client.setAddresses(new HashSet<>(addresses)));
+        client.setPhoneNumbers(new HashSet<>(clientAndAddressesDTO.getNumbers()));
+        return client;
     }
 
     public List<ClientAndAddressesDTO> clientToClientAndAddressesDTOs(List<Client> clients) {

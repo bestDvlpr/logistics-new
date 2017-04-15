@@ -18,7 +18,7 @@ export class PhoneNumberDetailComponent implements OnInit, OnDestroy {
         private phoneNumberService: PhoneNumberService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['phoneNumber']);
+        this.jhiLanguageService.setLocations(['phoneNumber', 'phoneType']);
     }
 
     ngOnInit() {
