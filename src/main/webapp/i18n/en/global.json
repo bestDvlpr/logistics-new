@@ -127,6 +127,7 @@
             "open": "Open",
             "save": "Save",
             "attachDriver": "Attach to Drivers",
+            "attachAnotherDriver": "Attach to Another",
             "sendOrder": "Send Order",
             "sendOrderTitle": "Send Order # {{orderId}}",
             "view": "View",

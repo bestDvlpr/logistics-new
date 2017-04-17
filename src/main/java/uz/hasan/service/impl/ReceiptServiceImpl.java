@@ -510,6 +510,13 @@ public class ReceiptServiceImpl implements ReceiptService {
         Set<ProductEntry> productEntries = receipt.getProductEntries();
         productEntries.forEach(productEntry -> productEntry.setStatus(status));
 
+        Set<Car> cars = new HashSet<>();
+        for (ProductEntry entry : productEntries) {
+            cars.add(entry.getAttachedCar());
+        }
+        cars.forEach(car -> car.setStatus(CarStatus.IDLE));
+        carRepository.save(cars);
+
         receiptRepository.save(receipt);
         productEntryRepository.save(productEntries);
         return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);

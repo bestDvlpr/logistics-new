@@ -16,21 +16,14 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="appliedReceipts">
+    <div class="table-responsive small" *ngIf="appliedReceipts">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
                     class="fa fa-sort"></span></th>
-                <!--<th jhiSortBy="docNum"><span jhiTranslate="logisticsApp.receipt.docNum">Doc Num</span> <span-->
-                <!--class="fa fa-sort"></span></th>-->
-                <!--<th jhiSortBy="docID"><span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span> <span-->
-                <!--class="fa fa-sort"></span></th>-->
                 <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span
                     class="fa fa-sort"></span></th>
-                <!--<th jhiSortBy="previousDocID"><span-->
-                <!--jhiTranslate="logisticsApp.receipt.previousDocID">Previous Doc ID</span> <span-->
-                <!--class="fa fa-sort"></span></th>-->
                 <th jhiSortBy="fromTime"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="toTime"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span>
@@ -44,9 +37,6 @@
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
                     class="fa fa-sort"></span></th>
-                <!--<th jhiSortBy="payMasterPayMasterName"><span
-                    jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
-                </th>-->
                 <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
                     jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
                     <span class="fa fa-sort"></span></th>
@@ -62,8 +52,6 @@
             <tbody>
             <tr *ngFor="let receipt of appliedReceipts ;trackBy: trackId">
                 <td>{{receipt.id}}</td>
-                <!--<td>{{receipt.docNum}}</td>-->
-                <!--<td>{{receipt.docID}}</td>-->
                 <td>
                     <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
                           *ngIf="receipt.docType === docTypeEnum.SALES">
@@ -74,7 +62,6 @@
                     {{receipt.docType}}
                     </span>
                 </td>
-                <!--<td>{{receipt.previousDocID}}</td>-->
                 <td>{{receipt.fromTime}}</td>
                 <td>{{receipt.toTime}}</td>
                 <td>{{receipt.deliveryDate | date}}</td>
@@ -107,11 +94,6 @@
                         {{receipt.status}}
                     </span>
                 </td>
-                <!--<td>
-                    <div *ngIf="receipt.payMasterId">
-                        <a [routerLink]="['../pay-master', receipt.payMasterId  ]">{{receipt.payMasterPayMasterName}}</a>
-                    </div>
-                </td>-->
                 <td jhiHasAuthority="ROLE_ADMIN">
                     <div *ngIf="receipt.loyaltyCardId">
                         <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]">{{receipt.loyaltyCardLoyaltyCardID}}</a>

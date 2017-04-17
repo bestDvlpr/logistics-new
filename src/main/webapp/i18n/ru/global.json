@@ -127,6 +127,7 @@
             "open": "Open",
             "save": "Сохранить",
             "attachDriver": "Прикрепить водителью",
+            "attachAnotherDriver": "Прикрепить другую",
             "sendOrder": "Отправить заявку",
             "sendOrderTitle": "Отправить заявку № {{orderId}}",
             "view": "Просмотр",

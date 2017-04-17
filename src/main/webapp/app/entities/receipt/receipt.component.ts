@@ -60,7 +60,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car']);
+        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address']);
     }
 
     loadAll() {
@@ -249,6 +249,12 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             if (res.id === receiptId) {
                 receipt = res;
             }
+        }
+        for (let prod of receipt.productEntries){
+            prod.attachedCarId = null;
+            prod.attachedCarNumber = null;
+            prod.attachedToCarTime = null;
+            prod.attachedToDriverById = null;
         }
         this.dataHolderService._receipt = receipt;
         if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
