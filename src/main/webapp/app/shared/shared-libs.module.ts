@@ -11,7 +11,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
         NgbModule.forRoot(),
         NgJhipsterModule.forRoot({
             i18nEnabled: true,
-            defaultI18nLang: 'en'
+            defaultI18nLang: 'ru'
         }),
         InfiniteScrollModule
     ],

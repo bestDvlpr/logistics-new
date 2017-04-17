@@ -107,7 +107,7 @@ export class ReceiptService {
 
     delivered(receipt: Receipt): Observable<Response> {
         return this.http.post(this.resourceUrl.concat('/delivered'), receipt).map((res: Response) => {
-            return res.json();
+            return res;
         });
     }
 

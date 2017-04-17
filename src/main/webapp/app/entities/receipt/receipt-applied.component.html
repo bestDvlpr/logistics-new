@@ -44,9 +44,9 @@
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="payMasterPayMasterName"><span
+                <!--<th jhiSortBy="payMasterPayMasterName"><span
                     jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
-                </th>
+                </th>-->
                 <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
                     jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
                     <span class="fa fa-sort"></span></th>
@@ -107,11 +107,11 @@
                         {{receipt.status}}
                     </span>
                 </td>
-                <td>
+                <!--<td>
                     <div *ngIf="receipt.payMasterId">
                         <a [routerLink]="['../pay-master', receipt.payMasterId  ]">{{receipt.payMasterPayMasterName}}</a>
                     </div>
-                </td>
+                </td>-->
                 <td jhiHasAuthority="ROLE_ADMIN">
                     <div *ngIf="receipt.loyaltyCardId">
                         <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]">{{receipt.loyaltyCardLoyaltyCardID}}</a>

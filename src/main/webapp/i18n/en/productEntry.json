@@ -33,7 +33,7 @@
             "deliveryStartTime": "Delivery Start Time",
             "deliveryEndTime": "Delivery End Time",
             "product": "Product",
-            "sellerID": "Seller ID",
+            "sellerID": "Seller",
             "receipt": "Receipt",
             "driver": "Driver",
             "attachedCar": "Attached Car",

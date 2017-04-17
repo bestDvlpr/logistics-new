@@ -33,7 +33,7 @@
             "deliveryStartTime": "Время начало доставки",
             "deliveryEndTime": "Время доставления",
             "product": "Тип",
-            "sellerID": "ID продавца",
+            "sellerID": "Продавец",
             "receipt": "Заявка",
             "driver": "Водитель",
             "attachedCar": "Машину прикреплен",

@@ -195,6 +195,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
         this.receipts = data;
+        console.log('totalItems: ' + this.totalItems + ' itemsPerPage: ' + this.itemsPerPage + ' queryCount: ' + this.queryCount);
     }
 
     private onError(error) {

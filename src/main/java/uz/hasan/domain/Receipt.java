@@ -102,6 +102,7 @@ public class Receipt implements Serializable {
     private Shop shop;
 
     @ManyToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     public Long getId() {

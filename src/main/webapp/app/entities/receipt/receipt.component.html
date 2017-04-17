@@ -46,12 +46,12 @@
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="payMasterPayMasterName"><span
+                <th jhiSortBy="payMasterPayMasterName" jhiHasAuthority="ROLE_CASHIER"><span
                     jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span> <span class="fa fa-sort"></span>
                 </th>
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
+                <!--<th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
                     jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
-                    <span class="fa fa-sort"></span></th>
+                    <span class="fa fa-sort"></span></th>-->
                 <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="shopId"><span jhiTranslate="logisticsApp.receipt.shopId">Shop</span> <span
@@ -125,16 +125,16 @@
                         {{receipt.status}}
                     </span>
                 </td>
-                <td>
+                <td jhiHasAuthority="ROLE_CASHIER">
                     <div *ngIf="receipt.payMasterId">
                         <a [routerLink]="['../pay-master', receipt.payMasterId  ]">{{receipt.payMasterPayMasterName}}</a>
                     </div>
                 </td>
-                <td jhiHasAuthority="ROLE_ADMIN">
+                <!--<td jhiHasAuthority="ROLE_ADMIN">
                     <div *ngIf="receipt.loyaltyCardId">
                         <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
                     </div>
-                </td>
+                </td>-->
                 <td>
                     <div *ngIf="receipt.clientId">
                         <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
@@ -199,7 +199,6 @@
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>
-
                 </td>
             </tr>
             </tbody>

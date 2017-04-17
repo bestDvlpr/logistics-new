@@ -60,7 +60,7 @@ describe('Component Tests', () => {
         });
 
 
-        describe('OnInit', () => {
+        /*describe('OnInit', () => {
             it('Should call load all on init', () => {
             // GIVEN
 
@@ -73,7 +73,7 @@ describe('Component Tests', () => {
             expect(service.find).toHaveBeenCalledWith(123);
             expect(comp.receipt).toEqual(jasmine.objectContaining({id:10}));
             });
-        });
+        });*/
     });
 
 });
