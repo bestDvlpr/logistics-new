@@ -16,12 +16,21 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive small" *ngIf="appliedReceipts">
-        <table class="table table-striped">
+    <div class="table-responsive" *ngIf="appliedReceipts">
+        <table class="table table-striped small">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
                     class="fa fa-sort"></span></th>
+                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="shopId"><span jhiTranslate="logisticsApp.receipt.shopId">Shop</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="productEntries"><span
+                    jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>
+                    <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="fromTime"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
@@ -30,21 +39,21 @@
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="deliveryDate"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="docDate"><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="wholeSaleFlag"><span
-                    jhiTranslate="logisticsApp.receipt.wholeSaleFlag">Whole Sale Flag</span> <span
+                <th jhiSortBy="address.region">
+                    <span jhiTranslate="logisticsApp.address.region">Region</span> <span
+                    class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="address.district">
+                    <span jhiTranslate="logisticsApp.address.district">District</span> <span
+                    class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="address">
+                    <span jhiTranslate="logisticsApp.receipt.addresses">Addresses</span> <span
+                    class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="cars"><span jhiTranslate="logisticsApp.receipt.cars">Cars</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiHasAuthority="ROLE_ADMIN" jhiSortBy="loyaltyCardLoyaltyCardID"><span
-                    jhiTranslate="logisticsApp.receipt.loyaltyCard">Loyalty Card</span>
-                    <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="shopId"><span jhiTranslate="logisticsApp.receipt.shopId">Shop</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="address"><span jhiTranslate="logisticsApp.receipt.addresses">Addresses</span> <span
                     class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
@@ -52,6 +61,25 @@
             <tbody>
             <tr *ngFor="let receipt of appliedReceipts ;trackBy: trackId">
                 <td>{{receipt.id}}</td>
+                <td>
+                    <div *ngIf="receipt.clientId">
+                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.shopName">
+                        <a [routerLink]="['../shop', receipt.shopId  ]">{{receipt.shopName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.productEntries && receipt.productEntries.length>0">
+                        <div *ngFor="let prod of receipt.productEntries">
+                            <span class="fa fa-shopping-bag"></span>
+                            {{prod.product.name}}
+                        </div>
+                    </div>
+                </td>
+                <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
                           *ngIf="receipt.docType === docTypeEnum.SALES">
@@ -65,18 +93,27 @@
                 <td>{{receipt.fromTime}}</td>
                 <td>{{receipt.toTime}}</td>
                 <td>{{receipt.deliveryDate | date}}</td>
-                <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm' }}</td>
                 <td>
-                    <span class="tag tag-primary"
-                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
-                          *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.WHOLESALE">
-                    {{receipt.wholeSaleFlag}}
-                    </span>
-                    <span class="tag tag-success"
-                          jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}"
-                          *ngIf="receipt.wholeSaleFlag === wholeSaleFlagEnum.RETAIL">
-                    {{receipt.wholeSaleFlag}}
-                    </span>
+                    <div *ngIf="receipt.address && receipt.address.regionName">
+                        {{receipt.address.regionName}}
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.address && receipt.address.districtName">
+                        {{receipt.address.districtName}}
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="receipt.address">
+                        <span class="fa fa-location-arrow"></span>
+                        {{receipt.address.streetAddress}}
+                    </div>
+                </td>
+                <td>
+                    <div
+                        *ngIf="receipt.productEntries && receipt.productEntries[0] && receipt.productEntries[0].attachedCarNumber">
+                        {{receipt.productEntries[0].attachedCarNumber}}
+                    </div>
                 </td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-info"
@@ -85,39 +122,23 @@
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
                           *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
-                          *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}</span>
+                          *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
+                    </span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
-                          *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}</span>
+                          *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
+                    </span>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
-                        <span class="fa fa-check-circle"></span>
                         {{receipt.status}}
                     </span>
-                </td>
-                <td jhiHasAuthority="ROLE_ADMIN">
-                    <div *ngIf="receipt.loyaltyCardId">
-                        <a [routerLink]="['../loyalty-card', receipt.loyaltyCardId  ]">{{receipt.loyaltyCardLoyaltyCardID}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.shopName">
-                        <a [routerLink]="['../shop', receipt.shopId  ]">{{receipt.shopName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.address">
-                        <span class="fa fa-location-arrow"></span>
-                        {{receipt.address.streetAddress+','}}
-                        {{receipt.address.districtName+','}}
-                        {{receipt.address.cityName?receipt.address.cityName + ',' : ''}}
-                        {{receipt.address.regionName?receipt.address.regionName + ',' : ''}}
-                        {{receipt.address.countryName}}
-                    </div>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                          *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
+                        {{receipt.status}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                          *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
+                        {{receipt.status}}
+                    </span>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
@@ -147,6 +168,27 @@
                             jhiHasAuthority="ROLE_DISPATCHER">
                         <span class="fa fa-car"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="attachToDriver(receipt.id)"
+                            *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER"
+                            jhiHasAuthority="ROLE_DISPATCHER">
+                        <span class="fa fa-car"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
+                            (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
+                        <span class="fa fa-send"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
+                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER">
+                        <span class="fa fa-eye"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
+                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                        <span class="fa fa-download"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>
                 </td>
             </tr>

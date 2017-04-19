@@ -514,8 +514,10 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (ProductEntry entry : productEntries) {
             cars.add(entry.getAttachedCar());
         }
-        cars.forEach(car -> car.setStatus(CarStatus.IDLE));
-        carRepository.save(cars);
+        if (!cars.isEmpty() && cars.iterator().next()!=null) {
+            cars.forEach(car -> car.setStatus(CarStatus.IDLE));
+            carRepository.save(cars);
+        }
 
         receiptRepository.save(receipt);
         productEntryRepository.save(productEntries);

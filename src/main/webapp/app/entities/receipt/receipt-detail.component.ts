@@ -22,7 +22,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
                 private dataHolderService: DataHolderService,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(
-            ['receipt','product','productEntry','address','client', 'docType', 'wholeSaleFlag', 'receiptStatus']
+            ['receipt', 'product', 'productEntry', 'address', 'client', 'docType', 'wholeSaleFlag', 'receiptStatus']
         );
     }
 

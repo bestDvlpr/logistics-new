@@ -56,7 +56,9 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
+        this.jhiLanguageService.setLocations(
+            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'address', 'product', 'productEntry']
+        );
     }
 
     loadAllApplied() {
