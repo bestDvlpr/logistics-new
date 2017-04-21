@@ -37,7 +37,6 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
     archivedReceipts: Receipt[];
-    receipts: Receipt[];
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -80,7 +79,7 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/archived-receipt'], {
+        this.router.navigate(['/archived-receipts'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -177,5 +176,15 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
         if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
             this.dataHolderService._client = receipt.client;
         }
+    }
+
+    viewReceipt(receiptId: number) {
+        for (let receipt of this.archivedReceipts) {
+            if (receipt.id === receiptId) {
+                this.dataHolderService._receipt = receipt;
+                this.dataHolderService._client = receipt.client;
+            }
+        }
+        this.router.navigate(['../receipt', receiptId]);
     }
 }
