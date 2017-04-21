@@ -11,7 +11,7 @@
 
     <groupId>uz.hasan</groupId>
     <artifactId>logistics</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.1.6-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Logistics</name>
 
@@ -289,6 +289,7 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
             <version>${mapstruct.version}</version>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

@@ -3,6 +3,7 @@ package uz.hasan.service;
 import uz.hasan.service.dto.AddressDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -19,33 +20,40 @@ public interface AddressService {
     AddressDTO save(AddressDTO addressDTO);
 
     /**
-     *  Get all the addresses.
+     * Get all the addresses.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     Page<AddressDTO> findAll(Pageable pageable);
 
     /**
-     *  Get the "id" address.
+     * Get the "id" address.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     AddressDTO findOne(Long id);
 
     /**
-     *  Delete the "id" address.
+     * Delete the "id" address.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     void delete(Long id);
 
     /**
-     *  Get all the addresses of client.
+     * Get all the addresses of client.
      *
-     *  @param clientId the pagination information
-     *  @return the list of entities
+     * @param clientId the pagination information
+     * @return the list of entities
      */
     List<AddressDTO> findByClientId(Long clientId);
+
+    /**
+     * Get all the addresses.
+     *
+     * @return the list of entities
+     */
+    List<AddressDTO> findAll();
 }

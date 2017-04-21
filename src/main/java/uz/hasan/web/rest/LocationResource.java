@@ -99,6 +99,21 @@ public class LocationResource {
     }
 
     /**
+     * GET  /locations/all : get all the locations.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of locations in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/locations/all")
+    @Timed
+    public ResponseEntity<List<Location>> getAllLocations()
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Locations");
+        List<Location> page = locationService.findAll();
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    /**
      * GET  /locations/:id : get the "id" location.
      *
      * @param id the id of the location to retrieve

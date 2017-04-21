@@ -23,6 +23,7 @@ import {
     ReceiptAppliedComponent,
     ReceiptProductToCarComponent,
     ReceiptSendAddressComponent,
+    ReceiptArchivedComponent,
 } from './';
 import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
 
@@ -50,7 +51,8 @@ let ENTITY_STATES = [
         CollapsedReceiptComponent,
         ReceiptNewComponent,
         ReceiptAppliedComponent,
-        ReceiptProductToCarComponent
+        ReceiptProductToCarComponent,
+        ReceiptArchivedComponent
     ],
     entryComponents: [
         ReceiptComponent,
@@ -64,7 +66,8 @@ let ENTITY_STATES = [
         CollapsedReceiptComponent,
         ReceiptNewComponent,
         ReceiptAppliedComponent,
-        ReceiptProductToCarComponent
+        ReceiptProductToCarComponent,
+        ReceiptArchivedComponent
     ],
     providers: [
         ReceiptService,

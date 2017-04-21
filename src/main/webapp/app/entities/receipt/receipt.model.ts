@@ -45,6 +45,8 @@ export class Receipt {
                 public toTime?: string,
                 public markedAsDeliveredById?: number,
                 public deliveryDate?: number,
-                public address?: Address) {
+                public address?: Address,
+                public deliveredDateTime = '' // formatted datetime as string 'yyyy-MM-dd hh24:mm:ss'
+    ) {
     }
 }

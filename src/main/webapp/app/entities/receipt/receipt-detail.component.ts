@@ -1,19 +1,24 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService, JhiLanguageService} from 'ng-jhipster';
-import {Receipt} from './receipt.model';
+import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {Response} from '@angular/http';
 import {DataHolderService} from './data-holder.service';
+import {EnumAware} from './doctypaware.decorator';
 
 @Component({
     selector: 'jhi-receipt-detail',
     templateUrl: './receipt-detail.component.html'
 })
+@EnumAware
 export class ReceiptDetailComponent implements OnInit, OnDestroy {
 
     receipt: Receipt;
     private subscription: any;
+    deliveredTime: any;
+    deliveredDate: any;
+    receiptStatusEnum = ReceiptStatus;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -56,6 +61,19 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     }
 
     delivered() {
+
+        if (this.deliveredTime !== null && this.deliveredDate !== null) {
+            let formattedTime = ((this.deliveredTime.hour < 10) ? '0' + this.deliveredTime.hour : this.deliveredTime.hour) +
+                ':' + ((this.deliveredTime.minute < 10) ? '0' + this.deliveredTime.minute : this.deliveredTime.minute) +
+                ':00';
+            let formattedDate = this.deliveredDate.year +
+                '-' + ((this.deliveredDate.month < 10) ? '0' + this.deliveredDate.month : this.deliveredDate.month) +
+                '-' + ((this.deliveredDate.day < 10) ? '0' + this.deliveredDate.day : this.deliveredDate.day);
+            this.receipt.deliveredDateTime = formattedDate + ' ' + formattedTime;
+        }
+        console.log(this.deliveredDate);
+        console.log(this.receipt.deliveredDateTime);
+
         this.receiptService.delivered(this.receipt).subscribe(
             (res: Response) => this.onSuccess(res.json()),
             (res: Response) => this.onError(res.json())

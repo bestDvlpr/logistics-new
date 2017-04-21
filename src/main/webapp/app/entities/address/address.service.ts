@@ -61,4 +61,10 @@ export class AddressService {
     byClientId(clientId: number): Observable<Response> {
         return this.http.get(`${this.resourceUrl}/by-client/${clientId}`);
     }
+
+    getAll(): Observable<Address[]> {
+        return this.http.get(this.resourceUrl.concat('/all')).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

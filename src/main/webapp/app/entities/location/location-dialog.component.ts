@@ -31,9 +31,9 @@ export class LocationDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.locationService.query().subscribe(
-            (res: Response) => {
-                this.locations = res.json();
+        this.locationService.getAll().subscribe(
+            (res: Location[]) => {
+                this.locations = res;
             }, (res: Response) => this.onError(res.json()));
     }
 

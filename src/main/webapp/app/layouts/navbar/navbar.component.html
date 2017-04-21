@@ -35,6 +35,22 @@
                     <span jhiTranslate="global.menu.newReceipts">New Applications</span>
                 </a>
             </li>
+
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
+                jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_MANAGER">
+                <a class="nav-link" [routerLink]="'accepted-receipts'" (click)="collapseNavbar()" placement="bottom">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.appliedReceipts">Received Applications</span>
+                </a>
+            </li>
+
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
+                jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_MANAGER">
+                <a class="nav-link" [routerLink]="'archived-receipts'" (click)="collapseNavbar()" placement="bottom">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.archivedReceipts">Archived Applications</span>
+                </a>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" jhiHasAuthority="ROLE_ADMIN" ngbDropdown class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle" routerLinkActive="active" ngbDropdownToggle
@@ -277,13 +293,6 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                    <li>
-                        <a class="dropdown-item" [routerLink]="'receipt'" routerLinkActive="active"
-                           (click)="collapseNavbar()">
-                            <i class="fa fa-list-alt" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.entities.order">Orders</span>
-                        </a>
-                    </li>
                     <li>
                         <a class="dropdown-item" [routerLink]="'car'" routerLinkActive="active"
                            (click)="collapseNavbar()">

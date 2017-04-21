@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Location } from './location.model';
+import {Location} from './location.model';
 @Injectable()
 export class LocationService {
 
     private resourceUrl = 'api/locations';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(location: Location): Observable<Location> {
         let copy: Location = Object.assign({}, location);
@@ -53,13 +54,18 @@ export class LocationService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
+    }
+
+    getAll(): Observable<Location[]> {
+        return this.http.get(this.resourceUrl.concat('/all')).map((res: Response) => { // TODO make it sorted by category
+            return res.json();
+        });
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

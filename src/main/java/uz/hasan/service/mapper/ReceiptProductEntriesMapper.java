@@ -9,6 +9,13 @@ import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -101,11 +108,13 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setSentById(sentBy == null ? null : sentBy.getId());
         entriesDTO.setSentByLogin(sentBy == null ? null : sentBy.getLogin());
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-//        Long deliveryDate = receipt.getDeliveryDate();
-//        if (deliveryDate != null) {
         entriesDTO.setDeliveryDate(receipt.getDeliveryDate());
-//        }
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ZonedDateTime deliveryDate = receipt.getDeliveredTime();
+        if (deliveryDate != null) {
+            entriesDTO.setDeliveredDateTime(receipt.getDeliveredTime().format(dateTimeFormatter));
+        }
 
         return entriesDTO;
     }
@@ -149,13 +158,23 @@ public class ReceiptProductEntriesMapper {
         receipt.setAddress(receiptDTO.getAddress() != null ? addressMapper.addressDTOToAddress(receiptDTO.getAddress()) : null);
         receipt.setSentBy(receiptDTO.getSentById() != null ? userRepository.findOne(receiptDTO.getSentById()) : null);
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-//        try {
         Long deliveryDate = receiptDTO.getDeliveryDate();
         receipt.setDeliveryDate(deliveryDate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String deliveredDateTime = receiptDTO.getDeliveredDateTime();
+        ZonedDateTime dateTime = null;
+        if (deliveredDateTime != null) {
+            Date parse = null;
+            try {
+                parse = format.parse(deliveredDateTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (parse != null) {
+                dateTime = ZonedDateTime.ofInstant(parse.toInstant(), ZoneId.systemDefault());
+            }
+        }
+        receipt.setDeliveredTime(dateTime);
 
         return receipt;
     }

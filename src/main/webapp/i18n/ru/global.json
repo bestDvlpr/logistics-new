@@ -60,6 +60,7 @@
             },
             "language": "Язык",
             "newReceipts": "Новые заявки",
+            "archivedReceipts": "Архив",
             "appliedReceipts": "Принятые заявки"
         },
         "form": {

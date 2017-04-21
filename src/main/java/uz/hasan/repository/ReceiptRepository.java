@@ -38,4 +38,8 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.shop.shopId = :id")
     Long getCountByStatusAndShopId(@Param("status") ReceiptStatus status, @Param("id") String id);
+
+    Page<Receipt> findAllByStatusNotIn(Pageable pageable, List<ReceiptStatus> statuses);
+
+    Page<Receipt> findAllByStatusIn(Pageable pageable, List<ReceiptStatus> statuses);
 }

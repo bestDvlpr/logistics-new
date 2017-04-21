@@ -34,8 +34,8 @@ export class ShopDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.addressService.query().subscribe(
-            (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.addressService.getAll().subscribe(
+            (res: Address[]) => { this.addresses = res; }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');

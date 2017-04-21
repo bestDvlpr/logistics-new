@@ -99,6 +99,22 @@ public class SellerResource {
     }
 
     /**
+     * GET  /sellers : get all the sellers.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of sellers in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/sellers/all")
+    @Timed
+    public ResponseEntity<List<SellerDTO>> getAll()
+        throws URISyntaxException {
+        log.debug("REST request to get a list of all Sellers");
+        List<SellerDTO> all = sellerService.findAll();
+        return new ResponseEntity<>(all, HttpStatus.OK);
+    }
+
+    /**
      * GET  /sellers/:id : get the "id" seller.
      *
      * @param id the id of the sellerDTO to retrieve

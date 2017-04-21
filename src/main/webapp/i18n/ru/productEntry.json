@@ -39,10 +39,10 @@
             "attachedCar": "Машину прикреплен",
             "address": "Адрес",
             "productName": "Наименования",
-            "attachedToDriverBy": "Attached To Driver By",
-            "deliveryItemsSentBy": "Delivery Items Sent By",
-            "markedAsDeliveredBy": "Marked As Delivered By",
-            "shopId": "Shop ID",
+            "attachedToDriverBy": "Водителью прикрепил",
+            "deliveryItemsSentBy": "Отправитель заявки",
+            "markedAsDeliveredBy": "Отметил как доставлен",
+            "shopId": "Магазин",
             "error": {
                 "notFound": "Не найдено товары!"
             }

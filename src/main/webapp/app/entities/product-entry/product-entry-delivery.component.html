@@ -27,6 +27,8 @@
                 <th>
                     <input type="checkbox" (change)="productAllChecked()" [checked]="isAllChecked"/>
                 </th>
+                <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.shopId">Shop ID</span> <span
+                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="price"><span jhiTranslate="logisticsApp.productEntry.price">Price</span> <span
@@ -55,6 +57,11 @@
             <tbody>
             <tr *ngFor="let productEntry of productEntries ;trackBy: trackId">
                 <td><input type="checkbox" (change)="productChecked(productEntry)" [checked]="productEntry.selected"/>
+                </td>
+                <td>
+                    <div *ngIf="productEntry.shopId">
+                        <a [routerLink]="['../shop', productEntry.shopId  ]">{{productEntry.shopName}}</a>
+                    </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.productId">

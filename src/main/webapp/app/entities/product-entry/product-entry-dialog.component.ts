@@ -69,8 +69,8 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.products = res.json(); }, (res: Response) => this.onError(res.json()));
         this.sellerService.query().subscribe(
             (res: Response) => { this.sellers = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.receiptService.query().subscribe(
-            (res: Response) => { this.receipts = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.receiptService.getAll().subscribe(
+            (res: Receipt[]) => { this.receipts = res; }, (res: Response) => this.onError(res.json()));
         this.driverService.query().subscribe(
             (res: Response) => { this.drivers = res.json(); }, (res: Response) => this.onError(res.json()));
         this.carService.query().subscribe(

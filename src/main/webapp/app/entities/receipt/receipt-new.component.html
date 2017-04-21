@@ -1,14 +1,4 @@
 <div>
-    <h2>
-        <span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
-        <button class="btn btn-primary float-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
-                [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span jhiTranslate="logisticsApp.receipt.home.createLabel">
-            Create new Receipt
-            </span>
-        </button>
-    </h2>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">

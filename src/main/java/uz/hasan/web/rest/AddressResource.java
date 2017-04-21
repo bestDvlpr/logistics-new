@@ -101,6 +101,22 @@ public class AddressResource {
     }
 
     /**
+     * GET  /addresses/all : get all the addresses.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of addresses in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/addresses/all")
+    @Timed
+    public ResponseEntity<List<AddressDTO>> getAll()
+        throws URISyntaxException {
+        log.debug("REST request to get a list of Addresses");
+        List<AddressDTO> list = addressService.findAll();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    /**
      * GET  /addresses/:id : get the "id" address.
      *
      * @param id the id of the addressDTO to retrieve

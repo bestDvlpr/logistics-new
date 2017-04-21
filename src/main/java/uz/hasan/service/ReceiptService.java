@@ -117,4 +117,27 @@ public interface ReceiptService {
      * @return receipt with attached to car products
      */
     ReceiptProductEntriesDTO takenOut(ReceiptProductEntriesDTO receiptDTO);
+
+    /**
+     *  Get all the receipts.
+     *
+     *  @return the list of entities
+     */
+    List<ReceiptProductEntriesDTO> findAll();
+
+    /**
+     *  Get all accepted receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findAllAccepted(Pageable pageable);
+
+    /**
+     *  Get all archived receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findArchivedReceipts(Pageable pageable);
 }

@@ -33,6 +33,12 @@ export class ReceiptService {
         });
     }
 
+    getAll(): Observable<Receipt[]> {
+        return this.http.get(this.resourceUrl.concat('/all')).map((res: Response) => {
+            return res.json();
+        });
+    }
+
     newReceipts(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/new'), options);
@@ -43,9 +49,19 @@ export class ReceiptService {
         return this.http.get(this.resourceUrl.concat('/applied'), options);
     }
 
+    archivedReceipts(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/archived'), options);
+    }
+
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options);
+    }
+
+    accepted(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/accepted'), options);
     }
 
     delete(id: number): Observable<Response> {

@@ -23,6 +23,8 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     private Set<AddressDTO> addresses;
 
+    private String deliveredDateTime;
+
     public List<ProductEntryDTO> getProductEntries() {
         return productEntries;
     }
@@ -45,6 +47,14 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     public void setAddresses(Set<AddressDTO> addresses) {
         this.addresses = addresses;
+    }
+
+    public String getDeliveredDateTime() {
+        return deliveredDateTime;
+    }
+
+    public void setDeliveredDateTime(String deliveredDateTime) {
+        this.deliveredDateTime = deliveredDateTime;
     }
 
     @Override

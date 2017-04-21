@@ -63,6 +63,17 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address']);
     }
 
+    loadAccepted() {
+        this.receiptService.accepted({
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        }).subscribe(
+            (res: Response) => this.onSuccess(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
     loadAll() {
         this.receiptService.query({
             page: this.page - 1,
@@ -101,7 +112,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         });
         this.isDCEmployee = false;
-        for (let auth of this.currentAccount.authorities) {
+        let authorities = this.currentAccount.authorities;
+        for (let auth of authorities) {
             if (auth === 'ROLE_ADMIN' ||
                 auth === 'ROLE_MANAGER' ||
                 auth === 'ROLE_DISPATCHER') {
@@ -109,7 +121,11 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         }
         if (this.isDCEmployee) {
-            this.loadAll();
+            if (authorities.indexOf('ROLE_ADMIN') !== -1) {
+                this.loadAll();
+            } else {
+                this.loadAccepted();
+            }
         } else {
             this.loadAllByShopId();
         }
@@ -128,7 +144,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
             this.isDCEmployee = false;
-            for (let auth of this.currentAccount.authorities) {
+            let authorities = this.currentAccount.authorities;
+            for (let auth of authorities) {
                 if (auth === 'ROLE_ADMIN' ||
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
@@ -136,7 +153,11 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 }
             }
             if (this.isDCEmployee) {
-                this.loadAll();
+                if (authorities.indexOf('ROLE_ADMIN') !== -1) {
+                    this.loadAll();
+                } else {
+                    this.loadAccepted();
+                }
             } else {
                 this.loadAllByShopId();
             }
@@ -250,7 +271,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 receipt = res;
             }
         }
-        for (let prod of receipt.productEntries){
+        for (let prod of receipt.productEntries) {
             prod.attachedCarId = null;
             prod.attachedCarNumber = null;
             prod.attachedToCarTime = null;

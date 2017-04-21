@@ -368,6 +368,25 @@ public class ReceiptServiceImpl implements ReceiptService {
             return null;
         }
 
+        Set<Car> attachedCars = new HashSet<>();
+        Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
+        for (ProductEntry entry : receipt.getProductEntries()) {
+            attachedCars.add(entry.getAttachedCar());
+        }
+
+        for (Car car : attachedCars) {
+            boolean carIsIdle = false;
+            List<ProductEntry> productEntryList = productEntryRepository.findByAttachedCarNumber(car.getNumber());
+            if (!productEntryList.isEmpty()) {
+                carIsIdle = productEntryList.stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED));
+            }
+            if (carIsIdle) {
+                car.setStatus(CarStatus.IDLE);
+            }
+        }
+
+        carRepository.save(attachedCars);
+
         return setStatusAndSave(receiptDTO, ReceiptStatus.DELIVERED);
     }
 
@@ -383,6 +402,45 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
 
         return setStatusAndSave(receiptDTO, ReceiptStatus.TAKEOUT);
+    }
+
+    /**
+     * Get all the receipts.
+     *
+     * @return the list of entities
+     */
+    @Override
+    public List<ReceiptProductEntriesDTO> findAll() {
+        List<Receipt> receiptList = receiptRepository.findAll();
+        return receiptProductEntriesMapper.receiptsToReceiptProductEntryDTOs(receiptList);
+    }
+
+    @Override
+    public Page<ReceiptProductEntriesDTO> findAllAccepted(Pageable pageable) {
+        log.debug("Request to get accepted  Receipts");
+        List<ReceiptStatus> statuses = new ArrayList<>();
+        statuses.add(ReceiptStatus.NEW);
+        statuses.add(ReceiptStatus.APPLICATION_SENT);
+        statuses.add(ReceiptStatus.DELIVERED);
+        statuses.add(ReceiptStatus.TAKEOUT);
+        Page<Receipt> result = receiptRepository.findAllByStatusNotIn(pageable, statuses);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     *  Get all archived receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findArchivedReceipts(Pageable pageable) {
+        log.debug("Request to get all Archived Receipts");
+        List<ReceiptStatus> statuses = new ArrayList<>();
+        statuses.add(ReceiptStatus.DELIVERED);
+        statuses.add(ReceiptStatus.TAKEOUT);
+        Page<Receipt> result = receiptRepository.findAllByStatusIn(pageable, statuses);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
     private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
@@ -427,7 +485,18 @@ public class ReceiptServiceImpl implements ReceiptService {
         Map<String, Object> result = new HashMap<>();
         ProductEntry productEntry = productEntries.get(0);
         Shop shop = productEntry.getShop();
-        result.put("shopAddress", (shop != null && shop.getAddress() != null) ? shop.getAddress().getStreetAddress() : "");
+        if (shop == null || shop.getAddress() == null) {
+            result.put("shopAddress", "");
+        } else {
+            Address shopAddress = shop.getAddress();
+            String streetAddress = "";
+            streetAddress += shopAddress.getStreetAddress() + ", ";
+            streetAddress += shopAddress.getDistrict().getName() + ", ";
+            streetAddress += (shopAddress.getCity() != null) ? shopAddress.getCity().getName() + ", " : "";
+            streetAddress += shopAddress.getRegion().getName() + ", ";
+            streetAddress += shopAddress.getCountry().getName();
+            result.put("shopAddress", streetAddress);
+        }
         result.put("shopBankAccountNumber", (shop != null) ? shop.getBankAccountNumber() : "");
         result.put("shopBankBranchRegion", (shop != null) ? shop.getBankBranchRegion() : "");
         result.put("shopBankName", (shop != null) ? shop.getBankName() : "");
@@ -507,6 +576,10 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
         receipt.setStatus(status);
 
+        if (status.equals(ReceiptStatus.DELIVERED)) {
+            receipt.setMarkedAsDeliveredBy(userService.getUserWithAuthorities());
+        }
+
         Set<ProductEntry> productEntries = receipt.getProductEntries();
         productEntries.forEach(productEntry -> productEntry.setStatus(status));
 
@@ -514,7 +587,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (ProductEntry entry : productEntries) {
             cars.add(entry.getAttachedCar());
         }
-        if (!cars.isEmpty() && cars.iterator().next()!=null) {
+        if (!cars.isEmpty() && cars.iterator().next() != null) {
             cars.forEach(car -> car.setStatus(CarStatus.IDLE));
             carRepository.save(cars);
         }

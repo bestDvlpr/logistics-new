@@ -18,6 +18,7 @@ import {ReceiptNewComponent} from './receipt-new.component';
 import {ReceiptAppliedComponent} from './receipt-applied.component';
 import {ReceiptProductToCarComponent} from './receipt-product-to-car.component';
 import {CollapsedReceiptComponent} from './collapsed-receipt.component';
+import {ReceiptArchivedComponent} from './receipt-archived.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -60,6 +61,26 @@ export const receiptRoute: Routes = [
     }, {
         path: 'applied-receipts',
         component: ReceiptAppliedComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_DISPATCHER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'accepted-receipts',
+        component: ReceiptComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_DISPATCHER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        }
+    }, {
+        path: 'archived-receipts',
+        component: ReceiptArchivedComponent,
         resolve: {
             'pagingParams': ReceiptResolvePagingParams
         },

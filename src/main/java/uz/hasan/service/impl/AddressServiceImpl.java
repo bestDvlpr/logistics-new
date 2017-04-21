@@ -105,4 +105,15 @@ public class AddressServiceImpl implements AddressService {
             return Collections.emptyList();
         }
     }
+
+    /**
+     * Get all the sellers.
+     *
+     * @return the list of entities
+     */
+    @Override
+    public List<AddressDTO> findAll() {
+        List<Address> allAddresses = addressRepository.findAll();
+        return addressMapper.addressesToAddressDTOs(allAddresses);
+    }
 }

@@ -60,6 +60,7 @@
             },
             "language": "Language",
             "newReceipts": "New Applications",
+            "archivedReceipts": "Archive",
             "appliedReceipts": "Received Applications"
         },
         "form": {

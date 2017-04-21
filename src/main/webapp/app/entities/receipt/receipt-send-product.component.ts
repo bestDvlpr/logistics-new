@@ -64,6 +64,13 @@ export class ReceiptSendProductComponent implements OnInit {
             this.receipt.toTime = ((this.endTime.hour < 10) ? '0' + this.endTime.hour : this.endTime.hour) +
                 ':' + ((this.endTime.minute < 10) ? '0' + this.endTime.minute : this.endTime.minute);
         }
+
+        if (this.deliveryDate !== null) {
+            this.receipt.deliveryDate = new Date(this.deliveryDate.year +
+                '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
+                '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
+        }
+
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;
         this.dataHolderService._address = this.address;
@@ -108,14 +115,6 @@ export class ReceiptSendProductComponent implements OnInit {
             this.productEntries.forEach(entry => entry.selected = false);
             this.isAllChecked = !this.isAllChecked;
             this.productsSelected = [];
-        }
-    }
-
-    setDeliveryDate() {
-        if (this.deliveryDate !== null) {
-            this.receipt.deliveryDate = new Date(this.deliveryDate.year +
-                '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
-                '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
         }
     }
 }

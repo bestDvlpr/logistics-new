@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Service Implementation for managing Seller.
  */
@@ -83,5 +85,16 @@ public class SellerServiceImpl implements SellerService{
     public void delete(Long id) {
         log.debug("Request to delete Seller : {}", id);
         sellerRepository.delete(id);
+    }
+
+    /**
+     *  Get all the sellers.
+     *
+     *  @return the list of entities
+     */
+    @Override
+    public List<SellerDTO> findAll() {
+        List<Seller> sellerList = sellerRepository.findAll();
+        return sellerMapper.sellersToSellerDTOs(sellerList);
     }
 }

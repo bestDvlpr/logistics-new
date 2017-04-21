@@ -106,6 +106,38 @@ public class ReceiptResource {
     }
 
     /**
+     * GET  /receipts/accepted : get all accepted receipts.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/accepted")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllAcceptedReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllAccepted(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/accepted");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts : get all the receipts.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/all")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAll()
+        throws URISyntaxException {
+        log.debug("REST request to get a all of Receipts");
+        List<ReceiptProductEntriesDTO> all = receiptService.findAll();
+        return new ResponseEntity<>(all, HttpStatus.OK);
+    }
+
+    /**
      * GET  /receipts : get all the receipts by shop id.
      *
      * @param pageable the pagination information
@@ -140,7 +172,7 @@ public class ReceiptResource {
     }
 
     /**
-     * GET  /receipts : get all receipts of status {@link uz.hasan.domain.enumeration.ReceiptStatus}.APPLICATION_SENT .
+     * GET  /receipts/applied : get all receipts of status {@link uz.hasan.domain.enumeration.ReceiptStatus}.APPLICATION_SENT .
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
@@ -150,9 +182,26 @@ public class ReceiptResource {
     @Timed
     public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllAppliedReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
-        log.debug("REST request to get a page of New Receipts");
+        log.debug("REST request to get a page of Applied Receipts");
         Page<ReceiptProductEntriesDTO> page = receiptService.findAppliedReceipts(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/applied");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/archived : get all receipts of status {@link uz.hasan.domain.enumeration.ReceiptStatus}.APPLICATION_SENT .
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/archived")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllArchivedReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Archived Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findArchivedReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/archived");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
