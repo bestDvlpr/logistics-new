@@ -1,3 +1,4 @@
+<!--
 
 
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
@@ -64,7 +65,7 @@
                 </small>
             </div>
         </div>
-<!--
+&lt;!&ndash;
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.client.regDate" for="field_regDate">Reg Date</label>
             <div class="d-flex">
@@ -144,7 +145,7 @@
                 [(ngModel)]="client.oked"
              />
         </div>
--->
+&ndash;&gt;
 
     </div>
     <div class="modal-footer">
@@ -152,6 +153,84 @@
             <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+-->
+
+<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myClientLabel" jhiTranslate="logisticsApp.client.home.createOrEditLabel">Create or
+            edit a Client</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;
+        </button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.client.firstName">First Name</label>
+            <input class="form-control" type="text" formControlName="firstName">
+            <!--display error message if name is not valid-->
+            <small *ngIf="!myForm.controls.firstName.valid" class="text-danger">
+                Name is required (minimum 3 characters).
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.client.lastName">Last Name</label>
+            <input class="form-control" type="text" formControlName="lastName">
+            <!--display error message if name is not valid-->
+            <small *ngIf="!myForm.controls.lastName.valid" class="text-danger">
+                Name is required (minimum 3 characters).
+            </small>
+        </div>
+        <div formArrayName="numbers">
+            <div *ngFor="let number of myForm.controls.numbers.controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label class="form-control-label"
+                                   jhiTranslate="logisticsApp.phoneNumber.number">Number</label>{{i+1}}
+                            <span class="fa fa-remove" *ngIf="myForm.controls.numbers.controls.length > 1"
+                                  (click)="removeNumber(i)"></span>
+                            <input class="form-control" type="text" formControlName="number">
+                            <!--display error message if street is not valid-->
+                            <small [hidden]="myForm.controls.numbers.controls[i].controls.number.valid">
+                                Number is required
+                            </small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label" jhiTranslate="logisticsApp.phoneNumber.type">Type</label>
+                            <select class="form-control" formControlName="type" id="type" required>
+                                <option value="MOBILE" jhiTranslate="logisticsApp.PhoneType.MOBILE">MOBILE</option>
+                                <option value="HOME" jhiTranslate="logisticsApp.PhoneType.HOME">HOME</option>
+                                <option value="WORK" jhiTranslate="logisticsApp.PhoneType.WORK">WORK</option>
+                            </select>
+                            <div [hidden]="!(myForm.controls.type?.dirty && myForm.controls.type?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!myForm.controls.type?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <button type="button" class="btn btn-sm btn-success" (click)="addPhoneNumber()">
+            <span jhiTranslate="logisticsApp.phoneNumber.home.addAnotherLabel"></span>
+            <span class="fa fa-plus"></span>
+        </button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="myForm.controls.invalid || isSaving" class="btn btn-primary">
             <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
     </div>

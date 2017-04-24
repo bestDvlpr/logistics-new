@@ -178,4 +178,14 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
             this.dataHolderService._client = receipt.client;
         }
     }
+
+    viewReceipt(receiptId: number) {
+        for (let receipt of this.appliedReceipts) {
+            if (receipt.id === receiptId) {
+                this.dataHolderService._receipt = receipt;
+                this.dataHolderService._client = receipt.client;
+            }
+        }
+        this.router.navigate(['../receipt', receiptId]);
+    }
 }

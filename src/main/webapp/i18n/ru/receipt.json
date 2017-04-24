@@ -3,6 +3,9 @@
         "receipt" : {
             "home": {
                 "title": "Заявки",
+                "newTitle": "Новые заявки",
+                "acceptedTitle": "Принятые заявки",
+                "archiveTitle": "Архив заявки",
                 "createLabel": "Создать новый Заявка",
                 "createOrEditLabel": "Создать или отредактировать Заявка"
             },

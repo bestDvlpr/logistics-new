@@ -71,9 +71,6 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
                 '-' + ((this.deliveredDate.day < 10) ? '0' + this.deliveredDate.day : this.deliveredDate.day);
             this.receipt.deliveredDateTime = formattedDate + ' ' + formattedTime;
         }
-        console.log(this.deliveredDate);
-        console.log(this.receipt.deliveredDateTime);
-
         this.receiptService.delivered(this.receipt).subscribe(
             (res: Response) => this.onSuccess(res.json()),
             (res: Response) => this.onError(res.json())

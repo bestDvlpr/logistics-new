@@ -4,6 +4,7 @@
             "home": {
                 "title": "Phone Numbers",
                 "createLabel": "Create a new Phone Number",
+                "addAnotherLabel": "Create a new Phone Number",
                 "createOrEditLabel": "Create or edit a Phone Number",
                 "search": "Search for Phone Number"
             },

@@ -44,7 +44,6 @@ export class ReceiptSendProductComponent implements OnInit {
         this.address = this.dataHolderService._address;
         this.productEntries = this.dataHolderService._receipt.productEntries;
         this.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
-        console.log(this.minDate);
     }
 
     load(id) {

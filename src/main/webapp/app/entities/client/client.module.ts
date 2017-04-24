@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LogisticsSharedModule } from '../../shared';
 
@@ -25,7 +26,8 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, { useHash: true }),
+        ReactiveFormsModule
     ],
     declarations: [
         ClientComponent,

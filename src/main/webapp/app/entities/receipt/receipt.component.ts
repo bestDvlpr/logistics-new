@@ -60,7 +60,9 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address']);
+        this.jhiLanguageService.setLocations(
+            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address']
+        );
     }
 
     loadAccepted() {
@@ -216,7 +218,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
         this.receipts = data;
-        console.log('totalItems: ' + this.totalItems + ' itemsPerPage: ' + this.itemsPerPage + ' queryCount: ' + this.queryCount);
     }
 
     private onError(error) {

@@ -130,7 +130,6 @@ export class ReceiptProductToCarComponent implements OnInit {
     private onSaveSuccess(data) {
         this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         this.isSaving = false;
-        console.log(data);
     }
 
     private onSaveError(error) {

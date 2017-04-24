@@ -20,7 +20,6 @@ public class ClientDTO implements Serializable {
 
     private ZonedDateTime regDate;
 
-    @NotNull
     private Set<String> phoneNumbers;
 
     private String bankName;

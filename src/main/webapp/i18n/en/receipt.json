@@ -3,6 +3,9 @@
         "receipt" : {
             "home": {
                 "title": "Applications",
+                "newTitle": "New Applications",
+                "acceptedTitle": "Accepted Applications",
+                "archiveTitle": "Archived Applications",
                 "createLabel": "Create a new Application",
                 "createOrEditLabel": "Create or edit a Application"
             },

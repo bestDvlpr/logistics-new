@@ -10,6 +10,7 @@ import {ClientPopupService} from './client-popup.service';
 import {ClientService} from './client.service';
 import {PhoneNumber, PhoneType} from '../phone-number/phone-number.model';
 import {EnumAware} from '../receipt/doctypaware.decorator';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
@@ -22,48 +23,96 @@ export class ClientDialogComponent implements OnInit {
     homePhoneNumber: PhoneNumber = new PhoneNumber;
     authorities: any[];
     isSaving: boolean;
+    public myForm: FormGroup; // our form model
 
     constructor(public activeModal: NgbActiveModal,
                 private jhiLanguageService: JhiLanguageService,
                 private alertService: AlertService,
                 private clientService: ClientService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['client', 'receipt', 'productEntry', 'address', 'phoneNumber', 'product']);
+                private eventManager: EventManager,
+                private formBuilder: FormBuilder) {
+        this.jhiLanguageService.setLocations(
+            ['client', 'receipt', 'productEntry', 'address', 'phoneNumber', 'product', 'phoneType']
+        );
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        if (this.client !== null && this.client.numbers !== null) {
+
+        if (this.client.numbers.length > 0) {
+            this.myForm = this.formBuilder.group({
+                id: [],
+                regDate: [],
+                firstName: ['', [Validators.required, Validators.minLength(2)]],
+                lastName: ['', [Validators.required, Validators.minLength(2)]],
+                numbers: this.formBuilder.array([]),
+            });
+            let numbers: FormArray = this.formBuilder.array([]);
             for (let number of this.client.numbers) {
-                if (number.type === PhoneType.MOBILE) {
-                    this.mobilePhoneNumber = number;
-                }
-                if (number.type === PhoneType.HOME) {
-                    this.homePhoneNumber = number;
-                }
+                let num: FormGroup = this.initPhoneNumbers();
+                num.controls['id'].setValue(number.id);
+                num.controls['number'].setValue(number.number);
+                num.controls['type'].setValue(number.type);
+                num.controls['client'].setValue(number.client);
+                (<FormArray> this.myForm.controls['numbers']).push(num);
             }
+            (<FormControl> this.myForm.controls['id']).setValue(this.client.id);
+            (<FormControl> this.myForm.controls['regDate']).setValue(this.client.regDate);
+            (<FormControl> this.myForm.controls['firstName']).setValue(this.client.firstName);
+            (<FormControl> this.myForm.controls['lastName']).setValue(this.client.lastName);
+
+        } else {
+            this.myForm = this.formBuilder.group({
+                id:[],
+                firstName: ['', [Validators.required, Validators.minLength(2)]],
+                lastName: ['', [Validators.required, Validators.minLength(2)]],
+                numbers: this.formBuilder.array([
+                    this.initPhoneNumbers(),
+                ])
+            });
         }
+    }
+
+    initPhoneNumbers() {
+        return this.formBuilder.group({
+            id: [null],
+            number: ['', [Validators.required, Validators.pattern('\\+\\d{12}')]],
+            type: ['', [Validators.required]],
+            client: [null]
+        });
+    }
+
+    addPhoneNumber() {
+        // add address to the list
+        const control = <FormArray>this.myForm.controls['numbers'];
+        control.push(this.initPhoneNumbers());
+    }
+
+    removeNumber(i: number) {
+        // remove address from the list
+        const control = <FormArray>this.myForm.controls['numbers'];
+        control.removeAt(i);
     }
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save() {
+    save(model: FormGroup) {
         this.isSaving = true;
-        if (this.homePhoneNumber !== null && this.mobilePhoneNumber !== null) {
-            this.homePhoneNumber.type = PhoneType.HOME;
-            this.mobilePhoneNumber.type = PhoneType.MOBILE;
+        /*if (this.homePhoneNumber !== null && this.mobilePhoneNumber !== null) {
+         this.homePhoneNumber.type = PhoneType.HOME;
+         this.mobilePhoneNumber.type = PhoneType.MOBILE;
 
-            this.client.numbers = [];
-            this.client.numbers.push(this.homePhoneNumber, this.mobilePhoneNumber);
-        }
-        if (this.client.id !== undefined) {
-            this.clientService.update(this.client)
-                .subscribe((res: Client) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+         this.client.numbers = [];
+         this.client.numbers.push(this.homePhoneNumber, this.mobilePhoneNumber);
+         }*/
+        if (model.value.id !== undefined) {
+            this.clientService.update(model.value)
+                .subscribe((res: Client) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
-            this.clientService.create(this.client)
+            this.clientService.create(model.value)
                 .subscribe((res: Client) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
