@@ -5,7 +5,7 @@
         "logged": {
             "message": "Вы вошли как пользователь \"{{username}}\"."
         },
-        "question": "Если у Вас возникли вопросы по Logistics System:",
+        "question": "Если у Вас возникли вопросы по MEDIAPARK-TMS:",
         "link": {
             "homepage": "JHipster домашняя страница",
             "stackoverflow": "JHipster на Stack Overflow",
@@ -16,7 +16,9 @@
         "like": "Если вам нравится JHipster, не забудьте дать нам звёздочку на",
         "github": "GitHub",
         "label": {
-            "supportPhone":"Телефон служба поддержки"
+            "supportPhone":"Телефон служба поддержки",
+            "dispatcherPhone":"Диспетчер {{name}}",
+            "directorPhone":"Начальник транспортного отдела {{name}}"
         }
     }
 }

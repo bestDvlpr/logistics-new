@@ -111,15 +111,15 @@
         <div class="row small" jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_ADMIN">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <span class="font-weight-bold" jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
                     </div>
                     <div class="col-md-3">
-                        {{dataHolderService._receipt.docDate | date}}
+                        {{dataHolderService._receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                     <span class="font-weight-bold"
                           jhiTranslate="logisticsApp.receipt.sentToDCTime">Sent To DC Time</span>:
                     </div>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <span class="font-weight-bold"
                               jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>:
                     </div>

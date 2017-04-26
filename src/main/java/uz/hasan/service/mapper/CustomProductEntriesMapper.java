@@ -2,7 +2,6 @@ package uz.hasan.service.mapper;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.Product;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.*;
 import uz.hasan.service.dto.ProductEntryDTO;
@@ -54,7 +53,7 @@ public class CustomProductEntriesMapper {
         return new ProductEntryDTO();
     }
 
-    public ProductEntry ProductEntryDTOToProductEntry(ProductEntryDTO productEntryDTO) {
+    public ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO) {
         if (productEntryDTO == null) {
             return null;
         }
@@ -72,6 +71,7 @@ public class CustomProductEntriesMapper {
         productEntry.setDefectFlag(productEntryDTO.getDefectFlag());
         productEntry.setHallFlag(productEntryDTO.getHallFlag());
         productEntry.setDeliveryFlag(productEntryDTO.getDeliveryFlag());
+        productEntry.setDeliveryStartTime(productEntryDTO.getDeliveryStartTime());
         productEntry.setDeliveryEndTime(productEntryDTO.getDeliveryEndTime());
         productEntry.setDeliveryItemsSentBy(productEntryDTO.getDeliveryItemsSentById() != null ? userRepository.findOne(productEntryDTO.getDeliveryItemsSentById()) : null);
         productEntry.setGuid(productEntryDTO.getGuid());
@@ -93,7 +93,7 @@ public class CustomProductEntriesMapper {
         }
         List<ProductEntry> productEntries = new ArrayList<>();
         for (ProductEntryDTO productEntryDTO : productEntryDTOS) {
-            productEntries.add(ProductEntryDTOToProductEntry(productEntryDTO));
+            productEntries.add(productEntryDTOToProductEntry(productEntryDTO));
         }
         return productEntries;
     }

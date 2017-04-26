@@ -8,19 +8,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
-import uz.hasan.domain.Product;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.enumeration.XDocTemplate;
-import uz.hasan.invoice.*;
 import uz.hasan.repository.*;
 import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ExcelService;
-import uz.hasan.service.ProductEntryService;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
-import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.service.mapper.CustomProductEntriesMapper;
 import uz.hasan.service.mapper.ProductEntryMapper;
@@ -30,11 +26,10 @@ import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalField;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -428,10 +423,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     /**
-     *  Get all archived receipts.
+     * Get all archived receipts.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     public Page<ReceiptProductEntriesDTO> findArchivedReceipts(Pageable pageable) {
@@ -578,6 +573,24 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         if (status.equals(ReceiptStatus.DELIVERED)) {
             receipt.setMarkedAsDeliveredBy(userService.getUserWithAuthorities());
+            if (receiptDTO.getDeliveredDateTime() != null) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = null;
+                try {
+                    date = format.parse(receiptDTO.getDeliveredDateTime());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (date != null) {
+                    ZonedDateTime deliveredTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+                    receipt.setDeliveredTime(deliveredTime);
+                    receipt.getProductEntries().forEach(productEntry -> productEntry.setDeliveryEndTime(deliveredTime));
+                } else {
+                    ZonedDateTime now = ZonedDateTime.now();
+                    receipt.setDeliveredTime(now);
+                    receipt.getProductEntries().forEach(productEntry -> productEntry.setDeliveryEndTime(now));
+                }
+            }
         }
 
         Set<ProductEntry> productEntries = receipt.getProductEntries();
@@ -587,7 +600,9 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (ProductEntry entry : productEntries) {
             cars.add(entry.getAttachedCar());
         }
-        if (!cars.isEmpty() && cars.iterator().next() != null) {
+        if (!cars.isEmpty() &&
+            cars.iterator().next() != null &&
+            cars.stream().allMatch(car -> car.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED)))) {
             cars.forEach(car -> car.setStatus(CarStatus.IDLE));
             carRepository.save(cars);
         }
