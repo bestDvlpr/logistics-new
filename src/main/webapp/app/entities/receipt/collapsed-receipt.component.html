@@ -14,29 +14,25 @@
                     <div class="col-md-3">
                         <span jhiTranslate="logisticsApp.receipt.docID">Doc ID</span>: <span>{{dataHolderService._receipt.docID}}</span>
                     </div>
-                    <div class="col-md-3">
-                        <span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
-                        <span>{{dataHolderService._receipt.docDate}}</span>
-                    </div>
                 </div>
             </button>
         </div>
     </div>
     <div [ngbCollapse]="isCollapsed" id="collapseExample">
         <div class="row small">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="row">
                     <div class="col-md-12 font-weight-bold text-muted">
                         <span jhiTranslate="logisticsApp.client.detail.title">Client</span>
                     </div>
                 </div>
                 <div class="row" *ngIf="dataHolderService._client">
-                    <div class="col-md-2 text-muted">
+                    <div class="col-md-3 text-muted">
                         <h1 class="display-4">
                             <span class="fa fa-user"></span>
                         </h1>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
                         {{client.id}}
                         <p class="card-text">
@@ -49,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9" *ngIf="dataHolderService._receipt">
+            <div class="col-md-10" *ngIf="dataHolderService._receipt">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row text-muted font-weight-bold" title="Products">
@@ -59,14 +55,23 @@
                             <div class="col-md-2">
                                 <span jhiTranslate="logisticsApp.productEntry.status">Status</span>
                             </div>
-                            <div class="col-md-1">
-                                <span jhiTranslate="logisticsApp.receipt.payMaster">Pay Master</span>
-                            </div>
-                            <div class="col-md-5">
+                            <div class="col-md-2">
                                 <span jhiTranslate="logisticsApp.address.home.title">Addresses</span>
                             </div>
-                            <div class="col-md-2" *ngIf="productCarExists">
+                            <div class="col-md-2">
+                                <span
+                                    jhiTranslate="logisticsApp.productEntry.attachedToCarTime">Attached To Car Time</span>
+                            </div>
+                            <div class="col-md-1" *ngIf="productCarExists">
                                 <span jhiTranslate="logisticsApp.productEntry.attachedCar">Attached Car</span>
+                            </div>
+                            <div class="col-md-2" *ngIf="productCarExists">
+                                <span jhiTranslate="logisticsApp.productEntry.deliveryStartTime">
+                                    Delivery Start Time
+                                </span>
+                            </div>
+                            <div class="col-md-1" *ngIf="productCarExists">
+                                <span jhiTranslate="logisticsApp.productEntry.deliveryEndTime">Delivery End Time</span>
                             </div>
                         </div>
                         <div class="row" *ngFor="let product of receipt.productEntries">
@@ -74,34 +79,68 @@
                                 <span>{{product.productName}}</span>
                             </div>
                             <div class="col-md-2">
-                                <span class="tag tag-default" jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
-                            </div>
-                            <div class="col-md-1">
-                                {{receipt.payMasterPayMasterName}}
-                            </div>
-                            <div class="col-md-1" *ngIf="product.address">
-                                <span>{{product.address.regionName}}</span>
-                            </div>
-                            <div class="col-md-1" *ngIf="product.address">
-                                <span>{{product.address.cityName}}</span>
-                            </div>
-                            <div class="col-md-1" *ngIf="product.address">
-                                <span>{{product.address.districtName}}</span>
+                                <span class="tag tag-default"
+                                      jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
                             </div>
                             <div class="col-md-2" *ngIf="product.address">
-                                <span>{{product.address.streetAddress}}</span>
+                                <span>{{product.address.streetAddress}}</span>,
+                                <span>{{product.address.districtName}}</span>,
+                                <span>{{product.address.regionName}}</span>
                             </div>
                             <div class="col-md-2" *ngIf="product.attachedCarId">
+                                <span class="fa fa-clock-o"></span>
+                                {{product.attachedToCarTime|date: 'dd-MM-yyyy HH:mm'}}
+                            </div>
+                            <div class="col-md-1" *ngIf="product.attachedCarId">
                                 <span class="fa fa-car"></span>
                                 <span>{{product.attachedCarNumber}}</span>
+                            </div>
+                            <div class="col-md-2" *ngIf="product.deliveryStartTime">
+                                <span class="fa fa-clock-o"></span>
+                                <span>{{product.deliveryStartTime|date: 'dd-MM-yyyy HH:mm'}}</span>
+                            </div>
+                            <div class="col-md-1" *ngIf="product.deliveryEndTime">
+                                <span class="fa fa-clock-o"></span>
+                                <span>{{product.deliveryEndTime|date: 'dd-MM-yyyy HH:mm'}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" jhiHasAuthority="ROLE_DISPATCHER">
+        </div>
+        <div class="row small" jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_ADMIN">
+            <div class="col-md-12">
                 <div class="row">
-
+                    <div class="col-md-2">
+                        <span class="font-weight-bold" jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>:
+                    </div>
+                    <div class="col-md-3">
+                        {{dataHolderService._receipt.docDate | date}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                    <span class="font-weight-bold"
+                          jhiTranslate="logisticsApp.receipt.sentToDCTime">Sent To DC Time</span>:
+                    </div>
+                    <div class="col-md-3">
+                        {{dataHolderService._receipt.sentToDCTime | date: 'dd-MM-yyyy HH:mm'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="font-weight-bold"
+                              jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>:
+                    </div>
+                    <div class="col-md-3">
+                        {{dataHolderService._receipt.deliveryDate | date: 'dd-MM-yyyy' }}
+                        &nbsp;
+                        <span jhiTranslate="logisticsApp.receipt.startTime">Start Time</span>:
+                        {{dataHolderService._receipt.fromTime}}
+                        &nbsp;
+                        <span jhiTranslate="logisticsApp.receipt.endTime">Start Time</span>:
+                        {{dataHolderService._receipt.toTime}}
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,14 +1,14 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Response} from '@angular/http';
 
 import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
+import {AlertService, EventManager, JhiLanguageService} from 'ng-jhipster';
 
 import {Client} from './client.model';
 import {ClientPopupService} from './client-popup.service';
 import {ClientService} from './client.service';
-import {PhoneNumber, PhoneType} from '../phone-number/phone-number.model';
+import {PhoneNumber} from '../phone-number/phone-number.model';
 import {EnumAware} from '../receipt/doctypaware.decorator';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
@@ -32,7 +32,15 @@ export class ClientDialogComponent implements OnInit {
                 private eventManager: EventManager,
                 private formBuilder: FormBuilder) {
         this.jhiLanguageService.setLocations(
-            ['client', 'receipt', 'productEntry', 'address', 'phoneNumber', 'product', 'phoneType']
+            ['client',
+                'receipt',
+                'productEntry',
+                'address',
+                'phoneNumber',
+                'product',
+                'phoneType',
+                'receiptStatus'
+            ]
         );
     }
 
@@ -64,7 +72,7 @@ export class ClientDialogComponent implements OnInit {
 
         } else {
             this.myForm = this.formBuilder.group({
-                id:[],
+                id: [],
                 firstName: ['', [Validators.required, Validators.minLength(2)]],
                 lastName: ['', [Validators.required, Validators.minLength(2)]],
                 numbers: this.formBuilder.array([
