@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1493377267733-1">
+        <addColumn tableName="product_entry">
+            <column name="company_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493377267733-2">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="product_entry"
+                                 constraintName="FKqm01cp1ib1d1w8bii8furaus0" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="hasan" id="1493377267733-3">
+        <sql>
+            update product_entry set company_id=shop_id;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493377267733-4">
+        <dropForeignKeyConstraint baseTableName="product_entry" constraintName="FK6bxlqf1xxse0ry999b0ewd9iq"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493377267733-5">
+        <dropColumn columnName="shop_id" tableName="product_entry"/>
+    </changeSet>
+    <changeSet author="hasan" id="1493377267733-6">
+        <addNotNullConstraint tableName="product_entry" columnName="company_id" columnDataType="int8"/>
+    </changeSet>
+</databaseChangeLog>

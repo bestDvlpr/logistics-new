@@ -87,8 +87,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         );
     }
 
-    loadAllByShopId() {
-        this.receiptService.allByShopId({
+    loadAllByCompanyId() {
+        this.receiptService.allByCompanyId({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()
@@ -129,7 +129,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 this.loadAccepted();
             }
         } else {
-            this.loadAllByShopId();
+            this.loadAllByCompanyId();
         }
     }
 
@@ -161,7 +161,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                     this.loadAccepted();
                 }
             } else {
-                this.loadAllByShopId();
+                this.loadAllByCompanyId();
             }
         });
         this.registerChangeInReceipts();
@@ -200,7 +200,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         if (this.isDCEmployee) {
             this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
         } else {
-            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByShopId());
+            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByCompanyId());
         }
     }
 

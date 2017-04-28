@@ -29,7 +29,6 @@
                 "receiptOrder": "Receipt Order",
                 "address": "Address",
                 "xmlHolder": "Xml Holder",
-                "shop": "Shop",
                 "company": "Company",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },

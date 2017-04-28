@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1493379604420-1">
+        <addColumn tableName="jhi_user">
+            <column name="company_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493379604420-2">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="jhi_user" constraintName="FK3ltrtkr6yv25sivkurwf9q8v9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="hasan" id="1493379604420-3">
+        <sql>
+            update jhi_user set company_id=shop_id;
+        </sql>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493379604420-4">
+        <dropForeignKeyConstraint baseTableName="jhi_user" constraintName="FK_user_shop_id"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493379604420-5">
+        <dropColumn columnName="shop_id" tableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

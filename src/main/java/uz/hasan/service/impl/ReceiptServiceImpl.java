@@ -145,7 +145,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     public Page<ReceiptProductEntriesDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Receipts");
         Page<Receipt> result = receiptRepository.findAll(pageable);
-        return result.map(receipt -> receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt));
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
     /**
@@ -180,9 +180,9 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the list of new entities
      */
     @Override
-    public Page<ReceiptProductEntriesDTO> findAllNewReceiptsByShopId(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAllNewReceiptsByCompanyId(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatusAndCompanyIdNumber(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
+        Page<Receipt> result = receiptRepository.findByStatusAndCompanyIdNumber(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getCompany().getIdNumber());
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -193,14 +193,14 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the list of new entities
      */
     @Override
-    public Page<ReceiptProductEntriesDTO> findAllReceiptsByShopId(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAllReceiptsByCompanyId(Pageable pageable) {
         log.debug("Request to get all new Receipts");
 
         User userWithAuthorities = userService.getUserWithAuthorities();
         Page<Receipt> result;
         if (userWithAuthorities.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
-            String shopId = userWithAuthorities.getShop().getShopId();
-            result = receiptRepository.findByCompanyIdNumberOrderByDocDateDesc(pageable, shopId);
+            String idNumber = userWithAuthorities.getCompany().getIdNumber();
+            result = receiptRepository.findByCompanyIdNumberOrderByDocDateDesc(pageable, idNumber);
         } else {
             result = receiptRepository.findAll(pageable);
         }
@@ -291,7 +291,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
             return receiptRepository.countByStatus(ReceiptStatus.NEW);
         } else {
-            return receiptRepository.getCountByStatusAndShopId(ReceiptStatus.NEW, userWithAuthorities.getShop().getShopId());
+            return receiptRepository.getCountByStatusAndCompanyIdNumber(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber());
         }
     }
 
@@ -492,7 +492,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             streetAddress += shopAddress.getCountry().getName();
             result.put("shopAddress", streetAddress);
         }
-        result.put("shopBankAccountNumber", "");
+        result.put("shopBankAccountNumber", ""); // TODO: 4/28/17 change shop to company
         result.put("shopBankBranchRegion", "");
         result.put("shopBankName", "");
         result.put("shopBankMfo", "");

@@ -34,7 +34,7 @@ public class CompanyResource {
     private final Logger log = LoggerFactory.getLogger(CompanyResource.class);
 
     private static final String ENTITY_NAME = "company";
-        
+
     private final CompanyService companyService;
 
     public CompanyResource(CompanyService companyService) {
@@ -98,6 +98,21 @@ public class CompanyResource {
         Page<CompanyDTO> page = companyService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/companies");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /companies/all : get all the companies without pagination.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of companies in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/companies/all")
+    @Timed
+    public ResponseEntity<List<CompanyDTO>> getAllCompanies()
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Companies");
+        List<CompanyDTO> page = companyService.findAll();
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
     /**

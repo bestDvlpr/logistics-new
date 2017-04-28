@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {AlertService, EventManager, JhiLanguageService} from 'ng-jhipster';
 
-import { Company } from './company.model';
-import { CompanyPopupService } from './company-popup.service';
-import { CompanyService } from './company.service';
-import { Address, AddressService } from '../address';
+import {Company} from './company.model';
+import {CompanyPopupService} from './company-popup.service';
+import {CompanyService} from './company.service';
+import {Address, AddressService} from '../address';
 @Component({
     selector: 'jhi-company-dialog',
     templateUrl: './company-dialog.component.html'
@@ -20,28 +20,30 @@ export class CompanyDialogComponent implements OnInit {
     isSaving: boolean;
 
     addresses: Address[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private companyService: CompanyService,
-        private addressService: AddressService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private companyService: CompanyService,
+                private addressService: AddressService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['company', 'companyType']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.addressService.query().subscribe(
-            (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.addressService.getAll().subscribe(
+            (res: Address[]) => {
+                this.addresses = res;
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.company.id !== undefined) {
             this.companyService.update(this.company)
@@ -52,18 +54,18 @@ export class CompanyDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Company) {
-        this.eventManager.broadcast({ name: 'companyListModification', content: 'OK'});
+    private onSaveSuccess(result: Company) {
+        this.eventManager.broadcast({name: 'companyListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -81,14 +83,13 @@ export class CompanyPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private companyPopupService: CompanyPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private companyPopupService: CompanyPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.companyPopupService
                     .open(CompanyDialogComponent, params['id']);
             } else {

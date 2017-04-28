@@ -27,7 +27,7 @@
                 <th>
                     <input type="checkbox" (change)="productAllChecked()" [checked]="isAllChecked"/>
                 </th>
-                <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.shopId">Shop ID</span> <span
+                <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.productEntry.companyId">Company</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span
                     class="fa fa-sort"></span></th>
@@ -59,13 +59,13 @@
                 <td><input type="checkbox" (change)="productChecked(productEntry)" [checked]="productEntry.selected"/>
                 </td>
                 <td>
-                    <div *ngIf="productEntry.shopId">
-                        <a [routerLink]="['../shop', productEntry.shopId  ]">{{productEntry.shopName}}</a>
+                    <div *ngIf="productEntry.companyId">
+                        <a [routerLink]="['../company', productEntry.companyId ]">{{productEntry.companyName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="productEntry.productId">
-                        <a [routerLink]="['../product', productEntry.productId  ]">{{productEntry.productName}}</a>
+                    <div *ngIf="productEntry.product">
+                        <a [routerLink]="['../product', productEntry.product.id ]">{{productEntry.product.name}}</a>
                     </div>
                 </td>
                 <td>{{productEntry.price}}</td>

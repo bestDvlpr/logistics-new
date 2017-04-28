@@ -2,23 +2,23 @@
     "logisticsApp": {
         "company" : {
             "home": {
-                "title": "Companies",
-                "createLabel": "Создать новый Company",
-                "createOrEditLabel": "Создать или отредактировать Company"
+                "title": "Компании",
+                "createLabel": "Создать новая компания",
+                "createOrEditLabel": "Создать или отредактировать компанию"
             },
-            "created": "Новый Company создан с идентификатором {{ param }}",
-            "updated": "Company обновлен с идентификатором {{ param }}",
-            "deleted": "Company удален с идентификатором {{ param }}",
+            "created": "Новая компания создан с идентификатором {{ param }}",
+            "updated": "Компания обновлена с идентификатором {{ param }}",
+            "deleted": "Компания удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Company {{ id }}?"
+                "question": "Вы уверены что хотите удалить компания {{ id }}?"
             },
             "detail": {
-                "title": "Company"
+                "title": "Компания"
             },
-            "name": "Name",
+            "name": "Наименования",
             "idNumber": "Id Number",
-            "type": "Type",
-            "address": "Address"
+            "type": "Тип",
+            "address": "Адрес"
         }
     }
 }

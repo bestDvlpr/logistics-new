@@ -42,7 +42,7 @@
             "attachedToDriverBy": "Водителью прикрепил",
             "deliveryItemsSentBy": "Отправитель заявки",
             "markedAsDeliveredBy": "Отметил как доставлен",
-            "shopId": "Магазин",
+            "companyId": "Компания",
             "error": {
                 "notFound": "Не найдено товары!"
             }

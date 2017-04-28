@@ -29,7 +29,7 @@
                 <th jhiSortBy="lastModifiedDate"><span
                     jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="shopId"><span jhiTranslate="userManagement.shop">ShopId</span> <span
+                <th jhiSortBy="companyId"><span jhiTranslate="userManagement.company">Company</span> <span
                     class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
@@ -54,7 +54,7 @@
                 <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
                 <td>{{user.lastModifiedBy}}</td>
                 <td>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
-                <td><a *ngIf="user.shopId" [routerLink]="['../shop', user.shopId]">{{user.shopName}}</a></td>
+                <td><a *ngIf="user.companyId" [routerLink]="['../company', user.companyId]">{{user.companyName}}</a></td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

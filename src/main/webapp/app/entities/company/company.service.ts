@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Company } from './company.model';
+import {Company} from './company.model';
 @Injectable()
 export class CompanyService {
 
     private resourceUrl = 'api/companies';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(company: Company): Observable<Company> {
         let copy: Company = Object.assign({}, company);
@@ -33,14 +34,16 @@ export class CompanyService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
+    }
+
+    all(): Observable<Response> {
+        return this.http.get(this.resourceUrl.concat('/all'));
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
-
 
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();

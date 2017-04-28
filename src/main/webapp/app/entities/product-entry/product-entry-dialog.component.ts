@@ -15,8 +15,8 @@ import { Driver, DriverService } from '../driver';
 import { Car, CarService } from '../car';
 import { Address, AddressService } from '../address';
 import { User, UserService } from '../../shared';
-import {Shop} from '../shop/shop.model';
-import {ShopService} from '../shop/shop.service';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -37,7 +37,7 @@ export class ProductEntryDialogComponent implements OnInit {
 
     cars: Car[];
 
-    shops: Shop[];
+    companies: Company[];
 
     addresses: Address[];
 
@@ -54,11 +54,11 @@ export class ProductEntryDialogComponent implements OnInit {
         private carService: CarService,
         private addressService: AddressService,
         private userService: UserService,
-        private shopService: ShopService,
+        private companyService: CompanyService,
         private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(
-            ['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus', 'shop']
+            ['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus', 'company']
         );
     }
 
@@ -79,8 +79,8 @@ export class ProductEntryDialogComponent implements OnInit {
             (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
         this.userService.query().subscribe(
             (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.shopService.query().subscribe(
-            (res: Response) => { this.shops = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.companyService.all().subscribe(
+            (res: Response) => { this.companies = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -136,7 +136,7 @@ export class ProductEntryDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackShopById(index: number, item: Shop) {
+    trackCompanyById(index: number, item: Company) {
         return item.id;
     }
 }

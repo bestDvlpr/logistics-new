@@ -42,8 +42,7 @@
             <th jhiSortBy="attachedToDriverByLogin"><span jhiTranslate="logisticsApp.productEntry.attachedToDriverBy">Attached To Driver By</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="deliveryItemsSentByLogin"><span jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy">Delivery Items Sent By</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="markedAsDeliveredByLogin"><span jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy">Marked As Delivered By</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="shopShopId"><span jhiTranslate="logisticsApp.productEntry.shop">Shop</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="companyName"><span jhiTranslate="logisticsApp.productEntry.company">Company</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.productEntry.companyId">Company</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -104,11 +103,6 @@
                 </td>
                 <td>
                     {{productEntry.markedAsDeliveredByLogin}}
-                </td>
-                <td>
-                    <div *ngIf="productEntry.shopId">
-                        <a [routerLink]="['../shop', productEntry.shopId  ]" >{{productEntry.shopShopId}}</a>
-                    </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.companyId">

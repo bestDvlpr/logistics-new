@@ -1,30 +1,28 @@
 package uz.hasan.service.impl;
 
-import uz.hasan.service.CompanyService;
-import uz.hasan.domain.Company;
-import uz.hasan.repository.CompanyRepository;
-import uz.hasan.service.dto.CompanyDTO;
-import uz.hasan.service.mapper.CompanyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Company;
+import uz.hasan.repository.CompanyRepository;
+import uz.hasan.service.CompanyService;
+import uz.hasan.service.dto.CompanyDTO;
+import uz.hasan.service.mapper.CompanyMapper;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Company.
  */
 @Service
 @Transactional
-public class CompanyServiceImpl implements CompanyService{
+public class CompanyServiceImpl implements CompanyService {
 
     private final Logger log = LoggerFactory.getLogger(CompanyServiceImpl.class);
-    
+
     private final CompanyRepository companyRepository;
 
     private final CompanyMapper companyMapper;
@@ -50,10 +48,10 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     /**
-     *  Get all the companies.
-     *  
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * Get all the companies.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -64,10 +62,10 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     /**
-     *  Get one company by id.
+     * Get one company by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,13 +77,24 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     /**
-     *  Delete the  company by id.
+     * Delete the  company by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Company : {}", id);
         companyRepository.delete(id);
+    }
+
+    /**
+     * Get all the companies without pagination.
+     *
+     * @return the list of entities
+     */
+    public List<CompanyDTO> findAll() {
+        log.debug("Request to get all Companies without pagination");
+        List<Company> result = companyRepository.findAll();
+        return companyMapper.companiesToCompanyDTOs(result);
     }
 }

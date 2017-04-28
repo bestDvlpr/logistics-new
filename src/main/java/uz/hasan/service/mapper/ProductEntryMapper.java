@@ -110,15 +110,6 @@ public interface ProductEntryMapper {
         return address;
     }
 
-    default Shop shopFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Shop shop = new Shop();
-        shop.setId(id);
-        return shop;
-    }
-
     default Company companyFromId(Long id) {
         if (id == null) {
             return null;

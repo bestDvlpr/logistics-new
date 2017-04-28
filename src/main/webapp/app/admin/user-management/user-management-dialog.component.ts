@@ -11,6 +11,7 @@ import {ShopService} from '../../entities/shop/shop.service';
 import {Response} from '@angular/http';
 import {DataHolderService} from '../../entities/receipt/data-holder.service';
 import {ACElement} from '../../shared/autocomplete/element.model';
+import {CompanyService} from '../../entities/company/company.service';
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
@@ -46,8 +47,8 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.user.shopId = this.dataHolderService._autocompleteSelected.id;
-        this.user.shopName = this.dataHolderService._autocompleteSelected.name;
+        this.user.companyId = this.dataHolderService._autocompleteSelected.id;
+        this.user.companyName = this.dataHolderService._autocompleteSelected.name;
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
@@ -74,12 +75,12 @@ export class UserDialogComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
-    shops: Shop[];
+    companies: Shop[];
 
     constructor(private route: ActivatedRoute,
                 private userModalService: UserModalService,
                 private dataHolderService: DataHolderService,
-                private shopService: ShopService) {
+                private companyService: CompanyService) {
     }
 
     ngOnInit() {
@@ -98,9 +99,9 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     }
 
     private loadShops() {
-        this.shopService.query().subscribe((res: Response) => {
-            this.shops = res.json();
-            this.setACObjects(this.shops);
+        this.companyService.all().subscribe((res: Response) => {
+            this.companies = res.json();
+            this.setACObjects(this.companies);
         });
     }
 

@@ -12,8 +12,8 @@ export class User {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
-    public shopId: number;
-    public shopName: string;
+    public companyId: number;
+    public companyName: string;
 
     constructor(id?: any,
                 login?: string,

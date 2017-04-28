@@ -2,13 +2,10 @@ package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
-import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.web.rest.util.HeaderUtil;
 import uz.hasan.web.rest.util.PaginationUtil;
-import uz.hasan.service.dto.ReceiptDTO;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -24,10 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Receipt.
@@ -138,19 +133,19 @@ public class ReceiptResource {
     }
 
     /**
-     * GET  /receipts : get all the receipts by shop id.
+     * GET  /receipts/by-company-id : get all the receipts by shop id.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @GetMapping("/receipts/by-shop-id")
+    @GetMapping("/receipts/by-company-id")
     @Timed
     public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllReceiptsByShopId(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Receipts");
-        Page<ReceiptProductEntriesDTO> page = receiptService.findAllReceiptsByShopId(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/by-shop-id");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllReceiptsByCompanyId(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/by-company-id");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -166,7 +161,7 @@ public class ReceiptResource {
     public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of New Receipts");
-        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceiptsByShopId(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceiptsByCompanyId(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

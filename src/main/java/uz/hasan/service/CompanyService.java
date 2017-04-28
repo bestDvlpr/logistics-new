@@ -20,7 +20,7 @@ public interface CompanyService {
 
     /**
      *  Get all the companies.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,11 @@ public interface CompanyService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     *  Get all the companies without pagination.
+     *
+     *  @return the list of entities
+     */
+    List<CompanyDTO> findAll();
 }

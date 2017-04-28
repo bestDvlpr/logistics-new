@@ -281,7 +281,7 @@ public class AccountResourceIntTest {
 
         // Duplicate login, different e-mail
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getShopId(), validUser.getShopName(), validUser.getAuthorities());
+            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getCompanyId(), validUser.getCompanyName(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -325,7 +325,7 @@ public class AccountResourceIntTest {
 
         // Duplicate e-mail, different login
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getShopId(), validUser.getShopName(), validUser.getAuthorities());
+            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getCompanyId(), validUser.getCompanyName(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(

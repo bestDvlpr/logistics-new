@@ -118,15 +118,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.shop.detail.title" for="field_shop">Shop</label>
-            <select class="form-control" id="field_shop" name="shop" [(ngModel)]="receipt.shopId"  required>
+            <label jhiTranslate="logisticsApp.company.detail.title" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="receipt.companyId"  required>
                 <option [ngValue]="null"></option>
-                <option [ngValue]="shopOption.id" *ngFor="let shopOption of shops; trackBy: trackShopById">{{shopOption.name}}</option>
+                z<option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.shop?.dirty && editForm.controls.shop?.invalid)">
+        <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
             <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.shop?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

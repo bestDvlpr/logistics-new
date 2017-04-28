@@ -2,10 +2,10 @@
     "logisticsApp": {
         "CompanyType" : {
             "null": "",
-            "WAREHOUSE": "WAREHOUSE",
-            "SHOP": "SHOP",
-            "DELIVERY_CENTER": "DELIVERY_CENTER",
-            "DELIVERY_CENTER_BRANCH": "DELIVERY_CENTER_BRANCH"
+            "WAREHOUSE": "СКЛАД",
+            "SHOP": "МАГАЗИН",
+            "DELIVERY_CENTER": "ЦЕНТР ДОСТАВКИ",
+            "DELIVERY_CENTER_BRANCH": "ФИЛИАЛ ЦЕНТРА ДОСТАВКИ"
         }
     }
 }

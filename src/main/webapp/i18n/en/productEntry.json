@@ -42,7 +42,7 @@
             "attachedToDriverBy": "Attached To Driver By",
             "deliveryItemsSentBy": "Delivery Items Sent By",
             "markedAsDeliveredBy": "Marked As Delivered By",
-            "shopId": "Shop ID",
+            "companyId": "Company",
             "error": {
                 "notFound": "No product entry found!"
             }

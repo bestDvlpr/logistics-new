@@ -1,15 +1,13 @@
 package uz.hasan.service.impl;
 
-import org.thymeleaf.expression.Calendars;
-import uz.hasan.domain.*;
-import uz.hasan.domain.enumeration.*;
-import uz.hasan.domain.enumeration.PaymentType;
-import uz.hasan.repository.*;
-import uz.hasan.service.IntegrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.*;
+import uz.hasan.domain.enumeration.*;
+import uz.hasan.repository.*;
+import uz.hasan.service.IntegrationService;
 import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.dto.IntegrateDTO;
 import uz.hasan.service.dto.PaymentIntegrate;
@@ -17,13 +15,7 @@ import uz.hasan.service.dto.ProductIntegrate;
 
 import javax.inject.Inject;
 import javax.xml.bind.ValidationException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +49,8 @@ public class IntegrationServiceImpl implements IntegrationService {
 
     @Inject
     private ShopRepository shopRepository;
+    @Inject
+    private CompanyRepository companyRepository;
 
     @Override
     public Boolean integrate(List<IntegrateDTO> integrateDTOS) {
@@ -114,7 +108,7 @@ public class IntegrationServiceImpl implements IntegrationService {
 //        if (receipt.getStatus() == null)
         receipt.setStatus(ReceiptStatus.NEW);
 
-//        receipt.setShop(shopRepository.findByShopId(integrateDTO.getShopId()));
+        receipt.setCompany(companyRepository.findByIdNumber(integrateDTO.getShopId()));
         receipt = receiptRepository.save(receipt);
 
         updateOrCreateProductEntries(receipt, integrateDTO.getProducts());
@@ -188,7 +182,7 @@ public class IntegrationServiceImpl implements IntegrationService {
                         productEntry.setProduct(p);
                         productEntry.setSellerID(seller);
                         productEntry.setReceipt(savedReceipt);
-//                        productEntry.setShop(savedReceipt.getCompany());
+//                        productEntry.setCompany(savedReceipt.getCompany());
 
                         if (savedReceipt.getDocType() == DocType.RETURN)
                             productEntry.setCancelled(true);

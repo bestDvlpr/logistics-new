@@ -3,7 +3,6 @@ package uz.hasan.service.dto;
 import uz.hasan.config.Constants;
 
 import uz.hasan.domain.Authority;
-import uz.hasan.domain.Shop;
 import uz.hasan.domain.User;
 
 import org.hibernate.validator.constraints.Email;
@@ -52,9 +51,9 @@ public class UserDTO {
 
     private Set<String> authorities;
 
-    private Long shopId;
+    private Long companyId;
 
-    private String shopName;
+    private String companyName;
 
     public UserDTO() {
         // Empty constructor needed for MapStruct.
@@ -64,8 +63,8 @@ public class UserDTO {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            (user.getShop() != null && user.getShop().getId() != null) ? user.getShop().getId() : null,
-            (user.getShop() != null && user.getShop().getName() != null) ? user.getShop().getName() : null,
+            (user.getCompany() != null && user.getCompany().getId() != null) ? user.getCompany().getId() : null,
+            (user.getCompany() != null && user.getCompany().getName() != null) ? user.getCompany().getName() : null,
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()));
     }
@@ -73,7 +72,7 @@ public class UserDTO {
     public UserDTO(Long id, String login, String firstName, String lastName,
                    String email, boolean activated, String imageUrl, String langKey,
                    String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-                   Long shopId, String shopName, Set<String> authorities) {
+                   Long companyId, String companyName, Set<String> authorities) {
 
         this.id = id;
         this.login = login;
@@ -88,8 +87,8 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
-        this.shopId = shopId;
-        this.shopName = shopName;
+        this.companyId = companyId;
+        this.companyName = companyName;
     }
 
     public Long getId() {
@@ -156,20 +155,20 @@ public class UserDTO {
         return authorities;
     }
 
-    public Long getShopId() {
-        return shopId;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     @Override

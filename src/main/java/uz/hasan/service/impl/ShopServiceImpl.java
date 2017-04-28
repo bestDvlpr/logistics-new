@@ -1,20 +1,16 @@
 package uz.hasan.service.impl;
 
-import uz.hasan.service.ShopService;
-import uz.hasan.domain.Shop;
-import uz.hasan.repository.ShopRepository;
-import uz.hasan.service.dto.ShopDTO;
-import uz.hasan.service.mapper.ShopMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Shop;
+import uz.hasan.repository.ShopRepository;
+import uz.hasan.service.ShopService;
+import uz.hasan.service.dto.ShopDTO;
+import uz.hasan.service.mapper.ShopMapper;
 
 /**
  * Service Implementation for managing Shop.
@@ -24,7 +20,7 @@ import java.util.stream.Collectors;
 public class ShopServiceImpl implements ShopService{
 
     private final Logger log = LoggerFactory.getLogger(ShopServiceImpl.class);
-    
+
     private final ShopRepository shopRepository;
 
     private final ShopMapper shopMapper;
@@ -51,7 +47,7 @@ public class ShopServiceImpl implements ShopService{
 
     /**
      *  Get all the shops.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */

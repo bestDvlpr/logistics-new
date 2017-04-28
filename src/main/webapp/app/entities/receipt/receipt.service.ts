@@ -111,9 +111,9 @@ export class ReceiptService {
         });
     }
 
-    allByShopId(req?: any): Observable<Response> {
+    allByCompanyId(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl.concat('/by-shop-id'), options);
+        return this.http.get(this.resourceUrl.concat('/by-company-id'), options);
     }
 
     downloadReceipt(receiptId: number) {

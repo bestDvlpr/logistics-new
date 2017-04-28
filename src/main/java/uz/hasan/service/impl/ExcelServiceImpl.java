@@ -6,7 +6,6 @@ import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -26,7 +25,6 @@ import uz.hasan.service.UserService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -74,7 +72,7 @@ public class ExcelServiceImpl implements ExcelService {
         /*-- Create first row and its cells --*/
         Row firstRow = sheet1.createRow(0);
         Cell cell00 = firstRow.createCell(0);
-        cell00.setCellValue(userService.getUserWithAuthorities().getShop().getName());
+        cell00.setCellValue(userService.getUserWithAuthorities().getCompany().getName());
         Cell cell01 = firstRow.createCell(1);
         Cell cell02 = firstRow.createCell(2);
         sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 2));

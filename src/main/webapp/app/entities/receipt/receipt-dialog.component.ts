@@ -14,8 +14,8 @@ import { Client, ClientService } from '../client';
 import { ProductEntry, ProductEntryService } from '../product-entry';
 import { Car, CarService } from '../car';
 import { Address, AddressService } from '../address';
-import {Shop} from '../shop/shop.model';
-import {ShopService} from '../shop/shop.service';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -36,7 +36,7 @@ export class ReceiptDialogComponent implements OnInit {
 
     cars: Car[];
 
-    shops: Shop[];
+    companies: Company[];
 
     addresses: Address[];
     constructor(
@@ -51,10 +51,10 @@ export class ReceiptDialogComponent implements OnInit {
         private carService: CarService,
         private addressService: AddressService,
         private eventManager: EventManager,
-        private shopService: ShopService
+        private companyService: CompanyService
     ) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'shop', 'address']
+            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'address', 'company']
         );
     }
 
@@ -73,8 +73,8 @@ export class ReceiptDialogComponent implements OnInit {
             (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
         this.addressService.query().subscribe(
             (res: Response) => { this.addresses = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.shopService.query().subscribe(
-            (res: Response) => { this.shops = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.companyService.all().subscribe(
+            (res: Response) => { this.companies = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -106,7 +106,7 @@ export class ReceiptDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackShopById(index: number, item: Shop) {
+    trackCompanyById(index: number, item: Company) {
         return item.id;
     }
 }

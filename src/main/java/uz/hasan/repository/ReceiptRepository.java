@@ -44,7 +44,7 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findByCompanyIdNumberOrderByDocDateDesc(Pageable pageable, String idNumber);
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id")
-    Long getCountByStatusAndShopId(@Param("status") ReceiptStatus status, @Param("id") String id);
+    Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id);
 
     Page<Receipt> findAllByStatusNotIn(Pageable pageable, Collection<ReceiptStatus> statuses);
 

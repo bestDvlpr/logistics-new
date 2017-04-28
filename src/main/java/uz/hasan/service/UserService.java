@@ -1,15 +1,5 @@
 package uz.hasan.service;
 
-import uz.hasan.domain.Authority;
-import uz.hasan.domain.User;
-import uz.hasan.repository.AuthorityRepository;
-import uz.hasan.repository.ShopRepository;
-import uz.hasan.repository.UserRepository;
-import uz.hasan.security.AuthoritiesConstants;
-import uz.hasan.security.SecurityUtils;
-import uz.hasan.service.util.RandomUtil;
-import uz.hasan.service.dto.UserDTO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,9 +8,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Authority;
+import uz.hasan.domain.User;
+import uz.hasan.repository.AuthorityRepository;
+import uz.hasan.repository.CompanyRepository;
+import uz.hasan.repository.UserRepository;
+import uz.hasan.security.AuthoritiesConstants;
+import uz.hasan.security.SecurityUtils;
+import uz.hasan.service.dto.UserDTO;
+import uz.hasan.service.util.RandomUtil;
 
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -37,13 +39,16 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    private final ShopRepository shopRepository;
+    private final CompanyRepository companyRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, ShopRepository shopRepository) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       AuthorityRepository authorityRepository,
+                       CompanyRepository companyRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
-        this.shopRepository = shopRepository;
+        this.companyRepository = companyRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -59,19 +64,19 @@ public class UserService {
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
+        log.debug("Reset user password for reset key {}", key);
 
-       return userRepository.findOneByResetKey(key)
+        return userRepository.findOneByResetKey(key)
             .filter(user -> {
                 ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
                 return user.getResetDate().isAfter(oneDayAgo);
-           })
-           .map(user -> {
+            })
+            .map(user -> {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
                 user.setResetDate(null);
                 return user;
-           });
+            });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
@@ -85,7 +90,7 @@ public class UserService {
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
-        String imageUrl, String langKey) {
+                           String imageUrl, String langKey) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -134,7 +139,7 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
-        user.setShop(shopRepository.findOne(userDTO.getShopId()));
+        user.setCompany(companyRepository.findOne(userDTO.getCompanyId()));
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -167,7 +172,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
-                user.setShop(shopRepository.findOne(userDTO.getShopId()));
+                user.setCompany(companyRepository.findOne(userDTO.getCompanyId()));
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()

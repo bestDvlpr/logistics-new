@@ -29,8 +29,7 @@
                 "receiptOrder": "Заявка",
                 "address": "Адрес",
                 "xmlHolder": "Xml держатель",
-                "shop": "Shop",
-                "company": "Company",
+                "company": "Компания",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

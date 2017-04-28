@@ -51,7 +51,7 @@ public interface ReceiptService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptProductEntriesDTO> findAllNewReceiptsByShopId(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAllNewReceiptsByCompanyId(Pageable pageable);
 
 
     /**
@@ -60,7 +60,7 @@ public interface ReceiptService {
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptProductEntriesDTO> findAllReceiptsByShopId(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAllReceiptsByCompanyId(Pageable pageable);
 
     /**
      *  Get all the applied receipts.

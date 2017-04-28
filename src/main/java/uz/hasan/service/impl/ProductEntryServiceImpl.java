@@ -135,7 +135,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     public List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber) {
         log.debug("Request to get new ProductEntries by car number: {}", carNumber);
         User user = userService.getUserWithAuthorities();
-        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatusAndCompanyId(carNumber, ReceiptStatus.ATTACHED_TO_DRIVER, user.getShop().getId());
+        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatusAndCompanyId(carNumber, ReceiptStatus.ATTACHED_TO_DRIVER, user.getCompany().getId());
         return productEntryMapper.productEntriesToProductEntryDTOs(result);
     }
 
