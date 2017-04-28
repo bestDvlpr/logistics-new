@@ -33,9 +33,9 @@ export class PayTypeDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.receiptService.query().subscribe(
-            (res: Response) => {
-                this.receipts = res.json();
+        this.receiptService.getAll().subscribe(
+            (res: Receipt[]) => {
+                this.receipts = res;
             }, (res: Response) => this.onError(res.json()));
     }
 
