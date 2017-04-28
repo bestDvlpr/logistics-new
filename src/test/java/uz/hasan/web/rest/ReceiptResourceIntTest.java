@@ -3,8 +3,7 @@ package uz.hasan.web.rest;
 import uz.hasan.LogisticsApp;
 
 import uz.hasan.domain.Receipt;
-import uz.hasan.domain.PayMaster;
-import uz.hasan.domain.LoyaltyCard;
+import uz.hasan.domain.Company;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -26,8 +25,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static uz.hasan.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -43,7 +47,6 @@ import uz.hasan.domain.enumeration.ReceiptStatus;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
-@Transactional
 public class ReceiptResourceIntTest {
 
     private static final String DEFAULT_DOC_NUM = "AAAAAAAAAA";
@@ -66,6 +69,21 @@ public class ReceiptResourceIntTest {
 
     private static final ReceiptStatus DEFAULT_STATUS = ReceiptStatus.NEW;
     private static final ReceiptStatus UPDATED_STATUS = ReceiptStatus.APPLICATION_SENT;
+
+    private static final ZonedDateTime DEFAULT_SENT_TO_DC_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_SENT_TO_DC_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final ZonedDateTime DEFAULT_DELIVERED_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DELIVERED_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final String DEFAULT_FROM_TIME = "AAAAAAAAAA";
+    private static final String UPDATED_FROM_TIME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_TO_TIME = "AAAAAAAAAA";
+    private static final String UPDATED_TO_TIME = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_DELIVERY_DATE = 1L;
+    private static final Long UPDATED_DELIVERY_DATE = 2L;
 
     @Autowired
     private ReceiptRepository receiptRepository;
@@ -116,17 +134,17 @@ public class ReceiptResourceIntTest {
                 .previousDocID(DEFAULT_PREVIOUS_DOC_ID)
                 .docDate(DEFAULT_DOC_DATE)
                 .wholeSaleFlag(DEFAULT_WHOLE_SALE_FLAG)
-                .status(DEFAULT_STATUS);
+                .status(DEFAULT_STATUS)
+                .sentToDCTime(DEFAULT_SENT_TO_DC_TIME)
+                .deliveredTime(DEFAULT_DELIVERED_TIME)
+                .fromTime(DEFAULT_FROM_TIME)
+                .toTime(DEFAULT_TO_TIME)
+                .deliveryDate(DEFAULT_DELIVERY_DATE);
         // Add required entity
-        PayMaster payMaster = PayMasterResourceIntTest.createEntity(em);
-        em.persist(payMaster);
+        Company company = CompanyResourceIntTest.createEntity(em);
+        em.persist(company);
         em.flush();
-        receipt.setPayMaster(payMaster);
-        // Add required entity
-        LoyaltyCard loyaltyCard = LoyaltyCardResourceIntTest.createEntity(em);
-        em.persist(loyaltyCard);
-        em.flush();
-        receipt.setLoyaltyCard(loyaltyCard);
+        receipt.setCompany(company);
         return receipt;
     }
 
@@ -159,6 +177,11 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocDate()).isEqualTo(DEFAULT_DOC_DATE);
         assertThat(testReceipt.getWholeSaleFlag()).isEqualTo(DEFAULT_WHOLE_SALE_FLAG);
         assertThat(testReceipt.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testReceipt.getSentToDCTime()).isEqualTo(DEFAULT_SENT_TO_DC_TIME);
+        assertThat(testReceipt.getDeliveredTime()).isEqualTo(DEFAULT_DELIVERED_TIME);
+        assertThat(testReceipt.getFromTime()).isEqualTo(DEFAULT_FROM_TIME);
+        assertThat(testReceipt.getToTime()).isEqualTo(DEFAULT_TO_TIME);
+        assertThat(testReceipt.getDeliveryDate()).isEqualTo(DEFAULT_DELIVERY_DATE);
     }
 
     @Test
@@ -313,7 +336,12 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.[*].previousDocID").value(hasItem(DEFAULT_PREVIOUS_DOC_ID.toString())))
             .andExpect(jsonPath("$.[*].docDate").value(hasItem(DEFAULT_DOC_DATE.intValue())))
             .andExpect(jsonPath("$.[*].wholeSaleFlag").value(hasItem(DEFAULT_WHOLE_SALE_FLAG.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].sentToDCTime").value(hasItem(sameInstant(DEFAULT_SENT_TO_DC_TIME))))
+            .andExpect(jsonPath("$.[*].deliveredTime").value(hasItem(sameInstant(DEFAULT_DELIVERED_TIME))))
+            .andExpect(jsonPath("$.[*].fromTime").value(hasItem(DEFAULT_FROM_TIME.toString())))
+            .andExpect(jsonPath("$.[*].toTime").value(hasItem(DEFAULT_TO_TIME.toString())))
+            .andExpect(jsonPath("$.[*].deliveryDate").value(hasItem(DEFAULT_DELIVERY_DATE.intValue())));
     }
 
     @Test
@@ -333,7 +361,12 @@ public class ReceiptResourceIntTest {
             .andExpect(jsonPath("$.previousDocID").value(DEFAULT_PREVIOUS_DOC_ID.toString()))
             .andExpect(jsonPath("$.docDate").value(DEFAULT_DOC_DATE.intValue()))
             .andExpect(jsonPath("$.wholeSaleFlag").value(DEFAULT_WHOLE_SALE_FLAG.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.sentToDCTime").value(sameInstant(DEFAULT_SENT_TO_DC_TIME)))
+            .andExpect(jsonPath("$.deliveredTime").value(sameInstant(DEFAULT_DELIVERED_TIME)))
+            .andExpect(jsonPath("$.fromTime").value(DEFAULT_FROM_TIME.toString()))
+            .andExpect(jsonPath("$.toTime").value(DEFAULT_TO_TIME.toString()))
+            .andExpect(jsonPath("$.deliveryDate").value(DEFAULT_DELIVERY_DATE.intValue()));
     }
 
     @Test
@@ -360,7 +393,12 @@ public class ReceiptResourceIntTest {
                 .previousDocID(UPDATED_PREVIOUS_DOC_ID)
                 .docDate(UPDATED_DOC_DATE)
                 .wholeSaleFlag(UPDATED_WHOLE_SALE_FLAG)
-                .status(UPDATED_STATUS);
+                .status(UPDATED_STATUS)
+                .sentToDCTime(UPDATED_SENT_TO_DC_TIME)
+                .deliveredTime(UPDATED_DELIVERED_TIME)
+                .fromTime(UPDATED_FROM_TIME)
+                .toTime(UPDATED_TO_TIME)
+                .deliveryDate(UPDATED_DELIVERY_DATE);
         ReceiptDTO receiptDTO = receiptMapper.receiptToReceiptDTO(updatedReceipt);
 
         restReceiptMockMvc.perform(put("/api/receipts")
@@ -379,6 +417,11 @@ public class ReceiptResourceIntTest {
         assertThat(testReceipt.getDocDate()).isEqualTo(UPDATED_DOC_DATE);
         assertThat(testReceipt.getWholeSaleFlag()).isEqualTo(UPDATED_WHOLE_SALE_FLAG);
         assertThat(testReceipt.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testReceipt.getSentToDCTime()).isEqualTo(UPDATED_SENT_TO_DC_TIME);
+        assertThat(testReceipt.getDeliveredTime()).isEqualTo(UPDATED_DELIVERED_TIME);
+        assertThat(testReceipt.getFromTime()).isEqualTo(UPDATED_FROM_TIME);
+        assertThat(testReceipt.getToTime()).isEqualTo(UPDATED_TO_TIME);
+        assertThat(testReceipt.getDeliveryDate()).isEqualTo(UPDATED_DELIVERY_DATE);
     }
 
     @Test

@@ -13,7 +13,7 @@
     <div class="row">
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="addresses">
+    <div class="table-responsive" *ngIf="address">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -39,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let address of addresses ;trackBy: trackId">
+            <tr *ngFor="let address of address ;trackBy: trackId">
                 <td><a [routerLink]="['../address', address.id ]">{{address.id}}</a></td>
                 <td>{{address.streetAddress}}</td>
                 <td>{{address.latitude}}</td>
@@ -97,7 +97,7 @@
             </tbody>
         </table>
     </div>
-    <div class="text-xs-center" *ngIf="addresses && addresses.length">
+    <div class="text-xs-center" *ngIf="address && address.length">
         <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
     </div>

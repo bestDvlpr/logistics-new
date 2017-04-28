@@ -209,7 +209,7 @@ public class ExcelServiceImpl implements ExcelService {
         Cell cellDispatcherOrg = rowDispatcherOrg.createCell(1);
         cellDispatcherOrg.setCellValue("Отправитель товара");
         Cell cellDispatcherOrgValue = rowDispatcherOrg.createCell(2);
-        cellDispatcherOrgValue.setCellValue(receipt.getShop().getName());
+        cellDispatcherOrgValue.setCellValue(receipt.getCompany().getName());
 
         rowNum = rowNum + 2;
         /*- Delivery regulations -*/

@@ -18,6 +18,7 @@ import {LogisticsClientModule} from './client/client.module';
 import {LogisticsAddressModule} from './address/address.module';
 import {LogisticsXmlHolderModule} from './xml-holder/xml-holder.module';
 import { LogisticsShopModule } from './shop/shop.module';
+import { LogisticsCompanyModule } from './company/company.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -40,6 +41,7 @@ import { LogisticsShopModule } from './shop/shop.module';
         LogisticsAddressModule,
         LogisticsXmlHolderModule,
         LogisticsShopModule,
+        LogisticsCompanyModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

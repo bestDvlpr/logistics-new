@@ -48,16 +48,19 @@
             "otherEntityRelationshipName": "receipt"
         },
         {
-            "relationshipName": "shop",
-            "otherEntityName": "shop",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "name"
-        },
-        {
             "relationshipName": "address",
             "otherEntityName": "address",
             "relationshipType": "many-to-one",
             "otherEntityField": "streetAddress"
+        },
+        {
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [

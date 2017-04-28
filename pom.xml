@@ -11,7 +11,7 @@
 
     <groupId>uz.hasan</groupId>
     <artifactId>logistics</artifactId>
-    <version>0.1.8-SNAPSHOT</version>
+    <version>0.1.9-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Logistics</name>
 
@@ -635,7 +635,7 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432/logistics</url>
+                    <url>jdbc:postgresql://localhost:5432/logistics_dev</url>
                     <defaultSchemaName></defaultSchemaName>
                     <username>logistics</username>
                     <password>QAZxsw123$</password>

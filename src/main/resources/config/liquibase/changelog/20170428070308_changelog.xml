@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1493362994547-1">
+        <addColumn tableName="receipt">
+            <column name="company_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1493362994547-2">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="receipt" constraintName="FKgqhcgwpmsmrbcs3whg6i3hcs8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet id="1493362994547-3" author="hasan">
+        <sql>
+            insert into company (id, name, id_number, address_id, type)
+            select id, name, shop_id, address_id, 'SHOP'
+            from shop;
+        </sql>
+    </changeSet>
+    <changeSet id="1493362994547-4" author="hasan">
+        <sql>
+            update receipt set company_id=shop_id;
+        </sql>
+    </changeSet>
+    <changeSet id="1493362994547-5" author="hasan">
+        <addNotNullConstraint columnName="company_id" tableName="receipt" columnDataType="int8"/>
+    </changeSet>
+</databaseChangeLog>

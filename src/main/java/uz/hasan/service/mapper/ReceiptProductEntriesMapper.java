@@ -26,8 +26,8 @@ import java.util.*;
 public class ReceiptProductEntriesMapper {
     private final ProductEntryMapper productEntryMapper;
     private final ReceiptMapper receiptMapper;
-    private final ClientMapper clientMapper;
-    private final ShopRepository shopRepository;
+    private final ClientAndAddressesMapper clientMapper;
+    private final CompanyRepository companyRepository;
     private final UserService userService;
     private final ClientRepository clientRepository;
     private final CustomProductEntriesMapper customProductEntryMapper;
@@ -37,8 +37,8 @@ public class ReceiptProductEntriesMapper {
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptMapper receiptMapper,
-                                       ClientMapper clientMapper,
-                                       ShopRepository shopRepository,
+                                       ClientAndAddressesMapper clientMapper,
+                                       CompanyRepository companyRepository,
                                        UserService userService,
                                        ClientRepository clientRepository,
                                        CustomProductEntriesMapper customProductEntriesMapper,
@@ -47,7 +47,7 @@ public class ReceiptProductEntriesMapper {
                                        UserRepository userRepository) {
         this.productEntryMapper = productEntryMapper;
         this.receiptMapper = receiptMapper;
-        this.shopRepository = shopRepository;
+        this.companyRepository = companyRepository;
         this.clientMapper = clientMapper;
         this.userService = userService;
         this.clientRepository = clientRepository;
@@ -82,12 +82,12 @@ public class ReceiptProductEntriesMapper {
         entriesDTO.setProductEntries(productEntryDTOS);
         entriesDTO.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
         entriesDTO.setStatus(receiptDTO.getStatus());
-        entriesDTO.setClient(clientMapper.clientToClientDTO(receipt.getClient()));
+        entriesDTO.setClient(clientMapper.clientToClientAndAddressesDTO(receipt.getClient()));
         entriesDTO.setPreviousDocID(receiptDTO.getPreviousDocID());
         entriesDTO.setPayMasterId(receiptDTO.getPayMasterId());
         entriesDTO.setPayMasterPayMasterName(receiptDTO.getPayMasterPayMasterName());
-        entriesDTO.setShopId(receiptDTO.getShopId());
-        entriesDTO.setShopName(receiptDTO.getShopName());
+        entriesDTO.setCompanyId(receiptDTO.getCompanyId());
+        entriesDTO.setCompanyName(receiptDTO.getCompanyName());
         entriesDTO.setFromTime(receipt.getFromTime());
         entriesDTO.setToTime(receipt.getToTime());
         entriesDTO.setSentToDCTime(receipt.getSentToDCTime());
@@ -149,7 +149,7 @@ public class ReceiptProductEntriesMapper {
         }
         receipt.setStatus(receiptDTO.getStatus());
         receipt.setWholeSaleFlag(receiptDTO.getWholeSaleFlag());
-        receipt.setShop(receiptDTO.getShopId() != null ? shopRepository.findOne(receiptDTO.getShopId()) : null);
+        receipt.setCompany(receiptDTO.getCompanyId() != null ? companyRepository.findOne(receiptDTO.getCompanyId()) : null);
         receipt.setFromTime(receiptDTO.getFromTime());
         receipt.setToTime(receiptDTO.getToTime());
         receipt.setSentToDCTime(receiptDTO.getSentToDCTime());

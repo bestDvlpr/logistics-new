@@ -88,7 +88,7 @@ public class Receipt implements Serializable {
     @JsonIgnore
     private Set<ProductEntry> productEntries = new HashSet<>();
 
-    @OneToMany(mappedBy = "receipt", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "receipt")
     @JsonIgnore
     private Set<PayType> payTypes = new HashSet<>();
 
@@ -99,11 +99,11 @@ public class Receipt implements Serializable {
     private User markedAsDeliveredBy;
 
     @ManyToOne
-    private Shop shop;
-
-    @ManyToOne
-    @JoinColumn(name = "address_id")
     private Address address;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
 
     public Long getId() {
         return id;
@@ -384,19 +384,6 @@ public class Receipt implements Serializable {
         this.markedAsDeliveredBy = user;
     }
 
-    public Shop getShop() {
-        return shop;
-    }
-
-    public Receipt shop(Shop shop) {
-        this.shop = shop;
-        return this;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -408,6 +395,19 @@ public class Receipt implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public Receipt company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

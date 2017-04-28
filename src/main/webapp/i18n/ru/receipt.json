@@ -35,7 +35,7 @@
             "addresses": "Адреса",
             "payTypes": "Оплата",
             "sentBy": "Отправитель",
-            "shopId": "Магазин",
+            "companyId": "Компания",
             "markedAsDeliveredBy": "Отметил как доставлено",
             "startTime": "Время начала",
             "endTime": "Время конца",

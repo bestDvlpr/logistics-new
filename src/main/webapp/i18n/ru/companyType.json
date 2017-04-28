@@ -1,0 +1,11 @@
+{
+    "logisticsApp": {
+        "CompanyType" : {
+            "null": "",
+            "WAREHOUSE": "WAREHOUSE",
+            "SHOP": "SHOP",
+            "DELIVERY_CENTER": "DELIVERY_CENTER",
+            "DELIVERY_CENTER_BRANCH": "DELIVERY_CENTER_BRANCH"
+        }
+    }
+}

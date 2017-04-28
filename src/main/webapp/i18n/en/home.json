@@ -17,8 +17,8 @@
         "github": "GitHub",
         "label": {
             "supportPhone":"Support Center Phone",
-            "dispatcherPhone":"Dispatcher Phone",
-            "directorPhone":"Director Phone"
+            "dispatcherPhone":"Dispatcher {{name}}",
+            "directorPhone":"Director {{name}}"
         }
     }
 }

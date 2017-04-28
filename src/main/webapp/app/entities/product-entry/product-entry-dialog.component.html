@@ -227,7 +227,7 @@
             <label jhiTranslate="logisticsApp.productEntry.address" for="field_address">Address</label>
             <select class="form-control" id="field_address" name="address" [(ngModel)]="productEntry.addressId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="addressOption.id" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.streetAddress}}</option>
+                <option [ngValue]="addressOption.id" *ngFor="let addressOption of address; trackBy: trackAddressById">{{addressOption.streetAddress}}</option>
             </select>
         </div>
     </div>

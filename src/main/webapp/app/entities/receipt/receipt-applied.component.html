@@ -17,7 +17,7 @@
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="shopId"><span jhiTranslate="logisticsApp.receipt.shopId">Shop</span> <span
+                <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.receipt.companyId">Company</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="productEntries"><span
                     jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span> <span
@@ -41,7 +41,7 @@
                     class="fa fa-sort"></span>
                 </th>
                 <th jhiSortBy="address">
-                    <span jhiTranslate="logisticsApp.receipt.addresses">Addresses</span> <span
+                    <span jhiTranslate="logisticsApp.receipt.address">Addresses</span> <span
                     class="fa fa-sort"></span>
                 </th>
                 <th jhiSortBy="cars"><span jhiTranslate="logisticsApp.receipt.cars">Cars</span> <span
@@ -56,12 +56,12 @@
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+' '+receipt.client.lastName}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="receipt.shopName">
-                        <a [routerLink]="['../shop', receipt.shopId  ]">{{receipt.shopName}}</a>
+                    <div *ngIf="receipt.companyName">
+                        <a [routerLink]="['../company', receipt.companyId  ]">{{receipt.companyName}}</a>
                     </div>
                 </td>
                 <td>

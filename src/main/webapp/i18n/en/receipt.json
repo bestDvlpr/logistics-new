@@ -35,7 +35,7 @@
             "addresses": "Addresses",
             "payTypes": "Payments",
             "sentBy": "Sent by",
-            "shopId": "Shop",
+            "companyId": "Company",
             "markedAsDeliveredBy": "Marked As Delivered By",
             "startTime": "Start Time",
             "endTime": "End Time",

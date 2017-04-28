@@ -1,16 +1,8 @@
 package uz.hasan.service.dto;
 
 
-import uz.hasan.domain.enumeration.DocType;
-import uz.hasan.domain.enumeration.ReceiptStatus;
-import uz.hasan.domain.enumeration.WholeSaleFlag;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * A DTO for the Receipt entity.
@@ -21,9 +13,11 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     private Long deliveryDate;
 
-    private Set<AddressDTO> addresses;
+    private AddressDTO address;
 
     private String deliveredDateTime;
+
+    private ClientAndAddressesDTO client;
 
     public List<ProductEntryDTO> getProductEntries() {
         return productEntries;
@@ -41,12 +35,12 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
         this.deliveryDate = deliveryDate;
     }
 
-    public Set<AddressDTO> getAddresses() {
-        return addresses;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setAddresses(Set<AddressDTO> addresses) {
-        this.addresses = addresses;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     public String getDeliveredDateTime() {
@@ -55,6 +49,14 @@ public class ReceiptProductEntriesDTO extends ReceiptDTO implements Serializable
 
     public void setDeliveredDateTime(String deliveredDateTime) {
         this.deliveredDateTime = deliveredDateTime;
+    }
+
+    public ClientAndAddressesDTO getClient() {
+        return client;
+    }
+
+    public void setClient(ClientAndAddressesDTO client) {
+        this.client = client;
     }
 
     @Override

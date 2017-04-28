@@ -12,7 +12,6 @@ import uz.hasan.repository.ClientRepository;
 import uz.hasan.repository.PhoneNumberRepository;
 import uz.hasan.service.ClientService;
 import uz.hasan.service.dto.ClientAndAddressesDTO;
-import uz.hasan.service.dto.ClientDTO;
 import uz.hasan.service.mapper.ClientAndAddressesMapper;
 import uz.hasan.service.mapper.ClientMapper;
 
@@ -51,7 +50,7 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public ClientAndAddressesDTO save(ClientAndAddressesDTO clientDTO) {
-        if (clientDTO==null){
+        if (clientDTO == null) {
             return null;
         }
         log.debug("Request to save Client : {}", clientDTO);
@@ -103,8 +102,12 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Client : {}", id);
-        clientRepository.delete(id);
+        if (id != null) {
+            log.debug("Request to delete Client : {}", id);
+            Client client = clientRepository.findOne(id);
+            phoneNumberRepository.delete(client.getPhoneNumbers());
+            clientRepository.delete(id);
+        }
     }
 
     /**

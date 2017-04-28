@@ -4,8 +4,9 @@ package uz.hasan.service.dto;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
-
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -41,6 +42,12 @@ public class ReceiptDTO implements Serializable {
 
     private ZonedDateTime deliveredTime;
 
+    private String fromTime;
+
+    private String toTime;
+
+    private Long deliveryDate;
+
     private Long payMasterId;
 
     private String payMasterPayMasterName;
@@ -53,25 +60,21 @@ public class ReceiptDTO implements Serializable {
 
     private String clientFirstName;
 
-    private AddressDTO address;
-
     private Long sentById;
 
     private String sentByLogin;
-
-    private ClientDTO client;
 
     private Long markedAsDeliveredById;
 
     private String markedAsDeliveredByLogin;
 
-    private Long shopId;
+    private Long addressId;
 
-    private String shopName;
+    private String addressStreetAddress;
 
-    private String fromTime;
+    private Long companyId;
 
-    private String toTime;
+    private String companyName;
 
     public Long getId() {
         return id;
@@ -80,7 +83,6 @@ public class ReceiptDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getDocNum() {
         return docNum;
     }
@@ -88,7 +90,6 @@ public class ReceiptDTO implements Serializable {
     public void setDocNum(String docNum) {
         this.docNum = docNum;
     }
-
     public String getDocID() {
         return docID;
     }
@@ -96,7 +97,6 @@ public class ReceiptDTO implements Serializable {
     public void setDocID(String docID) {
         this.docID = docID;
     }
-
     public DocType getDocType() {
         return docType;
     }
@@ -104,7 +104,6 @@ public class ReceiptDTO implements Serializable {
     public void setDocType(DocType docType) {
         this.docType = docType;
     }
-
     public String getPreviousDocID() {
         return previousDocID;
     }
@@ -112,7 +111,6 @@ public class ReceiptDTO implements Serializable {
     public void setPreviousDocID(String previousDocID) {
         this.previousDocID = previousDocID;
     }
-
     public Long getDocDate() {
         return docDate;
     }
@@ -120,7 +118,6 @@ public class ReceiptDTO implements Serializable {
     public void setDocDate(Long docDate) {
         this.docDate = docDate;
     }
-
     public WholeSaleFlag getWholeSaleFlag() {
         return wholeSaleFlag;
     }
@@ -128,7 +125,6 @@ public class ReceiptDTO implements Serializable {
     public void setWholeSaleFlag(WholeSaleFlag wholeSaleFlag) {
         this.wholeSaleFlag = wholeSaleFlag;
     }
-
     public ReceiptStatus getStatus() {
         return status;
     }
@@ -136,7 +132,6 @@ public class ReceiptDTO implements Serializable {
     public void setStatus(ReceiptStatus status) {
         this.status = status;
     }
-
     public ZonedDateTime getSentToDCTime() {
         return sentToDCTime;
     }
@@ -144,13 +139,33 @@ public class ReceiptDTO implements Serializable {
     public void setSentToDCTime(ZonedDateTime sentToDCTime) {
         this.sentToDCTime = sentToDCTime;
     }
-
     public ZonedDateTime getDeliveredTime() {
         return deliveredTime;
     }
 
     public void setDeliveredTime(ZonedDateTime deliveredTime) {
         this.deliveredTime = deliveredTime;
+    }
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+    public String getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
+    public Long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public Long getPayMasterId() {
@@ -163,14 +178,6 @@ public class ReceiptDTO implements Serializable {
 
     public String getPayMasterPayMasterName() {
         return payMasterPayMasterName;
-    }
-
-    public ClientDTO getClient() {
-        return client;
-    }
-
-    public void setClient(ClientDTO client) {
-        this.client = client;
     }
 
     public void setPayMasterPayMasterName(String payMasterPayMasterName) {
@@ -209,14 +216,6 @@ public class ReceiptDTO implements Serializable {
         this.clientFirstName = clientFirstName;
     }
 
-    public AddressDTO getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressDTO address) {
-        this.address = address;
-    }
-
     public Long getSentById() {
         return sentById;
     }
@@ -237,48 +236,48 @@ public class ReceiptDTO implements Serializable {
         return markedAsDeliveredById;
     }
 
-    public void setMarkedAsDeliveredById(Long markedAsDeliveredById) {
-        this.markedAsDeliveredById = markedAsDeliveredById;
+    public void setMarkedAsDeliveredById(Long userId) {
+        this.markedAsDeliveredById = userId;
     }
 
     public String getMarkedAsDeliveredByLogin() {
         return markedAsDeliveredByLogin;
     }
 
-    public void setMarkedAsDeliveredByLogin(String markedAsDeliveredByLogin) {
-        this.markedAsDeliveredByLogin = markedAsDeliveredByLogin;
+    public void setMarkedAsDeliveredByLogin(String userLogin) {
+        this.markedAsDeliveredByLogin = userLogin;
     }
 
-    public Long getShopId() {
-        return shopId;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getAddressStreetAddress() {
+        return addressStreetAddress;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setAddressStreetAddress(String addressStreetAddress) {
+        this.addressStreetAddress = addressStreetAddress;
     }
 
-    public String getFromTime() {
-        return fromTime;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setFromTime(String fromTime) {
-        this.fromTime = fromTime;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
-    public String getToTime() {
-        return toTime;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setToTime(String toTime) {
-        this.toTime = toTime;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     @Override
@@ -292,9 +291,7 @@ public class ReceiptDTO implements Serializable {
 
         ReceiptDTO receiptDTO = (ReceiptDTO) o;
 
-        if (!Objects.equals(id, receiptDTO.id)) {
-            return false;
-        }
+        if ( ! Objects.equals(id, receiptDTO.id)) { return false; }
 
         return true;
     }
@@ -316,9 +313,10 @@ public class ReceiptDTO implements Serializable {
             ", wholeSaleFlag='" + wholeSaleFlag + "'" +
             ", status='" + status + "'" +
             ", sentToDCTime='" + sentToDCTime + "'" +
+            ", deliveredTime='" + deliveredTime + "'" +
             ", fromTime='" + fromTime + "'" +
             ", toTime='" + toTime + "'" +
-            ", deliveredTime='" + deliveredTime + "'" +
+            ", deliveryDate='" + deliveryDate + "'" +
             '}';
     }
 }

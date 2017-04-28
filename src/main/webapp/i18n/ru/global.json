@@ -30,6 +30,7 @@
                 "address": "Адрес",
                 "xmlHolder": "Xml держатель",
                 "shop": "Shop",
+                "company": "Company",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

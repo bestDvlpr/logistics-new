@@ -182,7 +182,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAllNewReceiptsByShopId(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatusAndShopShopId(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
+        Page<Receipt> result = receiptRepository.findByStatusAndCompanyIdNumber(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getShop().getShopId());
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -200,7 +200,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         Page<Receipt> result;
         if (userWithAuthorities.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
             String shopId = userWithAuthorities.getShop().getShopId();
-            result = receiptRepository.findByShopShopIdOrderByDocDateDesc(pageable, shopId);
+            result = receiptRepository.findByCompanyIdNumberOrderByDocDateDesc(pageable, shopId);
         } else {
             result = receiptRepository.findAll(pageable);
         }
@@ -448,7 +448,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             newReceipt.setProductEntries(productEntries);
             newReceipt.setLoyaltyCard(receipt.getLoyaltyCard());
             newReceipt.setClient(receipt.getClient());
-            newReceipt.setShop(receipt.getShop());
+            newReceipt.setCompany(receipt.getCompany());
             newReceipt.setPayMaster(receipt.getPayMaster());
             HashSet<PayType> objects = new HashSet<>();
             objects.addAll(receipt.getPayTypes());
