@@ -52,6 +52,7 @@ import uz.hasan.domain.enumeration.ReceiptStatus;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
+@Transactional
 public class ProductEntryResourceIntTest {
 
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
