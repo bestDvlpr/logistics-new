@@ -20,17 +20,17 @@ public class CustomProductEntriesMapper {
     private final ReceiptRepository receiptRepository;
     private final CarRepository carRepository;
     private final ClientMapper clientMapper;
-    private final ShopRepository shopRepository;
     private final ClientRepository clientRepository;
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
     private final SellerRepository sellerRepository;
     private final ProductRepository productRepository;
+    private final CompanyRepository companyRepository;
 
     public CustomProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                       ReceiptRepository receiptRepository,
                                       ClientMapper clientMapper,
-                                      ShopRepository shopRepository,
+                                      CompanyRepository companyRepository,
                                       CarRepository carRepository,
                                       UserRepository userRepository,
                                       ClientRepository clientRepository,
@@ -40,7 +40,7 @@ public class CustomProductEntriesMapper {
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.carRepository = carRepository;
-        this.shopRepository = shopRepository;
+        this.companyRepository = companyRepository;
         this.clientMapper = clientMapper;
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
@@ -64,7 +64,7 @@ public class CustomProductEntriesMapper {
         productEntry.setAttachedCar(productEntryDTO.getAttachedCarId() != null ? carRepository.findOne(productEntryDTO.getAttachedCarId()) : null);
         productEntry.setAttachedToCarTime(productEntryDTO.getAttachedToCarTime());
         productEntry.setAttachedToDriverBy(productEntryDTO.getAttachedToDriverById() != null ? userRepository.findOne(productEntryDTO.getAttachedToDriverById()) : null);
-        productEntry.setMarkedAsDeliveredBy(productEntryDTO.getMarkedAsDeliveredId() != null ? userRepository.findOne(productEntryDTO.getMarkedAsDeliveredId()) : null);
+        productEntry.setMarkedAsDeliveredBy(productEntryDTO.getMarkedAsDeliveredById() != null ? userRepository.findOne(productEntryDTO.getMarkedAsDeliveredById()) : null);
         productEntry.setCancelled(productEntryDTO.getCancelled());
         productEntry.setReason(productEntryDTO.getReason());
         productEntry.setReceipt(productEntryDTO.getReceiptId() != null ? receiptRepository.findOne(productEntryDTO.getReceiptId()) : null);
@@ -79,7 +79,7 @@ public class CustomProductEntriesMapper {
         productEntry.setQty(productEntryDTO.getQty());
         productEntry.setSellerID(productEntryDTO.getSellerIDId() != null ? sellerRepository.findOne(productEntryDTO.getSellerIDId()) : null);
         productEntry.setProduct(productEntryDTO.getProductId() != null ? productRepository.findOne(productEntryDTO.getProductId()) : null);
-        productEntry.setShop(productEntryDTO.getShopId() != null ? shopRepository.findOne(productEntryDTO.getShopId()) : null);
+        productEntry.setCompany(productEntryDTO.getCompanyId() != null ? companyRepository.findOne(productEntryDTO.getCompanyId()) : null);
         productEntry.setVirtualFlag(productEntryDTO.getVirtualFlag());
         productEntry.setStatus(productEntryDTO.getStatus());
         productEntry.setComment(productEntryDTO.getComment());

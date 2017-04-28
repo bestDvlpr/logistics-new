@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Mapper for the entity ProductEntry and its DTO ProductEntryDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, UserMapper.class, UserMapper.class, })
 public interface ProductEntryMapper {
 
     @Mapping(source = "product.id", target = "productId")
@@ -20,25 +20,24 @@ public interface ProductEntryMapper {
     @Mapping(source = "sellerID.sellerID", target = "sellerIDSellerID")
     @Mapping(source = "receipt.id", target = "receiptId")
     @Mapping(source = "receipt.docNum", target = "receiptDocNum")
-    @Mapping(source = "receipt.docID", target = "receiptDocId")
     @Mapping(source = "driver.id", target = "driverId")
     @Mapping(source = "driver.lastName", target = "driverLastName")
     @Mapping(source = "attachedCar.id", target = "attachedCarId")
     @Mapping(source = "attachedCar.number", target = "attachedCarNumber")
-    @Mapping(source = "address.id", target = "addressId")
-    @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
     @Mapping(source = "address.id", target = "address.id")
     @Mapping(source = "address.streetAddress", target = "address.streetAddress")
-    @Mapping(source = "address.country.id", target = "address.countryId")
-    @Mapping(source = "address.country.name", target = "address.countryName")
-    @Mapping(source = "address.region.id", target = "address.regionId")
     @Mapping(source = "address.region.name", target = "address.regionName")
-    @Mapping(source = "address.city.id", target = "address.cityId")
-    @Mapping(source = "address.city.name", target = "address.cityName")
-    @Mapping(source = "address.district.id", target = "address.districtId")
+    @Mapping(source = "address.region.id", target = "address.regionId")
     @Mapping(source = "address.district.name", target = "address.districtName")
-    @Mapping(source = "shop.id", target = "shopId")
-    @Mapping(source = "shop.name", target = "shopName")
+    @Mapping(source = "address.district.id", target = "address.districtId")
+    @Mapping(source = "attachedToDriverBy.id", target = "attachedToDriverById")
+    @Mapping(source = "attachedToDriverBy.login", target = "attachedToDriverByLogin")
+    @Mapping(source = "deliveryItemsSentBy.id", target = "deliveryItemsSentById")
+    @Mapping(source = "deliveryItemsSentBy.login", target = "deliveryItemsSentByLogin")
+    @Mapping(source = "markedAsDeliveredBy.id", target = "markedAsDeliveredById")
+    @Mapping(source = "markedAsDeliveredBy.login", target = "markedAsDeliveredByLogin")
+    @Mapping(source = "company.id", target = "companyId")
+    @Mapping(source = "company.name", target = "companyName")
     ProductEntryDTO productEntryToProductEntryDTO(ProductEntry productEntry);
 
     List<ProductEntryDTO> productEntriesToProductEntryDTOs(List<ProductEntry> productEntries);
@@ -49,7 +48,10 @@ public interface ProductEntryMapper {
     @Mapping(source = "driverId", target = "driver")
     @Mapping(source = "attachedCarId", target = "attachedCar")
     @Mapping(source = "addressId", target = "address")
-    @Mapping(source = "shopId", target = "shop.id")
+    @Mapping(source = "attachedToDriverById", target = "attachedToDriverBy")
+    @Mapping(source = "deliveryItemsSentById", target = "deliveryItemsSentBy")
+    @Mapping(source = "markedAsDeliveredById", target = "markedAsDeliveredBy")
+    @Mapping(source = "companyId", target = "company")
     ProductEntry productEntryDTOToProductEntry(ProductEntryDTO productEntryDTO);
 
     List<ProductEntry> productEntryDTOsToProductEntries(List<ProductEntryDTO> productEntryDTOs);
@@ -106,5 +108,23 @@ public interface ProductEntryMapper {
         Address address = new Address();
         address.setId(id);
         return address;
+    }
+
+    default Shop shopFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Shop shop = new Shop();
+        shop.setId(id);
+        return shop;
+    }
+
+    default Company companyFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Company company = new Company();
+        company.setId(id);
+        return company;
     }
 }

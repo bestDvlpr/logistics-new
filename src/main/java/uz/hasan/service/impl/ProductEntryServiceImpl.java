@@ -1,11 +1,8 @@
 package uz.hasan.service.impl;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.CarStatus;
 import uz.hasan.domain.enumeration.ReceiptStatus;
-import uz.hasan.domain.enumeration.XDocTemplate;
-import uz.hasan.invoice.Product;
 import uz.hasan.repository.CarRepository;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ExcelService;
@@ -22,9 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -141,7 +135,7 @@ public class ProductEntryServiceImpl implements ProductEntryService {
     public List<ProductEntryDTO> findNewProductsByCarNumber(String carNumber) {
         log.debug("Request to get new ProductEntries by car number: {}", carNumber);
         User user = userService.getUserWithAuthorities();
-        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatusAndShopId(carNumber, ReceiptStatus.ATTACHED_TO_DRIVER, user.getShop().getId());
+        List<ProductEntry> result = productEntryRepository.findByAttachedCarNumberAndStatusAndCompanyId(carNumber, ReceiptStatus.ATTACHED_TO_DRIVER, user.getShop().getId());
         return productEntryMapper.productEntriesToProductEntryDTOs(result);
     }
 

@@ -5,11 +5,12 @@ import uz.hasan.LogisticsApp;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.domain.Product;
 import uz.hasan.domain.Receipt;
-import uz.hasan.domain.Shop;
+import uz.hasan.domain.Company;
 import uz.hasan.repository.ProductEntryRepository;
 import uz.hasan.service.ProductEntryService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.mapper.ProductEntryMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,9 +27,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static uz.hasan.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -46,7 +52,6 @@ import uz.hasan.domain.enumeration.ReceiptStatus;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LogisticsApp.class)
-@Transactional
 public class ProductEntryResourceIntTest {
 
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
@@ -88,8 +93,14 @@ public class ProductEntryResourceIntTest {
     private static final String DEFAULT_SERIAL_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_SERIAL_NUMBER = "BBBBBBBBBB";
 
-    private static final String SHOP_ID = "AAAAAAAAAA";
-    private static final String SHOP_NAME = "BBBBBBBBBB";
+    private static final ZonedDateTime DEFAULT_ATTACHED_TO_CAR_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_ATTACHED_TO_CAR_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final ZonedDateTime DEFAULT_DELIVERY_START_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DELIVERY_START_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final ZonedDateTime DEFAULT_DELIVERY_END_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DELIVERY_END_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ProductEntryRepository productEntryRepository;
@@ -107,6 +118,9 @@ public class ProductEntryResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restProductEntryMockMvc;
@@ -119,6 +133,7 @@ public class ProductEntryResourceIntTest {
         ProductEntryResource productEntryResource = new ProductEntryResource(productEntryService);
         this.restProductEntryMockMvc = MockMvcBuilders.standaloneSetup(productEntryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -142,20 +157,25 @@ public class ProductEntryResourceIntTest {
                 .discount(DEFAULT_DISCOUNT)
                 .status(DEFAULT_STATUS)
                 .cancelled(DEFAULT_CANCELLED)
-                .serialNumber(DEFAULT_SERIAL_NUMBER);
+                .serialNumber(DEFAULT_SERIAL_NUMBER)
+                .attachedToCarTime(DEFAULT_ATTACHED_TO_CAR_TIME)
+                .deliveryStartTime(DEFAULT_DELIVERY_START_TIME)
+                .deliveryEndTime(DEFAULT_DELIVERY_END_TIME);
         // Add required entity
-        Shop shop = ShopResourceIntTest.createEntity(em);
         Product product = ProductResourceIntTest.createEntity(em);
         em.persist(product);
-        em.persist(shop);
         em.flush();
         productEntry.setProduct(product);
-        productEntry.setShop(shop);
         // Add required entity
         Receipt receipt = ReceiptResourceIntTest.createEntity(em);
         em.persist(receipt);
         em.flush();
         productEntry.setReceipt(receipt);
+        // Add required entity
+        Company company = CompanyResourceIntTest.createEntity(em);
+        em.persist(company);
+        em.flush();
+        productEntry.setCompany(company);
         return productEntry;
     }
 
@@ -194,6 +214,9 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProductEntry.isCancelled()).isEqualTo(DEFAULT_CANCELLED);
         assertThat(testProductEntry.getSerialNumber()).isEqualTo(DEFAULT_SERIAL_NUMBER);
+        assertThat(testProductEntry.getAttachedToCarTime()).isEqualTo(DEFAULT_ATTACHED_TO_CAR_TIME);
+        assertThat(testProductEntry.getDeliveryStartTime()).isEqualTo(DEFAULT_DELIVERY_START_TIME);
+        assertThat(testProductEntry.getDeliveryEndTime()).isEqualTo(DEFAULT_DELIVERY_END_TIME);
     }
 
     @Test
@@ -411,7 +434,10 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].cancelled").value(hasItem(DEFAULT_CANCELLED.booleanValue())))
-            .andExpect(jsonPath("$.[*].serialNumber").value(hasItem(DEFAULT_SERIAL_NUMBER.toString())));
+            .andExpect(jsonPath("$.[*].serialNumber").value(hasItem(DEFAULT_SERIAL_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].attachedToCarTime").value(hasItem(sameInstant(DEFAULT_ATTACHED_TO_CAR_TIME))))
+            .andExpect(jsonPath("$.[*].deliveryStartTime").value(hasItem(sameInstant(DEFAULT_DELIVERY_START_TIME))))
+            .andExpect(jsonPath("$.[*].deliveryEndTime").value(hasItem(sameInstant(DEFAULT_DELIVERY_END_TIME))));
     }
 
     @Test
@@ -437,7 +463,10 @@ public class ProductEntryResourceIntTest {
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.cancelled").value(DEFAULT_CANCELLED.booleanValue()))
-            .andExpect(jsonPath("$.serialNumber").value(DEFAULT_SERIAL_NUMBER.toString()));
+            .andExpect(jsonPath("$.serialNumber").value(DEFAULT_SERIAL_NUMBER.toString()))
+            .andExpect(jsonPath("$.attachedToCarTime").value(sameInstant(DEFAULT_ATTACHED_TO_CAR_TIME)))
+            .andExpect(jsonPath("$.deliveryStartTime").value(sameInstant(DEFAULT_DELIVERY_START_TIME)))
+            .andExpect(jsonPath("$.deliveryEndTime").value(sameInstant(DEFAULT_DELIVERY_END_TIME)));
     }
 
     @Test
@@ -470,7 +499,10 @@ public class ProductEntryResourceIntTest {
                 .discount(UPDATED_DISCOUNT)
                 .status(UPDATED_STATUS)
                 .cancelled(UPDATED_CANCELLED)
-                .serialNumber(UPDATED_SERIAL_NUMBER);
+                .serialNumber(UPDATED_SERIAL_NUMBER)
+                .attachedToCarTime(UPDATED_ATTACHED_TO_CAR_TIME)
+                .deliveryStartTime(UPDATED_DELIVERY_START_TIME)
+                .deliveryEndTime(UPDATED_DELIVERY_END_TIME);
         ProductEntryDTO productEntryDTO = productEntryMapper.productEntryToProductEntryDTO(updatedProductEntry);
 
         restProductEntryMockMvc.perform(put("/api/product-entries")
@@ -495,6 +527,9 @@ public class ProductEntryResourceIntTest {
         assertThat(testProductEntry.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProductEntry.isCancelled()).isEqualTo(UPDATED_CANCELLED);
         assertThat(testProductEntry.getSerialNumber()).isEqualTo(UPDATED_SERIAL_NUMBER);
+        assertThat(testProductEntry.getAttachedToCarTime()).isEqualTo(UPDATED_ATTACHED_TO_CAR_TIME);
+        assertThat(testProductEntry.getDeliveryStartTime()).isEqualTo(UPDATED_DELIVERY_START_TIME);
+        assertThat(testProductEntry.getDeliveryEndTime()).isEqualTo(UPDATED_DELIVERY_END_TIME);
     }
 
     @Test

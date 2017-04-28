@@ -1,17 +1,13 @@
 package uz.hasan.service.dto;
 
 
-import java.time.ZonedDateTime;
-import javax.validation.constraints.*;
+import uz.hasan.domain.enumeration.*;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Objects;
-
-import uz.hasan.domain.enumeration.SalesType;
-import uz.hasan.domain.enumeration.SalesPlace;
-import uz.hasan.domain.enumeration.DefectFlag;
-import uz.hasan.domain.enumeration.VirtualFlag;
-import uz.hasan.domain.enumeration.ReceiptStatus;
 
 /**
  * A DTO for the ProductEntry entity.
@@ -93,19 +89,17 @@ public class ProductEntryDTO implements Serializable {
 
     private String deliveryItemsSentByLogin;
 
-    private Long markedAsDeliveredId;
+    private Long markedAsDeliveredById;
 
-    private String markedAsDeliveredLogin;
+    private String markedAsDeliveredByLogin;
 
-    private AddressDTO address;
+    private Long companyId;
+
+    private String companyName;
 
     private ProductDTO product;
 
-    public String receiptDocId;
-
-    private Long shopId;
-
-    private String shopName;
+    private AddressDTO address;
 
     public Long getId() {
         return id;
@@ -371,28 +365,36 @@ public class ProductEntryDTO implements Serializable {
         this.deliveryItemsSentByLogin = userLogin;
     }
 
-    public Long getMarkedAsDeliveredId() {
-        return markedAsDeliveredId;
+    public Long getMarkedAsDeliveredById() {
+        return markedAsDeliveredById;
     }
 
-    public void setMarkedAsDeliveredId(Long userId) {
-        this.markedAsDeliveredId = userId;
+    public void setMarkedAsDeliveredById(Long userId) {
+        this.markedAsDeliveredById = userId;
     }
 
-    public String getMarkedAsDeliveredLogin() {
-        return markedAsDeliveredLogin;
+    public String getMarkedAsDeliveredByLogin() {
+        return markedAsDeliveredByLogin;
     }
 
-    public void setMarkedAsDeliveredLogin(String userLogin) {
-        this.markedAsDeliveredLogin = userLogin;
+    public void setMarkedAsDeliveredByLogin(String userLogin) {
+        this.markedAsDeliveredByLogin = userLogin;
     }
 
-    public AddressDTO getAddress() {
-        return address;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setAddress(AddressDTO address) {
-        this.address = address;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public ProductDTO getProduct() {
@@ -403,28 +405,12 @@ public class ProductEntryDTO implements Serializable {
         this.product = product;
     }
 
-    public String getReceiptDocId() {
-        return receiptDocId;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setReceiptDocId(String receiptDocId) {
-        this.receiptDocId = receiptDocId;
-    }
-
-    public Long getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     @Override

@@ -479,11 +479,11 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
         Map<String, Object> result = new HashMap<>();
         ProductEntry productEntry = productEntries.get(0);
-        Shop shop = productEntry.getShop();
-        if (shop == null || shop.getAddress() == null) {
+        Company company = productEntry.getCompany();
+        if (company == null || company.getAddress() == null) {
             result.put("shopAddress", "");
         } else {
-            Address shopAddress = shop.getAddress();
+            Address shopAddress = company.getAddress();
             String streetAddress = "";
             streetAddress += shopAddress.getStreetAddress() + ", ";
             streetAddress += shopAddress.getDistrict().getName() + ", ";
@@ -492,14 +492,14 @@ public class ReceiptServiceImpl implements ReceiptService {
             streetAddress += shopAddress.getCountry().getName();
             result.put("shopAddress", streetAddress);
         }
-        result.put("shopBankAccountNumber", (shop != null) ? shop.getBankAccountNumber() : "");
-        result.put("shopBankBranchRegion", (shop != null) ? shop.getBankBranchRegion() : "");
-        result.put("shopBankName", (shop != null) ? shop.getBankName() : "");
-        result.put("shopBankMfo", (shop != null) ? shop.getMfo() : "");
-        result.put("shopName", (shop != null) ? shop.getName() : "");
-        result.put("shopOkonx", (shop != null) ? shop.getOkonx() : "");
-        result.put("shopOked", (shop != null) ? shop.getOked() : "");
-        result.put("shopTin", (shop != null) ? shop.getTin() : "");
+        result.put("shopBankAccountNumber", "");
+        result.put("shopBankBranchRegion", "");
+        result.put("shopBankName", "");
+        result.put("shopBankMfo", "");
+        result.put("shopName", (company != null) ? company.getName() : "");
+        result.put("shopOkonx", "");
+        result.put("shopOked", "");
+        result.put("shopTin", "");
         /* add client fields*/
         Receipt receipt = productEntry.getReceipt();
         Client client = null;
@@ -551,7 +551,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             product.setDocId((receipt != null && receipt.getDocID() != null) ? receipt.getDocID() : "");
             product.setCarNumber((entry.getAttachedCar() != null && !entry.getAttachedCar().getDrivers().isEmpty()) ? entry.getAttachedCar().getNumber() : "");
             products.add(product);
-//            result.put("shopPhoneNumbers", shop.getPhoneNumbers()); // TODO: 06.04.2017 add phoneNumbers attr. to shop model
+//            result.put("shopPhoneNumbers", company.getPhoneNumbers()); // TODO: 06.04.2017 add phoneNumbers attr. to company model
         /* add product fields*/
             totalPrice = totalPrice.add(entry.getPrice() != null ? entry.getPrice() : BigDecimal.ZERO);
         }

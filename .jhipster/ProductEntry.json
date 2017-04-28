@@ -68,10 +68,13 @@
             "otherEntityRelationshipName": "productEntry"
         },
         {
-            "relationshipName": "shop",
-            "otherEntityName": "shop",
+            "relationshipName": "company",
+            "otherEntityName": "company",
             "relationshipType": "many-to-one",
-            "otherEntityField": "shopId"
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [

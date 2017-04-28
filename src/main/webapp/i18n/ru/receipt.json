@@ -32,7 +32,7 @@
             "sentToDCTime": "Время отправки",
             "deliveredTime": "Время доставки",
             "cars": "Машины",
-            "addresses": "Адреса",
+            "address": "Адреса",
             "payTypes": "Оплата",
             "sentBy": "Отправитель",
             "companyId": "Компания",

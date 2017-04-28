@@ -32,7 +32,7 @@
             "sentToDCTime": "Sent To DC Time",
             "deliveredTime": "Delivered Time",
             "cars": "Cars",
-            "addresses": "Addresses",
+            "address": "Address",
             "payTypes": "Payments",
             "sentBy": "Sent by",
             "companyId": "Company",
