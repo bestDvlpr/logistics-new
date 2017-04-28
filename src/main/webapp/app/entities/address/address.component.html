@@ -13,7 +13,7 @@
     <div class="row">
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="address">
+    <div class="table-responsive" *ngIf="addresses">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -39,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let address of address ;trackBy: trackId">
+            <tr *ngFor="let address of addresses ;trackBy: trackId">
                 <td><a [routerLink]="['../address', address.id ]">{{address.id}}</a></td>
                 <td>{{address.streetAddress}}</td>
                 <td>{{address.latitude}}</td>

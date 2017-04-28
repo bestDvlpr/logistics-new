@@ -82,10 +82,10 @@
                                 <span class="tag tag-default"
                                       jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
                             </div>
-                            <div class="col-md-2" *ngIf="product.address">
-                                <span>{{product.address.streetAddress}}</span>,
-                                <span>{{product.address.districtName}}</span>,
-                                <span>{{product.address.regionName}}</span>
+                            <div class="col-md-2">
+                                <span *ngIf="product.address.streetAddress">{{product.address.streetAddress}},</span>
+                                <span *ngIf="product.address.districtName">{{product.address.districtName}},</span>
+                                <span *ngIf="product.address.regionName">{{product.address.regionName}}</span>
                             </div>
                             <div class="col-md-2" *ngIf="product.attachedCarId">
                                 <span class="fa fa-clock-o"></span>

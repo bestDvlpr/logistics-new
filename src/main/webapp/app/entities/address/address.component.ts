@@ -102,7 +102,6 @@ currentAccount: any;
         return item.id;
     }
 
-
     registerChangeInAddresses() {
         this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.loadAll());
     }
