@@ -123,8 +123,7 @@ public class ProductEntry implements Serializable {
     @ManyToOne
     private User markedAsDeliveredBy;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     private Company company;
 
     public Long getId() {
