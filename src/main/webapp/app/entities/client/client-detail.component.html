@@ -1,3 +1,18 @@
+<!--<div class="row bg-primary" *ngIf="client">
+    <div class="col-md-12">
+        <h1 class="fa fa-user-circle"></h1>
+        <h2>{{client.firstName + ' ' + client.lastName}}</h2>
+        <h6 *ngFor="let number of client.numbers">
+            <span class="fa fa-mobile-phone"></span>
+            {{number.number}}
+        </h6>
+        <h6 *ngFor="let address of client.addressDTOS">
+            {{address.streetAddress + ', '+address.districtName+', ' + address.regionName}}
+        </h6>
+        <h6>Client since: {{client.regDate|date}}</h6>
+    </div>
+</div>-->
+
 
 <div *ngIf="client">
     <h2><span jhiTranslate="logisticsApp.client.detail.title">Client</span> {{client.id}}</h2>

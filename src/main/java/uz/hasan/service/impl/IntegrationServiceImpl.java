@@ -182,7 +182,7 @@ public class IntegrationServiceImpl implements IntegrationService {
                         productEntry.setProduct(p);
                         productEntry.setSellerID(seller);
                         productEntry.setReceipt(savedReceipt);
-//                        productEntry.setCompany(savedReceipt.getCompany());
+                        productEntry.setCompany(savedReceipt.getCompany());
 
                         if (savedReceipt.getDocType() == DocType.RETURN)
                             productEntry.setCancelled(true);

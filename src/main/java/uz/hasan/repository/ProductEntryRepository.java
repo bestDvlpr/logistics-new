@@ -25,4 +25,6 @@ public interface ProductEntryRepository extends JpaRepository<ProductEntry, Long
     Long countByAttachedCarNumberAndStatusNot(String number, ReceiptStatus status);
 
     List<ProductEntry> findByAttachedCarNumberAndStatusAndCompanyId(String carNumber, ReceiptStatus status, Long companyId);
+
+    List<ProductEntry> findAllByAttachedCarNumberAndStatusAndCompanyId(String carNumber, ReceiptStatus status, Long companyId);
 }
