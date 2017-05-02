@@ -5,6 +5,7 @@ import {LogisticsSharedModule} from '../../shared';
 
 import {
     ReceiptService,
+    UploadService,
     ReceiptPopupService,
     DataHolderService,
     ReceiptComponent,
@@ -24,6 +25,7 @@ import {
     ReceiptProductToCarComponent,
     ReceiptSendAddressComponent,
     ReceiptArchivedComponent,
+    ReceiptCreditComponent,
 } from './';
 import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
 
@@ -52,7 +54,8 @@ let ENTITY_STATES = [
         ReceiptNewComponent,
         ReceiptAppliedComponent,
         ReceiptProductToCarComponent,
-        ReceiptArchivedComponent
+        ReceiptArchivedComponent,
+        ReceiptCreditComponent
     ],
     entryComponents: [
         ReceiptComponent,
@@ -67,10 +70,12 @@ let ENTITY_STATES = [
         ReceiptNewComponent,
         ReceiptAppliedComponent,
         ReceiptProductToCarComponent,
-        ReceiptArchivedComponent
+        ReceiptArchivedComponent,
+        ReceiptCreditComponent
     ],
     providers: [
         ReceiptService,
+        UploadService,
         ReceiptPopupService,
         DataHolderService,
         ReceiptResolvePagingParams,

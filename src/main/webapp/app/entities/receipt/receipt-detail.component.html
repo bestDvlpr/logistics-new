@@ -28,7 +28,11 @@
                 <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
         </div>
-        <div class="col-md-2 offset-md-8">
+        <div class="col-md-2 offset-md-8"
+             *ngIf="receipt.status!==receiptStatusEnum.DELIVERY_PROCESS &&
+                receipt.status!==receiptStatusEnum.DELIVERED &&
+                receipt.status!==receiptStatusEnum.CANCELLED &&
+                receipt.status!==receiptStatusEnum.TAKEOUT">
             <button type="submit" jhiHasAuthority="ROLE_CASHIER"
                     (click)="takenOut()"
                     class="btn btn-sm btn-primary btn-block">

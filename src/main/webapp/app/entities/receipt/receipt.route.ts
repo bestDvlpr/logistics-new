@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate} from '@angular/router';
-
-import {UserRouteAccessService} from '../../shared';
 import {PaginationUtil} from 'ng-jhipster';
 
 import {ReceiptComponent} from './receipt.component';
@@ -9,8 +7,6 @@ import {ReceiptDetailComponent} from './receipt-detail.component';
 import {ReceiptPopupComponent} from './receipt-dialog.component';
 import {ReceiptDeletePopupComponent} from './receipt-delete-dialog.component';
 import {ReceiptSendClientComponent} from './receipt-send-client.component';
-
-import {Principal} from '../../shared';
 import {ReceiptSendAddressComponent} from './receipt-send-address.component';
 import {ReceiptSendProductComponent} from './receipt-send-product.component';
 import {ClientPopupComponent} from '../client/client-dialog.component';
@@ -19,6 +15,7 @@ import {ReceiptAppliedComponent} from './receipt-applied.component';
 import {ReceiptProductToCarComponent} from './receipt-product-to-car.component';
 import {CollapsedReceiptComponent} from './collapsed-receipt.component';
 import {ReceiptArchivedComponent} from './receipt-archived.component';
+import {ReceiptCreditComponent} from './receipt-credit.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -129,6 +126,16 @@ export const receiptRoute: Routes = [
         data: {
             authorities: ['ROLE_CASHIER', 'ROLE_MANAGER', 'ROLE_DISPATCHER'],
             pageTitle: 'logisticsApp.receipt.detail.title'
+        }
+    }, {
+        path: 'receipt-credit',
+        component: ReceiptCreditComponent,
+        resolve: {
+            'pagingParams': ReceiptResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_CREDIT'],
+            pageTitle: 'logisticsApp.receipt.home.title-credit'
         }
     }
 ];

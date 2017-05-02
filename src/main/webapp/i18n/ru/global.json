@@ -60,6 +60,7 @@
             },
             "language": "Язык",
             "newReceipts": "Новые заявки",
+            "creditReceipts": "Заявки кредит",
             "archivedReceipts": "Архив",
             "appliedReceipts": "Принятые заявки"
         },
@@ -137,6 +138,7 @@
             "deliver": "Доставка",
             "delivered": "Доставлен",
             "download": "Скачать",
+            "upload": "Отправить",
             "takeOut": "Самовывоз"
         },
         "detail": {

@@ -219,6 +219,12 @@ HASAN CHANGES
 .main_content_wrapper{
     margin-top: 65px;
 }
+.custom-file-control:before{
+    content: "Browse";
+}
+.custom-file-control:after{
+    content: "Add files..";
+}
 /*=============================================================
 HASAN CHANGES
 ===============================================================*/

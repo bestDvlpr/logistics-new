@@ -1,6 +1,7 @@
 export * from './receipt.model';
 export * from './receipt-popup.service';
 export * from './receipt.service';
+export * from './upload.service';
 export * from './data-holder.service';
 export * from './receipt-dialog.component';
 export * from './receipt-delete-dialog.component';
@@ -15,3 +16,4 @@ export * from './receipt-new.component';
 export * from './receipt-applied.component';
 export * from './receipt-product-to-car.component';
 export * from './receipt-archived.component';
+export * from './receipt-credit.component';

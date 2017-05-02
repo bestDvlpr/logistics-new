@@ -37,6 +37,14 @@
             </li>
 
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
+                jhiHasAnyAuthority="ROLE_CREDIT">
+                <a class="nav-link" [routerLink]="'receipt-credit'" (click)="collapseNavbar()" placement="bottom">
+                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.creditReceipts">Credit Applications</span>
+                </a>
+            </li>
+
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
                 jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_MANAGER">
                 <a class="nav-link" [routerLink]="'accepted-receipts'" (click)="collapseNavbar()" placement="bottom">
                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>

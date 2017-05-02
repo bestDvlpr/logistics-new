@@ -60,6 +60,7 @@
             },
             "language": "Language",
             "newReceipts": "New Applications",
+            "creditReceipts": "Credit Applications",
             "archivedReceipts": "Archive",
             "appliedReceipts": "Received Applications"
         },
@@ -137,6 +138,7 @@
             "deliver": "Deliver",
             "delivered": "Delivered",
             "download": "Download",
+            "upload": "Upload",
             "takeOut": "Takeout"
         },
         "detail": {

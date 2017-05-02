@@ -3,10 +3,12 @@
         "receipt" : {
             "home": {
                 "title": "Заявки",
+                "title-credit": "Заявки кредит",
                 "newTitle": "Новые заявки",
                 "acceptedTitle": "Принятые заявки",
                 "archiveTitle": "Архив заявки",
-                "createLabel": "Создать новый Заявка",
+                "createLabel": "Создать новая Заявка",
+                "createCreditLabel": "Создать новая Заявка кредита",
                 "createOrEditLabel": "Создать или отредактировать Заявка"
             },
             "created": "Новый Заявка создан с идентификатором {{ param }}",
