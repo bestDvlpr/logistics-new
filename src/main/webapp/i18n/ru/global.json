@@ -136,6 +136,8 @@
             "search": "Поиск",
             "deliver": "Доставка",
             "delivered": "Доставлен",
+            "predownload": "Скачать пред.",
+            "fulldownload": "Скачать оконч-ную",
             "download": "Скачать",
             "takeOut": "Самовывоз"
         },

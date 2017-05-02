@@ -88,7 +88,10 @@
 	<field name="deliveryDate" list="false" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
-	<field name="product.CarNumber" list="true" imageName="" syntaxKind="">
+	<field name="carNumber" list="false" imageName="" syntaxKind="">
+		<description><![CDATA[]]></description>
+	</field>
+	<field name="driverName" list="false" imageName="" syntaxKind="">
 		<description><![CDATA[]]></description>
 	</field>
 	<field name="product.DeliveryStartTime" list="true" imageName="" syntaxKind="">

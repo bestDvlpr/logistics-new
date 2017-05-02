@@ -56,6 +56,8 @@
 //        fieldsMetadata.addField("fromTime", false, "","", false);
 //        fieldsMetadata.addField("toTime", false, "","", false);
 //        fieldsMetadata.addField("deliveryDate", false, "","", false);
+//        fieldsMetadata.addField("carNumber", false, "","", false);
+//        fieldsMetadata.addField("driverName", false, "","", false);
 //        /* add product entry fields*/
 //        fieldsMetadata.load("product", Product.class, true);
 //            /*

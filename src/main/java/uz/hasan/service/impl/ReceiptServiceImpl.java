@@ -348,6 +348,15 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = receiptRepository.findOne(receiptId);
         Set<ProductEntry> productEntries = receipt.getProductEntries();
 
+        Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
+
+        if (receipt.getStatus().equals(ReceiptStatus.APPLICATION_SENT)) {
+            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_PRE_INVOICE, receipt.getDocID(), hashMap, response);
+        }
+        if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
+            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
+        }
+
         if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
             receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
             productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.DELIVERY_PROCESS));
@@ -355,14 +364,6 @@ public class ReceiptServiceImpl implements ReceiptService {
 
             receiptRepository.save(receipt);
             productEntryRepository.save(productEntries);
-        }
-
-        Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
-        if (receipt.getStatus().equals(ReceiptStatus.APPLICATION_SENT)){
-            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_PRE_INVOICE, receipt.getDocID(), hashMap, response);
-        }
-        if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
-            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
         }
     }
 
@@ -550,6 +551,12 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
         result.put("receiptDocId", (receipt != null) ? receipt.getDocID() : "");
         result.put("receiptId", receipt != null ? receipt.getId() : "");
+
+        Car attachedCar = receipt != null ? receipt.getProductEntries().iterator().next().getAttachedCar() : null;
+        if (attachedCar != null && attachedCar.getNumber() != null) {
+            result.put("carNumber", attachedCar.getNumber());
+        }
+        result.put("driverName", "");
         List<uz.hasan.invoice.Product> products = new ArrayList<>();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -563,7 +570,6 @@ public class ReceiptServiceImpl implements ReceiptService {
             product.setQuantity(String.valueOf(entry.getQty()));
             product.setReceiptId((receipt != null && receipt.getId() != null) ? String.valueOf(receipt.getId()) : "");
             product.setDocId((receipt != null && receipt.getDocID() != null) ? receipt.getDocID() : "");
-            product.setCarNumber((entry.getAttachedCar() != null && !entry.getAttachedCar().getDrivers().isEmpty()) ? entry.getAttachedCar().getNumber() : "");
             products.add(product);
 //            result.put("shopPhoneNumbers", company.getPhoneNumbers()); // TODO: 06.04.2017 add phoneNumbers attr. to company model
         /* add product fields*/
