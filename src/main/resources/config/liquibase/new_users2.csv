@@ -1,0 +1,6 @@
+id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;created_date;last_modified_by;company_id
+12;credit_qoratosh;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Credit;Credit;credit_qoratosh@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1101
+13;credit_rohat;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Credit;Credit;credit_rohat@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1102
+14;credit_ipak;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Credit;Credit;credit_ipak@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1104
+15;credit_sergeli;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Credit;Credit;credit_sereli@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1103
+16;credit_qoqon;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Credit;Credit;credit_qoqon@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1201

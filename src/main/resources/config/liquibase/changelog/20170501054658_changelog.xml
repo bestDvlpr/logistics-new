@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="20170501054658-1" author="hasan">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/new_users2.csv"
+                  separator=";"
+                  tableName="jhi_user"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/new_authorities2.csv"
+                  separator=";"
+                  tableName="jhi_authority"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/new_users_authorities2.csv"
+                  separator=";"
+                  tableName="jhi_user_authority"/>
+    </changeSet>
+</databaseChangeLog>
