@@ -13,7 +13,6 @@ public class Product {
     private String quantity;
     private String receiptId;
     private String docId;
-    private String carNumber;
 
     public String getDeliveryStartTime() {
         return deliveryStartTime;
@@ -61,13 +60,5 @@ public class Product {
 
     public void setDocId(String docId) {
         this.docId = docId;
-    }
-
-    public String getCarNumber() {
-        return carNumber;
-    }
-
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
     }
 }

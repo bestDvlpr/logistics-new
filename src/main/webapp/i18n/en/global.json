@@ -136,6 +136,8 @@
             "search": "Search",
             "deliver": "Deliver",
             "delivered": "Delivered",
+            "predownload": "Download pre.",
+            "fulldownload": "Download full",
             "download": "Download",
             "takeOut": "Takeout"
         },
