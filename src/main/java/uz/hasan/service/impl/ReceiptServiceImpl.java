@@ -338,6 +338,9 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     /**
      * Download receipt as ms-word document.
+     *
+     * @param receiptId Receipt object's id
+     * @param response  HttpServletResponse object
      */
     @Override
     public void download(Long receiptId, HttpServletResponse response) {
@@ -358,7 +361,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
 
         Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
-        if (receipt.getStatus().equals(ReceiptStatus.APPLICATION_SENT)){
+        if (receipt.getStatus().equals(ReceiptStatus.APPLICATION_SENT)) {
             excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_PRE_INVOICE, receipt.getDocID(), hashMap, response);
         }
         if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
@@ -369,6 +372,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     /**
      * Mark receipt and its products as delivered.
      *
+     * @param receiptDTO {@link ReceiptProductEntriesDTO} object
      * @return receipt with attached to car products
      */
     @Override
