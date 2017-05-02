@@ -1,6 +1,7 @@
 <div>
     <h2>
-        <span jhiTranslate="logisticsApp.receipt.home.title" jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER">Receipts</span>
+        <span jhiTranslate="logisticsApp.receipt.home.title"
+              jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER">Receipts</span>
         <span jhiTranslate="logisticsApp.receipt.home.acceptedTitle" jhiHasAuthority="ROLE_DISPATCHER">Receipts</span>
         <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
@@ -64,7 +65,8 @@
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+' '+receipt.client.lastName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+'
+                            '+receipt.client.lastName}}</a>
                     </div>
                 </td>
                 <td>
@@ -187,7 +189,14 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT">
+                        <span class="fa fa-download"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm"
+                            [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/delivery'} }]"
+                            jhiHasAuthority="ROLE_CASHIER"
+                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER">
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>

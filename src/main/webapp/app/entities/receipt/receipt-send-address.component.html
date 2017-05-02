@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <span jhiTranslate="logisticsApp.client.address"></span>
+                    <span jhiTranslate="logisticsApp.client.addresses"></span>
                     <button class="btn btn-success float-md-right btn-sm"
                             [routerLink]="['/', { outlets: { popup: ['address-new'] } }]">
                         <span class="fa fa-plus"></span>
@@ -24,7 +24,6 @@
                             <th jhiTranslate="logisticsApp.address.detail.title"></th>
                             <th jhiTranslate="logisticsApp.address.country"></th>
                             <th jhiTranslate="logisticsApp.address.region"></th>
-                            <th jhiTranslate="logisticsApp.address.city"></th>
                             <th jhiTranslate="logisticsApp.address.district"></th>
                         </tr>
                         </thead>
@@ -38,7 +37,6 @@
                             <td>{{address.streetAddress}}</td>
                             <td>{{address.countryName}}</td>
                             <td>{{address.regionName}}</td>
-                            <td>{{address.cityName}}</td>
                             <td>{{address.districtName}}</td>
                         </tr>
                         </tbody>

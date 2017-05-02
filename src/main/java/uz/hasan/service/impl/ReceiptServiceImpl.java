@@ -348,8 +348,22 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt receipt = receiptRepository.findOne(receiptId);
         Set<ProductEntry> productEntries = receipt.getProductEntries();
 
+        if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
+            receipt.setStatus(ReceiptStatus.DELIVERY_PROCESS);
+            productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.DELIVERY_PROCESS));
+            productEntries.forEach(productEntry -> productEntry.setDeliveryStartTime(ZonedDateTime.now()));
+
+            receiptRepository.save(receipt);
+            productEntryRepository.save(productEntries);
+        }
+
         Map<String, Object> hashMap = createHashMap(new ArrayList<>(productEntries));
-        excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
+        if (receipt.getStatus().equals(ReceiptStatus.APPLICATION_SENT)){
+            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_PRE_INVOICE, receipt.getDocID(), hashMap, response);
+        }
+        if (receipt.getStatus().equals(ReceiptStatus.ATTACHED_TO_DRIVER)) {
+            excelService.generateDocx(XDocTemplate.SHOP_DELIVERY_INVOICE, receipt.getDocID(), hashMap, response);
+        }
     }
 
     /**

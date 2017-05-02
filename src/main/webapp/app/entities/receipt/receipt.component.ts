@@ -40,7 +40,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     receiptStatusEnum = ReceiptStatus;
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
-    isDCEmployee: boolean;
+    isDCEmployee = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -301,6 +301,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         } catch (ex) {
             FileSaver.saveAs(blob, filename);
         }
+        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         // this.router.navigate(['/']);
     }
 }
