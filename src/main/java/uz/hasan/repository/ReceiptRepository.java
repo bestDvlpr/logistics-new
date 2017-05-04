@@ -6,6 +6,7 @@ import uz.hasan.domain.Receipt;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 
 import java.util.Collection;
@@ -49,4 +50,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findAllByStatusNotIn(Pageable pageable, Collection<ReceiptStatus> statuses);
 
     Page<Receipt> findAllByStatusIn(Pageable pageable, Collection<ReceiptStatus> statuses);
+
+    Page<Receipt> findAllByDocType(Pageable pageable, DocType docType);
 }

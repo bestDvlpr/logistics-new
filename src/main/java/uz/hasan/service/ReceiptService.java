@@ -140,4 +140,20 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptProductEntriesDTO> findArchivedReceipts(Pageable pageable);
+
+    /**
+     *  Get all displacement receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findDisplacementReceipts(Pageable pageable);
+
+    /**
+     *  Get all credit receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable);
 }

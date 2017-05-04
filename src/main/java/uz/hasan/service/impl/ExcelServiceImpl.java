@@ -51,16 +51,16 @@ public class ExcelServiceImpl implements ExcelService {
         fontBig.setFontHeightInPoints((short) 12);
         fontBig.setFontName("Tahoma");
         fontBig.setItalic(false);
-        fontBig.setBold(false);
+//        fontBig.setBold(false);
 
         Font fontSmall = workbook.getFontAt((short) 2);
         fontSmall.setFontHeightInPoints((short) 12);
         fontSmall.setFontName("Tahoma");
         fontSmall.setItalic(false);
-        fontSmall.setBold(false);
+//        fontSmall.setBold(false);
 
-        CellStyle primaryStyle = workbook.getCellStyleAt(0);
-        CellStyle borderedStyle = workbook.getCellStyleAt(2);
+//        CellStyle primaryStyle = workbook.getCellStyleAt(0);
+//        CellStyle borderedStyle = workbook.getCellStyleAt(2);
 
         Map<String, Object> properties = new HashMap<>();
         properties.put(CellUtil.BORDER_LEFT, BorderStyle.MEDIUM);
@@ -251,7 +251,7 @@ public class ExcelServiceImpl implements ExcelService {
             Row row = sheet1.rowIterator().next();
             while (row.cellIterator().hasNext()) {
                 Cell cell = row.cellIterator().next();
-                CellUtil.setCellStyleProperties(cell, properties);
+//                CellUtil.setCellStyleProperties(cell, properties);
             }
         }
 

@@ -30,12 +30,10 @@ public class Receipt implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "doc_num", nullable = false)
+    @Column(name = "doc_num")
     private String docNum;
 
-    @NotNull
-    @Column(name = "doc_id", nullable = false)
+    @Column(name = "doc_id")
     private String docID;
 
     @NotNull
@@ -46,18 +44,15 @@ public class Receipt implements Serializable {
     @Column(name = "previous_doc_id")
     private String previousDocID;
 
-    @NotNull
-    @Column(name = "doc_date", nullable = false)
+    @Column(name = "doc_date")
     private Long docDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "whole_sale_flag", nullable = false)
+    @Column(name = "whole_sale_flag")
     private WholeSaleFlag wholeSaleFlag;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private ReceiptStatus status;
 
     @Column(name = "sent_to_dc_time")

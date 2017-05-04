@@ -3,6 +3,7 @@ import {Http, Response, URLSearchParams, BaseRequestOptions, ResponseContentType
 import {Observable} from 'rxjs/Rx';
 
 import {Receipt} from './receipt.model';
+import {Res} from "awesome-typescript-loader/dist/checker/protocol";
 @Injectable()
 export class ReceiptService {
 
@@ -131,5 +132,10 @@ export class ReceiptService {
         return this.http.post(this.resourceUrl.concat('/taken-out'), receipt).map((res: Response) => {
             return res;
         });
+    }
+
+    creditedReceipts(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/credit'), options);
     }
 }

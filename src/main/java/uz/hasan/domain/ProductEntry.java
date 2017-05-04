@@ -32,28 +32,23 @@ public class ProductEntry implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "price", precision=10, scale=2, nullable = false)
+    @Column(name = "price", precision=10, scale=2)
     private BigDecimal price;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_flag", nullable = false)
+    @Column(name = "delivery_flag")
     private SalesType deliveryFlag;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "hall_flag", nullable = false)
+    @Column(name = "hall_flag")
     private SalesPlace hallFlag;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "defect_flag", nullable = false)
+    @Column(name = "defect_flag")
     private DefectFlag defectFlag;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "virtual_flag", nullable = false)
+    @Column(name = "virtual_flag")
     private VirtualFlag virtualFlag;
 
     @Column(name = "reason")
@@ -62,8 +57,7 @@ public class ProductEntry implements Serializable {
     @Column(name = "comment")
     private String comment;
 
-    @NotNull
-    @Column(name = "guid", nullable = false)
+    @Column(name = "guid")
     private String guid;
 
     @NotNull

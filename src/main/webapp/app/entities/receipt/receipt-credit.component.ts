@@ -13,7 +13,6 @@ import {Car} from '../car/car.model';
 import {ACElement} from '../../shared/autocomplete/element.model';
 import {CarService} from '../car/car.service';
 import {UploadService} from './upload.service';
-import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'jhi-receipt-credit',
@@ -68,7 +67,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     loadAllCredited() {
-        this.receiptService.appliedReceipts({
+        this.receiptService.creditedReceipts({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()
@@ -201,12 +200,12 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
 
     fileChangeEvent(fileInput: any) {
         this.receiptFile = fileInput.target.files[0];
-// this.uploadService.upload()
     }
 
     uploadReceipt() {
         console.log(this.receiptFile);
-        this.uploadService.upload(this.receiptFile).subscribe((res: Receipt) => {
+        const postData = {name: this.receiptFile.name, size: this.receiptFile.size};
+        this.uploadService.upload(postData, this.receiptFile).then((res: Receipt) => {
             this.receipt = res;
         });
     }

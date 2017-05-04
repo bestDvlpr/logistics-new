@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.CarStatus;
+import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.enumeration.XDocTemplate;
 import uz.hasan.repository.*;
@@ -289,7 +290,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
-            return receiptRepository.countByStatus(ReceiptStatus.NEW);
+            return receiptRepository.countByStatus(ReceiptStatus.APPLICATION_SENT);
         } else {
             return receiptRepository.getCountByStatusAndCompanyIdNumber(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber());
         }
@@ -454,6 +455,32 @@ public class ReceiptServiceImpl implements ReceiptService {
         statuses.add(ReceiptStatus.DELIVERED);
         statuses.add(ReceiptStatus.TAKEOUT);
         Page<Receipt> result = receiptRepository.findAllByStatusIn(pageable, statuses);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     *  Get all archived receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findDisplacementReceipts(Pageable pageable) {
+        log.debug("Request to get all displacement Receipts");
+        Page<Receipt> result = receiptRepository.findAllByDocType(pageable, DocType.DISPLACEMENT);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     *  Get all credit receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable) {
+        log.debug("Request to get all credit Receipts");
+        Page<Receipt> result = receiptRepository.findAllByDocType(pageable, DocType.CREDIT);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 

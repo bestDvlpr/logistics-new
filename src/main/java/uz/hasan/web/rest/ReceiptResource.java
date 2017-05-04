@@ -201,6 +201,40 @@ public class ReceiptResource {
     }
 
     /**
+     * GET  /receipts/displacement : get all receipts of type {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/displacement")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllDispalcementReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/credit : get all receipts of type {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/credit")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllCreditReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findCreditReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
      * GET  /receipts/count/new : get count of new receipts.
      *
      * @return the ResponseEntity with status 200 (OK) and the count of new receipts in body
@@ -265,12 +299,12 @@ public class ReceiptResource {
      */
     @PostMapping(value = "/receipts/order", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<ReceiptProductEntriesDTO>> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTOs) throws URISyntaxException {
-        log.debug("REST request to send Receipt : {}", receiptDTOs);
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> sendOrder(@RequestBody ReceiptProductEntriesDTO receiptDTO) throws URISyntaxException {
+        log.debug("REST request to send Receipt : {}", receiptDTO);
         /*if (receiptDTOs.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new receipt cannot already have an ID")).body(null);
         }*/
-        List<ReceiptProductEntriesDTO> result = receiptService.sendOrder(receiptDTOs);
+        List<ReceiptProductEntriesDTO> result = receiptService.sendOrder(receiptDTO);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
