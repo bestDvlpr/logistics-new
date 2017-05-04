@@ -15,6 +15,7 @@ import {ReceiptAppliedComponent} from './receipt-applied.component';
 import {ReceiptProductToCarComponent} from './receipt-product-to-car.component';
 import {CollapsedReceiptComponent} from './collapsed-receipt.component';
 import {ReceiptArchivedComponent} from './receipt-archived.component';
+import {ReceiptDeliveryPopupComponent} from "./receipt-delivery-dialog.component";
 import {ReceiptCreditComponent} from './receipt-credit.component';
 
 @Injectable()
@@ -164,6 +165,15 @@ export const receiptPopupRoute: Routes = [
         component: ReceiptDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        },
+        outlet: 'popup'
+    },
+    {
+        path: 'receipt/:id/delivery',
+        component: ReceiptDeliveryPopupComponent,
+        data: {
+            authorities: ['ROLE_CASHIER'],
             pageTitle: 'logisticsApp.receipt.home.title'
         },
         outlet: 'popup'

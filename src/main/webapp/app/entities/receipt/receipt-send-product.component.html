@@ -32,7 +32,12 @@
                                     </td>
                                     <td *ngIf="!product.addressId">{{product.productName}}</td>
                                     <td *ngIf="!product.addressId">{{product.qty}}</td>
-                                    <td *ngIf="!product.addressId">{{product.status}}</td>
+                                    <td>
+                                        <span class="tag tag-default"
+                                              jhiTranslate="{{'logisticsApp.ReceiptStatus.' + product.status}}">
+                                            {{product.status}}
+                                        </span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -40,16 +45,16 @@
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <!--<div class="col-md-12">
                             <div class="alert alert-success">
                                 <span jhiTranslate="logisticsApp.receipt.deliveryMessage"></span>
-                                <!--<span jhiTranslate="logisticsApp.receipt.deliveryTimeMessage"
+                                &lt;!&ndash;<span jhiTranslate="logisticsApp.receipt.deliveryTimeMessage"
                                       translateValues="{time1:'{{receipt.fromTime.hour+ ':' + receipt.fromTime.minute}}',
                                        time2:'{{receipt.toTime.hour+':'+receipt.toTime.minute}}'}">
-                                </span>-->
+                                </span>&ndash;&gt;
                             </div>
-                        </div>
-                        <div class="col-md-12">&nbsp;</div>
+                        </div>-->
+                        <!--<div class="col-md-12">&nbsp;</div>-->
                         <div class="col-md-3">
                             <div>
                                 <label for="startTime" jhiTranslate="logisticsApp.receipt.startTime">Start Time</label>
@@ -64,7 +69,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <label class="input-group-addon" for="endTime" jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery
+                                <label class="input-group-addon" for="endTime"
+                                       jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery
                                     Date</label>
                                 <input ngbDatepicker #d="ngbDatepicker" [minDate]="minDate" [(ngModel)]="deliveryDate"
                                        id="deliveryDate"

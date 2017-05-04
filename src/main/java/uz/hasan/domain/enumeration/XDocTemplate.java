@@ -7,6 +7,7 @@ import java.net.URLEncoder;
  * Created by admmp on 06.04.2017.
  */
 public enum XDocTemplate {
+    SHOP_DELIVERY_PRE_INVOICE("pre_invoice.docx"),
     SHOP_DELIVERY_INVOICE("invoice.docx"),
     WAREHOUSE_DELIVERY_INVOICE("invoice.docx"),
     /**/

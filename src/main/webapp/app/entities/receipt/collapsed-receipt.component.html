@@ -80,7 +80,9 @@
                             </div>
                             <div class="col-md-2">
                                 <span class="tag tag-default"
-                                      jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}">{{product.status}}</span>
+                                      jhiTranslate="{{'logisticsApp.ReceiptStatus.' + product.status}}">
+                                    {{product.status}}
+                                </span>
                             </div>
                             <div class="col-md-2">
                                 <span *ngIf="product.address.streetAddress">{{product.address.streetAddress}},</span>

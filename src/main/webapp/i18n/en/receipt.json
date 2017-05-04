@@ -17,6 +17,10 @@
             "delete": {
                 "question": "Are you sure you want to delete Application {{ id }}?"
             },
+            "delivery": {
+                "title": "Confirm Delivery Operation",
+                "question": "Are you sure you want to deliver Application {{ id }}?"
+            },
             "detail": {
                 "title": "Application"
             },

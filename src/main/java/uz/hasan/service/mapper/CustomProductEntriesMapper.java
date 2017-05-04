@@ -2,6 +2,7 @@ package uz.hasan.service.mapper;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.Address;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.repository.*;
 import uz.hasan.service.dto.ProductEntryDTO;
@@ -26,6 +27,7 @@ public class CustomProductEntriesMapper {
     private final SellerRepository sellerRepository;
     private final ProductRepository productRepository;
     private final CompanyRepository companyRepository;
+    private final AddressMapper addressMapper;
 
     public CustomProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                       ReceiptRepository receiptRepository,
@@ -36,7 +38,8 @@ public class CustomProductEntriesMapper {
                                       ClientRepository clientRepository,
                                       AddressRepository addressRepository,
                                       SellerRepository sellerRepository,
-                                      ProductRepository productRepository) {
+                                      ProductRepository productRepository,
+                                      AddressMapper addressMapper) {
         this.productEntryMapper = productEntryMapper;
         this.receiptRepository = receiptRepository;
         this.carRepository = carRepository;
@@ -47,6 +50,7 @@ public class CustomProductEntriesMapper {
         this.addressRepository = addressRepository;
         this.sellerRepository = sellerRepository;
         this.productRepository = productRepository;
+        this.addressMapper = addressMapper;
     }
 
     public ProductEntryDTO ProductEntryToProductEntryDTO(ProductEntry entry) {
@@ -60,7 +64,12 @@ public class CustomProductEntriesMapper {
 
         ProductEntry productEntry = new ProductEntry();
         productEntry.setId(productEntryDTO.getId());
-        productEntry.setAddress(productEntryDTO.getAddressId() != null ? addressRepository.findOne(productEntryDTO.getAddressId()) : null);
+        if (productEntryDTO.getAddressId() != null ) {
+            productEntry.setAddress(addressRepository.findOne(productEntryDTO.getAddressId()));
+        }
+        if (productEntryDTO.getAddress() != null && productEntryDTO.getAddress().getId()!=null) {
+            productEntry.setAddress(addressMapper.addressDTOToAddress(productEntryDTO.getAddress()));
+        }
         productEntry.setAttachedCar(productEntryDTO.getAttachedCarId() != null ? carRepository.findOne(productEntryDTO.getAttachedCarId()) : null);
         productEntry.setAttachedToCarTime(productEntryDTO.getAttachedToCarTime());
         productEntry.setAttachedToDriverBy(productEntryDTO.getAttachedToDriverById() != null ? userRepository.findOne(productEntryDTO.getAttachedToDriverById()) : null);

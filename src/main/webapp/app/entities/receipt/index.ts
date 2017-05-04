@@ -16,4 +16,5 @@ export * from './receipt-new.component';
 export * from './receipt-applied.component';
 export * from './receipt-product-to-car.component';
 export * from './receipt-archived.component';
+export * from './receipt-delivery-dialog.component';
 export * from './receipt-credit.component';
