@@ -205,8 +205,8 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     uploadReceipt() {
         console.log(this.receiptFile);
         const postData = {name: this.receiptFile.name, size: this.receiptFile.size};
-        this.uploadService.upload(postData, this.receiptFile).then((res: Receipt) => {
-            this.receipt = res;
+        this.uploadService.upload(postData, this.receiptFile).subscribe((res: Response) => {
+            this.receipt = res.json();
         });
     }
 }

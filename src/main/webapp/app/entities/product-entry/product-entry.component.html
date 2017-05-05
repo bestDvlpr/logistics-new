@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.productEntry.home.title">Product Entries</span>
-        <button class="btn btn-primary float-right create-product-entry" [routerLink]="['/', { outlets: { popup: ['product-entry-new'] } }]">
+        <button class="btn btn-primary float-right create-product-entry"
+                [routerLink]="['/', { outlets: { popup: ['product-entry-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.productEntry.home.createLabel">
+            <span jhiTranslate="logisticsApp.productEntry.home.createLabel">
             Create new Product Entry
             </span>
         </button>
@@ -16,44 +17,84 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="price"><span jhiTranslate="logisticsApp.productEntry.price">Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deliveryFlag"><span jhiTranslate="logisticsApp.productEntry.deliveryFlag">Delivery Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="hallFlag"><span jhiTranslate="logisticsApp.productEntry.hallFlag">Hall Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="defectFlag"><span jhiTranslate="logisticsApp.productEntry.defectFlag">Defect Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="virtualFlag"><span jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="reason"><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="comment"><span jhiTranslate="logisticsApp.productEntry.comment">Comment</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="guid"><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="discount"><span jhiTranslate="logisticsApp.productEntry.discount">Discount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="status"><span jhiTranslate="logisticsApp.productEntry.status">Status</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="cancelled"><span jhiTranslate="logisticsApp.productEntry.cancelled">Cancelled</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="serialNumber"><span jhiTranslate="logisticsApp.productEntry.serialNumber">Serial Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="attachedToCarTime"><span jhiTranslate="logisticsApp.productEntry.attachedToCarTime">Attached To Car Time</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deliveryStartTime"><span jhiTranslate="logisticsApp.productEntry.deliveryStartTime">Delivery Start Time</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deliveryEndTime"><span jhiTranslate="logisticsApp.productEntry.deliveryEndTime">Delivery End Time</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sellerIDSellerID"><span jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="driverLastName"><span jhiTranslate="logisticsApp.productEntry.driver">Driver</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="attachedCarNumber"><span jhiTranslate="logisticsApp.productEntry.attachedCar">Attached Car</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressStreetAddress"><span jhiTranslate="logisticsApp.productEntry.address">Address</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="attachedToDriverByLogin"><span jhiTranslate="logisticsApp.productEntry.attachedToDriverBy">Attached To Driver By</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deliveryItemsSentByLogin"><span jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy">Delivery Items Sent By</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="markedAsDeliveredByLogin"><span jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy">Marked As Delivered By</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.productEntry.companyId">Company</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="price"><span jhiTranslate="logisticsApp.productEntry.price">Price</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="deliveryFlag"><span
+                    jhiTranslate="logisticsApp.productEntry.deliveryFlag">Delivery Flag</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="hallFlag"><span jhiTranslate="logisticsApp.productEntry.hallFlag">Hall Flag</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="defectFlag"><span jhiTranslate="logisticsApp.productEntry.defectFlag">Defect Flag</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="virtualFlag"><span
+                    jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="reason"><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="comment"><span jhiTranslate="logisticsApp.productEntry.comment">Comment</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="guid"><span jhiTranslate="logisticsApp.productEntry.guid">Guid</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="qty"><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="discount"><span jhiTranslate="logisticsApp.productEntry.discount">Discount</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="status"><span jhiTranslate="logisticsApp.productEntry.status">Status</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="cancelled"><span jhiTranslate="logisticsApp.productEntry.cancelled">Cancelled</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="serialNumber"><span
+                    jhiTranslate="logisticsApp.productEntry.serialNumber">Serial Number</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="attachedToCarTime"><span jhiTranslate="logisticsApp.productEntry.attachedToCarTime">Attached To Car Time</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="deliveryStartTime"><span jhiTranslate="logisticsApp.productEntry.deliveryStartTime">Delivery Start Time</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="deliveryEndTime"><span jhiTranslate="logisticsApp.productEntry.deliveryEndTime">Delivery End Time</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="productName"><span jhiTranslate="logisticsApp.productEntry.product">Product</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="sellerIDSellerID"><span
+                    jhiTranslate="logisticsApp.productEntry.sellerID">Seller ID</span> <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.productEntry.receipt">Receipt</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="driverLastName"><span jhiTranslate="logisticsApp.productEntry.driver">Driver</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="attachedCarNumber"><span jhiTranslate="logisticsApp.productEntry.attachedCar">Attached Car</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="addressStreetAddress"><span
+                    jhiTranslate="logisticsApp.productEntry.address">Address</span> <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="attachedToDriverByLogin"><span
+                    jhiTranslate="logisticsApp.productEntry.attachedToDriverBy">Attached To Driver By</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="deliveryItemsSentByLogin"><span
+                    jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy">Delivery Items Sent By</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="markedAsDeliveredByLogin"><span
+                    jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy">Marked As Delivered By</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.productEntry.companyId">Company</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let productEntry of productEntries ;trackBy: trackId">
                 <td><a [routerLink]="['../product-entry', productEntry.id ]">{{productEntry.id}}</a></td>
                 <td>{{productEntry.price}}</td>
-                <td jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">{{productEntry.deliveryFlag}}</td>
+                <td jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">
+                    {{productEntry.deliveryFlag}}
+                </td>
                 <td jhiTranslate="{{'logisticsApp.SalesPlace.' + productEntry.hallFlag}}">{{productEntry.hallFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}">{{productEntry.defectFlag}}</td>
-                <td jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}">{{productEntry.virtualFlag}}</td>
+                <td jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}">
+                    {{productEntry.defectFlag}}
+                </td>
+                <td jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}">
+                    {{productEntry.virtualFlag}}
+                </td>
                 <td>{{productEntry.reason}}</td>
                 <td>{{productEntry.comment}}</td>
                 <td>{{productEntry.guid}}</td>
@@ -67,32 +108,32 @@
                 <td>{{productEntry.deliveryEndTime | date:'medium'}}</td>
                 <td>
                     <div *ngIf="productEntry.productId">
-                        <a [routerLink]="['../product', productEntry.productId  ]" >{{productEntry.productName}}</a>
+                        <a [routerLink]="['../product', productEntry.productId  ]">{{productEntry.productName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.sellerIDId">
-                        <a [routerLink]="['../seller', productEntry.sellerIDId  ]" >{{productEntry.sellerIDSellerID}}</a>
+                        <a [routerLink]="['../seller', productEntry.sellerIDId  ]">{{productEntry.sellerIDSellerID}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.receiptId">
-                        <a [routerLink]="['../receipt', productEntry.receiptId  ]" >{{productEntry.receiptDocNum}}</a>
+                        <a [routerLink]="['../receipt', productEntry.receiptId  ]">{{productEntry.receiptDocNum}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.driverId">
-                        <a [routerLink]="['../driver', productEntry.driverId  ]" >{{productEntry.driverLastName}}</a>
+                        <a [routerLink]="['../driver', productEntry.driverId  ]">{{productEntry.driverLastName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.attachedCarId">
-                        <a [routerLink]="['../car', productEntry.attachedCarId  ]" >{{productEntry.attachedCarNumber}}</a>
+                        <a [routerLink]="['../car', productEntry.attachedCarId  ]">{{productEntry.attachedCarNumber}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="productEntry.addressId">
-                        <a [routerLink]="['../address', productEntry.addressId  ]" >{{productEntry.addressStreetAddress}}</a>
+                        <a [routerLink]="['../address', productEntry.addressId  ]">{{productEntry.addressStreetAddress}}</a>
                     </div>
                 </td>
                 <td>
@@ -106,7 +147,7 @@
                 </td>
                 <td>
                     <div *ngIf="productEntry.companyId">
-                        <a [routerLink]="['../company', productEntry.companyId  ]" >{{productEntry.companyName}}</a>
+                        <a [routerLink]="['../company', productEntry.companyId  ]">{{productEntry.companyName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -137,12 +178,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="productEntries && productEntries.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="productEntries && productEntries.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

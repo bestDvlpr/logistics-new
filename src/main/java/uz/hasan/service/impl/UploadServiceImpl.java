@@ -1,7 +1,6 @@
 package uz.hasan.service.impl;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,8 +27,6 @@ import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
 import javax.persistence.EntityManager;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -39,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -79,6 +75,8 @@ public class UploadServiceImpl implements UploadService {
 
     private final ProductRepository productRepository;
 
+    private final CompanyRepository companyRepository;
+
     public UploadServiceImpl(ReceiptRepository receiptRepository,
                              ReceiptMapper receiptMapper,
                              ReceiptProductEntriesMapper receiptProductEntriesMapper,
@@ -92,7 +90,8 @@ public class UploadServiceImpl implements UploadService {
                              CustomProductEntriesMapper customProductEntryMapper,
                              ExcelService excelService,
                              EntityManager entityManager,
-                             ProductRepository productRepository) {
+                             ProductRepository productRepository,
+                             CompanyRepository companyRepository) {
         this.receiptRepository = receiptRepository;
         this.receiptMapper = receiptMapper;
         this.receiptProductEntriesMapper = receiptProductEntriesMapper;
@@ -107,6 +106,7 @@ public class UploadServiceImpl implements UploadService {
         this.excelService = excelService;
         this.entityManager = entityManager;
         this.productRepository = productRepository;
+        this.companyRepository = companyRepository;
     }
 
     @Override
@@ -149,8 +149,18 @@ public class UploadServiceImpl implements UploadService {
             receipt.setCompany(company);
             receipt.setDocID(docID);
             receipt.setDocNum(docID);
-            receipt.setStatus(ReceiptStatus.NEW);
+            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
             receipt.setDocDate(date != null ? date.getTime() : ZonedDateTime.now().toEpochSecond());
+            receipt.setSentToDCTime(ZonedDateTime.now());
+
+            Row companyRow = sheet.getRow(5);
+            Cell companyCell = companyRow.getCell(1);
+            String companyName = companyCell.getStringCellValue().substring(12, 29);
+            Company receiver = companyRepository.findByName(companyName);
+            if (receiver != null) {
+                receipt.setAddress(receiver.getAddress());
+                receipt.setReceiver(receiver);
+            }
 
             receipt = receiptRepository.save(receipt);
 
@@ -199,6 +209,7 @@ public class UploadServiceImpl implements UploadService {
         productEntry.setDefectFlag(DefectFlag.WELL);
         productEntry.setQty(BigDecimal.ONE);
         productEntry.setReceipt(receipt);
+        productEntry.setAddress(receipt.getAddress());
         return productEntry;
     }
 }

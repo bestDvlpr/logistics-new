@@ -44,6 +44,26 @@
                         </p>
                     </div>
                 </div>
+                <div class="row" *ngIf="receipt.receiver">
+                    <div class="col-md-3 text-muted">
+                        <h1 class="display-4">
+                            <span class="fa fa-building"></span>
+                        </h1>
+                    </div>
+                    <div class="col-md-9">
+                        <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
+                        {{receipt.receiver.id}}
+                        <p class="card-text">
+                            <span jhiTranslate="logisticsApp.company.name">Name</span>
+                            : {{receipt.receiver.name}}
+                            <br/>
+                            <span jhiTranslate="logisticsApp.company.type">Type</span>
+                            : <span jhiTranslate="{{'logisticsApp.CompanyType.'+receipt.receiver.type}}">
+                                {{receipt.receiver.type}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="col-md-10" *ngIf="dataHolderService._receipt">
                 <div class="row">

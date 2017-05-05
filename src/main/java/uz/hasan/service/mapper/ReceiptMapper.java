@@ -26,6 +26,9 @@ public interface ReceiptMapper {
     @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
     @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "company.name", target = "companyName")
+    @Mapping(source = "receiver.id", target = "receiver.id")
+    @Mapping(source = "receiver.name", target = "receiver.name")
+    @Mapping(source = "receiver.type", target = "receiver.type")
     ReceiptDTO receiptToReceiptDTO(Receipt receipt);
 
     List<ReceiptDTO> receiptsToReceiptDTOs(List<Receipt> receipts);
@@ -39,6 +42,7 @@ public interface ReceiptMapper {
     @Mapping(source = "markedAsDeliveredById", target = "markedAsDeliveredBy")
     @Mapping(source = "addressId", target = "address")
     @Mapping(source = "companyId", target = "company")
+    @Mapping(source = "receiverId", target = "receiver")
     Receipt receiptDTOToReceipt(ReceiptDTO receiptDTO);
 
     List<Receipt> receiptDTOsToReceipts(List<ReceiptDTO> receiptDTOs);

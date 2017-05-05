@@ -1,7 +1,6 @@
 <div>
     <h2>
-        <span jhiTranslate="logisticsApp.receipt.home.title"
-              jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER">Receipts</span>
+        <span jhiTranslate="logisticsApp.receipt.home.title">Receipts</span>
         <span jhiTranslate="logisticsApp.receipt.home.acceptedTitle" jhiHasAuthority="ROLE_DISPATCHER">Receipts</span>
         <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
@@ -10,7 +9,44 @@
                 Create new Application
             </span>
         </button>
+
+        <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_WAREHOUSE"
+                (click)="toggleUploadForm()">
+            <span class="fa fa-plus"></span>
+            <span jhiTranslate="logisticsApp.receipt.home.createLabel">
+                Create new Application
+            </span>
+        </button>
     </h2>
+    <jhi-alert></jhi-alert>
+
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+    </div>
+
+    <div class="container-fluid" *ngIf="uploadForm">
+        <div class="row">
+            <div class="col-md-3 offset-md-9">
+                <form name="uploadForm" novalidate role="form" #uploadForm="ngForm"
+                      enctype="multipart/form-data">
+                    <!--<div class="input-group">
+                        <input type="file" id="file" class="form-control">
+                        <span class="input-group-btn">
+                    <button class="btn btn-primary input-group-addon">AAA</button>
+                    </span>
+                    </div>-->
+                    <div class="form-group">
+                        <input type="file" (change)="fileChangeEvent($event)"/>
+                        <!--<file-upload #fu (change)="fu.upload()" [multiple]="false"></file-upload>-->
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary" (click)="uploadReceipt()">
+                        <span jhiTranslate="entity.action.upload">Upload</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">
@@ -24,7 +60,10 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
+                <th jhiSortBy="clientFirstName" jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER,ROLE_MANAGER,ROLE_CREDIT">
+                    <span jhiTranslate="logisticsApp.receipt.client">Client</span><span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="receiver" jhiHasAuthority="ROLE_WAREHOUSE"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.receipt.companyId">Company</span> <span
                     class="fa fa-sort"></span></th>
@@ -35,21 +74,22 @@
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="fromTime"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
+                <th jhiSortBy="fromTime" *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="toTime"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span>
+                <th jhiSortBy="toTime" *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="deliveryDate"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
+                <th jhiSortBy="deliveryDate" *ngIf="!isWarehouseUser"><span
+                    jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="address.region">
+                <th jhiSortBy="address.region" *ngIf="!isWarehouseUser">
                     <span jhiTranslate="logisticsApp.address.region">Region</span> <span
                     class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="address.district">
+                <th jhiSortBy="address.district" *ngIf="!isWarehouseUser">
                     <span jhiTranslate="logisticsApp.address.district">District</span> <span
                     class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="address">
+                <th jhiSortBy="address" *ngIf="!isWarehouseUser">
                     <span jhiTranslate="logisticsApp.receipt.address">Addresses</span> <span
                     class="fa fa-sort"></span>
                 </th>
@@ -61,12 +101,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let receipt of receipts ;trackBy: trackId">
+            <tr *ngFor="let receipt of receipts; trackBy: trackId">
                 <td>{{receipt.id}}</td>
-                <td>
+                <td jhiHasAnyAuthority="ROLE_ADMIN,ROLE_MANAGER,ROLE_CASHIER,ROLE_CREDIT">
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+'
-                            '+receipt.client.lastName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">
+                            {{receipt.client.firstName+' '+receipt.client.lastName}}
+                        </a>
+                    </div>
+                </td>
+                <td jhiHasAuthority="ROLE_WAREHOUSE">
+                    <div *ngIf="receipt.receiver">
+                        <a [routerLink]="['../company', receipt.receiver.id  ]">{{receipt.receiver.name}}</a>
                     </div>
                 </td>
                 <td>
@@ -92,21 +138,37 @@
                           *ngIf="receipt.docType === docTypeEnum.RETURN">
                     {{receipt.docType}}
                     </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-info"
+                          *ngIf="receipt.docType === docTypeEnum.DISPLACEMENT">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary"
+                          *ngIf="receipt.docType === docTypeEnum.INCOMING">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning"
+                          *ngIf="receipt.docType === docTypeEnum.OUTGOING">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                          *ngIf="receipt.docType === docTypeEnum.CREDIT">
+                    {{receipt.docType}}
+                    </span>
                 </td>
-                <td>{{receipt.fromTime}}</td>
-                <td>{{receipt.toTime}}</td>
-                <td>{{receipt.deliveryDate | date}}</td>
-                <td>
+                <td *ngIf="!isWarehouseUser">{{receipt.fromTime}}</td>
+                <td *ngIf="!isWarehouseUser">{{receipt.toTime}}</td>
+                <td *ngIf="!isWarehouseUser">{{receipt.deliveryDate | date}}</td>
+                <td *ngIf="!isWarehouseUser">
                     <div *ngIf="receipt.address && receipt.address.regionName">
                         {{receipt.address.regionName}}
                     </div>
                 </td>
-                <td>
+                <td *ngIf="!isWarehouseUser">
                     <div *ngIf="receipt.address && receipt.address.districtName">
                         {{receipt.address.districtName}}
                     </div>
                 </td>
-                <td>
+                <td *ngIf="!isWarehouseUser">
                     <div *ngIf="receipt.address">
                         <span class="fa fa-location-arrow"></span>
                         {{receipt.address.streetAddress}}
@@ -179,24 +241,24 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
-                            (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
+                            (click)="goClientSelectionStep(receipt.id)"
+                            jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
                         <span class="fa fa-send"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
-                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER">
+                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER,ROLE_WAREHOUSE,ROLE_CREDIT">
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT">
+                            *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT && !isDCEmployee">
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.predownload">Download</span>
                     </button>
                     <button type="button" class="btn btn-success btn-sm"
                             [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/delivery'} }]"
-                            jhiHasAuthority="ROLE_CASHIER"
-                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER">
+                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER && !isDCEmployee">
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.fulldownload">Download</span>
                     </button>
@@ -205,8 +267,12 @@
             </tbody>
         </table>
     </div>
-    <div class="text-xs-center" *ngIf="receipts && receipts.length">
-        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    <div *ngIf="receipts && receipts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

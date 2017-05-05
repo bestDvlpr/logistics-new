@@ -1,17 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {JhiLanguageService, AlertService} from 'ng-jhipster';
-import {Receipt} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {TranslateService} from 'ng2-translate';
-import {ClientService} from '../client/client.service';
-import {Client} from '../client/client.model';
-import {DataHolderService} from './data-holder.service';
-import {Response} from '@angular/http';
-import {EventManager} from 'ng-jhipster';
-import {Address} from '../address/address.model';
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {receiptPopupRoute} from './receipt.route';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
+import {Receipt} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {TranslateService} from "ng2-translate";
+import {ClientService} from "../client/client.service";
+import {Client} from "../client/client.model";
+import {DataHolderService} from "./data-holder.service";
+import {Response} from "@angular/http";
+import {Company} from "../company/company.model";
+import {CompanyService} from "../company/company.service";
 
 @Component({
     selector: 'jhi-receipt-send-client',
@@ -23,9 +21,12 @@ export class ReceiptSendClientComponent implements OnInit {
     private subscription: any;
     phoneNumber: string;
     client: Client;
-    public clientSelected: boolean = false;
-    public uncheckedProdsExist: boolean = false;
+    clientSelected = false;
+    isCompanySelected = false;
+    companySelected: Company;
+    uncheckedProdsExist = false;
     isSaving: boolean;
+    companies: Company[];
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -35,9 +36,21 @@ export class ReceiptSendClientComponent implements OnInit {
                 public dataHolderService: DataHolderService,
                 public translateService: TranslateService,
                 private router: Router,
+                private companyService: CompanyService,
                 private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
+            [
+                'receipt',
+                'docType',
+                'wholeSaleFlag',
+                'productEntry',
+                'product',
+                'client',
+                'phoneNumber',
+                'address',
+                'car',
+                'companyType'
+            ]
         );
     }
 
@@ -59,6 +72,9 @@ export class ReceiptSendClientComponent implements OnInit {
         if (this.dataHolderService._client !== null) {
             this.client = this.dataHolderService._client;
         }
+        this.companyService.all().subscribe((res) => {
+            this.companies = res.json();
+        });
     }
 
     load(id) {
@@ -86,6 +102,17 @@ export class ReceiptSendClientComponent implements OnInit {
 
     public toggleClientSelected() {
         this.clientSelected = !this.clientSelected;
+    }
+
+    public toggleCompanySelected(company: Company) {
+        this.isCompanySelected = !this.isCompanySelected;
+        if (this.isCompanySelected) {
+            for (let a of this.companies) {
+                if (a === company) {
+                    this.companySelected = a;
+                }
+            }
+        }
     }
 
     public goAddressSelectStep() {

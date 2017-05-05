@@ -1,9 +1,13 @@
 {
     "logisticsApp": {
-        "DocType" : {
+        "DocType": {
             "null": "",
             "RETURN": "RETURN",
-            "SALES": "SALES"
+            "SALES": "SALES",
+            "DISPLACEMENT": "DISPLACEMENT",
+            "INCOMING": "INCOMING",
+            "OUTGOING": "OUTGOING",
+            "CREDIT": "CREDIT"
         }
     }
 }

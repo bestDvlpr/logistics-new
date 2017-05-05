@@ -2,10 +2,10 @@ package uz.hasan.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import uz.hasan.domain.Receipt;
-
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import uz.hasan.domain.Receipt;
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 
@@ -52,4 +52,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findAllByStatusIn(Pageable pageable, Collection<ReceiptStatus> statuses);
 
     Page<Receipt> findAllByDocType(Pageable pageable, DocType docType);
+
+    Page<Receipt> findByDocTypeAndCompanyIdNumberOrderByDocDateDesc(Pageable pageable, DocType displacement, String idNumber);
 }

@@ -1,11 +1,13 @@
 <div>
     <h2><span jhiTranslate="logisticsApp.payType.home.title">Pay Types</span>
-        <button class="btn btn-primary float-xs-right create-pay-type" [routerLink]="['/', { outlets: { popup: ['pay-type-new'] } }]">
+        <button class="btn btn-primary float-xs-right create-pay-type"
+                [routerLink]="['/', { outlets: { popup: ['pay-type-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.payType.home.createLabel">
+            <span jhiTranslate="logisticsApp.payType.home.createLabel">
             Create new Pay Type
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">
@@ -17,13 +19,18 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.payType.serial">Serial</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="paymentType"><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="amount"><span jhiTranslate="logisticsApp.payType.amount">Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.payType.sapCode">Sap Code</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="serial"><span jhiTranslate="logisticsApp.payType.serial">Serial</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="paymentType"><span jhiTranslate="logisticsApp.payType.paymentType">Payment Type</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="amount"><span jhiTranslate="logisticsApp.payType.amount">Amount</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="receiptDocNum"><span jhiTranslate="logisticsApp.payType.receipt">Receipt</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -35,7 +42,7 @@
                 <td>{{payType.amount}}</td>
                 <td>
                     <div *ngIf="payType.receiptId">
-                        <a [routerLink]="['../receipt', payType.receiptId  ]" >{{payType.receiptDocNum}}</a>
+                        <a [routerLink]="['../receipt', payType.receiptId  ]">{{payType.receiptDocNum}}</a>
                     </div>
                 </td>
                 <td class="text-xs-right">
@@ -66,8 +73,13 @@
             </tbody>
         </table>
     </div>
-        <div class="text-xs-center" *ngIf="payTypes && payTypes.length">
+    <div *ngIf="payTypes && payTypes.length">
+        <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

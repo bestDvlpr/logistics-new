@@ -1,0 +1,11 @@
+id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;created_date;last_modified_by;company_id
+17;sklad_qoratosh;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_qoratosh@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1001
+18;sklad_rohat;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_rohat@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1002
+19;sklad_ipak;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_ipak@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1004
+20;sklad_sergeli;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_sereli@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1003
+21;sklad_vatan;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_vatan@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;1004
+22;sklad_qoqon;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Sklad;Sklad;sklad_qoqon@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;2001
+23;home_qoratosh;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Home;Home;home_qoratosh@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;3101
+24;home_ipak;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Home;Home;home_ipak@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;3104
+25;home_sergeli;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Home;Home;home_sereli@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;3103
+26;home_qoqon;$2a$10$ng4exbc.7Nd/Z4/1cpY64.NNBx43TS9d700EsuIzh0CHL336Pjnxe;Home;Home;home_qoqon@localhost;;true;ru;system;2017-02-21 13:22:17.226043;system;3201

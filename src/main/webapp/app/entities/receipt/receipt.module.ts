@@ -30,7 +30,6 @@ import {
     ReceiptCreditComponent,
 } from './';
 import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
-import {FileUploadModule} from '../../shared/fileupload/file-upload.module';
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -41,8 +40,7 @@ let ENTITY_STATES = [
     imports: [
         LogisticsSharedModule,
         RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
-        AutocompleteModule,
-        FileUploadModule
+        AutocompleteModule
     ],
     declarations: [
         ReceiptComponent,

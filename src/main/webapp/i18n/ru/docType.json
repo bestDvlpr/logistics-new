@@ -3,7 +3,11 @@
         "DocType" : {
             "null": "",
             "RETURN": "ВОЗВРАТ",
-            "SALES": "ПРОДАЖА"
+            "SALES": "ПРОДАЖА",
+            "DISPLACEMENT": "ПЕРЕМЕЩЕНИЯ",
+            "INCOMING": "ПРИХОД",
+            "OUTGOING": "РАСХОД",
+            "CREDIT": "КРЕДИТ"
         }
     }
 }

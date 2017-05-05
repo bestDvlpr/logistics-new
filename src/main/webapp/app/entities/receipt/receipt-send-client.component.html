@@ -14,7 +14,7 @@
     <jhi-alert-error></jhi-alert-error>
     <hr>
     <div class="row" *ngIf="uncheckedProdsExist">
-        <div class="col-md-12">
+        <div class="col-md-12" jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
             <div class="card">
                 <div class="card-header">
                     <label jhiTranslate="logisticsApp.phoneNumber.detail.title">Phone Number</label>
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info btn-sm">

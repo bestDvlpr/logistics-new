@@ -1,10 +1,15 @@
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {Address} from '../address/address.model';
-import {Car} from '../car/car.model';
-import {Client} from '../client/client.model';
+import {ProductEntry} from "../product-entry/product-entry.model";
+import {Address} from "../address/address.model";
+import {Car} from "../car/car.model";
+import {Client} from "../client/client.model";
+import {Company} from "../company/company.model";
 export enum DocType {
     RETURN = <any>'RETURN',
-    SALES = <any>'SALES'
+    SALES = <any>'SALES',
+    DISPLACEMENT = <any>'DISPLACEMENT',
+    INCOMING = <any>'INCOMING',
+    OUTGOING = <any>'OUTGOING',
+    CREDIT = <any>'CREDIT'
 }
 export enum WholeSaleFlag {
     RETAIL = <any>'RETAIL',
@@ -46,7 +51,9 @@ export class Receipt {
                 public markedAsDeliveredById?: number,
                 public deliveryDate?: number,
                 public address?: Address,
-                public deliveredDateTime = '' // formatted datetime as string 'yyyy-MM-dd hh24:mm:ss'
-    ) {
+                public deliveredDateTime = '', // formatted datetime as string 'yyyy-MM-dd hh24:mm:ss'
+                public receiverId?: number,
+                public receiverName?: string,
+                public receiver?: Company) {
     }
 }

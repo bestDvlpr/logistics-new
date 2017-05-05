@@ -100,6 +100,9 @@ public class Receipt implements Serializable {
     @NotNull
     private Company company;
 
+    @ManyToOne
+    private Company receiver;
+
     public Long getId() {
         return id;
     }
@@ -403,6 +406,19 @@ public class Receipt implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Company getReceiver() {
+        return receiver;
+    }
+
+    public Receipt receiver(Company company) {
+        this.receiver = company;
+        return this;
+    }
+
+    public void setReceiver(Company company) {
+        this.receiver = company;
     }
 
     @Override

@@ -2,8 +2,14 @@ package uz.hasan.service.mapper;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.*;
-import uz.hasan.repository.*;
+import uz.hasan.domain.LoyaltyCard;
+import uz.hasan.domain.ProductEntry;
+import uz.hasan.domain.Receipt;
+import uz.hasan.domain.User;
+import uz.hasan.repository.ClientRepository;
+import uz.hasan.repository.CompanyRepository;
+import uz.hasan.repository.PayMasterRepository;
+import uz.hasan.repository.UserRepository;
 import uz.hasan.service.UserService;
 import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptDTO;
@@ -14,8 +20,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -34,6 +38,7 @@ public class ReceiptProductEntriesMapper {
     private final PayMasterRepository payMasterRepository;
     private final AddressMapper addressMapper;
     private final UserRepository userRepository;
+    private final CompanyMapper companyMapper;
 
     public ReceiptProductEntriesMapper(ProductEntryMapper productEntryMapper,
                                        ReceiptMapper receiptMapper,
@@ -44,7 +49,8 @@ public class ReceiptProductEntriesMapper {
                                        CustomProductEntriesMapper customProductEntriesMapper,
                                        PayMasterRepository payMasterRepository,
                                        AddressMapper addressMapper,
-                                       UserRepository userRepository) {
+                                       UserRepository userRepository,
+                                       CompanyMapper companyMapper) {
         this.productEntryMapper = productEntryMapper;
         this.receiptMapper = receiptMapper;
         this.companyRepository = companyRepository;
@@ -55,6 +61,7 @@ public class ReceiptProductEntriesMapper {
         this.payMasterRepository = payMasterRepository;
         this.addressMapper = addressMapper;
         this.userRepository = userRepository;
+        this.companyMapper = companyMapper;
     }
 
     public ReceiptProductEntriesDTO receiptToReceiptProductEntryDTO(Receipt receipt) {
@@ -114,6 +121,11 @@ public class ReceiptProductEntriesMapper {
         ZonedDateTime deliveryDate = receipt.getDeliveredTime();
         if (deliveryDate != null) {
             entriesDTO.setDeliveredDateTime(receipt.getDeliveredTime().format(dateTimeFormatter));
+        }
+        entriesDTO.setReceiver(receipt.getReceiver() != null ? companyMapper.companyToCompanyDTO(receipt.getReceiver()) : null);
+        if (entriesDTO.getReceiver() != null) {
+            entriesDTO.setReceiverId(receipt.getReceiver().getId());
+            entriesDTO.setReceiverName(receipt.getReceiver().getName());
         }
 
         return entriesDTO;
@@ -175,6 +187,7 @@ public class ReceiptProductEntriesMapper {
             }
         }
         receipt.setDeliveredTime(dateTime);
+        receipt.setReceiver(receiptDTO.getReceiverId() != null ? companyRepository.findOne(receiptDTO.getReceiverId()) : null);
 
         return receipt;
     }

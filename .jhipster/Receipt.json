@@ -61,22 +61,22 @@
                 "required"
             ],
             "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "receiver",
+            "otherEntityName": "company",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
             "fieldName": "docNum",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "docID",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "docType",
@@ -92,26 +92,17 @@
         },
         {
             "fieldName": "docDate",
-            "fieldType": "Long",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Long"
         },
         {
             "fieldName": "wholeSaleFlag",
             "fieldType": "WholeSaleFlag",
-            "fieldValues": "RETAIL,WHOLESALE",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "RETAIL,WHOLESALE"
         },
         {
             "fieldName": "status",
             "fieldType": "ReceiptStatus",
-            "fieldValues": "NEW,APPLICATION_SENT,ATTACHED_TO_DRIVER,DELIVERY_PROCESS,DELIVERED",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "NEW,APPLICATION_SENT,ATTACHED_TO_DRIVER,DELIVERY_PROCESS,DELIVERED"
         },
         {
             "fieldName": "sentToDCTime",

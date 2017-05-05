@@ -76,6 +76,12 @@ public class ReceiptDTO implements Serializable {
 
     private String companyName;
 
+    private Long receiverId;
+
+    private String receiverName;
+
+    private CompanyDTO receiver;
+
     public Long getId() {
         return id;
     }
@@ -278,6 +284,30 @@ public class ReceiptDTO implements Serializable {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Long getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public CompanyDTO getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(CompanyDTO receiver) {
+        this.receiver = receiver;
     }
 
     @Override

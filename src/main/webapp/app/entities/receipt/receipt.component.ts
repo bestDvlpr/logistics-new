@@ -15,6 +15,7 @@ import {CarService} from '../car/car.service';
 import {isUndefined} from 'util';
 import {ProductEntryService} from '../product-entry/product-entry.service';
 import * as FileSaver from 'file-saver';
+import {UploadService} from "./upload.service";
 
 @Component({
     selector: 'jhi-receipt',
@@ -37,16 +38,21 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    uploadForm = false;
     receiptStatusEnum = ReceiptStatus;
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
     isDCEmployee = false;
+    receiptFile: any;
+    isWarehouseUser = false;
+    receipt: Receipt;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
+                private uploadService: UploadService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: EventManager,
@@ -61,7 +67,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.predicate = data['pagingParams'].predicate;
         });
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address']
+            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address', 'companyType']
         );
     }
 
@@ -152,6 +158,9 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
                     this.isDCEmployee = true;
+                }
+                if (auth ==='ROLE_WAREHOUSE'){
+                    this.isWarehouseUser=true;
                 }
             }
             if (this.isDCEmployee) {
@@ -303,5 +312,22 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         }
         this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         // this.router.navigate(['/']);
+    }
+
+    toggleUploadForm() {
+        this.uploadForm = !this.uploadForm;
+    }
+
+    fileChangeEvent(fileInput: any) {
+        this.receiptFile = fileInput.target.files[0];
+    }
+
+    uploadReceipt() {
+        console.log(this.receiptFile);
+        const postData = {name: this.receiptFile.name, size: this.receiptFile.size};
+        this.uploadService.upload(postData, this.receiptFile).subscribe((res: Response) => {
+            this.receipt = res.json();
+            this.router.navigate(['/']);
+        });
     }
 }

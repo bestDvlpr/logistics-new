@@ -198,10 +198,15 @@ public class ReceiptServiceImpl implements ReceiptService {
         log.debug("Request to get all new Receipts");
 
         User userWithAuthorities = userService.getUserWithAuthorities();
+        Set<Authority> authorities = userWithAuthorities.getAuthorities();
+        String idNumber = userWithAuthorities.getCompany().getIdNumber();
+
         Page<Receipt> result;
-        if (userWithAuthorities.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
-            String idNumber = userWithAuthorities.getCompany().getIdNumber();
+
+        if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
             result = receiptRepository.findByCompanyIdNumberOrderByDocDateDesc(pageable, idNumber);
+        } else if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.WAREHOUSE))) {
+            result = receiptRepository.findByDocTypeAndCompanyIdNumberOrderByDocDateDesc(pageable, DocType.DISPLACEMENT, idNumber);
         } else {
             result = receiptRepository.findAll(pageable);
         }
@@ -459,10 +464,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     /**
-     *  Get all archived receipts.
+     * Get all archived receipts.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     public Page<ReceiptProductEntriesDTO> findDisplacementReceipts(Pageable pageable) {
@@ -472,10 +477,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     /**
-     *  Get all credit receipts.
+     * Get all credit receipts.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     public Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable) {
@@ -549,8 +554,12 @@ public class ReceiptServiceImpl implements ReceiptService {
         /* add client fields*/
         Receipt receipt = productEntry.getReceipt();
         Client client = null;
+        Company receiver = null;
         if (receipt != null) {
             client = receipt.getClient();
+            if (client == null) {
+                receiver = receipt.getReceiver();
+            }
         }
         if (receipt == null || receipt.getAddress() == null) {
             result.put("clientAddress", "");
@@ -564,15 +573,11 @@ public class ReceiptServiceImpl implements ReceiptService {
             streetAddress += address.getCountry().getName();
             result.put("clientAddress", streetAddress);
         }
-        result.put("clientBankAccountNumber", (client != null && client.getBankAccountNumber() != null) ? client.getBankAccountNumber() : "");
-        result.put("clientBankBranchRegion", (client != null && client.getBankFilialRegion() != null) ? client.getBankFilialRegion() : "");
-        result.put("clientBankName", (client != null && client.getBankName() != null) ? client.getBankName() : "");
-        result.put("clientBankMfo", (client != null && client.getMfo() != null) ? client.getMfo() : "");
-        result.put("clientOkonx", (client != null && client.getOkonx() != null) ? client.getOkonx() : "");
-        result.put("clientOked", (client != null && client.getOked() != null) ? client.getOked() : "");
-        result.put("clientTin", (client != null && client.getTin() != null) ? client.getTin() : "");
         result.put("clientFirstName", (client != null && client.getFirstName() != null) ? client.getFirstName() : "");
         result.put("clientLastName", (client != null && client.getLastName() != null) ? client.getLastName() : "");
+        if (receiver != null) {
+            result.put("clientFirstName", receiver.getName());
+        }
         if (client != null && !client.getPhoneNumbers().isEmpty()) {
             List<String> phoneNumbers = new ArrayList<>();
             for (PhoneNumber number : client.getPhoneNumbers()) {
@@ -596,7 +601,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (ProductEntry entry : productEntries) {
             uz.hasan.invoice.Product product = new uz.hasan.invoice.Product();
             product.setDeliveryStartTime(entry.getDeliveryStartTime() != null ? formatter.format(Date.from(entry.getDeliveryStartTime().toInstant())) : null);
-            product.setPrice(String.valueOf(entry.getPrice()));
+            product.setPrice(entry.getPrice() != null ? String.valueOf(entry.getPrice()) : "---");
             product.setProductName((entry.getProduct() != null && entry.getProduct().getName() != null) ? entry.getProduct().getName() : "");
             product.setQuantity(String.valueOf(entry.getQty()));
             product.setReceiptId((receipt != null && receipt.getId() != null) ? String.valueOf(receipt.getId()) : "");

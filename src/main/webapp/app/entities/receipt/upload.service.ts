@@ -71,52 +71,52 @@
 //     }
 // }
 /*import {Injectable} from 'angular2/core';
-import {Observable} from 'rxjs/Rx';
+ import {Observable} from 'rxjs/Rx';
 
-@Injectable()
-export class UploadService {
-    constructor () {
-        this.progress$ = Observable.create(observer => {
-            this.progressObserver = observer
-        }).share();
-    }
+ @Injectable()
+ export class UploadService {
+ constructor () {
+ this.progress$ = Observable.create(observer => {
+ this.progressObserver = observer
+ }).share();
+ }
 
-    private makeFileRequest (url: string, params: string[], files: File[]): Observable {
-        return Observable.create(observer => {
-            let formData: FormData = new FormData(),
-                xhr: XMLHttpRequest = new XMLHttpRequest();
+ private makeFileRequest (url: string, params: string[], files: File[]): Observable {
+ return Observable.create(observer => {
+ let formData: FormData = new FormData(),
+ xhr: XMLHttpRequest = new XMLHttpRequest();
 
-            for (let i = 0; i < files.length; i++) {
-                formData.append("uploads[]", files[i], files[i].name);
-            }
+ for (let i = 0; i < files.length; i++) {
+ formData.append("uploads[]", files[i], files[i].name);
+ }
 
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        observer.next(JSON.parse(xhr.response));
-                        observer.complete();
-                    } else {
-                        observer.error(xhr.response);
-                    }
-                }
-            };
+ xhr.onreadystatechange = () => {
+ if (xhr.readyState === 4) {
+ if (xhr.status === 200) {
+ observer.next(JSON.parse(xhr.response));
+ observer.complete();
+ } else {
+ observer.error(xhr.response);
+ }
+ }
+ };
 
-            xhr.upload.onprogress = (event) => {
-                this.progress = Math.round(event.loaded / event.total * 100);
+ xhr.upload.onprogress = (event) => {
+ this.progress = Math.round(event.loaded / event.total * 100);
 
-                this.progressObserver.next(this.progress);
-            };
+ this.progressObserver.next(this.progress);
+ };
 
-            xhr.open('POST', url, true);
-            xhr.send(formData);
-        });
-    }
-}*/
+ xhr.open('POST', url, true);
+ xhr.send(formData);
+ });
+ }
+ }*/
 
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Http, Headers, Response, Request, RequestMethod, URLSearchParams, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {Headers, Http, Response} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 declare var $: any;
 
 @Injectable()
@@ -126,19 +126,18 @@ export class UploadService {
     handleError: any;
 
     constructor(private router: Router,
-                private http: Http,
-    ) {
+                private http: Http,) {
         this.http = http;
     }
 
-    upload(postData: any, file: File) {
-
+    upload(postData: any, file: File): Observable<Response> {
         let headers = new Headers();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
 
         let formData: FormData = new FormData();
-        formData.append('files', file, file.name);
+        formData.append('file', file, file.name);
+
         // For multiple files
         // for (let i = 0; i < files.length; i++) {
         //     formData.append(`files[]`, files[i], files[i].name);
@@ -151,19 +150,8 @@ export class UploadService {
                 }
             }
         }
-        return new Promise((resolve, reject) => {
-            this.http.post(this.requestUrl.concat('/credit'), formData, {
-                headers: headers
-            }).subscribe(
-                res => {
-                    this.responseData = res.json();
-                    resolve(this.responseData);
-                },
-                error => {
-                    this.router.navigate(['/login']);
-                    reject(error);
-                }
-            );
+        return this.http.post(this.requestUrl.concat('/credit'), formData).map((res: Response) => {
+            return res;
         });
         // return returnResponse;
     }

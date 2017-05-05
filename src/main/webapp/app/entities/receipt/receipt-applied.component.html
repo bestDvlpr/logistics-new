@@ -58,6 +58,9 @@
                     <div *ngIf="receipt.clientId">
                         <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+' '+receipt.client.lastName}}</a>
                     </div>
+                    <div *ngIf="receipt.receiver">
+                        <a [routerLink]="['../company', receipt.receiver.id  ]">{{receipt.receiver.name}}</a>
+                    </div>
                 </td>
                 <td>
                     <div *ngIf="receipt.companyName">
@@ -80,6 +83,22 @@
                     </span>
                     <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
                           *ngIf="receipt.docType === docTypeEnum.RETURN">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-info"
+                          *ngIf="receipt.docType === docTypeEnum.DISPLACEMENT">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary"
+                          *ngIf="receipt.docType === docTypeEnum.INCOMING">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning"
+                          *ngIf="receipt.docType === docTypeEnum.OUTGOING">
+                    {{receipt.docType}}
+                    </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                          *ngIf="receipt.docType === docTypeEnum.CREDIT">
                     {{receipt.docType}}
                     </span>
                 </td>
@@ -178,18 +197,17 @@
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
-                        <span class="fa fa-download"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
-                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="text-xs-center" *ngIf="appliedReceipts && appliedReceipts.length">
-        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+    <div *ngIf="appliedReceipts && appliedReceipts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>
