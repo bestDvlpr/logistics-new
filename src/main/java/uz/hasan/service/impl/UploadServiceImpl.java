@@ -155,8 +155,10 @@ public class UploadServiceImpl implements UploadService {
 
             Row companyRow = sheet.getRow(5);
             Cell companyCell = companyRow.getCell(1);
-            String companyName = companyCell.getStringCellValue().substring(12, 29);
-            Company receiver = companyRepository.findByName(companyName);
+            String stringCellValue = companyCell.getStringCellValue();
+            String[] split = stringCellValue.trim().split("\\s+");
+            String companyName = split[1] + " " + split[2].replace(',',' ');
+            Company receiver = companyRepository.findByName(companyName.trim());
             if (receiver != null) {
                 receipt.setAddress(receiver.getAddress());
                 receipt.setReceiver(receiver);

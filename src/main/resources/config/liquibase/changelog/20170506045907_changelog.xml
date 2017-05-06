@@ -1,0 +1,13 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1494046759787-1">
+        <sql>
+            update company set name='MediaPark Караташ' where id_number='1101';
+            update company set name='MediaPark Рохат' where id_number='1102';
+            update company set name='MediaPark Сергели' where id_number='1103';
+            update company set name='MediaPark БИЙ (Горького)' where id_number='1104';
+            update company set name='MediaPark Коканд' where id_number='1201';
+            update company set name='Распределительный центр' where id_number='1005';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

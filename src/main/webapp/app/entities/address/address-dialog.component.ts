@@ -1,22 +1,24 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
 
-import {Address} from './address.model';
-import {AddressPopupService} from './address-popup.service';
-import {AddressService} from './address.service';
-import {Location, LocationService} from '../location';
-import {Client, ClientService} from '../client';
-import {Receipt, ReceiptService} from '../receipt';
-import {FormsModule} from '@angular/forms';
-import {DataHolderService} from '../receipt/data-holder.service';
+import {Address} from "./address.model";
+import {AddressPopupService} from "./address-popup.service";
+import {AddressService} from "./address.service";
+import {Location, LocationService} from "../location";
+import {Client, ClientService} from "../client";
+import {Receipt, ReceiptService} from "../receipt";
+import {DataHolderService} from "../receipt/data-holder.service";
+import {EnumAware} from "../receipt/doctypaware.decorator";
+import {LocationType} from "../location/location.model";
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
 })
+@EnumAware
 export class AddressDialogComponent implements OnInit {
 
     address: Address;
@@ -27,6 +29,8 @@ export class AddressDialogComponent implements OnInit {
     districts: Location[];
     clients: Client[];
     receipts: Receipt[];
+    locations: Location[];
+    locationTypeEnum = LocationType;
 
     constructor(public activeModal: NgbActiveModal,
                 private jhiLanguageService: JhiLanguageService,
@@ -37,38 +41,74 @@ export class AddressDialogComponent implements OnInit {
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
                 private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['address', 'phoneNumber', 'receipt', 'productEntry', 'address', 'client', 'product']);
+        this.jhiLanguageService.setLocations(
+            [
+                'address',
+                'phoneNumber',
+                'receipt',
+                'productEntry',
+                'address',
+                'client',
+                'product',
+                'receiptStatus'
+            ]
+        );
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.locationService.findCountryList().subscribe(
-            (res: Response) => {
-                this.countries = res.json();
+        this.locationService.getAll().subscribe(
+            (res: Location[]) => {
+                this.locations = [];
+                this.locations = res;
+                this.setCountries();
+                if(this.address.id!==null){
+                    this.setRegions();
+                    this.setDistricts();
+                }
             }, (res: Response) => this.onError(res.json()));
         this.clientService.query().subscribe(
             (res: Response) => {
                 this.clients = res.json();
             }, (res: Response) => this.onError(res.json()));
-        this.receiptService.query().subscribe(
-            (res: Response) => {
-                this.receipts = res.json();
+        this.receiptService.getAll().subscribe(
+            (res: Receipt[]) => {
+                this.receipts = res;
             }, (res: Response) => this.onError(res.json()));
+    }
+
+    setCountries() {
+        if (this.locations.length > 0) {
+            this.countries = [];
+            for (let location of this.locations) {
+                if (location.type === this.locationTypeEnum.COUNTRY) {
+                    this.countries.push(location);
+                }
+            }
+        }
     }
 
     setRegions() {
-        this.locationService.findChildList(this.address.countryId).subscribe(
-            (res: Response) => {
-                this.regions = res.json();
-            }, (res: Response) => this.onError(res.json()));
+        if (this.locations.length > 0) {
+            this.regions = [];
+            for (let location of this.locations) {
+                if (location.parent !== null && location.parent.id === this.address.countryId) {
+                    this.regions.push(location);
+                }
+            }
+        }
     }
 
     setDistricts() {
-        this.locationService.findChildList(this.address.regionId).subscribe(
-            (res: Response) => {
-                this.districts = res.json();
-            }, (res: Response) => this.onError(res.json()));
+        if (this.locations.length > 0) {
+            this.districts = [];
+            for (let location of this.locations) {
+                if (location.parent !== null && location.parent.id === this.address.regionId) {
+                    this.districts.push(location);
+                }
+            }
+        }
     }
 
     clear() {

@@ -30,10 +30,11 @@
         <div class="form-group">
             <label jhiTranslate="logisticsApp.address.country" for="field_country">Country</label>
             <select class="form-control" id="field_country" name="country" [(ngModel)]="address.countryId" required
-                    (ngModelChange)="setRegions()">
+                    (change)="setRegions()">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="locationOption.id"
-                        *ngFor="let locationOption of countries; trackBy: trackLocationById">{{locationOption.name}}
+                        *ngFor="let locationOption of countries; trackBy: trackLocationById">
+                    {{locationOption.name}}
                 </option>
             </select>
         </div>

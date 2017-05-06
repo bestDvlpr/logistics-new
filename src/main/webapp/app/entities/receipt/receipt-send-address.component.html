@@ -25,6 +25,7 @@
                             <th jhiTranslate="logisticsApp.address.country"></th>
                             <th jhiTranslate="logisticsApp.address.region"></th>
                             <th jhiTranslate="logisticsApp.address.district"></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,12 +33,19 @@
                             <td>
                                 <input type="radio" class="radio radio-button" name="address"
                                        [(ngModel)]="addressSelected"
-                                       [value]="address" [checked]="addressSelected==address"/>
+                                       [value]="address" [checked]="addressSelected===address"/>
                             </td>
                             <td>{{address.streetAddress}}</td>
                             <td>{{address.countryName}}</td>
                             <td>{{address.regionName}}</td>
                             <td>{{address.districtName}}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm"
+                                        [routerLink]="['/', { outlets: { popup: 'address/'+ address.id + '/edit'} }]">
+                                    <span class="fa fa-pencil"></span>
+                                    <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
