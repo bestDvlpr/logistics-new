@@ -156,4 +156,12 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable);
+
+    /**
+     *  Get all credit receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findCreditReceiptsByCompanyId(Pageable pageable);
 }

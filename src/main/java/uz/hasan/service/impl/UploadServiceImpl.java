@@ -120,6 +120,17 @@ public class UploadServiceImpl implements UploadService {
         return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createReceipt(inputStream));
     }
 
+    @Override
+    public ReceiptProductEntriesDTO createCreditApplication(MultipartFile file) {
+        InputStream inputStream = null;
+        try {
+            inputStream = file.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createCreditReceipt(inputStream));
+    }
+
     private Receipt createReceipt(InputStream file) {
         Receipt receipt = new Receipt();
         try {
@@ -157,7 +168,7 @@ public class UploadServiceImpl implements UploadService {
             Cell companyCell = companyRow.getCell(1);
             String stringCellValue = companyCell.getStringCellValue();
             String[] split = stringCellValue.trim().split("\\s+");
-            String companyName = split[1] + " " + split[2].replace(',',' ');
+            String companyName = split[1] + " " + split[2].replace(',', ' ');
             Company receiver = companyRepository.findByName(companyName.trim());
             if (receiver != null) {
                 receipt.setAddress(receiver.getAddress());
@@ -184,14 +195,7 @@ public class UploadServiceImpl implements UploadService {
                     product = productRepository.save(newProduct);
                 }
 
-                if (quantity > 1) {
-                    int qty = ((int) quantity);
-                    for (int j = 0; j < qty; j++) {
-                        productEntrySet.add(createProductEntry(receipt, company, product));
-                    }
-                } else {
-                    productEntrySet.add(createProductEntry(receipt, company, product));
-                }
+                setProductEntries(receipt, productEntrySet, company, quantity, product, null);
             }
 
             productEntryRepository.save(productEntrySet);
@@ -202,7 +206,65 @@ public class UploadServiceImpl implements UploadService {
         return receipt;
     }
 
-    private ProductEntry createProductEntry(Receipt receipt, Company company, Product product) {
+    private Receipt createCreditReceipt(InputStream file) {
+        Receipt receipt = new Receipt();
+        try {
+            //Create Workbook instance holding reference to .xlsx file
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            //Get first/desired sheet from the workbook
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            Set<ProductEntry> productEntrySet = new HashSet<>();
+
+            Company company = userService.getUserWithAuthorities().getCompany();
+
+            receipt.setDocType(DocType.CREDIT);
+            receipt.setCompany(company);
+            receipt.setStatus(ReceiptStatus.NEW);
+            receipt.setDocDate(ZonedDateTime.now().toEpochSecond());
+
+            receipt = receiptRepository.save(receipt);
+
+            for (int i = 1; sheet.getRow(i) != null && sheet.getRow(i).getCell(1) != null && sheet.getRow(i).getCell(1).getStringCellValue() != null; i++) {
+                Row row = sheet.getRow(i);
+                String name = row.getCell(1).getStringCellValue();
+                double quantity = row.getCell(3).getNumericCellValue();
+                double price = row.getCell(4).getNumericCellValue();
+
+                Product product = productRepository.findByName(name);
+
+                if (product == null) {
+                    Product newProduct = new Product();
+                    newProduct.setName(name);
+                    newProduct.setUom("PCE");
+                    newProduct.setSapType("HAWA");
+                    product = productRepository.save(newProduct);
+                }
+
+                setProductEntries(receipt, productEntrySet, company, quantity, product, price);
+            }
+
+            productEntryRepository.save(productEntrySet);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return receipt;
+    }
+
+    private void setProductEntries(Receipt receipt, Set<ProductEntry> productEntrySet, Company company, double quantity, Product product, Double price) {
+        if (quantity > 1) {
+            int qty = ((int) quantity);
+            for (int j = 0; j < qty; j++) {
+                productEntrySet.add(createProductEntry(receipt, company, product, price));
+            }
+        } else {
+            productEntrySet.add(createProductEntry(receipt, company, product, price));
+        }
+    }
+
+    private ProductEntry createProductEntry(Receipt receipt, Company company, Product product, Double price) {
         ProductEntry productEntry = new ProductEntry();
         productEntry.setProduct(product);
         productEntry.setStatus(ReceiptStatus.NEW);
@@ -212,6 +274,7 @@ public class UploadServiceImpl implements UploadService {
         productEntry.setQty(BigDecimal.ONE);
         productEntry.setReceipt(receipt);
         productEntry.setAddress(receipt.getAddress());
+        productEntry.setPrice(price != null ? BigDecimal.valueOf(price) : null);
         return productEntry;
     }
 }

@@ -6,6 +6,7 @@ import uz.hasan.domain.Receipt;
 import uz.hasan.domain.Company;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.service.ReceiptService;
+import uz.hasan.service.UploadService;
 import uz.hasan.service.dto.ReceiptDTO;
 import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.web.rest.errors.ExceptionTranslator;
@@ -96,6 +97,9 @@ public class ReceiptResourceIntTest {
     private ReceiptService receiptService;
 
     @Autowired
+    private UploadService uploadService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -114,7 +118,7 @@ public class ReceiptResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ReceiptResource receiptResource = new ReceiptResource(receiptService);
+        ReceiptResource receiptResource = new ReceiptResource(receiptService, uploadService);
         this.restReceiptMockMvc = MockMvcBuilders.standaloneSetup(receiptResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

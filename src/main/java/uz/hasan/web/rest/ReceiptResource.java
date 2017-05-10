@@ -1,21 +1,23 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import org.springframework.http.MediaType;
-import uz.hasan.service.ReceiptService;
-import uz.hasan.service.dto.ReceiptProductEntriesDTO;
-import uz.hasan.web.rest.util.HeaderUtil;
-import uz.hasan.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import uz.hasan.service.ReceiptService;
+import uz.hasan.service.UploadService;
+import uz.hasan.service.dto.ReceiptProductEntriesDTO;
+import uz.hasan.web.rest.util.HeaderUtil;
+import uz.hasan.web.rest.util.PaginationUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -37,8 +39,11 @@ public class ReceiptResource {
 
     private final ReceiptService receiptService;
 
-    public ReceiptResource(ReceiptService receiptService) {
+    private final UploadService uploadService;
+
+    public ReceiptResource(ReceiptService receiptService, UploadService uploadService) {
         this.receiptService = receiptService;
+        this.uploadService = uploadService;
     }
 
     /**
@@ -133,7 +138,7 @@ public class ReceiptResource {
     }
 
     /**
-     * GET  /receipts/by-company-id : get all the receipts by shop id.
+     * GET  /receipts/by-company-id : get all the receipts by company id.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
@@ -141,7 +146,7 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts/by-company-id")
     @Timed
-    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllReceiptsByShopId(@ApiParam Pageable pageable)
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllReceiptsByCompanyId(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Receipts");
         Page<ReceiptProductEntriesDTO> page = receiptService.findAllReceiptsByCompanyId(pageable);
@@ -218,6 +223,41 @@ public class ReceiptResource {
     }
 
     /**
+     * GET  /receipts/upload/displacement : upload receipts {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @PostMapping(value = "/receipts/upload/displacement", headers = ("content-type=multipart/*"))
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> uploadDisplacementReceipt(@RequestPart("file") MultipartFile file)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement Receipts");
+//        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return null;
+    }
+
+    /**
+     * GET  /receipts/upload/credit : upload receipts {@link uz.hasan.domain.enumeration.DocType} CREDIT.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @PostMapping(value = "/receipts/upload/credit", headers = ("content-type=multipart/*"))
+    @Timed
+    public ResponseEntity<ReceiptProductEntriesDTO> uploadCreditReceipt(@RequestPart("file") MultipartFile file)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement Receipts");
+//        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createCreditApplication(file);
+        return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
+    }
+
+    /**
      * GET  /receipts/credit : get all receipts of type {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT.
      *
      * @param pageable the pagination information
@@ -231,6 +271,23 @@ public class ReceiptResource {
         log.debug("REST request to get a page of Displacement Receipts");
         Page<ReceiptProductEntriesDTO> page = receiptService.findCreditReceipts(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/credit : get all receipts of type {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/credit/by-company-id")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getCreditReceiptsByCompanyId(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findCreditReceiptsByCompanyId(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit/by-company-id");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

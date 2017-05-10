@@ -489,6 +489,20 @@ public class ReceiptServiceImpl implements ReceiptService {
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
+    /**
+     * Get credit receipts by company id.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findCreditReceiptsByCompanyId(Pageable pageable) {
+        log.debug("Request to get all credit Receipts");
+        String idNumber = userService.getUserWithAuthorities().getCompany().getIdNumber();
+        Page<Receipt> result = receiptRepository.findAllByDocTypeAndCompanyIdNumber(pageable, DocType.CREDIT, idNumber);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
     private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
         Receipt result;
         User userWithAuthorities = userService.getUserWithAuthorities();

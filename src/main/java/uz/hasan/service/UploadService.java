@@ -14,4 +14,6 @@ import java.util.List;
 public interface UploadService {
 
     ReceiptProductEntriesDTO createDisplacementApplication(MultipartFile file);
+
+    ReceiptProductEntriesDTO createCreditApplication(MultipartFile file);
 }

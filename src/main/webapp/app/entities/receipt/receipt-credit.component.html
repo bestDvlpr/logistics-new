@@ -82,7 +82,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let receipt of appliedReceipts ;trackBy: trackId">
+            <tr *ngFor="let receipt of creditReceipts ;trackBy: trackId">
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
@@ -105,12 +105,7 @@
                 </td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
-                          *ngIf="receipt.docType === docTypeEnum.SALES">
-                    {{receipt.docType}}
-                    </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
-                          *ngIf="receipt.docType === docTypeEnum.RETURN">
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning">
                     {{receipt.docType}}
                     </span>
                 </td>
@@ -200,17 +195,17 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
-                            (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
+                            (click)="goClientSelectionStep(receipt.id)" jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
                         <span class="fa fa-send"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
-                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER">
+                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER,ROLE_CREDIT">
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            jhiHasAuthority="ROLE_CASHIER" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                            jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT" *ngIf="receipt.status!==receiptStatusEnum.NEW">
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>

@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions, ResponseContentType} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import {Receipt} from './receipt.model';
-import {Res} from "awesome-typescript-loader/dist/checker/protocol";
+import {Receipt} from "./receipt.model";
 @Injectable()
 export class ReceiptService {
 
@@ -137,5 +136,22 @@ export class ReceiptService {
     creditedReceipts(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/credit'), options);
+    }
+
+    creditedReceiptsByCompanyId(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/credit/by-company-id'), options);
+    }
+
+    uploadDisplacement(formData: FormData): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/upload/displacement'), formData).map((res: Response) => {
+            return res;
+        });
+    }
+
+    uploadCredit(formData: FormData): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/upload/credit'), formData).map((res: Response) => {
+            return res;
+        });
     }
 }

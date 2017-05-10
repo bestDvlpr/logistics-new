@@ -131,7 +131,8 @@ export class ReceiptSendClientComponent implements OnInit {
             this.receiptService.sendOrder(this.receipt).subscribe(
                 (res: Receipt[]) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json())
             );
-            this.router.navigate(['receipt']);
+
+            this.router.navigate(['/']);
         }
 
     }

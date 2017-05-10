@@ -12,4 +12,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Product findFirstBySapCode(String sapCode);
 
+    Product findByName(String name);
 }

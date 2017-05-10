@@ -1,18 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RequestOptions, Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {AlertService, EventManager, JhiLanguageService, ParseLinks} from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Headers, Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {AlertService, EventManager, JhiLanguageService, ParseLinks} from "ng-jhipster";
 
-import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {EnumAware} from './doctypaware.decorator';
-import {DataHolderService} from './data-holder.service';
-import {Car} from '../car/car.model';
-import {ACElement} from '../../shared/autocomplete/element.model';
-import {CarService} from '../car/car.service';
-import {UploadService} from './upload.service';
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {EnumAware} from "./doctypaware.decorator";
+import {DataHolderService} from "./data-holder.service";
+import {Car} from "../car/car.model";
+import {ACElement} from "../../shared/autocomplete/element.model";
+import {CarService} from "../car/car.service";
+import {UploadService} from "./upload.service";
+import * as FileSaver from "file-saver";
 
 @Component({
     selector: 'jhi-receipt-credit',
@@ -67,7 +68,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     loadAllCredited() {
-        this.receiptService.creditedReceipts({
+        this.receiptService.creditedReceiptsByCompanyId({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()
@@ -138,6 +139,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
+        this.creditReceipts = [];
         this.creditReceipts = data;
     }
 
@@ -205,8 +207,54 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     uploadReceipt() {
         console.log(this.receiptFile);
         const postData = {name: this.receiptFile.name, size: this.receiptFile.size};
-        this.uploadService.upload(postData, this.receiptFile).subscribe((res: Response) => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+
+        let formData: FormData = new FormData();
+        formData.append('file', this.receiptFile, this.receiptFile.name);
+
+        // For multiple files
+        // for (let i = 0; i < files.length; i++) {
+        //     formData.append(`files[]`, files[i], files[i].name);
+        // }
+
+        if (postData !== undefined && postData !== null) {
+            for (let property in postData) {
+                if (postData.hasOwnProperty(property)) {
+                    formData.append(property, postData[property]);
+                }
+            }
+        }
+        this.receiptService.uploadCredit(formData).subscribe((res: Response) => {
             this.receipt = res.json();
+            this.router.navigate(['/']);
         });
+    }
+
+    goClientSelectionStep(receiptId: number) {
+        this.saveToDataHolder(receiptId);
+        this.router.navigate(['../receipt/' + receiptId + '/send/client']);
+    }
+
+    downloadReceipt(receiptId: number) {
+        this.receiptService.downloadReceipt(receiptId).subscribe((res: Response) => {
+            this.onSuccessDocx(res, receiptId);
+        });
+    }
+
+    private onSuccessDocx(res: Response, receiptId: number) {
+        let mediaType = 'application/octet-stream;charset=UTF-8';
+        let blob = new Blob([res.blob()], {type: mediaType});
+        let receiptNumber = receiptId + '';
+        let filename = receiptNumber + '_invoice.docx';
+
+        try {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+        } catch (ex) {
+            FileSaver.saveAs(blob, filename);
+        }
+        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
+        // this.router.navigate(['/']);
     }
 }

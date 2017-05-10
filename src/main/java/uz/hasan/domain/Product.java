@@ -20,8 +20,7 @@ public class Product implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "sap_code", nullable = false)
+    @Column(name = "sap_code")
     private String sapCode;
 
     @NotNull
