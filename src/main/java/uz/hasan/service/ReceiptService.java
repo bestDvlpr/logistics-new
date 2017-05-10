@@ -1,6 +1,5 @@
 package uz.hasan.service;
 
-import uz.hasan.service.dto.ReceiptDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
@@ -164,4 +163,13 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptProductEntriesDTO> findCreditReceiptsByCompanyId(Pageable pageable);
+
+    /**
+     *  Get all receipts.
+     *
+     *  @param pageable the pagination information
+     *  @param clientId the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findByClientId(Pageable pageable, Long clientId);
 }

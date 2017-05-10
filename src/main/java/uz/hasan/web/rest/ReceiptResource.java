@@ -417,7 +417,7 @@ public class ReceiptResource {
     }
 
     /**
-     * POST  /receipt/sent-receipt : Download receipt.
+     * GET  /receipt/sent-receipt : Download receipt.
      *
      * @param receiptId the Receipt id to download
      * @throws URISyntaxException if the Location URI syntax is incorrect
@@ -431,6 +431,25 @@ public class ReceiptResource {
             response.addHeader("listEmpty", "A Receipt id cannot be empty");
         }
         receiptService.download(receiptId, response);
+    }
+
+    /**
+     * GET  /receipt/by-client-id : get client shopping history.
+     *
+     * @param clientId the Receipt id to download
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @GetMapping("/receipts/by-client-id/{clientId}")
+    @Timed
+    @ResponseBody
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> downloadReceipt(@ApiParam Pageable pageable, @PathVariable Long clientId) throws URISyntaxException {
+        log.debug("REST request to download Receipt : {}", clientId);
+        if (clientId == null) {
+            return null;
+        }
+        Page<ReceiptProductEntriesDTO> page = receiptService.findByClientId(pageable, clientId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit/by-company-id");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 }

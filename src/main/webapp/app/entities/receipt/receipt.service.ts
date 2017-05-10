@@ -143,6 +143,11 @@ export class ReceiptService {
         return this.http.get(this.resourceUrl.concat('/credit/by-company-id'), options);
     }
 
+    getByClientId(clientId: number, req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(`${this.resourceUrl.concat('/by-client-id')}/${clientId}`, options);
+    }
+
     uploadDisplacement(formData: FormData): Observable<Response> {
         return this.http.post(this.resourceUrl.concat('/upload/displacement'), formData).map((res: Response) => {
             return res;

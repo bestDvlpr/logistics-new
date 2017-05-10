@@ -56,4 +56,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findByDocTypeAndCompanyIdNumberOrderByDocDateDesc(Pageable pageable, DocType displacement, String idNumber);
 
     Page<Receipt> findAllByDocTypeAndCompanyIdNumber(Pageable pageable, DocType credit, String idNumber);
+
+    Page<Receipt> findByClientId(Pageable pageable, Long clientId);
 }

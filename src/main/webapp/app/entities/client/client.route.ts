@@ -46,6 +46,9 @@ export const clientRoute: Routes = [
     }, {
         path: 'client/:id',
         component: ClientDetailComponent,
+        resolve: {
+            'pagingParams': ClientResolvePagingParams
+        },
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'logisticsApp.client.home.title'

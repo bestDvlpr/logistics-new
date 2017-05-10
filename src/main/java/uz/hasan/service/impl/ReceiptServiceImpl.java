@@ -503,6 +503,20 @@ public class ReceiptServiceImpl implements ReceiptService {
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
+    /**
+     *  Get all receipts.
+     *
+     *  @param pageable the pagination information
+     *  @param clientId the pagination information
+     *  @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findByClientId(Pageable pageable, Long clientId) {
+        log.debug("Request to get all Receipts of client {}", clientId);
+        Page<Receipt> result = receiptRepository.findByClientId(pageable, clientId);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
     private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
         Receipt result;
         User userWithAuthorities = userService.getUserWithAuthorities();
