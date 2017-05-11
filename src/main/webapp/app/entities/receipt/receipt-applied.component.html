@@ -26,10 +26,9 @@
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="docType"><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="fromTime"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
-                    <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="toTime"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span>
-                    <span class="fa fa-sort"></span></th>
+                <th *ngIf="!isWarehouseUser">
+                    <span jhiTranslate="logisticsApp.receipt.startTimeEndTime">Time start - end</span>
+                </th>
                 <th jhiSortBy="deliveryDate"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="address.region">
@@ -104,8 +103,11 @@
                     {{receipt.docType}}
                     </span>
                 </td>
-                <td>{{receipt.fromTime}}</td>
-                <td>{{receipt.toTime}}</td>
+                <td>
+                    <span *ngIf="receipt.fromTime && receipt.toTime">
+                        {{receipt.fromTime + ' - '+ receipt.toTime}}
+                    </span>
+                </td>
                 <td>{{receipt.deliveryDate | date}}</td>
                 <td>
                     <div *ngIf="receipt.address && receipt.address.regionName">

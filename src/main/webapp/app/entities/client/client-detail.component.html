@@ -1,4 +1,12 @@
 <div class="row" *ngIf="client">
+    <div class="col-md-2">
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-sm btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+    </div>
+    <div class="col-md-12">&nbsp;</div>
     <div class="col-md-12">
         <div class="card card-block">
             <h1>
@@ -15,14 +23,13 @@
             <h6>Client since: {{client.regDate|date}}</h6>
         </div>
     </div>
-    <div class="col-md-2">
-        <button type="submit"
-                (click)="previousState()"
-                class="btn btn-sm btn-info">
-            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-        </button>
-    </div>
-    <div class="col-md-12">&nbsp;</div>
+    <!--<div class="col-md-12">
+        <div class="row">
+            <div class="col card" *ngFor="let shopping of shoppings">
+                <h2>{{shopping}}</h2>
+            </div>
+        </div>
+    </div>-->
     <div class="col-md-12">
         <div class="table-responsive" *ngIf="receipts">
             <table class="table table-striped small">

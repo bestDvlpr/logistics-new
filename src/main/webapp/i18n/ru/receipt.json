@@ -47,7 +47,8 @@
             "endTime": "Время конца",
             "deliveryMessage": "Доставка будет осуществлена в течении 48 часов с момента покупки!",
             "deliveryTimeMessage": "Доставка будет осуществлена с {{time1}} по {{time2}}!",
-            "deliveryDate": "Дата Доставки"
+            "deliveryDate": "Дата Доставки",
+            "startTimeEndTime": "Время начала - конца"
         }
     }
 }
