@@ -44,6 +44,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     receiptFile: any;
     receipt: Receipt;
     isDCEmployee = false;
+    docTypeSelected: DocType;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -257,7 +258,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        this.receiptService.uploadCredit(formData).subscribe((res: Response) => {
+        this.receiptService.uploadCredit(formData, this.docTypeSelected).subscribe((res: Response) => {
             this.receipt = res.json();
             this.router.navigate(['/']);
         });

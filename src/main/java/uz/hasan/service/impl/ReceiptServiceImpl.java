@@ -489,7 +489,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable) {
         log.debug("Request to get all credit Receipts");
-        Page<Receipt> result = receiptRepository.findAllByDocType(pageable, DocType.CREDIT);
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.CREDIT);
+        docTypes.add(DocType.INSTALLMENT);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeIn(pageable, docTypes);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -503,7 +506,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     public Page<ReceiptProductEntriesDTO> findCreditReceiptsByCompanyId(Pageable pageable) {
         log.debug("Request to get all credit Receipts");
         String idNumber = userService.getUserWithAuthorities().getCompany().getIdNumber();
-        Page<Receipt> result = receiptRepository.findAllByDocTypeAndCompanyIdNumber(pageable, DocType.CREDIT, idNumber);
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.CREDIT);
+        docTypes.add(DocType.INSTALLMENT);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumber(pageable, docTypes, idNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 

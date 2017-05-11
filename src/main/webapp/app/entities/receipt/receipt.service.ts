@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 
-import {Receipt} from "./receipt.model";
+import {DocType, Receipt} from "./receipt.model";
 @Injectable()
 export class ReceiptService {
 
@@ -154,8 +154,8 @@ export class ReceiptService {
         });
     }
 
-    uploadCredit(formData: FormData): Observable<Response> {
-        return this.http.post(this.resourceUrl.concat('/upload/credit'), formData).map((res: Response) => {
+    uploadCredit(formData: FormData, docType: DocType): Observable<Response> {
+        return this.http.post(`${this.resourceUrl.concat('/upload/credit')}/${docType}`, formData).map((res: Response) => {
             return res;
         });
     }

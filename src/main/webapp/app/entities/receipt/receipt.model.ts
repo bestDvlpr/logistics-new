@@ -9,7 +9,8 @@ export enum DocType {
     DISPLACEMENT = <any>'DISPLACEMENT',
     INCOMING = <any>'INCOMING',
     OUTGOING = <any>'OUTGOING',
-    CREDIT = <any>'CREDIT'
+    CREDIT = <any>'CREDIT',
+    INSTALLMENT = <any>'INSTALLMENT'
 }
 export enum WholeSaleFlag {
     RETAIL = <any>'RETAIL',

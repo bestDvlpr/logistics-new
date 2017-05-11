@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UploadService;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
@@ -245,15 +246,15 @@ public class ReceiptResource {
      * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @PostMapping(value = "/receipts/upload/credit", headers = ("content-type=multipart/*"))
+    @PostMapping(value = "/receipts/upload/credit/{docType}", headers = ("content-type=multipart/*"))
     @Timed
-    public ResponseEntity<ReceiptProductEntriesDTO> uploadCreditReceipt(@RequestPart("file") MultipartFile file)
+    public ResponseEntity<ReceiptProductEntriesDTO> uploadCreditReceipt(@PathVariable DocType docType, @RequestPart("file") MultipartFile file)
         throws URISyntaxException {
         log.debug("REST request to get a page of Displacement Receipts");
 //        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
 //        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createCreditApplication(file);
+        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createCreditApplication(file, docType);
         return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
     }
 

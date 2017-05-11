@@ -74,7 +74,9 @@
             "email": "E-mail",
             "email.placeholder": "Ваш e-mail",
             "next": "Следующий",
-            "search": "Поиск"
+            "search": "Поиск",
+            "credit": "Кредит",
+            "installment": "Рассрочка"
         },
         "messages": {
             "info": {

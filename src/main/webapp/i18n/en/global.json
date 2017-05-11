@@ -74,7 +74,9 @@
             "email": "E-mail",
             "email.placeholder": "Your e-mail",
             "next": "Next",
-            "search": "Search"
+            "search": "Search",
+            "credit": "Credit",
+            "installment": "Installment"
         },
         "messages": {
             "info": {

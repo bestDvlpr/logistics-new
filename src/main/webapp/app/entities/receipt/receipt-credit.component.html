@@ -31,7 +31,25 @@
                         <input type="file" (change)="fileChangeEvent($event)"/>
                         <!--<file-upload #fu (change)="fu.upload()" [multiple]="false"></file-upload>-->
                     </div>
-                    <button type="submit" class="btn btn-block btn-primary" (click)="uploadReceipt()">
+                    <div class="custom-controls-stacked">
+                        <label class="custom-control custom-radio has-success">
+                            <input type="radio" class="custom-control-input" name="credit"
+                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.CREDIT"
+                                   [checked]="docTypeSelected===docTypeEnum.CREDIT"/>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description" jhiTranslate="global.form.credit">Credit</span>
+                        </label>
+                        <label class="custom-control custom-radio has-primary">
+                            <input type="radio" class="custom-control-input" name="credit"
+                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.INSTALLMENT"
+                                   [checked]="docTypeSelected===docTypeEnum.INSTALLMENT"/>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description"
+                                  jhiTranslate="global.form.installment">Installment</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary" (click)="uploadReceipt()"
+                            *ngIf="docTypeSelected">
                         <span jhiTranslate="entity.action.upload">Upload</span>
                     </button>
                 </form>
@@ -105,7 +123,12 @@
                 </td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning">
+                    <span *ngIf="receipt.docType===docTypeEnum.CREDIT"
+                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary">
+                    {{receipt.docType}}
+                    </span>
+                    <span *ngIf="receipt.docType===docTypeEnum.INSTALLMENT"
+                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success">
                     {{receipt.docType}}
                     </span>
                 </td>

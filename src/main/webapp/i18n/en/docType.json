@@ -7,7 +7,8 @@
             "DISPLACEMENT": "DISPLACEMENT",
             "INCOMING": "INCOMING",
             "OUTGOING": "OUTGOING",
-            "CREDIT": "CREDIT"
+            "CREDIT": "CREDIT",
+            "INSTALLMENT": "INSTALLMENT"
         }
     }
 }

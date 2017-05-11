@@ -121,14 +121,14 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public ReceiptProductEntriesDTO createCreditApplication(MultipartFile file) {
+    public ReceiptProductEntriesDTO createCreditApplication(MultipartFile file, DocType docType) {
         InputStream inputStream = null;
         try {
             inputStream = file.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createCreditReceipt(inputStream));
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createCreditReceipt(inputStream, docType));
     }
 
     private Receipt createReceipt(InputStream file) {
@@ -206,7 +206,7 @@ public class UploadServiceImpl implements UploadService {
         return receipt;
     }
 
-    private Receipt createCreditReceipt(InputStream file) {
+    private Receipt createCreditReceipt(InputStream file, DocType docType) {
         Receipt receipt = new Receipt();
         try {
             //Create Workbook instance holding reference to .xlsx file
@@ -219,7 +219,7 @@ public class UploadServiceImpl implements UploadService {
 
             Company company = userService.getUserWithAuthorities().getCompany();
 
-            receipt.setDocType(DocType.CREDIT);
+            receipt.setDocType(docType);
             receipt.setCompany(company);
             receipt.setStatus(ReceiptStatus.NEW);
             receipt.setDocDate(ZonedDateTime.now().toEpochSecond());
