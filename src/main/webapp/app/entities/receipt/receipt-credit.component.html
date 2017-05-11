@@ -104,8 +104,8 @@
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+'
-                            '+receipt.client.lastName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">
+                            {{receipt.client.firstName+' '+receipt.client.lastName}}</a>
                     </div>
                 </td>
                 <td>
@@ -238,7 +238,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="appliedReceipts && appliedReceipts.length">
+    <div *ngIf="creditReceipts && creditReceipts.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>

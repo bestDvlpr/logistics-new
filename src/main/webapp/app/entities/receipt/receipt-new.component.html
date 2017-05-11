@@ -76,7 +76,9 @@
                 </td>
                 <td>
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.clientFirstName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">
+                            {{receipt.client.firstName + ' ' + receipt.client.lastName}}
+                        </a>
                     </div>
                 </td>
                 <td class="text-right">

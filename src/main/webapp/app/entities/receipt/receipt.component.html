@@ -53,12 +53,9 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName" jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER,ROLE_MANAGER,ROLE_CREDIT">
+                <th jhiSortBy="clientFirstName">
                     <span jhiTranslate="logisticsApp.receipt.client">Client</span><span class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="receiver.name" jhiHasAuthority="ROLE_WAREHOUSE"><span
-                    jhiTranslate="logisticsApp.receipt.client">Client</span> <span
-                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.receipt.companyId">Company</span> <span
                     class="fa fa-sort"></span></th>
                 <th><span
@@ -95,14 +92,12 @@
             <tbody>
             <tr *ngFor="let receipt of receipts; trackBy: trackId">
                 <td>{{receipt.id}}</td>
-                <td jhiHasAnyAuthority="ROLE_ADMIN,ROLE_MANAGER,ROLE_CASHIER,ROLE_CREDIT">
+                <td>
                     <div *ngIf="receipt.clientId">
                         <a [routerLink]="['../client', receipt.clientId  ]">
                             {{receipt.client.firstName+' '+receipt.client.lastName}}
                         </a>
                     </div>
-                </td>
-                <td jhiHasAuthority="ROLE_WAREHOUSE">
                     <div *ngIf="receipt.receiver">
                         <a [routerLink]="['../company', receipt.receiver.id  ]">{{receipt.receiver.name}}</a>
                     </div>

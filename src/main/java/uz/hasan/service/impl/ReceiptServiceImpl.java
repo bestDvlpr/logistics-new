@@ -298,10 +298,15 @@ public class ReceiptServiceImpl implements ReceiptService {
         Set<Authority> authorities = userWithAuthorities.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER)) ||
-            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
-            return receiptRepository.countByStatus(ReceiptStatus.APPLICATION_SENT);
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {List<DocType> docTypes = new ArrayList<>();
+            docTypes.add(DocType.SALES);
+            docTypes.add(DocType.RETURN);
+            return receiptRepository.countByStatusAndDocTypeIn(ReceiptStatus.APPLICATION_SENT, docTypes);
         } else {
-            return receiptRepository.getCountByStatusAndCompanyIdNumber(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber());
+            List<DocType> docTypes = new ArrayList<>();
+            docTypes.add(DocType.CREDIT);
+            docTypes.add(DocType.INSTALLMENT);
+            return receiptRepository.getCountByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber(), docTypes);
         }
     }
 
@@ -391,25 +396,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (receiptDTO == null) {
             return null;
         }
-
-        Set<Car> attachedCars = new HashSet<>();
-        Receipt receipt = receiptProductEntriesMapper.receiptProductEntryDTOToReceipt(receiptDTO);
-        for (ProductEntry entry : receipt.getProductEntries()) {
-            attachedCars.add(entry.getAttachedCar());
-        }
-
-        for (Car car : attachedCars) {
-            boolean carIsIdle = false;
-            List<ProductEntry> productEntryList = productEntryRepository.findByAttachedCarNumber(car.getNumber());
-            if (!productEntryList.isEmpty()) {
-                carIsIdle = productEntryList.stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED));
-            }
-            if (carIsIdle) {
-                car.setStatus(CarStatus.IDLE);
-            }
-        }
-
-        carRepository.save(attachedCars);
 
         return setStatusAndSave(receiptDTO, ReceiptStatus.DELIVERED);
     }
@@ -694,6 +680,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (ProductEntry entry : productEntries) {
             cars.add(entry.getAttachedCar());
         }
+        productEntryRepository.save(productEntries);
+
         if (!cars.isEmpty() &&
             cars.iterator().next() != null &&
             cars.stream().allMatch(car -> car.getProductEntries().stream().allMatch(productEntry -> productEntry.getStatus().equals(ReceiptStatus.DELIVERED)))) {
@@ -702,7 +690,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
 
         receiptRepository.save(receipt);
-        productEntryRepository.save(productEntries);
         return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
     }
 }

@@ -15,8 +15,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span
                     class="fa fa-sort"></span></th>
-                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span> <span
-                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="clientFirstName"><span jhiTranslate="logisticsApp.receipt.client">Client</span>
+                    <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="companyId"><span jhiTranslate="logisticsApp.receipt.companyId">Company</span> <span
                     class="fa fa-sort"></span></th>
                 <th jhiSortBy="productEntries"><span
@@ -56,7 +56,9 @@
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">{{receipt.client.firstName+' '+receipt.client.lastName}}</a>
+                        <a [routerLink]="['../client', receipt.clientId  ]">
+                            {{receipt.client.firstName+' '+receipt.client.lastName}}
+                        </a>
                     </div>
                     <div *ngIf="receipt.receiver">
                         <a [routerLink]="['../company', receipt.receiver.id  ]">{{receipt.receiver.name}}</a>

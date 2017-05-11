@@ -64,4 +64,9 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findAllByDocTypeIn(Pageable pageable, List<DocType> docTypes);
 
     Page<Receipt> findAllByDocTypeInAndCompanyIdNumber(Pageable pageable, List<DocType> docTypes, String idNumber);
+
+    Long countByStatusAndDocTypeIn(ReceiptStatus applicationSent, List<DocType> docTypes);
+
+    Long getCountByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus status, String idNumber, List<DocType> docTypes);
+
 }
