@@ -31,7 +31,7 @@
             "serialNumber": "Серийный номер",
             "attachedToCarTime": "Время прикрепления",
             "deliveryStartTime": "Время начала доставки",
-            "deliveryEndTime": "Время доставки",
+            "deliveryEndTime": "Доставленное время",
             "product": "Тип",
             "sellerID": "Продавец",
             "receipt": "Заявка",

@@ -48,7 +48,7 @@
             "deliveryMessage": "Delivery process starts in an hour and for 48 hours products will be delivered!",
             "deliveryTimeMessage": "Delivery process happens from {{time1}} to {{time2}}!",
             "deliveryDate": "Delivery Date",
-            "startTimeEndTime": "Time start - end"
+            "deliveryDateTime": "Preferred"
         }
     }
 }

@@ -36,7 +36,7 @@
             "client": "Клиент",
             "productEntries": "Введенные товары",
             "sentToDCTime": "Время отправки",
-            "deliveredTime": "Время доставки",
+            "deliveredTime": "Доставленное время",
             "cars": "Машины",
             "address": "Адреса",
             "payTypes": "Оплата",
@@ -48,7 +48,7 @@
             "deliveryMessage": "Доставка будет осуществлена в течении 48 часов с момента покупки!",
             "deliveryTimeMessage": "Доставка будет осуществлена с {{time1}} по {{time2}}!",
             "deliveryDate": "Дата Доставки",
-            "startTimeEndTime": "Время начала - конца"
+            "deliveryDateTime": "Предпачтительное время доставки"
         }
     }
 }
