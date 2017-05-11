@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService, JhiLanguageService, ParseLinks} from "ng-jhipster";
 import {Client} from "./client.model";
 import {ClientService} from "./client.service";
@@ -30,6 +30,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     docTypeEnum = DocType;
     links: any;
     receipts: Receipt[];
+    isDCEmployee = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private clientService: ClientService,
@@ -37,7 +38,8 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
                 private parseLinks: ParseLinks,
                 private activatedRoute: ActivatedRoute,
                 private alertService: AlertService,
-                private receiptService: ReceiptService) {
+                private receiptService: ReceiptService,
+                private router: Router) {
         this.jhiLanguageService.setLocations(['client', 'receipt', 'receiptStatus', 'docType', 'address']);
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -102,4 +104,21 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
+    loadPage(page: number) {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.transition();
+        }
+    }
+
+    transition() {
+        this.router.navigate(['../client', this.client.id], {
+            queryParams: {
+                page: this.page,
+                size: this.itemsPerPage,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }
+        });
+        this.loadSalesHistory(this.client.id);
+    }
 }

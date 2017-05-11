@@ -15,147 +15,155 @@
             <h6>Client since: {{client.regDate|date}}</h6>
         </div>
     </div>
-    <div class="table-responsive" *ngIf="receipts">
-        <table class="table table-striped small">
-            <thead>
-            <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th jhiHasAnyAuthority="ROLE_ADMIN,ROLE_CASHIER,ROLE_MANAGER,ROLE_CREDIT">
-                    <span jhiTranslate="logisticsApp.receipt.client">Client</span></th>
-                <th jhiHasAuthority="ROLE_WAREHOUSE"><span jhiTranslate="logisticsApp.receipt.client">Client</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.companyId">Company</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span></th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span></th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
-                </th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.region">Region</span></th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.district">District</span></th>
-                <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.address">Addresses</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.cars">Cars</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.status">Status</span></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let receipt of receipts; trackBy: trackId">
-                <td>{{receipt.id}}</td>
-                <td jhiHasAnyAuthority="ROLE_ADMIN,ROLE_MANAGER,ROLE_CASHIER,ROLE_CREDIT">
-                    <div *ngIf="receipt.clientId">
-                        <a [routerLink]="['../client', receipt.clientId  ]">
-                            {{receipt.client.firstName+' '+receipt.client.lastName}}
-                        </a>
-                    </div>
-                </td>
-                <td jhiHasAuthority="ROLE_WAREHOUSE">
-                    <div *ngIf="receipt.receiver">
-                        <a [routerLink]="['../company', receipt.receiver.id  ]">{{receipt.receiver.name}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.companyName">
-                        <a [routerLink]="['../company', receipt.companyId  ]">{{receipt.companyName}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="receipt.productEntries && receipt.productEntries.length>0">
-                        <div *ngFor="let prod of receipt.productEntries">
-                            <span class="fa fa-shopping-bag"></span>
-                            {{prod.product.name}}
+    <div class="col-md-2">
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-sm btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+    </div>
+    <div class="col-md-12">&nbsp;</div>
+    <div class="col-md-12">
+        <div class="table-responsive" *ngIf="receipts">
+            <table class="table table-striped small">
+                <thead>
+                <tr>
+                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.companyId">Company</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
+                    </th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.region">Region</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.district">District</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.address">Addresses</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.cars">Cars</span></th>
+                    <th><span jhiTranslate="logisticsApp.receipt.status">Status</span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let receipt of receipts; trackBy: trackId">
+                    <td>{{receipt.id}}</td>
+                    <td>
+                        <div *ngIf="receipt.companyName">
+                            <a [routerLink]="['../company', receipt.companyId  ]">{{receipt.companyName}}</a>
                         </div>
-                    </div>
-                </td>
-                <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                <td>
+                    </td>
+                    <td>
+                        <div *ngIf="receipt.productEntries && receipt.productEntries.length>0">
+                            <div *ngFor="let prod of receipt.productEntries">
+                                <span class="fa fa-shopping-bag"></span>
+                                {{prod.product.name}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td>
                     <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
                           *ngIf="receipt.docType === docTypeEnum.SALES">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
-                          *ngIf="receipt.docType === docTypeEnum.RETURN">
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
+                              *ngIf="receipt.docType === docTypeEnum.RETURN">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-info"
-                          *ngIf="receipt.docType === docTypeEnum.DISPLACEMENT">
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-info"
+                              *ngIf="receipt.docType === docTypeEnum.DISPLACEMENT">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary"
-                          *ngIf="receipt.docType === docTypeEnum.INCOMING">
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary"
+                              *ngIf="receipt.docType === docTypeEnum.INCOMING">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning"
-                          *ngIf="receipt.docType === docTypeEnum.OUTGOING">
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning"
+                              *ngIf="receipt.docType === docTypeEnum.OUTGOING">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
-                          *ngIf="receipt.docType === docTypeEnum.CREDIT">
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                              *ngIf="receipt.docType === docTypeEnum.CREDIT">
                     {{receipt.docType}}
                     </span>
-                </td>
-                <td *ngIf="!isWarehouseUser">{{receipt.fromTime}}</td>
-                <td *ngIf="!isWarehouseUser">{{receipt.toTime}}</td>
-                <td *ngIf="!isWarehouseUser">{{receipt.deliveryDate | date}}</td>
-                <td *ngIf="!isWarehouseUser">
-                    <div *ngIf="receipt.address && receipt.address.regionName">
-                        {{receipt.address.regionName}}
-                    </div>
-                </td>
-                <td *ngIf="!isWarehouseUser">
-                    <div *ngIf="receipt.address && receipt.address.districtName">
-                        {{receipt.address.districtName}}
-                    </div>
-                </td>
-                <td *ngIf="!isWarehouseUser">
-                    <div *ngIf="receipt.address">
-                        <span class="fa fa-location-arrow"></span>
-                        {{receipt.address.streetAddress}}
-                    </div>
-                </td>
-                <td>
-                    <div
-                        *ngIf="receipt.productEntries && receipt.productEntries[0] && receipt.productEntries[0].attachedCarNumber">
-                        {{receipt.productEntries[0].attachedCarNumber}}
-                    </div>
-                </td>
-                <td>
+                        <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-pill"
+                              *ngIf="receipt.docType === docTypeEnum.INSTALLMENT">
+                    {{receipt.docType}}
+                    </span>
+                    </td>
+                    <td *ngIf="!isWarehouseUser">{{receipt.fromTime}}</td>
+                    <td *ngIf="!isWarehouseUser">{{receipt.toTime}}</td>
+                    <td *ngIf="!isWarehouseUser">{{receipt.deliveryDate | date}}</td>
+                    <td *ngIf="!isWarehouseUser">
+                        <div *ngIf="receipt.address && receipt.address.regionName">
+                            {{receipt.address.regionName}}
+                        </div>
+                    </td>
+                    <td *ngIf="!isWarehouseUser">
+                        <div *ngIf="receipt.address && receipt.address.districtName">
+                            {{receipt.address.districtName}}
+                        </div>
+                    </td>
+                    <td *ngIf="!isWarehouseUser">
+                        <div *ngIf="receipt.address">
+                            <span class="fa fa-location-arrow"></span>
+                            {{receipt.address.streetAddress}}
+                        </div>
+                    </td>
+                    <td>
+                        <div
+                            *ngIf="receipt.productEntries && receipt.productEntries[0] && receipt.productEntries[0].attachedCarNumber">
+                            {{receipt.productEntries[0].attachedCarNumber}}
+                        </div>
+                    </td>
+                    <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-info"
                           *ngIf="receipt.status === receiptStatusEnum.NEW">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
-                          *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
-                          *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
+                              *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
+                              *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
-                          *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
+                              *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
-                          *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
+                              *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
                         {{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
-                          *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                              *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
                         {{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
-                          *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                              *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
                         {{receipt.status}}
                     </span>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
-                        <button type="submit"
-                                [routerLink]="['../receipt', receipt.id ]"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
+                            <button type="submit"
+                                    [routerLink]="['../receipt', receipt.id ]"
+                                    class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                                <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12" *ngIf="receipts && receipts.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                                (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
     </div>
 </div>
