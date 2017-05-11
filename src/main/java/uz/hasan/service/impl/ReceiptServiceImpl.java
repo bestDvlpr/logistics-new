@@ -25,6 +25,7 @@ import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
 import javax.persistence.EntityManager;
+import javax.print.Doc;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -222,7 +223,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAppliedReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.APPLICATION_SENT);
+        List<DocType> types = new ArrayList<>();
+        types.add(DocType.SALES);
+        types.add(DocType.RETURN);
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeIn(pageable, ReceiptStatus.APPLICATION_SENT, types);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 

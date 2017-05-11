@@ -63,8 +63,8 @@
                 <th jhiSortBy="deliveryDate"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
                     <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="address.region">
-                    <span jhiTranslate="logisticsApp.address.region">Region</span> <span
-                    class="fa fa-sort"></span>
+                    <span jhiTranslate="logisticsApp.address.region">Region</span>
+                    <span class="fa fa-sort"></span>
                 </th>
                 <th jhiSortBy="address.district">
                     <span jhiTranslate="logisticsApp.address.district">District</span> <span
@@ -205,7 +205,8 @@
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT" *ngIf="receipt.status!==receiptStatusEnum.NEW">
+                            jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT"
+                            *ngIf="receipt.status!==receiptStatusEnum.NEW">
                         <span class="fa fa-download"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.download">Download</span>
                     </button>
@@ -219,7 +220,8 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

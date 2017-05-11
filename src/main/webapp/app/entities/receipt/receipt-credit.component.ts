@@ -43,6 +43,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     uploadForm = false;
     receiptFile: any;
     receipt: Receipt;
+    isDCEmployee = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -68,6 +69,17 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     loadAllCredited() {
+        this.receiptService.creditedReceipts({
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        }).subscribe(
+            (res: Response) => this.onSuccess(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
+    loadAllCreditedByCompanyId() {
         this.receiptService.creditedReceiptsByCompanyId({
             page: this.page - 1,
             size: this.itemsPerPage,
@@ -93,7 +105,11 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.loadAllCredited();
+        if (this.isDCEmployee) {
+            this.loadAllCredited();
+        } else {
+            this.loadAllCreditedByCompanyId();
+        }
     }
 
     clear() {
@@ -106,9 +122,20 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAllCredited();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            for (let auth of this.currentAccount.authorities) {
+                if (auth === 'ROLE_ADMIN' ||
+                    auth === 'ROLE_MANAGER' ||
+                    auth === 'ROLE_DISPATCHER') {
+                    this.isDCEmployee = true;
+                }
+            }
+            if (this.isDCEmployee) {
+                this.loadAllCredited();
+            } else {
+                this.loadAllCreditedByCompanyId();
+            }
         });
         this.registerChangeInReceipts();
     }
@@ -123,7 +150,11 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
 
 
     registerChangeInReceipts() {
-        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCredited());
+        if (this.isDCEmployee) {
+            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCredited());
+        } else {
+            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCreditedByCompanyId());
+        }
     }
 
     sort() {
