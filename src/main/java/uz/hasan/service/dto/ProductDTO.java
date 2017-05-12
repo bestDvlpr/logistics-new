@@ -3,6 +3,7 @@ package uz.hasan.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,6 @@ public class ProductDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
     private String sapCode;
 
     @NotNull
@@ -23,6 +23,14 @@ public class ProductDTO implements Serializable {
 
     @NotNull
     private String uom;
+
+    private BigDecimal width;
+
+    private BigDecimal length;
+
+    private BigDecimal height;
+
+    private BigDecimal weight;
 
     public Long getId() {
         return id;
@@ -59,6 +67,34 @@ public class ProductDTO implements Serializable {
     public void setUom(String uom) {
         this.uom = uom;
     }
+    public BigDecimal getWidth() {
+        return width;
+    }
+
+    public void setWidth(BigDecimal width) {
+        this.width = width;
+    }
+    public BigDecimal getLength() {
+        return length;
+    }
+
+    public void setLength(BigDecimal length) {
+        this.length = length;
+    }
+    public BigDecimal getHeight() {
+        return height;
+    }
+
+    public void setHeight(BigDecimal height) {
+        this.height = height;
+    }
+    public BigDecimal getWeight() {
+        return weight;
+    }
+
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -89,6 +125,10 @@ public class ProductDTO implements Serializable {
             ", sapType='" + sapType + "'" +
             ", name='" + name + "'" +
             ", uom='" + uom + "'" +
+            ", width='" + width + "'" +
+            ", length='" + length + "'" +
+            ", height='" + height + "'" +
+            ", weight='" + weight + "'" +
             '}';
     }
 }

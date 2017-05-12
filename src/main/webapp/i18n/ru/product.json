@@ -19,7 +19,11 @@
             "sapCode": "Sap Code",
             "sapType": "Sap Type",
             "name": "Наименования",
-            "uom": "Uom"
+            "uom": "Uom",
+            "width": "Ширина",
+            "length": "Длина",
+            "height": "Высота",
+            "weight": "Вес"
         }
     }
 }

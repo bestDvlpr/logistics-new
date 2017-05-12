@@ -19,7 +19,11 @@
             "sapCode": "Sap Code",
             "sapType": "Sap Type",
             "name": "Name",
-            "uom": "Uom"
+            "uom": "Uom",
+            "width": "Width",
+            "length": "Length",
+            "height": "Height",
+            "weight": "Weight"
         }
     }
 }

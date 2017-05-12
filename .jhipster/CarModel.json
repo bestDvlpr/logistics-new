@@ -8,6 +8,18 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "length",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20170221070226",

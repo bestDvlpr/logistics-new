@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1494563230351-1">
+        <addColumn tableName="car_model">
+            <column name="height" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-2">
+        <addColumn tableName="product">
+            <column name="height" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-3">
+        <addColumn tableName="car_model">
+            <column name="length" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-4">
+        <addColumn tableName="product">
+            <column name="length" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-5">
+        <addColumn tableName="product">
+            <column name="weight" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-6">
+        <addColumn tableName="car_model">
+            <column name="width" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1494563230351-7">
+        <addColumn tableName="product">
+            <column name="width" type="numeric(10, 2)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

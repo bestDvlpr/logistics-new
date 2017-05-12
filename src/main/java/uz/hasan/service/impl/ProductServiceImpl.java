@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing Product.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService{
 
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
-
+    
     private final ProductRepository productRepository;
 
     private final ProductMapper productMapper;
@@ -47,7 +51,7 @@ public class ProductServiceImpl implements ProductService{
 
     /**
      *  Get all the products.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

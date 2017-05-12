@@ -3,9 +3,9 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
+        <h4 class="modal-title" id="myCarModelLabel" jhiTranslate="logisticsApp.carModel.home.createOrEditLabel">Create or edit a Car Model</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
-        <h4 class="modal-title" id="myCarModelLabel" jhiTranslate="logisticsApp.carModel.home.createOrEditLabel">Create or edit a Car Model</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -25,6 +25,24 @@
                    This field is required.
                 </small>
             </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.carModel.width" for="field_width">Width</label>
+            <input type="number" class="form-control" name="width" id="field_width"
+                [(ngModel)]="carModel.width"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.carModel.length" for="field_length">Length</label>
+            <input type="number" class="form-control" name="length" id="field_length"
+                [(ngModel)]="carModel.length"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="logisticsApp.carModel.height" for="field_height">Height</label>
+            <input type="number" class="form-control" name="height" id="field_height"
+                [(ngModel)]="carModel.height"
+             />
         </div>
 
     </div>

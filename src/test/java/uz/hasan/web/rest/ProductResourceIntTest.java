@@ -7,6 +7,7 @@ import uz.hasan.repository.ProductRepository;
 import uz.hasan.service.ProductService;
 import uz.hasan.service.dto.ProductDTO;
 import uz.hasan.service.mapper.ProductMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,6 +53,18 @@ public class ProductResourceIntTest {
     private static final String DEFAULT_UOM = "AAAAAAAAAA";
     private static final String UPDATED_UOM = "BBBBBBBBBB";
 
+    private static final BigDecimal DEFAULT_WIDTH = new BigDecimal(1);
+    private static final BigDecimal UPDATED_WIDTH = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_LENGTH = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LENGTH = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_HEIGHT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_HEIGHT = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_WEIGHT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_WEIGHT = new BigDecimal(2);
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -67,6 +81,9 @@ public class ProductResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restProductMockMvc;
@@ -79,6 +96,7 @@ public class ProductResourceIntTest {
         ProductResource productResource = new ProductResource(productService);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -93,7 +111,11 @@ public class ProductResourceIntTest {
                 .sapCode(DEFAULT_SAP_CODE)
                 .sapType(DEFAULT_SAP_TYPE)
                 .name(DEFAULT_NAME)
-                .uom(DEFAULT_UOM);
+                .uom(DEFAULT_UOM)
+                .width(DEFAULT_WIDTH)
+                .length(DEFAULT_LENGTH)
+                .height(DEFAULT_HEIGHT)
+                .weight(DEFAULT_WEIGHT);
         return product;
     }
 
@@ -123,6 +145,10 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getSapType()).isEqualTo(DEFAULT_SAP_TYPE);
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getUom()).isEqualTo(DEFAULT_UOM);
+        assertThat(testProduct.getWidth()).isEqualTo(DEFAULT_WIDTH);
+        assertThat(testProduct.getLength()).isEqualTo(DEFAULT_LENGTH);
+        assertThat(testProduct.getHeight()).isEqualTo(DEFAULT_HEIGHT);
+        assertThat(testProduct.getWeight()).isEqualTo(DEFAULT_WEIGHT);
     }
 
     @Test
@@ -144,25 +170,6 @@ public class ProductResourceIntTest {
         // Validate the Alice in the database
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkSapCodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setSapCode(null);
-
-        // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.productToProductDTO(product);
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -236,7 +243,11 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.[*].sapCode").value(hasItem(DEFAULT_SAP_CODE.toString())))
             .andExpect(jsonPath("$.[*].sapType").value(hasItem(DEFAULT_SAP_TYPE.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].uom").value(hasItem(DEFAULT_UOM.toString())));
+            .andExpect(jsonPath("$.[*].uom").value(hasItem(DEFAULT_UOM.toString())))
+            .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH.intValue())))
+            .andExpect(jsonPath("$.[*].length").value(hasItem(DEFAULT_LENGTH.intValue())))
+            .andExpect(jsonPath("$.[*].height").value(hasItem(DEFAULT_HEIGHT.intValue())))
+            .andExpect(jsonPath("$.[*].weight").value(hasItem(DEFAULT_WEIGHT.intValue())));
     }
 
     @Test
@@ -253,7 +264,11 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.sapCode").value(DEFAULT_SAP_CODE.toString()))
             .andExpect(jsonPath("$.sapType").value(DEFAULT_SAP_TYPE.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.uom").value(DEFAULT_UOM.toString()));
+            .andExpect(jsonPath("$.uom").value(DEFAULT_UOM.toString()))
+            .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH.intValue()))
+            .andExpect(jsonPath("$.length").value(DEFAULT_LENGTH.intValue()))
+            .andExpect(jsonPath("$.height").value(DEFAULT_HEIGHT.intValue()))
+            .andExpect(jsonPath("$.weight").value(DEFAULT_WEIGHT.intValue()));
     }
 
     @Test
@@ -277,7 +292,11 @@ public class ProductResourceIntTest {
                 .sapCode(UPDATED_SAP_CODE)
                 .sapType(UPDATED_SAP_TYPE)
                 .name(UPDATED_NAME)
-                .uom(UPDATED_UOM);
+                .uom(UPDATED_UOM)
+                .width(UPDATED_WIDTH)
+                .length(UPDATED_LENGTH)
+                .height(UPDATED_HEIGHT)
+                .weight(UPDATED_WEIGHT);
         ProductDTO productDTO = productMapper.productToProductDTO(updatedProduct);
 
         restProductMockMvc.perform(put("/api/products")
@@ -293,6 +312,10 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getSapType()).isEqualTo(UPDATED_SAP_TYPE);
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getUom()).isEqualTo(UPDATED_UOM);
+        assertThat(testProduct.getWidth()).isEqualTo(UPDATED_WIDTH);
+        assertThat(testProduct.getLength()).isEqualTo(UPDATED_LENGTH);
+        assertThat(testProduct.getHeight()).isEqualTo(UPDATED_HEIGHT);
+        assertThat(testProduct.getWeight()).isEqualTo(UPDATED_WEIGHT);
     }
 
     @Test

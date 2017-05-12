@@ -12,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Service Implementation for managing CarModel.
  */
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class CarModelServiceImpl implements CarModelService{
 
     private final Logger log = LoggerFactory.getLogger(CarModelServiceImpl.class);
-
+    
     private final CarModelRepository carModelRepository;
 
     private final CarModelMapper carModelMapper;
@@ -47,7 +51,7 @@ public class CarModelServiceImpl implements CarModelService{
 
     /**
      *  Get all the carModels.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */

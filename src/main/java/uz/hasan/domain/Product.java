@@ -4,6 +4,7 @@ package uz.hasan.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -27,12 +28,25 @@ public class Product implements Serializable {
     @Column(name = "sap_type", nullable = false)
     private String sapType;
 
+    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
     @Column(name = "uom", nullable = false)
     private String uom;
+
+    @Column(name = "width", precision=10, scale=2)
+    private BigDecimal width;
+
+    @Column(name = "length", precision=10, scale=2)
+    private BigDecimal length;
+
+    @Column(name = "height", precision=10, scale=2)
+    private BigDecimal height;
+
+    @Column(name = "weight", precision=10, scale=2)
+    private BigDecimal weight;
 
     public Long getId() {
         return id;
@@ -94,6 +108,58 @@ public class Product implements Serializable {
         this.uom = uom;
     }
 
+    public BigDecimal getWidth() {
+        return width;
+    }
+
+    public Product width(BigDecimal width) {
+        this.width = width;
+        return this;
+    }
+
+    public void setWidth(BigDecimal width) {
+        this.width = width;
+    }
+
+    public BigDecimal getLength() {
+        return length;
+    }
+
+    public Product length(BigDecimal length) {
+        this.length = length;
+        return this;
+    }
+
+    public void setLength(BigDecimal length) {
+        this.length = length;
+    }
+
+    public BigDecimal getHeight() {
+        return height;
+    }
+
+    public Product height(BigDecimal height) {
+        this.height = height;
+        return this;
+    }
+
+    public void setHeight(BigDecimal height) {
+        this.height = height;
+    }
+
+    public BigDecimal getWeight() {
+        return weight;
+    }
+
+    public Product weight(BigDecimal weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -122,6 +188,10 @@ public class Product implements Serializable {
             ", sapType='" + sapType + "'" +
             ", name='" + name + "'" +
             ", uom='" + uom + "'" +
+            ", width='" + width + "'" +
+            ", length='" + length + "'" +
+            ", height='" + height + "'" +
+            ", weight='" + weight + "'" +
             '}';
     }
 }

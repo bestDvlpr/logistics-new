@@ -7,6 +7,7 @@ import uz.hasan.repository.CarModelRepository;
 import uz.hasan.service.CarModelService;
 import uz.hasan.service.dto.CarModelDTO;
 import uz.hasan.service.mapper.CarModelMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +44,15 @@ public class CarModelResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final BigDecimal DEFAULT_WIDTH = new BigDecimal(1);
+    private static final BigDecimal UPDATED_WIDTH = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_LENGTH = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LENGTH = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_HEIGHT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_HEIGHT = new BigDecimal(2);
+
     @Autowired
     private CarModelRepository carModelRepository;
 
@@ -58,6 +69,9 @@ public class CarModelResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restCarModelMockMvc;
@@ -70,6 +84,7 @@ public class CarModelResourceIntTest {
         CarModelResource carModelResource = new CarModelResource(carModelService);
         this.restCarModelMockMvc = MockMvcBuilders.standaloneSetup(carModelResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -81,7 +96,10 @@ public class CarModelResourceIntTest {
      */
     public static CarModel createEntity(EntityManager em) {
         CarModel carModel = new CarModel()
-                .name(DEFAULT_NAME);
+                .name(DEFAULT_NAME)
+                .width(DEFAULT_WIDTH)
+                .length(DEFAULT_LENGTH)
+                .height(DEFAULT_HEIGHT);
         return carModel;
     }
 
@@ -108,6 +126,9 @@ public class CarModelResourceIntTest {
         assertThat(carModelList).hasSize(databaseSizeBeforeCreate + 1);
         CarModel testCarModel = carModelList.get(carModelList.size() - 1);
         assertThat(testCarModel.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testCarModel.getWidth()).isEqualTo(DEFAULT_WIDTH);
+        assertThat(testCarModel.getLength()).isEqualTo(DEFAULT_LENGTH);
+        assertThat(testCarModel.getHeight()).isEqualTo(DEFAULT_HEIGHT);
     }
 
     @Test
@@ -161,7 +182,10 @@ public class CarModelResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(carModel.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH.intValue())))
+            .andExpect(jsonPath("$.[*].length").value(hasItem(DEFAULT_LENGTH.intValue())))
+            .andExpect(jsonPath("$.[*].height").value(hasItem(DEFAULT_HEIGHT.intValue())));
     }
 
     @Test
@@ -175,7 +199,10 @@ public class CarModelResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(carModel.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH.intValue()))
+            .andExpect(jsonPath("$.length").value(DEFAULT_LENGTH.intValue()))
+            .andExpect(jsonPath("$.height").value(DEFAULT_HEIGHT.intValue()));
     }
 
     @Test
@@ -196,7 +223,10 @@ public class CarModelResourceIntTest {
         // Update the carModel
         CarModel updatedCarModel = carModelRepository.findOne(carModel.getId());
         updatedCarModel
-                .name(UPDATED_NAME);
+                .name(UPDATED_NAME)
+                .width(UPDATED_WIDTH)
+                .length(UPDATED_LENGTH)
+                .height(UPDATED_HEIGHT);
         CarModelDTO carModelDTO = carModelMapper.carModelToCarModelDTO(updatedCarModel);
 
         restCarModelMockMvc.perform(put("/api/car-models")
@@ -209,6 +239,9 @@ public class CarModelResourceIntTest {
         assertThat(carModelList).hasSize(databaseSizeBeforeUpdate);
         CarModel testCarModel = carModelList.get(carModelList.size() - 1);
         assertThat(testCarModel.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testCarModel.getWidth()).isEqualTo(UPDATED_WIDTH);
+        assertThat(testCarModel.getLength()).isEqualTo(UPDATED_LENGTH);
+        assertThat(testCarModel.getHeight()).isEqualTo(UPDATED_HEIGHT);
     }
 
     @Test
