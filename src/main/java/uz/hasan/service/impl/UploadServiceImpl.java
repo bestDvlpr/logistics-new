@@ -226,7 +226,10 @@ public class UploadServiceImpl implements UploadService {
 
             receipt = receiptRepository.save(receipt);
 
-            for (int i = 1; sheet.getRow(i) != null && sheet.getRow(i).getCell(1) != null && sheet.getRow(i).getCell(1).getStringCellValue() != null; i++) {
+            for (int i = 1; sheet.getRow(i) != null &&
+                sheet.getRow(i).getCell(1) != null &&
+                sheet.getRow(i).getCell(1).getStringCellValue() != null &&
+                !sheet.getRow(i).getCell(1).getStringCellValue().isEmpty(); i++) {
                 Row row = sheet.getRow(i);
                 String name = row.getCell(1).getStringCellValue();
                 double quantity = row.getCell(3).getNumericCellValue();

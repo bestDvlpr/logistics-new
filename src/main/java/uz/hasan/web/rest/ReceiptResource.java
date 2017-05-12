@@ -250,7 +250,7 @@ public class ReceiptResource {
     @Timed
     public ResponseEntity<ReceiptProductEntriesDTO> uploadCreditReceipt(@PathVariable DocType docType, @RequestPart("file") MultipartFile file)
         throws URISyntaxException {
-        log.debug("REST request to get a page of Displacement Receipts");
+        log.debug("REST request to upload credit/installment application");
 //        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
 //        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
