@@ -161,7 +161,7 @@ public class UploadServiceImpl implements UploadService {
             receipt.setDocID(docID);
             receipt.setDocNum(docID);
             receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
-            receipt.setDocDate(date != null ? date.getTime() : ZonedDateTime.now().toEpochSecond());
+            receipt.setDocDate(date != null ? date.getTime() : new Date().getTime());
             receipt.setSentToDCTime(ZonedDateTime.now());
 
             Row companyRow = sheet.getRow(5);
@@ -222,7 +222,7 @@ public class UploadServiceImpl implements UploadService {
             receipt.setDocType(docType);
             receipt.setCompany(company);
             receipt.setStatus(ReceiptStatus.NEW);
-            receipt.setDocDate(ZonedDateTime.now().toEpochSecond());
+            receipt.setDocDate(new Date().getTime());
 
             receipt = receiptRepository.save(receipt);
 

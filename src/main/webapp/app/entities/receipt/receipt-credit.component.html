@@ -121,11 +121,11 @@
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
                     <span *ngIf="receipt.docType===docTypeEnum.CREDIT"
-                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary">
+                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default">
                     {{receipt.docType}}
                     </span>
                     <span *ngIf="receipt.docType===docTypeEnum.INSTALLMENT"
-                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success">
+                          jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default">
                     {{receipt.docType}}
                     </span>
                 </td>

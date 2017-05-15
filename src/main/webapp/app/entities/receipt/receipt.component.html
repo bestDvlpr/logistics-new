@@ -137,6 +137,10 @@
                           *ngIf="receipt.docType === docTypeEnum.CREDIT">
                     {{receipt.docType}}
                     </span>
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                          *ngIf="receipt.docType === docTypeEnum.INSTALLMENT">
+                    {{receipt.docType}}
+                    </span>
                 </td>
                 <td *ngIf="!isWarehouseUser">
                     <span *ngIf="receipt.fromTime && receipt.toTime">
