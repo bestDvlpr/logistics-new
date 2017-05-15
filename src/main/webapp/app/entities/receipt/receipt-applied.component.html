@@ -158,47 +158,17 @@
                     </span>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
-                        <button type="submit"
-                                [routerLink]="['../receipt', receipt.id ]"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
-                                replaceUrl="true"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/delete'} }]"
-                                replaceUrl="true"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
                     <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
-                            *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT"
-                            jhiHasAuthority="ROLE_DISPATCHER">
+                            *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT">
                         <span class="fa fa-car"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                     </button>
                     <button type="button" class="btn btn-warning btn-sm" (click)="attachToDriver(receipt.id)"
-                            *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER"
-                            jhiHasAuthority="ROLE_DISPATCHER">
+                            *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER">
                         <span class="fa fa-car"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
-                            (click)="goClientSelectionStep(receipt.id)" jhiHasAuthority="ROLE_CASHIER">
-                        <span class="fa fa-send"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
-                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)">
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
                     </button>

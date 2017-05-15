@@ -223,10 +223,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAppliedReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        List<DocType> types = new ArrayList<>();
-        types.add(DocType.SALES);
-        types.add(DocType.RETURN);
-        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeIn(pageable, ReceiptStatus.APPLICATION_SENT, types);
+        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.APPLICATION_SENT);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -429,11 +426,9 @@ public class ReceiptServiceImpl implements ReceiptService {
     public Page<ReceiptProductEntriesDTO> findAllAccepted(Pageable pageable) {
         log.debug("Request to get accepted  Receipts");
         List<ReceiptStatus> statuses = new ArrayList<>();
-        statuses.add(ReceiptStatus.NEW);
-        statuses.add(ReceiptStatus.APPLICATION_SENT);
-        statuses.add(ReceiptStatus.DELIVERED);
-        statuses.add(ReceiptStatus.TAKEOUT);
-        Page<Receipt> result = receiptRepository.findAllByStatusNotIn(pageable, statuses);
+        statuses.add(ReceiptStatus.ATTACHED_TO_DRIVER);
+        statuses.add(ReceiptStatus.DELIVERY_PROCESS);
+        Page<Receipt> result = receiptRepository.findAllByStatusIn(pageable, statuses);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
