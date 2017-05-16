@@ -303,7 +303,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             List<DocType> docTypes = new ArrayList<>();
             docTypes.add(DocType.CREDIT);
             docTypes.add(DocType.INSTALLMENT);
-            return receiptRepository.getCountByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber(), docTypes);
+            return receiptRepository.countByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus.NEW, userWithAuthorities.getCompany().getIdNumber(), docTypes);
         }
     }
 

@@ -1,18 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {JhiLanguageService} from 'ng-jhipster';
+import {EventManager, JhiLanguageService} from 'ng-jhipster';
 import {Receipt} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
     selector: 'jhi-collapsed-receipt',
     templateUrl: 'collapsed-receipt.component.html'
 })
-export class CollapsedReceiptComponent implements OnInit {
+export class CollapsedReceiptComponent implements OnInit, OnDestroy {
 
     receipt: Receipt;
     phoneNumber: string;
@@ -22,10 +23,12 @@ export class CollapsedReceiptComponent implements OnInit {
     public productsSelected: ProductEntry[] = [];
     public isCollapsed = false;
     productCarExists: boolean = false;
+    eventSubscriber: Subscription;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
+                public eventManager: EventManager,
                 private router: Router) {
         this.jhiLanguageService.setLocations(
             [
@@ -56,7 +59,13 @@ export class CollapsedReceiptComponent implements OnInit {
                 }
             }
         }
+        this.registerChangeInAddresses();
     }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
 
     load(id) {
         this.receiptService.find(id).subscribe(receipt => {
@@ -66,5 +75,9 @@ export class CollapsedReceiptComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    registerChangeInAddresses() {
+        this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.load(this.dataHolderService._receipt.id));
     }
 }

@@ -13,9 +13,7 @@ import uz.hasan.domain.Company;
 import uz.hasan.domain.Product;
 import uz.hasan.domain.ProductEntry;
 import uz.hasan.domain.Receipt;
-import uz.hasan.domain.enumeration.DefectFlag;
-import uz.hasan.domain.enumeration.DocType;
-import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.enumeration.*;
 import uz.hasan.repository.*;
 import uz.hasan.service.ExcelService;
 import uz.hasan.service.UploadService;
@@ -36,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -177,6 +176,7 @@ public class UploadServiceImpl implements UploadService {
 
             receipt = receiptRepository.save(receipt);
 
+            Set<ProductEntry> productEntries = new HashSet<>();
             for (int i = 8; sheet.getRow(i).getCell(1).getNumericCellValue() != 0; i++) {
                 Row row = sheet.getRow(i);
                 String sapCode = String.valueOf(((int) row.getCell(2).getNumericCellValue()));
@@ -195,10 +195,10 @@ public class UploadServiceImpl implements UploadService {
                     product = productRepository.save(newProduct);
                 }
 
-                setProductEntries(receipt, productEntrySet, company, quantity, product, null);
+                productEntries = setProductEntries(receipt, productEntrySet, company, quantity, product, null);
             }
 
-            productEntryRepository.save(productEntrySet);
+            productEntryRepository.save(productEntries);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -222,9 +222,12 @@ public class UploadServiceImpl implements UploadService {
             receipt.setDocType(docType);
             receipt.setCompany(company);
             receipt.setStatus(ReceiptStatus.NEW);
-            receipt.setDocDate(new Date().getTime());
+            long time = new Date().getTime();
+            receipt.setDocDate(time);
+            receipt.setDocNum(String.valueOf(time));
 
             receipt = receiptRepository.save(receipt);
+            Set<ProductEntry> productEntries = new HashSet<>();
 
             for (int i = 1; sheet.getRow(i) != null &&
                 sheet.getRow(i).getCell(1) != null &&
@@ -245,10 +248,10 @@ public class UploadServiceImpl implements UploadService {
                     product = productRepository.save(newProduct);
                 }
 
-                setProductEntries(receipt, productEntrySet, company, quantity, product, price);
+                productEntries = setProductEntries(receipt, productEntrySet, company, quantity, product, price);
             }
 
-            productEntryRepository.save(productEntrySet);
+            productEntryRepository.save(productEntries);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -256,7 +259,7 @@ public class UploadServiceImpl implements UploadService {
         return receipt;
     }
 
-    private void setProductEntries(Receipt receipt, Set<ProductEntry> productEntrySet, Company company, double quantity, Product product, Double price) {
+    private Set<ProductEntry> setProductEntries(Receipt receipt, Set<ProductEntry> productEntrySet, Company company, double quantity, Product product, Double price) {
         if (quantity > 1) {
             int qty = ((int) quantity);
             for (int j = 0; j < qty; j++) {
@@ -265,6 +268,7 @@ public class UploadServiceImpl implements UploadService {
         } else {
             productEntrySet.add(createProductEntry(receipt, company, product, price));
         }
+        return productEntrySet;
     }
 
     private ProductEntry createProductEntry(Receipt receipt, Company company, Product product, Double price) {
@@ -277,6 +281,9 @@ public class UploadServiceImpl implements UploadService {
         productEntry.setQty(BigDecimal.ONE);
         productEntry.setReceipt(receipt);
         productEntry.setAddress(receipt.getAddress());
+        productEntry.setDeliveryFlag(SalesType.DELIVERY);
+        productEntry.setHallFlag(SalesPlace.STORE);
+        productEntry.setVirtualFlag(VirtualFlag.SOLD_PHYSICALLY);
         productEntry.setPrice(price != null ? BigDecimal.valueOf(price) : null);
         return productEntry;
     }

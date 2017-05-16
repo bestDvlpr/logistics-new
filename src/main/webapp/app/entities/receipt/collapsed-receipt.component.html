@@ -44,6 +44,18 @@
                         </p>
                     </div>
                 </div>
+                <div class="row"
+                     *ngIf="dataHolderService._client &&
+                      dataHolderService._receipt.status!==receiptStatusEnum.DELIVERED &&
+                       dataHolderService._receipt.status!==receiptStatusEnum.TAKEOUT">
+                    <div class="col-md-12">
+                        <button class="btn btn-sm btn-block btn-success"
+                                [routerLink]="['/', { outlets: { popup: 'address/'+ receipt.address.id + '/edit'} }]">
+                            <span class="fa fa-pencil"></span>
+                            <span jhiTranslate="logisticsApp.address.home.editLabel">Edit Address</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="row" *ngIf="receipt.receiver">
                     <div class="col-md-3 text-muted">
                         <h1 class="display-4">

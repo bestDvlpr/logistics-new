@@ -4,7 +4,8 @@
             "home": {
                 "title": "Addresses",
                 "createLabel": "Create a new Address",
-                "createOrEditLabel": "Create or edit a Address"
+                "createOrEditLabel": "Create or edit a Address",
+                "editLabel": "Edit a Address"
             },
             "created": "A new Address is created with identifier {{ param }}",
             "updated": "A Address is updated with identifier {{ param }}",

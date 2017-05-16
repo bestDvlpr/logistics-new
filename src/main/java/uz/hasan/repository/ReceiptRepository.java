@@ -67,6 +67,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     Long countByStatusAndDocTypeIn(ReceiptStatus applicationSent, List<DocType> docTypes);
 
-    Long getCountByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus status, String idNumber, List<DocType> docTypes);
+    Long countByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus status, String idNumber, List<DocType> docTypes);
 
 }
