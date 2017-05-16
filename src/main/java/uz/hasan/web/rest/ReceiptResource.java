@@ -449,7 +449,7 @@ public class ReceiptResource {
             return null;
         }
         Page<ReceiptProductEntriesDTO> page = receiptService.findByClientId(pageable, clientId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit/by-company-id");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/by-client-id");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
