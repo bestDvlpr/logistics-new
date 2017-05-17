@@ -48,7 +48,7 @@
                      *ngIf="dataHolderService._client &&
                       dataHolderService._receipt.status!==receiptStatusEnum.DELIVERED &&
                        dataHolderService._receipt.status!==receiptStatusEnum.TAKEOUT">
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="receipt.address">
                         <button class="btn btn-sm btn-block btn-success"
                                 [routerLink]="['/', { outlets: { popup: 'address/'+ receipt.address.id + '/edit'} }]">
                             <span class="fa fa-pencil"></span>

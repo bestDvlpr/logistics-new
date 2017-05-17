@@ -1,18 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {EventManager, JhiLanguageService} from 'ng-jhipster';
-import {Receipt} from './receipt.model';
+import {Receipt, ReceiptStatus} from './receipt.model';
 import {ReceiptService} from './receipt.service';
 import {ProductEntry} from '../product-entry/product-entry.model';
 import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
 import {Subscription} from "rxjs/Subscription";
+import {EnumAware} from "./doctypaware.decorator";
 
 @Component({
     selector: 'jhi-collapsed-receipt',
     templateUrl: 'collapsed-receipt.component.html'
 })
+@EnumAware
 export class CollapsedReceiptComponent implements OnInit, OnDestroy {
 
     receipt: Receipt;
@@ -24,6 +26,7 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
     public isCollapsed = false;
     productCarExists: boolean = false;
     eventSubscriber: Subscription;
+    receiptStatusEnum = ReceiptStatus;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
