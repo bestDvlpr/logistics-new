@@ -40,7 +40,7 @@
                             : {{client.firstName + ' ' + client.lastName}}
                             <br/>
                             <span jhiTranslate="logisticsApp.client.clientSince">Client since</span>
-                            : {{client.regDate | date}}
+                            : {{client.regDate | date: 'dd-MM-yyyy HH:mm'}}
                         </p>
                     </div>
                 </div>

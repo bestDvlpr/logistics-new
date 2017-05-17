@@ -15,6 +15,7 @@ import {
     companyRoute,
     companyPopupRoute,
     CompanyResolvePagingParams,
+    CompanyResolve,
 } from './';
 
 let ENTITY_STATES = [
@@ -46,6 +47,7 @@ let ENTITY_STATES = [
         CompanyService,
         CompanyPopupService,
         CompanyResolvePagingParams,
+        CompanyResolve
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
