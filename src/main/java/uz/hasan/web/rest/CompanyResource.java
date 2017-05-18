@@ -130,6 +130,20 @@ public class CompanyResource {
     }
 
     /**
+     * GET  /companies/:id : get the "id" company.
+     *
+     * @param id the id of the companyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/companies/by-id-number/{companyId}")
+    @Timed
+    public ResponseEntity<CompanyDTO> getCompanyByIdNumber(@PathVariable String companyId) {
+        log.debug("REST request to get Company : {}", companyId);
+        CompanyDTO companyDTO = companyService.findByIdNumber(companyId);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(companyDTO));
+    }
+
+    /**
      * DELETE  /companies/:id : delete the "id" company.
      *
      * @param id the id of the companyDTO to delete

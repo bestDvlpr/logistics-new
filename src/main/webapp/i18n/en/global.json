@@ -61,6 +61,7 @@
             "language": "Language",
             "newReceipts": "New Applications",
             "creditReceipts": "Credit Applications",
+            "corporateReceipts": "Corporate Applications",
             "archivedReceipts": "Archive",
             "appliedReceipts": "Received Applications"
         },

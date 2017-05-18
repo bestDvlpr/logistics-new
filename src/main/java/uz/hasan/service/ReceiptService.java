@@ -45,12 +45,36 @@ public interface ReceiptService {
     void delete(Long id);
 
     /**
-     *  Get all the new receipts by shop id.
+     *  Get all the new receipts.
      *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    Page<ReceiptProductEntriesDTO> findAllNewReceiptsByCompanyId(Pageable pageable);
+    Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable);
+
+    /**
+     *  Get all the new sales retail receipts by company id.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findAllNewSalesRetailReceipts(Pageable pageable);
+
+    /**
+     *  Get all the new credit receipts by company id.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findAllNewCreditReceipts(Pageable pageable);
+
+    /**
+     *  Get all the new sales wholesale receipts by company id.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findAllNewSalesWholeSaleReceipts(Pageable pageable);
 
 
     /**
@@ -155,6 +179,14 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptProductEntriesDTO> findCreditReceipts(Pageable pageable);
+
+    /**
+     *  Get all corporate receipts.
+     *
+     *  @param pageable the pagination information
+     *  @return the list of entities
+     */
+    Page<ReceiptProductEntriesDTO> findCorporateReceipts(Pageable pageable);
 
     /**
      *  Get all credit receipts.

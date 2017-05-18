@@ -47,4 +47,12 @@ public interface CompanyService {
      *  @return the list of entities
      */
     List<CompanyDTO> findAll();
+
+    /**
+     *  Get the "idNumber" company.
+     *
+     *  @param idNumber the idNumber of the entity
+     *  @return the entity
+     */
+    CompanyDTO findByIdNumber(String idNumber);
 }

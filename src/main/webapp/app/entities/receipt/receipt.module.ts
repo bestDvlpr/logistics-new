@@ -28,6 +28,7 @@ import {
     ReceiptDeliveryDialogComponent,
     ReceiptDeliveryPopupComponent,
     ReceiptCreditComponent,
+    ReceiptCorporateComponent,
 } from './';
 import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
 
@@ -59,7 +60,8 @@ let ENTITY_STATES = [
         ReceiptAppliedComponent,
         ReceiptProductToCarComponent,
         ReceiptArchivedComponent,
-        ReceiptCreditComponent
+        ReceiptCreditComponent,
+        ReceiptCorporateComponent
     ],
     entryComponents: [
         ReceiptComponent,
@@ -77,7 +79,8 @@ let ENTITY_STATES = [
         ReceiptAppliedComponent,
         ReceiptProductToCarComponent,
         ReceiptArchivedComponent,
-        ReceiptCreditComponent
+        ReceiptCreditComponent,
+        ReceiptCorporateComponent
     ],
     providers: [
         ReceiptService,

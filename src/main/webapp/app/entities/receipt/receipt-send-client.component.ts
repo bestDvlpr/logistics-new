@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
-import {Receipt} from "./receipt.model";
+import {Receipt, WholeSaleFlag} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {TranslateService} from "ng2-translate";
 import {ClientService} from "../client/client.service";
@@ -10,23 +10,28 @@ import {DataHolderService} from "./data-holder.service";
 import {Response} from "@angular/http";
 import {Company} from "../company/company.model";
 import {CompanyService} from "../company/company.service";
+import {EnumAware} from "./doctypaware.decorator";
 
 @Component({
     selector: 'jhi-receipt-send-client',
     templateUrl: 'receipt-send-client.component.html'
 })
+@EnumAware
 export class ReceiptSendClientComponent implements OnInit {
 
     receipt: Receipt;
     private subscription: any;
     phoneNumber: string;
+    companyId: string;
     client: Client;
+    company: Company;
     clientSelected = false;
-    isCompanySelected = false;
-    companySelected: Company;
+    companySelected = false;
     uncheckedProdsExist = false;
     isSaving: boolean;
     companies: Company[];
+    wholeSaleFlagEnum = WholeSaleFlag;
+    isClientCompany = false;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
@@ -92,7 +97,7 @@ export class ReceiptSendClientComponent implements OnInit {
         window.history.back();
     }
 
-    public findClient() {
+    findClient() {
         this.clientService.byPhoneNumber(this.phoneNumber).subscribe(res => {
             this.client = res;
         });
@@ -100,24 +105,26 @@ export class ReceiptSendClientComponent implements OnInit {
         this.clientSelected = false;
     }
 
-    public toggleClientSelected() {
+    findCompany() {
+        this.companyService.byIdNumber(this.companyId).subscribe(res => {
+            this.company = res;
+        });
+        this.company = null;
+        this.companySelected = false;
+    }
+
+    toggleClientSelected() {
         this.clientSelected = !this.clientSelected;
     }
 
-    public toggleCompanySelected(company: Company) {
-        this.isCompanySelected = !this.isCompanySelected;
-        if (this.isCompanySelected) {
-            for (let a of this.companies) {
-                if (a === company) {
-                    this.companySelected = a;
-                }
-            }
-        }
+    toggleCompanySelected() {
+        this.companySelected = !this.companySelected;
     }
 
     public goAddressSelectStep() {
         this.receipt.clientId = this.client.id;
         this.dataHolderService._client = this.client;
+        this.dataHolderService._company = this.company;
         this.dataHolderService._receipt = this.receipt;
         this.router.navigate(['../receipt-send-address']);
     }

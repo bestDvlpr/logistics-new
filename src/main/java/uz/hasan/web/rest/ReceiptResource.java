@@ -167,8 +167,42 @@ public class ReceiptResource {
     public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewReceipts(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of New Receipts");
-        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceiptsByCompanyId(pageable);
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewReceipts(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts : get all {@link uz.hasan.domain.enumeration.ReceiptStatus}.NEW the receipts.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/new/sales/retail")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewSalesRetailReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of New Sales Retail Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewSalesRetailReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new/sales/retail");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts : get all {@link uz.hasan.domain.enumeration.ReceiptStatus}.NEW the receipts.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/new/sales/wholesale")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllNewSalesWholesaleReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of New Sales Wholesale Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findAllNewSalesWholeSaleReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/new/sales/wholesale");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -234,9 +268,6 @@ public class ReceiptResource {
     public ResponseEntity<List<ReceiptProductEntriesDTO>> uploadDisplacementReceipt(@RequestPart("file") MultipartFile file)
         throws URISyntaxException {
         log.debug("REST request to get a page of Displacement Receipts");
-//        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
-//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
-//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
         return null;
     }
 
@@ -246,15 +277,12 @@ public class ReceiptResource {
      * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @PostMapping(value = "/receipts/upload/credit/{docType}", headers = ("content-type=multipart/*"))
+    @PostMapping(value = "/receipts/upload/{docType}", headers = ("content-type=multipart/*"))
     @Timed
-    public ResponseEntity<ReceiptProductEntriesDTO> uploadCreditReceipt(@PathVariable DocType docType, @RequestPart("file") MultipartFile file)
+    public ResponseEntity<ReceiptProductEntriesDTO> uploadReceipt(@PathVariable DocType docType, @RequestPart("file") MultipartFile file)
         throws URISyntaxException {
-        log.debug("REST request to upload credit/installment application");
-//        Page<ReceiptProductEntriesDTO> page = receiptService.findDisplacementReceipts(pageable);
-//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/displacement");
-//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createCreditApplication(file, docType);
+        log.debug("REST request to upload application file: {}", file);
+        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createApplicationFromFile(file, docType);
         return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
     }
 
@@ -271,6 +299,24 @@ public class ReceiptResource {
         throws URISyntaxException {
         log.debug("REST request to get a page of Displacement Receipts");
         Page<ReceiptProductEntriesDTO> page = receiptService.findCreditReceipts(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/corporate : get all receipts of type {@link uz.hasan.domain.enumeration.SalesType} DISPLACEMENT
+     * or {@link uz.hasan.domain.enumeration.SalesType} SALES.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @GetMapping("/receipts/corporate")
+    @Timed
+    public ResponseEntity<List<ReceiptProductEntriesDTO>> getAllCorporateReceipts(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Displacement or Sales Receipts");
+        Page<ReceiptProductEntriesDTO> page = receiptService.findCorporateReceipts(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts/credit");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

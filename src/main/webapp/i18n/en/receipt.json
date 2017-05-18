@@ -9,6 +9,7 @@
                 "archiveTitle": "Archived Applications",
                 "createLabel": "Create a new Application",
                 "createCreditLabel": "Create a new Credit Application",
+                "createCorporateLabel": "Create a new Corporate Application",
                 "createOrEditLabel": "Create or edit a Application"
             },
             "created": "A new Application is created with identifier {{ param }}",

@@ -19,6 +19,8 @@ public final class AuthoritiesConstants {
 
     public static final String CREDIT = "ROLE_CREDIT";
 
+    public static final String CORPORATE = "ROLE_CORPORATE";
+
     public static final String WAREHOUSE = "ROLE_WAREHOUSE";
 
     private AuthoritiesConstants() {

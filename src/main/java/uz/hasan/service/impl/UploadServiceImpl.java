@@ -9,12 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import uz.hasan.domain.Company;
-import uz.hasan.domain.Product;
-import uz.hasan.domain.ProductEntry;
-import uz.hasan.domain.Receipt;
+import uz.hasan.domain.*;
 import uz.hasan.domain.enumeration.*;
 import uz.hasan.repository.*;
+import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ExcelService;
 import uz.hasan.service.UploadService;
 import uz.hasan.service.UserService;
@@ -34,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -120,14 +117,15 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public ReceiptProductEntriesDTO createCreditApplication(MultipartFile file, DocType docType) {
+    public ReceiptProductEntriesDTO createApplicationFromFile(MultipartFile file, DocType docType) {
         InputStream inputStream = null;
         try {
             inputStream = file.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createCreditReceipt(inputStream, docType));
+
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createReceiptFromFile(inputStream, docType));
     }
 
     private Receipt createReceipt(InputStream file) {
@@ -206,8 +204,21 @@ public class UploadServiceImpl implements UploadService {
         return receipt;
     }
 
-    private Receipt createCreditReceipt(InputStream file, DocType docType) {
+    private Receipt createReceiptFromFile(InputStream file, DocType docType) {
         Receipt receipt = new Receipt();
+        WholeSaleFlag wholeSaleFlag = null;
+        Authority creditAuthority = new Authority(AuthoritiesConstants.CREDIT);
+        Authority warehouseAuthority = new Authority(AuthoritiesConstants.WAREHOUSE);
+        Authority corporateAuthority = new Authority(AuthoritiesConstants.CORPORATE);
+
+        Set<Authority> userAuths = userService.getUserWithAuthorities().getAuthorities();
+
+        if (userAuths.contains(creditAuthority)){
+            wholeSaleFlag = WholeSaleFlag.RETAIL;
+        } else if (userAuths.contains(corporateAuthority)){
+            wholeSaleFlag = WholeSaleFlag.WHOLESALE;
+        }
+
         try {
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -220,6 +231,7 @@ public class UploadServiceImpl implements UploadService {
             Company company = userService.getUserWithAuthorities().getCompany();
 
             receipt.setDocType(docType);
+            receipt.setWholeSaleFlag(wholeSaleFlag);
             receipt.setCompany(company);
             receipt.setStatus(ReceiptStatus.NEW);
             long time = new Date().getTime();

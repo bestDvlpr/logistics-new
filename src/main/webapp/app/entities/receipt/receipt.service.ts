@@ -41,7 +41,7 @@ export class ReceiptService {
 
     newReceipts(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl.concat('/new'), options);
+        return this.http.get(this.resourceUrl.concat('/new/sales/retail'), options);
     }
 
     appliedReceipts(req?: any): Observable<Response> {
@@ -138,6 +138,11 @@ export class ReceiptService {
         return this.http.get(this.resourceUrl.concat('/credit'), options);
     }
 
+    corporateReceipts(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceUrl.concat('/corporate'), options);
+    }
+
     creditedReceiptsByCompanyId(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/credit/by-company-id'), options);
@@ -154,8 +159,8 @@ export class ReceiptService {
         });
     }
 
-    uploadCredit(formData: FormData, docType: DocType): Observable<Response> {
-        return this.http.post(`${this.resourceUrl.concat('/upload/credit')}/${docType}`, formData).map((res: Response) => {
+    uploadReceipt(formData: FormData, docType: DocType): Observable<Response> {
+        return this.http.post(`${this.resourceUrl.concat('/upload')}/${docType}`, formData).map((res: Response) => {
             return res;
         });
     }

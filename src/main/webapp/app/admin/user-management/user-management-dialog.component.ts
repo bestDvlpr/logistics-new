@@ -41,6 +41,7 @@ export class UserMgmtDialogComponent implements OnInit {
             'ROLE_CASHIER',
             'ROLE_MANAGER',
             'ROLE_CREDIT',
+            'ROLE_CORPORATE',
             'ROLE_WAREHOUSE'
         ];
         this.languageHelper.getAll().then((languages) => {

@@ -61,6 +61,7 @@
             "language": "Язык",
             "newReceipts": "Новые заявки",
             "creditReceipts": "Заявки кредит",
+            "corporateReceipts": "Корпоративные заявки",
             "archivedReceipts": "Архив",
             "appliedReceipts": "Принятые заявки"
         },

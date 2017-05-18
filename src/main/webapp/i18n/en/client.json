@@ -30,7 +30,9 @@
             "tin": "Tin",
             "okonx": "Okonx",
             "oked": "Oked",
-            "phoneNumbers": "Phone Numbers"
+            "phoneNumbers": "Phone Numbers",
+            "individual": "Individual Person",
+            "company": "Company"
         }
     }
 }

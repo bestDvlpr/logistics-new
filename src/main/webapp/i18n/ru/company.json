@@ -16,7 +16,7 @@
                 "title": "Компания"
             },
             "name": "Наименования",
-            "idNumber": "Id Number",
+            "idNumber": "ID номер",
             "type": "Тип",
             "address": "Адрес"
         }

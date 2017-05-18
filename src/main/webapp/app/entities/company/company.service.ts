@@ -60,4 +60,10 @@ export class CompanyService {
         }
         return options;
     }
+
+    byIdNumber(companyId: string) {
+        return this.http.get(`${this.resourceUrl}/by-id-number/${companyId}`).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

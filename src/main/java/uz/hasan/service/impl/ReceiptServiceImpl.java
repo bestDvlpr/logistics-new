@@ -8,10 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.*;
-import uz.hasan.domain.enumeration.CarStatus;
-import uz.hasan.domain.enumeration.DocType;
-import uz.hasan.domain.enumeration.ReceiptStatus;
-import uz.hasan.domain.enumeration.XDocTemplate;
+import uz.hasan.domain.enumeration.*;
 import uz.hasan.repository.*;
 import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ExcelService;
@@ -25,7 +22,6 @@ import uz.hasan.service.mapper.ReceiptMapper;
 import uz.hasan.service.mapper.ReceiptProductEntriesMapper;
 
 import javax.persistence.EntityManager;
-import javax.print.Doc;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -182,9 +178,67 @@ public class ReceiptServiceImpl implements ReceiptService {
      * @return the list of new entities
      */
     @Override
-    public Page<ReceiptProductEntriesDTO> findAllNewReceiptsByCompanyId(Pageable pageable) {
+    public Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatusAndCompanyIdNumber(pageable, ReceiptStatus.NEW, userService.getUserWithAuthorities().getCompany().getIdNumber());
+
+        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.NEW);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     * Get all the new receipts by shop id.
+     *
+     * @param pageable the pagination information
+     * @return the list of new entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findAllNewSalesRetailReceipts(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.SALES);
+        Company company = userService.getUserWithAuthorities().getCompany();
+        String idNumber = null;
+        if (company != null) {
+            idNumber = company.getIdNumber();
+        }
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.RETAIL, idNumber);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     * Get all the new receipts by shop id.
+     *
+     * @param pageable the pagination information
+     * @return the list of new entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findAllNewCreditReceipts(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.CREDIT);
+        docTypes.add(DocType.INSTALLMENT);
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, userService.getUserWithAuthorities().getCompany().getIdNumber());
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     * Get all the new receipts by shop id.
+     *
+     * @param pageable the pagination information
+     * @return the list of new entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findAllNewSalesWholeSaleReceipts(Pageable pageable) {
+        log.debug("Request to get all new Receipts");
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.CREDIT);
+        docTypes.add(DocType.INSTALLMENT);
+        Company company = userService.getUserWithAuthorities().getCompany();
+        String idNumber = null;
+        if (company != null) {
+            idNumber = company.getIdNumber();
+        }
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.WHOLESALE, idNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -204,10 +258,20 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Page<Receipt> result;
 
-        if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
-            result = receiptRepository.findByCompanyIdNumberOrderByDocDateDesc(pageable, idNumber);
+        if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CREDIT))) {
+            List<DocType> types = new ArrayList<>();
+            types.add(DocType.INSTALLMENT);
+            types.add(DocType.CREDIT);
+            result = receiptRepository.findByDocTypeInAndCompanyIdNumberOrderByDocDateDesc(pageable, types, idNumber);
         } else if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.WAREHOUSE))) {
             result = receiptRepository.findByDocTypeAndCompanyIdNumberOrderByDocDateDesc(pageable, DocType.DISPLACEMENT, idNumber);
+        } else if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CORPORATE))) {
+            List<DocType> types = new ArrayList<>();
+            types.add(DocType.DISPLACEMENT);
+            types.add(DocType.SALES);
+            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, types, WholeSaleFlag.WHOLESALE, idNumber);
+        } else if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
+            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, Arrays.asList(DocType.values()), WholeSaleFlag.RETAIL, idNumber);
         } else {
             result = receiptRepository.findAll(pageable);
         }
@@ -295,7 +359,8 @@ public class ReceiptServiceImpl implements ReceiptService {
         Set<Authority> authorities = userWithAuthorities.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER)) ||
-            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {List<DocType> docTypes = new ArrayList<>();
+            authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DISPATCHER))) {
+            List<DocType> docTypes = new ArrayList<>();
             docTypes.add(DocType.SALES);
             docTypes.add(DocType.RETURN);
             return receiptRepository.countByStatusAndDocTypeIn(ReceiptStatus.APPLICATION_SENT, docTypes);
@@ -473,7 +538,33 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<DocType> docTypes = new ArrayList<>();
         docTypes.add(DocType.CREDIT);
         docTypes.add(DocType.INSTALLMENT);
-        Page<Receipt> result = receiptRepository.findAllByDocTypeIn(pageable, docTypes);
+        Company company = userService.getUserWithAuthorities().getCompany();
+        String companyIdNumber = null;
+        if (company != null) {
+            companyIdNumber = company.getIdNumber();
+        }
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumber(pageable, docTypes, companyIdNumber);
+        return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
+    }
+
+    /**
+     * Get all corporate receipts.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Override
+    public Page<ReceiptProductEntriesDTO> findCorporateReceipts(Pageable pageable) {
+        log.debug("Request to get all corporate Receipts");
+        List<DocType> docTypes = new ArrayList<>();
+        docTypes.add(DocType.DISPLACEMENT);
+        docTypes.add(DocType.SALES);
+        Company company = userService.getUserWithAuthorities().getCompany();
+        String companyIdNumber = null;
+        if (company != null) {
+            companyIdNumber = company.getIdNumber();
+        }
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, docTypes, WholeSaleFlag.WHOLESALE, companyIdNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -495,11 +586,11 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     /**
-     *  Get all receipts.
+     * Get all receipts.
      *
-     *  @param pageable the pagination information
-     *  @param clientId the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @param clientId the pagination information
+     * @return the list of entities
      */
     @Override
     public Page<ReceiptProductEntriesDTO> findByClientId(Pageable pageable, Long clientId) {

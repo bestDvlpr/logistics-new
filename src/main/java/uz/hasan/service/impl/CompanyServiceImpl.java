@@ -97,4 +97,16 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> result = companyRepository.findAll();
         return companyMapper.companiesToCompanyDTOs(result);
     }
+
+    /**
+     *  Get the "idNumber" company.
+     *
+     *  @param idNumber the idNumber of the entity
+     *  @return the entity
+     */
+    public CompanyDTO findByIdNumber(String idNumber){
+        log.debug("Request to get Company : {}", idNumber);
+        Company company = companyRepository.findByIdNumber(idNumber);
+        return companyMapper.companyToCompanyDTO(company);
+    }
 }

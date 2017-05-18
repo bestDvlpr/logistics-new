@@ -15,11 +15,11 @@ import {CarService} from "../car/car.service";
 import * as FileSaver from "file-saver";
 
 @Component({
-    selector: 'jhi-receipt-credit',
-    templateUrl: './receipt-credit.component.html'
+    selector: 'jhi-receipt-corporate',
+    templateUrl: './receipt-corporate.component.html'
 })
 @EnumAware
-export class ReceiptCreditComponent implements OnInit, OnDestroy {
+export class ReceiptCorporateComponent implements OnInit, OnDestroy {
 
     currentAccount: any;
     error: any;
@@ -37,7 +37,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     receiptStatusEnum = ReceiptStatus;
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
-    creditReceipts: Receipt[];
+    corporateReceipts: Receipt[];
     receipts: Receipt[];
     uploadForm = false;
     receiptFile: any;
@@ -67,8 +67,8 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
         );
     }
 
-    loadAllCredited() {
-        this.receiptService.creditedReceipts({
+    loadAllCorporate() {
+        this.receiptService.corporateReceipts({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()
@@ -86,37 +86,27 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/receipt-credit'], {
+        this.router.navigate(['/receipt-corporate'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.loadAllCredited();
+        this.loadAllCorporate();
     }
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/receipt-credit', {
+        this.router.navigate(['/receipt-corporate', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
-        this.loadAllCredited();
+        this.loadAllCorporate();
     }
 
     ngOnInit() {
-        this.principal.identity().then((account) => {
-            this.currentAccount = account;
-            for (let auth of this.currentAccount.authorities) {
-                if (auth === 'ROLE_ADMIN' ||
-                    auth === 'ROLE_MANAGER' ||
-                    auth === 'ROLE_DISPATCHER') {
-                    this.isDCEmployee = true;
-                }
-            }
-            this.loadAllCredited();
-        });
+        this.loadAllCorporate();
         this.registerChangeInReceipts();
     }
 
@@ -128,8 +118,9 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
+
     registerChangeInReceipts() {
-        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCredited());
+        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCorporate());
     }
 
     sort() {
@@ -145,8 +136,8 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
-        this.creditReceipts = [];
-        this.creditReceipts = data;
+        this.corporateReceipts = [];
+        this.corporateReceipts = data;
     }
 
     private onError(error) {
@@ -181,7 +172,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     private saveToDataHolder(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.creditReceipts) {
+        for (let res of this.corporateReceipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }
@@ -193,7 +184,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     }
 
     viewReceipt(receiptId: number) {
-        for (let receipt of this.creditReceipts) {
+        for (let receipt of this.corporateReceipts) {
             if (receipt.id === receiptId) {
                 this.dataHolderService._receipt = receipt;
                 this.dataHolderService._client = receipt.client;

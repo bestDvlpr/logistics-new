@@ -13,8 +13,28 @@
     <div class="clearfix"></div>
     <jhi-alert-error></jhi-alert-error>
     <hr>
+
+    <div class="custom-controls-stacked" *ngIf="receipt.wholeSaleFlag===wholeSaleFlagEnum.WHOLESALE">
+        <span jhiTranslate="logisticsApp.client.detail.title">Client</span>: <br/>
+        <label class="custom-control custom-radio has-success">
+            <input type="radio" class="custom-control-input" name="isClientCompany"
+                   [(ngModel)]="isClientCompany" [value]="false"
+                   [checked]="!isClientCompany"/>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description"
+                  jhiTranslate="logisticsApp.client.individual">Individual Person</span>
+        </label>
+        <label class="custom-control custom-radio has-primary">
+            <input type="radio" class="custom-control-input" name="isClientCompany"
+                   [(ngModel)]="isClientCompany" [value]="true"
+                   [checked]="isClientCompany"/>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description"
+                  jhiTranslate="logisticsApp.client.company">Company</span>
+        </label>
+    </div>
     <div class="row" *ngIf="uncheckedProdsExist">
-        <div class="col-md-12" jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
+        <div class="col-md-12" *ngIf="!isClientCompany">
             <div class="card">
                 <div class="card-header">
                     <label jhiTranslate="logisticsApp.phoneNumber.detail.title">Phone Number</label>
@@ -78,7 +98,71 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
+        <div class="col-md-12" *ngIf="isClientCompany">
+            <div class="card">
+                <div class="card-header">
+                    <label jhiTranslate="logisticsApp.company.idNumber">Id Number</label>
+                    <button class="btn btn-success btn-sm float-md-right"
+                            [routerLink]="['/', { outlets: { popup: ['company-new'] } }]">
+                        <span class="fa fa-plus"></span>
+                        <span jhiTranslate="logisticsApp.company.home.createLabel">Create new Company</span>
+                        <span class="fa fa-building"></span>
+                    </button>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form name="number" role="form" novalidate (ngSubmit)="findCompany()">
+                                <input type="text" class="form-control" id="companyId" name="companyId"
+                                       [(ngModel)]="companyId"/>
+                                <div>&nbsp;</div>
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <span jhiTranslate="global.form.search">Search</span>&nbsp;
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-8" *ngIf="company">
+                            <div class="card bg-primary card-block btn btn-primary"
+                                 [ngClass]="{active: (!companySelected), disabled: (companySelected)}"
+                                 (click)="!companySelected && toggleCompanySelected()">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <h2 *ngIf="!companySelected"><span
+                                            class="fa fa-square"></span></h2>
+                                        <h2 *ngIf="companySelected"><span
+                                            class="fa fa-check-square"></span></h2>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h6><span
+                                            jhiTranslate="logisticsApp.company.detail.title">Company</span> :
+                                            {{company.id}}
+                                        </h6>
+                                        <p class="card-text">
+                                            <span jhiTranslate="logisticsApp.company.name">Name</span>
+                                            : {{company.name}}
+                                            <br/>
+                                            <span jhiTranslate="logisticsApp.company.idNumber">Id Number</span>
+                                            : {{company.idNumber}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row" *ngIf="clientSelected || companySelected">
+                        <div class="col-md-2 offset-md-10">
+                            <button class="btn btn-sm btn-primary btn-block" (click)="goAddressSelectStep()">
+                                <span jhiTranslate="global.form.next">Next</span>
+                                <span class="fa fa-arrow-circle-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info btn-sm">

@@ -45,6 +45,14 @@
             </li>
 
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
+                jhiHasAnyAuthority="ROLE_CORPORATE">
+                <a class="nav-link" [routerLink]="'receipt-corporate'" (click)="collapseNavbar()" placement="bottom">
+                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.corporateReceipts">Corporate Applications</span>
+                </a>
+            </li>
+
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
                 jhiHasAnyAuthority="ROLE_WAREHOUSE">
                 <a class="nav-link" [routerLink]="'receipt'" (click)="collapseNavbar()" placement="bottom">
                     <i class="fa fa-first-order" aria-hidden="true"></i>

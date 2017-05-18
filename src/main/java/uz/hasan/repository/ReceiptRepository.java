@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import uz.hasan.domain.Receipt;
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.enumeration.WholeSaleFlag;
 
 import java.util.Collection;
 import java.util.List;
@@ -69,4 +70,11 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     Long countByStatusAndCompanyIdNumberAndDocTypeIn(ReceiptStatus status, String idNumber, List<DocType> docTypes);
 
+    Page<Receipt> findByDocTypeInAndCompanyIdNumberOrderByDocDateDesc(Pageable pageable, List<DocType> types, String idNumber);
+
+    Page<Receipt> findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(Pageable pageable, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String companyIdNumber);
+
+    Page<Receipt> findByStatusAndDocTypeInAndCompanyIdNumber(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, String idNumber);
+
+    Page<Receipt> findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String idNumber);
 }

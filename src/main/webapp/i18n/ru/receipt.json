@@ -9,6 +9,7 @@
                 "archiveTitle": "Архив заявки",
                 "createLabel": "Создать новая Заявка",
                 "createCreditLabel": "Создать новая Заявка кредита",
+                "createCorporateLabel": "Создать новая корпоративная заявка",
                 "createOrEditLabel": "Создать или отредактировать Заявка"
             },
             "created": "Новый Заявка создан с идентификатором {{ param }}",

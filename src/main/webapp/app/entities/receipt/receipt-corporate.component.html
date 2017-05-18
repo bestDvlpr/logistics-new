@@ -1,11 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.receipt.home.title-credit">Credit Applications</span>
-        <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_CREDIT"
-                (click)="toggleUploadForm()">
+        <button class="btn btn-primary float-xs-right create-receipt" (click)="toggleUploadForm()">
             <span class="fa fa-plus"></span>
-            <span jhiTranslate="logisticsApp.receipt.home.createCreditLabel">
-                Create new Credit Application
+            <span jhiTranslate="logisticsApp.receipt.home.createCorporateLabel">
+                Create new Corporate Application
             </span>
         </button>
     </h2>
@@ -21,32 +20,25 @@
             <div class="col-md-3 offset-md-9">
                 <form name="uploadForm" novalidate role="form" #uploadForm="ngForm"
                       enctype="multipart/form-data">
-                    <!--<div class="input-group">
-                        <input type="file" id="file" class="form-control">
-                        <span class="input-group-btn">
-                    <button class="btn btn-primary input-group-addon">AAA</button>
-                    </span>
-                    </div>-->
                     <div class="form-group">
                         <input type="file" (change)="fileChangeEvent($event)"/>
-                        <!--<file-upload #fu (change)="fu.upload()" [multiple]="false"></file-upload>-->
                     </div>
                     <div class="custom-controls-stacked">
                         <label class="custom-control custom-radio has-success">
                             <input type="radio" class="custom-control-input" name="credit"
-                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.CREDIT"
-                                   [checked]="docTypeSelected===docTypeEnum.CREDIT"/>
+                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.SALES"
+                                   [checked]="docTypeSelected===docTypeEnum.SALES"/>
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description"
-                                  jhiTranslate="logisticsApp.DocType.CREDIT">CREDIT</span>
+                                  jhiTranslate="logisticsApp.DocType.SALES">SALES</span>
                         </label>
                         <label class="custom-control custom-radio has-primary">
                             <input type="radio" class="custom-control-input" name="credit"
-                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.INSTALLMENT"
-                                   [checked]="docTypeSelected===docTypeEnum.INSTALLMENT"/>
+                                   [(ngModel)]="docTypeSelected" [value]="docTypeEnum.DISPLACEMENT"
+                                   [checked]="docTypeSelected===docTypeEnum.DISPLACEMENT"/>
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description"
-                                  jhiTranslate="logisticsApp.DocType.INSTALLMENT">INSTALLMENT</span>
+                                  jhiTranslate="logisticsApp.DocType.DISPLACEMENT">DISPLACEMENT</span>
                         </label>
                     </div>
                     <button type="submit" class="btn btn-block btn-primary" (click)="uploadReceipt()"
@@ -58,7 +50,7 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="creditReceipts">
+    <div class="table-responsive" *ngIf="corporateReceipts">
         <table class="table table-striped small">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -98,7 +90,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let receipt of creditReceipts ;trackBy: trackId">
+            <tr *ngFor="let receipt of corporateReceipts ;trackBy: trackId">
                 <td>{{receipt.id}}</td>
                 <td>
                     <div *ngIf="receipt.clientId">
@@ -121,11 +113,11 @@
                 </td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
-                    <span *ngIf="receipt.docType===docTypeEnum.CREDIT"
+                    <span *ngIf="receipt.docType===docTypeEnum.SALES"
                           jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default">
                     {{receipt.docType}}
                     </span>
-                    <span *ngIf="receipt.docType===docTypeEnum.INSTALLMENT"
+                    <span *ngIf="receipt.docType===docTypeEnum.DISPLACEMENT"
                           jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default">
                     {{receipt.docType}}
                     </span>
@@ -202,7 +194,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="creditReceipts">
+    <div *ngIf="corporateReceipts">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
