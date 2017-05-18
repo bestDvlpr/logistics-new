@@ -18,6 +18,7 @@ import {ReceiptArchivedComponent} from "./receipt-archived.component";
 import {ReceiptDeliveryPopupComponent} from "./receipt-delivery-dialog.component";
 import {ReceiptCreditComponent} from "./receipt-credit.component";
 import {ReceiptCorporateComponent} from "./receipt-corporate.component";
+import {ReceiptCancelCarPopupComponent} from "./receipt-cancel-car-dialog.component";
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
@@ -174,6 +175,15 @@ export const receiptPopupRoute: Routes = [
     {
         path: 'receipt/:id/delete',
         component: ReceiptDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.receipt.home.title'
+        },
+        outlet: 'popup'
+    },
+    {
+        path: 'receipt/:id/cancel-car',
+        component: ReceiptCancelCarPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'logisticsApp.receipt.home.title'

@@ -124,7 +124,7 @@ export class ReceiptProductToCarComponent implements OnInit {
                 (res: Response) => this.onSaveError(res.json())
             );
         }
-        this.router.navigate(['receipt']);
+        this.router.navigate(['/accepted-receipts']);
     }
 
     private onSaveSuccess(data) {

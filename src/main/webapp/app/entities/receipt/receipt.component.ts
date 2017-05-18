@@ -1,20 +1,20 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {AlertService, EventManager, JhiLanguageService, ParseLinks} from "ng-jhipster";
 
-import {Receipt, ReceiptStatus, DocType, WholeSaleFlag} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {EnumAware} from './doctypaware.decorator';
-import {DataHolderService} from './data-holder.service';
-import {Car} from '../car/car.model';
-import {ACElement} from '../../shared/autocomplete/element.model';
-import {CarService} from '../car/car.service';
-import {isUndefined} from 'util';
-import {ProductEntryService} from '../product-entry/product-entry.service';
-import * as FileSaver from 'file-saver';
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {EnumAware} from "./doctypaware.decorator";
+import {DataHolderService} from "./data-holder.service";
+import {Car} from "../car/car.model";
+import {ACElement} from "../../shared/autocomplete/element.model";
+import {CarService} from "../car/car.service";
+import {isUndefined} from "util";
+import {ProductEntryService} from "../product-entry/product-entry.service";
+import * as FileSaver from "file-saver";
 import {UploadService} from "./upload.service";
 
 @Component({
@@ -43,6 +43,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
     isDCEmployee = false;
+    isAdmin = false;
     receiptFile: any;
     isWarehouseUser = false;
     receipt: Receipt;
@@ -126,10 +127,13 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 auth === 'ROLE_MANAGER' ||
                 auth === 'ROLE_DISPATCHER') {
                 this.isDCEmployee = true;
+                if (auth === 'ROLE_ADMIN') {
+                    this.isAdmin = true;
+                }
             }
         }
         if (this.isDCEmployee) {
-            if (authorities.indexOf('ROLE_ADMIN') !== -1) {
+            if (this.isAdmin) {
                 this.loadAll();
             } else {
                 this.loadAccepted();
@@ -141,11 +145,19 @@ export class ReceiptComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/receipt', {
-            page: this.page,
-            sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }]);
-        this.loadAll();
+        if (this.isAdmin) {
+            this.router.navigate(['/receipt', {
+                page: this.page,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }]);
+            this.loadAll();
+        } else {
+            this.router.navigate(['/accepted-receipts', {
+                page: this.page,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }]);
+            this.loadAccepted()
+        }
     }
 
     ngOnInit() {
@@ -158,13 +170,16 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
                     this.isDCEmployee = true;
+                    if (auth === 'ROLE_ADMIN') {
+                        this.isAdmin = true;
+                    }
                 }
-                if (auth ==='ROLE_WAREHOUSE'){
-                    this.isWarehouseUser=true;
+                if (auth === 'ROLE_WAREHOUSE') {
+                    this.isWarehouseUser = true;
                 }
             }
             if (this.isDCEmployee) {
-                if (authorities.indexOf('ROLE_ADMIN') !== -1) {
+                if (this.isAdmin) {
                     this.loadAll();
                 } else {
                     this.loadAccepted();
@@ -196,6 +211,16 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                         this.isDCEmployee = true;
                     }
                 }
+
+                if (this.isDCEmployee) {
+                    if (this.isAdmin) {
+                        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
+                    } else {
+                        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAccepted());
+                    }
+                } else {
+                    this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByCompanyId());
+                }
             });
         } else {
             for (let auth of this.currentAccount.authorities) {
@@ -203,13 +228,21 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
                     this.isDCEmployee = true;
+                    if (auth === 'ROLE_ADMIN') {
+                        this.isAdmin = true;
+                    }
                 }
             }
-        }
-        if (this.isDCEmployee) {
-            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
-        } else {
-            this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByCompanyId());
+
+            if (this.isDCEmployee) {
+                if (this.isAdmin) {
+                    this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAll());
+                } else {
+                    this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAccepted());
+                }
+            } else {
+                this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllByCompanyId());
+            }
         }
     }
 
@@ -233,7 +266,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.alertService.error(error.message, null, null);
     }
 
-    public goClientSelectionStep(receiptId: number) {
+    goClientSelectionStep(receiptId: number) {
         this.saveToDataHolder(receiptId);
         this.router.navigate(['../receipt/' + receiptId + '/send/client']);
     }

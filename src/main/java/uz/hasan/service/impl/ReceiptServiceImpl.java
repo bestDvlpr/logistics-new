@@ -599,6 +599,31 @@ public class ReceiptServiceImpl implements ReceiptService {
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
+    /**
+     * Cancel attached car of the receipt.
+     *
+     * @param id the receipt's id
+     * @return the cancelled car receipt
+     */
+    @Override
+    public ReceiptProductEntriesDTO cancelAttachedCar(Long id) {
+        Receipt receipt = receiptRepository.findOne(id);
+
+        receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+
+        Set<ProductEntry> productEntries = receipt.getProductEntries();
+        productEntries.forEach(productEntry -> productEntry.setAttachedCar(null));
+        productEntries.forEach(productEntry -> productEntry.setAttachedToDriverBy(null));
+        productEntries.forEach(productEntry -> productEntry.setAttachedToCarTime(null));
+        productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
+
+        productEntryRepository.save(productEntries);
+
+        receipt = receiptRepository.save(receipt);
+
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipt);
+    }
+
     private Receipt sendReceiptWithProds(Receipt receipt, Set<ProductEntry> productEntries, Boolean isNew) {
         Receipt result;
         User userWithAuthorities = userService.getUserWithAuthorities();

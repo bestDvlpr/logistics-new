@@ -164,4 +164,16 @@ export class ReceiptService {
             return res;
         });
     }
+
+    cancelAttachedCar(receiptId: number): Observable<Receipt> {
+        return this.http.get(`${this.resourceUrl}/cancel-attached-car/${receiptId}`).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    /*find(id: number): Observable<Receipt> {
+     return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
+     return res.json();
+     });
+     }*/
 }

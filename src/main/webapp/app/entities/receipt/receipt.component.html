@@ -235,10 +235,18 @@
                         <span class="fa fa-send"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="viewReceipt(receipt.id)"
+                    <button type="button" class="btn btn-primary btn-sm" [routerLink]="['../receipt', receipt.id ]"
                             jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER,ROLE_WAREHOUSE,ROLE_CREDIT">
                         <span class="fa fa-eye"></span>
                         <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm"
+                            [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/cancel-car'} }]"
+                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER ||
+                                    receipt.status===receiptStatusEnum.DELIVERY_PROCESS"
+                            jhiHasAnyAuthority="ROLE_DISPATCHER">
+                        <span class="fa fa-eye"></span>
+                        <span class="hidden-md-down" jhiTranslate="entity.action.cancelcar">Cancel car</span>
                     </button>
                     <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
                             *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT && !isDCEmployee">

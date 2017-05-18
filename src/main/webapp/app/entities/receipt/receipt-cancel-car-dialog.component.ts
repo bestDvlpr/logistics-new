@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
@@ -9,10 +9,10 @@ import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
 
 @Component({
-    selector: 'jhi-receipt-delete-dialog',
-    templateUrl: './receipt-delete-dialog.component.html'
+    selector: 'jhi-receipt-cancel-car-dialog',
+    templateUrl: './receipt-cancel-car-dialog.component.html'
 })
-export class ReceiptDeleteDialogComponent {
+export class ReceiptCancelCarDialogComponent {
 
     receipt: Receipt;
 
@@ -29,22 +29,19 @@ export class ReceiptDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.receiptService.delete(id).subscribe(response => {
-            this.eventManager.broadcast({
-                name: 'receiptListModification',
-                content: 'Deleted an receipt'
-            });
+    cancelAttachedCar(receiptId: number) {
+        this.receiptService.cancelAttachedCar(receiptId).subscribe((res: Receipt) => {
+            this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
             this.activeModal.dismiss(true);
-        });
+        })
     }
 }
 
 @Component({
-    selector: 'jhi-receipt-delete-popup',
+    selector: 'jhi-receipt-cancel-car-popup',
     template: ''
 })
-export class ReceiptDeletePopupComponent implements OnInit, OnDestroy {
+export class ReceiptCancelCarPopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
@@ -57,7 +54,7 @@ export class ReceiptDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
             this.modalRef = this.receiptPopupService
-                .open(ReceiptDeleteDialogComponent, params['id']);
+                .open(ReceiptCancelCarDialogComponent, params['id']);
         });
     }
 

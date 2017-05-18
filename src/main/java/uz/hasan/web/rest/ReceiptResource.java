@@ -499,4 +499,22 @@ public class ReceiptResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * GET  /receipt/cancel-attached-car : remove attached car info from receipt.
+     *
+     * @param id the Receipt id to cancel car
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @GetMapping("/receipts/cancel-attached-car/{id}")
+    @Timed
+    @ResponseBody
+    public ResponseEntity<ReceiptProductEntriesDTO> downloadReceipt(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to cancel attached car of Receipt : {}", id);
+        if (id == null) {
+            return null;
+        }
+        ReceiptProductEntriesDTO receiptProductEntriesDTO = receiptService.cancelAttachedCar(id);
+        return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
+    }
+
 }

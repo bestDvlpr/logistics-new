@@ -204,4 +204,12 @@ public interface ReceiptService {
      *  @return the list of entities
      */
     Page<ReceiptProductEntriesDTO> findByClientId(Pageable pageable, Long clientId);
+
+    /**
+     *  Cancel attached car of the receipt.
+     *
+     *  @param id the receipt's id
+     *  @return the cancelled car receipt
+     */
+    ReceiptProductEntriesDTO cancelAttachedCar(Long id);
 }
