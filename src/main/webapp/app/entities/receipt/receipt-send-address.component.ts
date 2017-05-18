@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {ClientService} from '../client/client.service';
 import {Subscription} from 'rxjs/Rx';
 import {DatePipe} from '@angular/common';
+import {Company} from "../company/company.model";
 
 @Component({
     selector: 'jhi-receipt-send-address',
@@ -18,6 +19,7 @@ export class ReceiptSendAddressComponent implements OnInit {
     receipt: Receipt;
     phoneNumber: string;
     client: Client;
+    company: Company;
     productEntries: ProductEntry[];
     addressSelected: number;
     eventSubscriber: Subscription;
@@ -38,6 +40,7 @@ export class ReceiptSendAddressComponent implements OnInit {
     ngOnInit() {
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
+        this.company = this.dataHolderService._company;
         this.registerChangeInAddresses();
     }
 
@@ -61,7 +64,9 @@ export class ReceiptSendAddressComponent implements OnInit {
                 this.receipt.addresses = [];
             }
             this.receipt.addresses.push(this.addressSelected);
+            this.receipt.receiver=this.company;
             this.dataHolderService._client = this.client;
+            this.dataHolderService._company = this.company;
             this.dataHolderService._receipt = this.receipt;
             this.dataHolderService._address = this.addressSelected;
             this.router.navigate(['../receipt-send-product']);

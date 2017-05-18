@@ -22,6 +22,7 @@ export class DataHolderService implements OnInit {
     public clearAll() {
         this._receipt = null;
         this._client = null;
+        this._company = null;
         this._address = null;
         this._selectedProducts = [];
         this._autocompleteObjects = [];

@@ -4,12 +4,12 @@
             "home": {
                 "title": "Заявки",
                 "title-credit": "Заявки кредит",
+                "title-corporate": "Заявки корпоратив",
                 "newTitle": "Новые заявки",
                 "acceptedTitle": "Принятые заявки",
                 "archiveTitle": "Архив заявки",
-                "createLabel": "Создать новая Заявка",
+                "createLabel": "Создать новую заявку",
                 "createCreditLabel": "Создать новая Заявка кредита",
-                "createCorporateLabel": "Создать новая корпоративная заявка",
                 "createOrEditLabel": "Создать или отредактировать Заявка"
             },
             "created": "Новый Заявка создан с идентификатором {{ param }}",

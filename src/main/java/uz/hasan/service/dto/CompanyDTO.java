@@ -27,6 +27,8 @@ public class CompanyDTO implements Serializable {
 
     private String addressStreetAddress;
 
+    private AddressDTO address;
+
     public Long getId() {
         return id;
     }
@@ -70,6 +72,14 @@ public class CompanyDTO implements Serializable {
 
     public void setAddressStreetAddress(String addressStreetAddress) {
         this.addressStreetAddress = addressStreetAddress;
+    }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
     @Override

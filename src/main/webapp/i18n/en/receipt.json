@@ -4,6 +4,7 @@
             "home": {
                 "title": "Applications",
                 "title-credit": "Credit Applications",
+                "title-corporate": "Corporate Applications",
                 "newTitle": "New Applications",
                 "acceptedTitle": "Accepted Applications",
                 "archiveTitle": "Archived Applications",
@@ -20,7 +21,7 @@
             },
             "cancel": {
                 "car":{
-                    "question": "Are you sure you want to cancel attached car to Application # {{ id }}?"
+                    "question": "\{{ id }}?"
                 }
             },
             "delivery": {

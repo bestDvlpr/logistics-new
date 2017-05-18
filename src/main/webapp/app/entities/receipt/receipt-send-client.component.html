@@ -14,26 +14,28 @@
     <jhi-alert-error></jhi-alert-error>
     <hr>
 
-    <div class="custom-controls-stacked" *ngIf="receipt.wholeSaleFlag===wholeSaleFlagEnum.WHOLESALE">
-        <span jhiTranslate="logisticsApp.client.detail.title">Client</span>: <br/>
-        <label class="custom-control custom-radio has-success">
-            <input type="radio" class="custom-control-input" name="isClientCompany"
-                   [(ngModel)]="isClientCompany" [value]="false"
-                   [checked]="!isClientCompany"/>
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description"
-                  jhiTranslate="logisticsApp.client.individual">Individual Person</span>
-        </label>
-        <label class="custom-control custom-radio has-primary">
-            <input type="radio" class="custom-control-input" name="isClientCompany"
-                   [(ngModel)]="isClientCompany" [value]="true"
-                   [checked]="isClientCompany"/>
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description"
-                  jhiTranslate="logisticsApp.client.company">Company</span>
-        </label>
-    </div>
     <div class="row" *ngIf="uncheckedProdsExist">
+        <div class="col-md-12">
+            <div class="custom-controls-stacked" *ngIf="receipt.wholeSaleFlag===wholeSaleFlagEnum.WHOLESALE">
+                <span jhiTranslate="logisticsApp.client.detail.title">Client</span>: <br/>
+                <label class="custom-control custom-radio has-success">
+                    <input type="radio" class="custom-control-input" name="isClientCompany"
+                           [(ngModel)]="isClientCompany" [value]="false"
+                           [checked]="!isClientCompany"/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"
+                          jhiTranslate="logisticsApp.client.individual">Individual Person</span>
+                </label>
+                <label class="custom-control custom-radio has-primary">
+                    <input type="radio" class="custom-control-input" name="isClientCompany"
+                           [(ngModel)]="isClientCompany" [value]="true"
+                           [checked]="isClientCompany"/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"
+                          jhiTranslate="logisticsApp.client.company">Company</span>
+                </label>
+            </div>
+        </div>
         <div class="col-md-12" *ngIf="!isClientCompany">
             <div class="card">
                 <div class="card-header">

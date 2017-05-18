@@ -1,3 +1,4 @@
+import {Address} from "../address/address.model";
 export enum CompanyType {
     WAREHOUSE = <any>'WAREHOUSE',
     SHOP = <any>'SHOP',
@@ -11,6 +12,7 @@ export class Company {
                 public idNumber?: string,
                 public type?: CompanyType,
                 public addressId?: number,
-                public addressStreetAddress?: string, ) {
+                public addressStreetAddress?: string,
+                public address?: Address ) {
     }
 }

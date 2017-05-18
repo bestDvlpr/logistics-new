@@ -8,6 +8,7 @@ import {Client} from '../client/client.model';
 import {DataHolderService} from './data-holder.service';
 import {Address} from '../address/address.model';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {Company} from "../company/company.model";
 @Component({
     selector: 'jhi-receipt-send-product',
     templateUrl: 'receipt-send-product.component.html'
@@ -17,6 +18,7 @@ export class ReceiptSendProductComponent implements OnInit {
     receipt: Receipt;
     phoneNumber: string;
     client: Client;
+    company: Company;
     address: Address;
     productEntries: ProductEntry[];
     public productsSelected: ProductEntry[] = [];
@@ -41,6 +43,7 @@ export class ReceiptSendProductComponent implements OnInit {
         let date = new Date();
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
+        this.company = this.dataHolderService._company;
         this.address = this.dataHolderService._address;
         this.productEntries = this.dataHolderService._receipt.productEntries;
         this.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
@@ -72,6 +75,7 @@ export class ReceiptSendProductComponent implements OnInit {
 
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;
+        this.dataHolderService._company = this.company;
         this.dataHolderService._address = this.address;
         for (let prod of this.productsSelected) {
             for (let pro of this.receipt.productEntries) {

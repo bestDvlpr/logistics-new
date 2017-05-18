@@ -77,6 +77,9 @@ export class ReceiptSendClientComponent implements OnInit {
         if (this.dataHolderService._client !== null) {
             this.client = this.dataHolderService._client;
         }
+        if (this.dataHolderService._company !== null) {
+            this.company = this.dataHolderService._company;
+        }
         this.companyService.all().subscribe((res) => {
             this.companies = res.json();
         });
@@ -122,9 +125,14 @@ export class ReceiptSendClientComponent implements OnInit {
     }
 
     public goAddressSelectStep() {
-        this.receipt.clientId = this.client.id;
-        this.dataHolderService._client = this.client;
-        this.dataHolderService._company = this.company;
+        this.dataHolderService.clearAll();
+        if (!this.isClientCompany) {
+            this.receipt.clientId = this.client.id;
+            this.dataHolderService._client = this.client;
+        } else {
+            this.receipt.receiver = this.client;
+            this.dataHolderService._company = this.company;
+        }
         this.dataHolderService._receipt = this.receipt;
         this.router.navigate(['../receipt-send-address']);
     }

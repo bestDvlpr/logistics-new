@@ -17,7 +17,7 @@
                     </button>
                 </div>
                 <div class="card-block">
-                    <table class="table">
+                    <table class="table" *ngIf="client">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -42,6 +42,38 @@
                             <td>
                                 <button class="btn btn-success btn-sm"
                                         [routerLink]="['/', { outlets: { popup: 'address/'+ address.id + '/edit'} }]">
+                                    <span class="fa fa-pencil"></span>
+                                    <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" *ngIf="company">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th jhiTranslate="logisticsApp.address.detail.title"></th>
+                            <th jhiTranslate="logisticsApp.address.country"></th>
+                            <th jhiTranslate="logisticsApp.address.region"></th>
+                            <th jhiTranslate="logisticsApp.address.district"></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="radio" class="radio radio-button" name="address"
+                                       [(ngModel)]="addressSelected"
+                                       [value]="company.address" [checked]="addressSelected===company.address.id"/>
+                            </td>
+                            <td>{{company.address.streetAddress}}</td>
+                            <td>{{company.address.countryName}}</td>
+                            <td>{{company.address.regionName}}</td>
+                            <td>{{company.address.districtName}}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm"
+                                        [routerLink]="['/', { outlets: { popup: 'address/'+ company.address.id + '/edit'} }]">
                                     <span class="fa fa-pencil"></span>
                                     <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
                                 </button>

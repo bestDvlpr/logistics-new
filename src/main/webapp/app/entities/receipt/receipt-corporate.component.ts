@@ -178,8 +178,13 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
             }
         }
         this.dataHolderService._receipt = receipt;
-        if (this.dataHolderService._receipt !== null && this.dataHolderService._receipt.client !== null) {
-            this.dataHolderService._client = receipt.client;
+        if (this.dataHolderService._receipt !== null ){
+            if (this.dataHolderService._receipt.client !== null) {
+                this.dataHolderService._client = receipt.client;
+            }
+            if (this.dataHolderService._receipt.receiver !== null) {
+                this.dataHolderService._company = receipt.receiver;
+            }
         }
     }
 

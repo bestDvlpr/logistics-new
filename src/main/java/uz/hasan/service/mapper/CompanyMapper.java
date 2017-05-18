@@ -14,6 +14,14 @@ public interface CompanyMapper {
 
     @Mapping(source = "address.id", target = "addressId")
     @Mapping(source = "address.streetAddress", target = "addressStreetAddress")
+    @Mapping(source = "address.region.id", target = "address.regionId")
+    @Mapping(source = "address.district.id", target = "address.districtId")
+    @Mapping(source = "address.country.id", target = "address.countryId")
+    @Mapping(source = "address.region.name", target = "address.regionName")
+    @Mapping(source = "address.district.name", target = "address.districtName")
+    @Mapping(source = "address.country.name", target = "address.countryName")
+    @Mapping(source = "address.streetAddress", target = "address.streetAddress")
+    @Mapping(source = "address.id", target = "address.id")
     CompanyDTO companyToCompanyDTO(Company company);
 
     List<CompanyDTO> companiesToCompanyDTOs(List<Company> companies);

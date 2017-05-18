@@ -1,9 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="logisticsApp.receipt.home.title-credit">Credit Applications</span>
+        <span jhiTranslate="logisticsApp.receipt.home.title-corporate">Corporate Applications</span>
         <button class="btn btn-primary float-xs-right create-receipt" (click)="toggleUploadForm()">
             <span class="fa fa-plus"></span>
-            <span jhiTranslate="logisticsApp.receipt.home.createCorporateLabel">
+            <span jhiTranslate="logisticsApp.receipt.home.createLabel">
                 Create new Corporate Application
             </span>
         </button>
@@ -96,6 +96,10 @@
                     <div *ngIf="receipt.clientId">
                         <a [routerLink]="['../client', receipt.clientId  ]">
                             {{receipt.client.firstName+' '+receipt.client.lastName}}</a>
+                    </div>
+                    <div *ngIf="receipt.receiver">
+                        <a [routerLink]="['../company', receipt.receiver.id  ]">
+                            {{receipt.receiver.name}}</a>
                     </div>
                 </td>
                 <td>
