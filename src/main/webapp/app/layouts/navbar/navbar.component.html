@@ -291,7 +291,7 @@
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngSwitchCase="true"
                 jhiHasAnyAuthority="ROLE_MANAGER,ROLE_DISPATCHER">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="dispatcher-menu">
+                <a class="nav-link dropdown-toggle" routerLinkActive="active" ngbDropdownToggle href="javascript:void(0);" id="dispatcher-menu">
                   <span *ngIf="!getImageUrl()">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span class="hidden-sm" jhiTranslate="global.menu.account.dispatcher">
@@ -301,27 +301,40 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                    <li>
+                    <li uiSrefActive="active">
                         <a class="dropdown-item" [routerLink]="'car'" routerLinkActive="active"
                            (click)="collapseNavbar()">
                             <i class="fa fa-car" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.car">Cars</span>
                         </a>
                     </li>
-                    <li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" [routerLink]="'car-model'" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-caret-up" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.carModel">Car Model</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
                         <a class="dropdown-item" [routerLink]="'driver'" routerLinkActive="active"
                            (click)="collapseNavbar()">
                             <i class="fa fa-user" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.driver">Drivers</span>
                         </a>
                     </li>
-<!--                    <li>
-                        <a class="dropdown-item" [routerLink]="'product-entry-done'" routerLinkActive="active"
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" [routerLink]="'product'" routerLinkActive="active"
                            (click)="collapseNavbar()">
                             <i class="fa fa-product-hunt" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.entities.productEntry">Product Entry</span>
+                            <span jhiTranslate="global.menu.entities.product">Product</span>
                         </a>
-                    </li>-->
+                    </li>
+                    <!--                    <li>
+                                            <a class="dropdown-item" [routerLink]="'product-entry-done'" routerLinkActive="active"
+                                               (click)="collapseNavbar()">
+                                                <i class="fa fa-product-hunt" aria-hidden="true"></i>
+                                                <span jhiTranslate="global.menu.entities.productEntry">Product Entry</span>
+                                            </a>
+                                        </li>-->
                 </ul>
             </li>
             <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
