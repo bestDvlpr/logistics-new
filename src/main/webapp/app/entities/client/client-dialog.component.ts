@@ -32,14 +32,16 @@ export class ClientDialogComponent implements OnInit {
                 private eventManager: EventManager,
                 private formBuilder: FormBuilder) {
         this.jhiLanguageService.setLocations(
-            ['client',
+            [
+                'client',
                 'receipt',
                 'productEntry',
                 'address',
                 'phoneNumber',
                 'product',
                 'phoneType',
-                'receiptStatus'
+                'receiptStatus',
+                'company'
             ]
         );
     }

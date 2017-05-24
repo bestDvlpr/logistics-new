@@ -27,7 +27,20 @@ export class CompanyDialogComponent implements OnInit {
                 private companyService: CompanyService,
                 private addressService: AddressService,
                 private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['company', 'companyType']);
+        this.jhiLanguageService.setLocations(
+            [
+                'company',
+                'companyType',
+                'client',
+                'receipt',
+                'receiptStatus',
+                'docType',
+                'product',
+                'productEntry',
+                'address',
+                'phoneNumber'
+            ]
+        );
     }
 
     ngOnInit() {

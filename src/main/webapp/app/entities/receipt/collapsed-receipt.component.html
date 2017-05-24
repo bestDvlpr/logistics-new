@@ -56,7 +56,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="row" *ngIf="receipt.receiver">
+                <div class="row" *ngIf="dataHolderService._company">
                     <div class="col-md-3 text-muted">
                         <h1 class="display-4">
                             <span class="fa fa-building"></span>
@@ -64,14 +64,14 @@
                     </div>
                     <div class="col-md-9">
                         <span jhiTranslate="logisticsApp.client.detail.title">Client</span> :
-                        {{receipt.receiver.id}}
+                        {{dataHolderService._company.id}}
                         <p class="card-text">
                             <span jhiTranslate="logisticsApp.company.name">Name</span>
-                            : {{receipt.receiver.name}}
+                            : {{dataHolderService._company.name}}
                             <br/>
                             <span jhiTranslate="logisticsApp.company.type">Type</span>
-                            : <span jhiTranslate="{{'logisticsApp.CompanyType.'+receipt.receiver.type}}">
-                                {{receipt.receiver.type}}
+                            : <span jhiTranslate="{{'logisticsApp.CompanyType.'+dataHolderService._company.type}}">
+                                {{dataHolderService._company.type}}
                             </span>
                         </p>
                     </div>

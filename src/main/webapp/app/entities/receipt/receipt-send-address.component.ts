@@ -69,6 +69,8 @@ export class ReceiptSendAddressComponent implements OnInit {
     private reloadCompany() {
         this.companyService.find(this.company.id).subscribe((res) => {
             this.company = res;
+            this.dataHolderService._company = this.company;
+            this.receipt.receiver = this.company;
         });
     }
 
@@ -92,10 +94,10 @@ export class ReceiptSendAddressComponent implements OnInit {
     }
 
     registerChangeInAddresses() {
-        if (this.client!==null){
+        if (this.client!==null && this.client.id!==null){
             this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadClient());
         }
-        if (this.company!==null){
+        if (this.company!==null && this.company.id!==null){
             this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadCompany());
         }
     }

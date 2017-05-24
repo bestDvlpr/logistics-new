@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {EventManager, JhiLanguageService} from 'ng-jhipster';
-import {Receipt, ReceiptStatus} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {Client} from '../client/client.model';
-import {DataHolderService} from './data-holder.service';
-import {Address} from '../address/address.model';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {EventManager, JhiLanguageService} from "ng-jhipster";
+import {Receipt, ReceiptStatus} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ProductEntry} from "../product-entry/product-entry.model";
+import {Client} from "../client/client.model";
+import {DataHolderService} from "./data-holder.service";
+import {Address} from "../address/address.model";
 import {Subscription} from "rxjs/Subscription";
 import {EnumAware} from "./doctypaware.decorator";
+import {Company} from "../company/company.model";
 
 @Component({
     selector: 'jhi-collapsed-receipt',
@@ -20,10 +21,11 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
     receipt: Receipt;
     phoneNumber: string;
     client: Client;
+    company: Company;
     address: Address;
     productEntries: ProductEntry[];
-    public productsSelected: ProductEntry[] = [];
-    public isCollapsed = false;
+    productsSelected: ProductEntry[] = [];
+    isCollapsed = false;
     productCarExists: boolean = false;
     eventSubscriber: Subscription;
     receiptStatusEnum = ReceiptStatus;
@@ -54,6 +56,7 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
+        this.company = this.dataHolderService._company;
         this.address = this.dataHolderService._address;
         if (this.receipt !== null && this.receipt.productEntries !== null) {
             for (let prod of this.receipt.productEntries) {
