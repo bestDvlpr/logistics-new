@@ -4,12 +4,15 @@ import uz.hasan.domain.*;
 import uz.hasan.service.dto.AddressDTO;
 
 import org.mapstruct.*;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Mapper for the entity Address and its DTO AddressDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface AddressMapper {
 
     @Mapping(source = "country.id", target = "countryId")
@@ -31,6 +34,7 @@ public interface AddressMapper {
     @Mapping(source = "cityId", target = "city")
     @Mapping(source = "districtId", target = "district")
     @Mapping(source = "clientId", target = "client")
+    @Mapping(source = "companyId", target = "companies")
     Address addressDTOToAddress(AddressDTO addressDTO);
 
     List<Address> addressDTOsToAddresses(List<AddressDTO> addressDTOs);
@@ -51,5 +55,16 @@ public interface AddressMapper {
         Client client = new Client();
         client.setId(id);
         return client;
+    }
+
+    default Set<Company> companiesFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Company company = new Company();
+        company.setId(id);
+        Set<Company> companies = new HashSet<>();
+        companies.add(company);
+        return companies;
     }
 }

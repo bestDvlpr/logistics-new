@@ -1,9 +1,12 @@
 package uz.hasan.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -47,6 +50,10 @@ public class Address implements Serializable {
 
     @ManyToOne
     private Client client;
+
+    @OneToMany(mappedBy = "address")
+    @JsonIgnore
+    private Set<Company> companies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -158,6 +165,31 @@ public class Address implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Set<Company> getCompanies() {
+        return companies;
+    }
+
+    public Address companies(Set<Company> companies) {
+        this.companies = companies;
+        return this;
+    }
+
+    public Address addCompanies(Company company) {
+        this.companies.add(company);
+        company.setAddress(this);
+        return this;
+    }
+
+    public Address removeCompanies(Company company) {
+        this.companies.remove(company);
+        company.setAddress(null);
+        return this;
+    }
+
+    public void setCompanies(Set<Company> companies) {
+        this.companies = companies;
     }
 
     @Override

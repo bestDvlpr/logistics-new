@@ -10,6 +10,7 @@ import {ClientService} from '../client/client.service';
 import {Subscription} from 'rxjs/Rx';
 import {DatePipe} from '@angular/common';
 import {Company} from "../company/company.model";
+import {CompanyService} from "../company/company.service";
 
 @Component({
     selector: 'jhi-receipt-send-address',
@@ -29,11 +30,22 @@ export class ReceiptSendAddressComponent implements OnInit {
                 private translateService: TranslateService,
                 public dataHolderService: DataHolderService,
                 private clientService: ClientService,
+                private companyService: CompanyService,
                 private eventManager: EventManager,
                 private router: Router,
                 private datePipe: DatePipe) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
+            [
+                'receipt',
+                'docType',
+                'wholeSaleFlag',
+                'productEntry',
+                'product',
+                'client',
+                'phoneNumber',
+                'address',
+                'car'
+            ]
         );
     }
 
@@ -51,6 +63,12 @@ export class ReceiptSendAddressComponent implements OnInit {
     private reloadClient() {
         this.clientService.find(this.client.id).subscribe((res) => {
             this.client = res;
+        });
+    }
+
+    private reloadCompany() {
+        this.companyService.find(this.company.id).subscribe((res) => {
+            this.company = res;
         });
     }
 
@@ -74,6 +92,11 @@ export class ReceiptSendAddressComponent implements OnInit {
     }
 
     registerChangeInAddresses() {
-        this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadClient());
+        if (this.client!==null){
+            this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadClient());
+        }
+        if (this.company!==null){
+            this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadCompany());
+        }
     }
 }

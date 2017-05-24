@@ -1,5 +1,7 @@
 package uz.hasan.service.impl;
 
+import uz.hasan.domain.Company;
+import uz.hasan.repository.CompanyRepository;
 import uz.hasan.service.AddressService;
 import uz.hasan.domain.Address;
 import uz.hasan.repository.AddressRepository;
@@ -31,9 +33,12 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressMapper addressMapper;
 
-    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper) {
+    private final CompanyRepository companyRepository;
+
+    public AddressServiceImpl(AddressRepository addressRepository, AddressMapper addressMapper, CompanyRepository companyRepository) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
+        this.companyRepository = companyRepository;
     }
 
     /**
@@ -47,6 +52,11 @@ public class AddressServiceImpl implements AddressService {
         log.debug("Request to save Address : {}", addressDTO);
         Address address = addressMapper.addressDTOToAddress(addressDTO);
         address = addressRepository.save(address);
+        if (!address.getCompanies().isEmpty()) {
+            Company company = companyRepository.findOne(address.getCompanies().iterator().next().getId());
+            company.setAddress(address);
+            companyRepository.save(company);
+        }
         AddressDTO result = addressMapper.addressToAddressDTO(address);
         return result;
     }

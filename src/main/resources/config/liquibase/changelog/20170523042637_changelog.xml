@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="hasan (generated)" id="1495513607083-1">
+        <createTable tableName="address_companies">
+            <column name="addresses_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="companies_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1495513607083-2">
+        <addPrimaryKey columnNames="addresses_id, companies_id" tableName="address_companies"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1495513607083-3">
+        <addForeignKeyConstraint baseColumnNames="companies_id" baseTableName="address_companies" constraintName="FK9j9fdc5snibvcgg8fxyot3ytn" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="hasan (generated)" id="1495513607083-4">
+        <addForeignKeyConstraint baseColumnNames="addresses_id" baseTableName="address_companies" constraintName="FKk4ttprvi4h8xvxc6ecqqnh670" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="address"/>
+    </changeSet>
+</databaseChangeLog>

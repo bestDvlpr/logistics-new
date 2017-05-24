@@ -54,7 +54,9 @@ export class ReceiptSendClientComponent implements OnInit {
                 'phoneNumber',
                 'address',
                 'car',
-                'companyType'
+                'companyType',
+                'receiptStatus',
+                'company'
             ]
         );
     }
@@ -130,7 +132,7 @@ export class ReceiptSendClientComponent implements OnInit {
             this.receipt.clientId = this.client.id;
             this.dataHolderService._client = this.client;
         } else {
-            this.receipt.receiver = this.client;
+            this.receipt.receiver = this.company;
             this.dataHolderService._company = this.company;
         }
         this.dataHolderService._receipt = this.receipt;

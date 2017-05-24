@@ -6,6 +6,12 @@
             "otherEntityName": "address",
             "relationshipType": "many-to-one",
             "otherEntityField": "streetAddress"
+        },
+        {
+            "relationshipName": "addresses",
+            "otherEntityName": "address",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "company"
         }
     ],
     "fields": [

@@ -55,13 +55,13 @@
                             </div>
                         </div>-->
                         <!--<div class="col-md-12">&nbsp;</div>-->
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="client && client.addressDTOS.length>0">
                             <div>
                                 <label for="startTime" jhiTranslate="logisticsApp.receipt.startTime">Start Time</label>
                                 <ngb-timepicker [(ngModel)]="startTime" id="startTime"></ngb-timepicker>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="client && client.addressDTOS.length>0">
                             <div>
                                 <label for="endTime" jhiTranslate="logisticsApp.receipt.endTime">End Time</label>
                                 <ngb-timepicker [(ngModel)]="endTime" id="endTime"></ngb-timepicker>
@@ -85,6 +85,14 @@
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row" *ngIf="productsSelected.length>0 && startTime && endTime && deliveryDate">
+                        <div class="col-md-2 offset-md-7">
+                            <button class="btn btn-sm btn-primary btn-block" (click)="goClientSelectStep()">
+                                <span jhiTranslate="global.form.next">Next</span>
+                                <span class="fa fa-arrow-circle-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="productsSelected.length>0 && deliveryDate && company && company.address.id!==null">
                         <div class="col-md-2 offset-md-7">
                             <button class="btn btn-sm btn-primary btn-block" (click)="goClientSelectStep()">
                                 <span jhiTranslate="global.form.next">Next</span>

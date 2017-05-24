@@ -39,6 +39,12 @@
             "otherEntityName": "client",
             "relationshipType": "many-to-one",
             "otherEntityField": "firstName"
+        },
+        {
+            "relationshipName": "companies",
+            "otherEntityName": "company",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "address"
         }
     ],
     "fields": [

@@ -16,7 +16,7 @@ export class CompanyResolve implements CanActivate {
     }
 
     canActivate() {
-        return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_MANAGER']));
+        return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_CORPORATE']));
     }
 }
 

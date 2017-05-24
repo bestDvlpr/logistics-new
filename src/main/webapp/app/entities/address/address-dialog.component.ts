@@ -50,7 +50,9 @@ export class AddressDialogComponent implements OnInit {
                 'address',
                 'client',
                 'product',
-                'receiptStatus'
+                'receiptStatus',
+                'company',
+                'companyType'
             ]
         );
     }
@@ -119,6 +121,9 @@ export class AddressDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.dataHolderService._client !== null && this.dataHolderService._client.id !== null) {
             this.address.clientId = this.dataHolderService._client.id;
+        }
+        if (this.dataHolderService._company !== null && this.dataHolderService._company.id !== null) {
+            this.address.companyId = this.dataHolderService._company.id;
         }
 
         if (this.address.id !== undefined) {

@@ -187,7 +187,7 @@ public class ReceiptProductEntriesMapper {
             }
         }
         receipt.setDeliveredTime(dateTime);
-        if (receiptDTO.getReceiver() != null) {
+        if (receiptDTO.getReceiver() != null && receiptDTO.getReceiver().getId()!=null) {
             receipt.setReceiver(companyMapper.companyDTOToCompany(receiptDTO.getReceiver()));
         } else {
             receipt.setReceiver(receiptDTO.getReceiverId() != null ? companyRepository.findOne(receiptDTO.getReceiverId()) : null);

@@ -1,3 +1,4 @@
+import {Company} from "../company/company.model";
 export class Address {
     constructor(
         public id?: number,
@@ -13,6 +14,9 @@ export class Address {
         public districtId?: number,
         public districtName?: string,
         public clientId?: number,
+        public companies?: Company[],
+        public companyId?: number,
+        public companyName?: string,
         public receiptsId?: number ) {
     }
 }
