@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {JhiLanguageService} from 'ng-jhipster';
-import {Receipt} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {Client} from '../client/client.model';
-import {DataHolderService} from './data-holder.service';
-import {Address} from '../address/address.model';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {JhiLanguageService} from "ng-jhipster";
+import {Receipt, WholeSaleFlag} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ProductEntry} from "../product-entry/product-entry.model";
+import {Client} from "../client/client.model";
+import {DataHolderService} from "./data-holder.service";
+import {Address} from "../address/address.model";
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Company} from "../company/company.model";
+import {EnumAware} from "./doctypaware.decorator";
 @Component({
     selector: 'jhi-receipt-send-product',
     templateUrl: 'receipt-send-product.component.html'
 })
+@EnumAware
 export class ReceiptSendProductComponent implements OnInit {
 
     receipt: Receipt;
@@ -29,13 +31,26 @@ export class ReceiptSendProductComponent implements OnInit {
     endTime: any = null;
     deliveryDate: any = null;
     minDate: NgbDateStruct;
+    wholeSaleFlagEnum = WholeSaleFlag;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
                 private router: Router) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
+            [
+                'receipt',
+                'docType',
+                'wholeSaleFlag',
+                'productEntry',
+                'product',
+                'client',
+                'phoneNumber',
+                'address',
+                'car',
+                'receiptStatus',
+                'salesType'
+            ]
         );
     }
 
@@ -67,11 +82,11 @@ export class ReceiptSendProductComponent implements OnInit {
                 ':' + ((this.endTime.minute < 10) ? '0' + this.endTime.minute : this.endTime.minute);
         }
 
-        if (this.deliveryDate !== null) {
-            this.receipt.deliveryDate = new Date(this.deliveryDate.year +
-                '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
-                '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
-        }
+        const deliveryDateTime = new Date(this.deliveryDate.year +
+            '-' + ((this.deliveryDate.month < 10) ? '0' + this.deliveryDate.month : this.deliveryDate.month) +
+            '-' + ((this.deliveryDate.day < 10) ? '0' + this.deliveryDate.day : this.deliveryDate.day)).getTime();
+
+        this.receipt.deliveryDate = deliveryDateTime;
 
         this.dataHolderService._receipt = this.receipt;
         this.dataHolderService._client = this.client;
@@ -82,6 +97,7 @@ export class ReceiptSendProductComponent implements OnInit {
                 if (prod.id === pro.id) {
                     pro.addressId = this.address.id;
                     pro.address = this.address;
+                    pro.deliveryDate = deliveryDateTime;
                 }
             }
         }

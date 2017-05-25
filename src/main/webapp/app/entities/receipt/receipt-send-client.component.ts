@@ -11,6 +11,7 @@ import {Response} from "@angular/http";
 import {Company} from "../company/company.model";
 import {CompanyService} from "../company/company.service";
 import {EnumAware} from "./doctypaware.decorator";
+import {ProductEntry} from "../product-entry/product-entry.model";
 
 @Component({
     selector: 'jhi-receipt-send-client',

@@ -54,7 +54,14 @@ export class ReceiptDialogComponent implements OnInit {
         private companyService: CompanyService
     ) {
         this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'address', 'company']
+            [
+                'receipt',
+                'docType',
+                'wholeSaleFlag',
+                'receiptStatus',
+                'address',
+                'company'
+            ]
         );
     }
 

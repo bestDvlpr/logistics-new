@@ -33,7 +33,7 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     @Query("select receipt from Receipt receipt where receipt.markedAsDeliveredBy.login = ?#{principal.username}")
     List<Receipt> findByMarkedAsDeliveredByIsCurrentUser();
 
-    Page<Receipt> findByStatus(Pageable pageable, ReceiptStatus status);
+    Page<Receipt> findByStatusOrderByIdDesc(Pageable pageable, ReceiptStatus status);
 
     Long countByStatus(ReceiptStatus aNew);
 
@@ -41,30 +41,30 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     Page<Receipt> findAllByOrderByIdDesc(Pageable pageable);
 
-    Page<Receipt> findByStatusAndCompanyIdNumber(Pageable pageable, ReceiptStatus status, String idNumber);
+    Page<Receipt> findByStatusAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, String idNumber);
 
     Page<Receipt> findByCompanyIdNumberOrderByDocDateDesc(Pageable pageable, String idNumber);
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id")
     Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id);
 
-    Page<Receipt> findAllByStatusNotIn(Pageable pageable, Collection<ReceiptStatus> statuses);
+    Page<Receipt> findAllByStatusNotInOrderByIdDesc(Pageable pageable, Collection<ReceiptStatus> statuses);
 
-    Page<Receipt> findAllByStatusIn(Pageable pageable, Collection<ReceiptStatus> statuses);
+    Page<Receipt> findAllByStatusInOrderByIdDesc(Pageable pageable, Collection<ReceiptStatus> statuses);
 
-    Page<Receipt> findAllByDocType(Pageable pageable, DocType docType);
+    Page<Receipt> findAllByDocTypeOrderByIdDesc(Pageable pageable, DocType docType);
 
     Page<Receipt> findByDocTypeAndCompanyIdNumberOrderByDocDateDesc(Pageable pageable, DocType displacement, String idNumber);
 
-    Page<Receipt> findAllByDocTypeAndCompanyIdNumber(Pageable pageable, DocType credit, String idNumber);
+    Page<Receipt> findAllByDocTypeAndCompanyIdNumberOrderByIdDesc(Pageable pageable, DocType credit, String idNumber);
 
-    Page<Receipt> findByClientId(Pageable pageable, Long clientId);
+    Page<Receipt> findByClientIdOrderByIdDesc(Pageable pageable, Long clientId);
 
-    Page<Receipt> findByStatusAndDocTypeIn(Pageable pageable, ReceiptStatus status, List<DocType> types);
+    Page<Receipt> findByStatusAndDocTypeInOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> types);
 
-    Page<Receipt> findAllByDocTypeIn(Pageable pageable, List<DocType> docTypes);
+    Page<Receipt> findAllByDocTypeInOrderByIdDesc(Pageable pageable, List<DocType> docTypes);
 
-    Page<Receipt> findAllByDocTypeInAndCompanyIdNumber(Pageable pageable, List<DocType> docTypes, String idNumber);
+    Page<Receipt> findAllByDocTypeInAndCompanyIdNumberOrderByIdDesc(Pageable pageable, List<DocType> docTypes, String idNumber);
 
     Long countByStatusAndDocTypeIn(ReceiptStatus applicationSent, List<DocType> docTypes);
 
@@ -72,9 +72,9 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     Page<Receipt> findByDocTypeInAndCompanyIdNumberOrderByDocDateDesc(Pageable pageable, List<DocType> types, String idNumber);
 
-    Page<Receipt> findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(Pageable pageable, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String companyIdNumber);
+    Page<Receipt> findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(Pageable pageable, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String companyIdNumber);
 
-    Page<Receipt> findByStatusAndDocTypeInAndCompanyIdNumber(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, String idNumber);
+    Page<Receipt> findByStatusAndDocTypeInAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, String idNumber);
 
-    Page<Receipt> findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String idNumber);
+    Page<Receipt> findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String idNumber);
 }

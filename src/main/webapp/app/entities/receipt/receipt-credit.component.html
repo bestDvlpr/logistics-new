@@ -132,7 +132,7 @@
                 </td>
                 <td>
                     <span *ngIf="receipt.fromTime && receipt.toTime">
-                        {{receipt.deliveryDate | date: 'dd-MM-yyyy HH:mm'}}{{', ' +receipt.fromTime + ' - '+ receipt.toTime}}
+                        {{receipt.deliveryDate | date: 'dd-MM-yyyy'}}{{', ' +receipt.fromTime + ' - '+ receipt.toTime}}
                     </span>
                 </td>
                 <td>

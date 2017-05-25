@@ -71,9 +71,6 @@
             "relationshipName": "company",
             "otherEntityName": "company",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
             "otherEntityField": "name"
         }
     ],
@@ -96,26 +93,17 @@
         {
             "fieldName": "hallFlag",
             "fieldType": "SalesPlace",
-            "fieldValues": "STORE,WAREHOUSE",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "STORE,WAREHOUSE"
         },
         {
             "fieldName": "defectFlag",
             "fieldType": "DefectFlag",
-            "fieldValues": "WELL,DEFECTED",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "WELL,DEFECTED"
         },
         {
             "fieldName": "virtualFlag",
             "fieldType": "VirtualFlag",
-            "fieldValues": "SOLD_PHYSICALLY,SOLD_VIRTUALLY",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValues": "SOLD_PHYSICALLY,SOLD_VIRTUALLY"
         },
         {
             "fieldName": "reason",
@@ -128,10 +116,7 @@
         },
         {
             "fieldName": "guid",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "qty",
@@ -174,6 +159,10 @@
         {
             "fieldName": "deliveryEndTime",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "deliveryDate",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20170225072014",

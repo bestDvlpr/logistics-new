@@ -1,5 +1,5 @@
-import {Address} from '../address/address.model';
-import {Product} from '../product/product.model';
+import {Address} from "../address/address.model";
+import {Product} from "../product/product.model";
 export enum SalesType {
     TAKEOUT_IN_TIME = <any>'TAKEOUT_IN_TIME',
     TAKEOUT = <any>'TAKEOUT',
@@ -59,6 +59,7 @@ export class ProductEntry {
                 public markedAsDeliveredId?: number,
                 public addressId?: number,
                 public companyId?: number,
-                public companyName?: string, ) {
+                public companyName?: string,
+                public deliveryDate?: number, ) {
     }
 }

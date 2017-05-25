@@ -48,6 +48,7 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
                 'car',
                 'receiptStatus',
                 'companyType',
+                'salesType',
                 'company'
             ]
         );

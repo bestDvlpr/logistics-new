@@ -44,6 +44,8 @@ export class ReceiptSendAddressComponent implements OnInit {
                 'client',
                 'phoneNumber',
                 'address',
+                'receiptStatus',
+                'salesType',
                 'car'
             ]
         );

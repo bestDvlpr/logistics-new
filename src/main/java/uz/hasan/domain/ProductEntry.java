@@ -88,6 +88,9 @@ public class ProductEntry implements Serializable {
     @Column(name = "delivery_end_time")
     private ZonedDateTime deliveryEndTime;
 
+    @Column(name = "delivery_date")
+    private Long deliveryDate;
+
     @ManyToOne(optional = false)
     @NotNull
     private Product product;
@@ -336,6 +339,19 @@ public class ProductEntry implements Serializable {
         this.deliveryEndTime = deliveryEndTime;
     }
 
+    public Long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public ProductEntry deliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+        return this;
+    }
+
+    public void setDeliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -506,6 +522,7 @@ public class ProductEntry implements Serializable {
             ", attachedToCarTime='" + attachedToCarTime + "'" +
             ", deliveryStartTime='" + deliveryStartTime + "'" +
             ", deliveryEndTime='" + deliveryEndTime + "'" +
+            ", deliveryDate='" + deliveryDate + "'" +
             '}';
     }
 }

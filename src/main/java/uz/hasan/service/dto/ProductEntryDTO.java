@@ -101,6 +101,8 @@ public class ProductEntryDTO implements Serializable {
 
     private AddressDTO address;
 
+    private Long deliveryDate;
+
     public Long getId() {
         return id;
     }
@@ -411,6 +413,14 @@ public class ProductEntryDTO implements Serializable {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    public Long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     @Override

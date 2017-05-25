@@ -181,7 +181,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     public Page<ReceiptProductEntriesDTO> findAllNewReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
 
-        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.NEW);
+        Page<Receipt> result = receiptRepository.findByStatusOrderByIdDesc(pageable, ReceiptStatus.NEW);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -201,7 +201,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (company != null) {
             idNumber = company.getIdNumber();
         }
-        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.RETAIL, idNumber);
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.RETAIL, idNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -217,7 +217,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<DocType> docTypes = new ArrayList<>();
         docTypes.add(DocType.CREDIT);
         docTypes.add(DocType.INSTALLMENT);
-        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, userService.getUserWithAuthorities().getCompany().getIdNumber());
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndCompanyIdNumberOrderByIdDesc(pageable, ReceiptStatus.NEW, docTypes, userService.getUserWithAuthorities().getCompany().getIdNumber());
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -238,7 +238,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (company != null) {
             idNumber = company.getIdNumber();
         }
-        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.WHOLESALE, idNumber);
+        Page<Receipt> result = receiptRepository.findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, ReceiptStatus.NEW, docTypes, WholeSaleFlag.WHOLESALE, idNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -269,9 +269,9 @@ public class ReceiptServiceImpl implements ReceiptService {
             List<DocType> types = new ArrayList<>();
             types.add(DocType.DISPLACEMENT);
             types.add(DocType.SALES);
-            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, types, WholeSaleFlag.WHOLESALE, idNumber);
+            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, types, WholeSaleFlag.WHOLESALE, idNumber);
         } else if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
-            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, Arrays.asList(DocType.values()), WholeSaleFlag.RETAIL, idNumber);
+            result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, Arrays.asList(DocType.values()), WholeSaleFlag.RETAIL, idNumber);
         } else {
             result = receiptRepository.findAll(pageable);
         }
@@ -287,7 +287,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findAppliedReceipts(Pageable pageable) {
         log.debug("Request to get all new Receipts");
-        Page<Receipt> result = receiptRepository.findByStatus(pageable, ReceiptStatus.APPLICATION_SENT);
+        Page<Receipt> result = receiptRepository.findByStatusOrderByIdDesc(pageable, ReceiptStatus.APPLICATION_SENT);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -304,14 +304,38 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Set<ProductEntry> productEntries = receipt.getProductEntries();
         productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.APPLICATION_SENT));
-        // 1. Check whether product entries addresses are the same
+        // 1. Check whether product entries addresses and sales types are the same
         Address address = productEntries.iterator().next().getAddress();
+
         boolean allWithTheSameAddress = productEntries.stream().allMatch(productEntry -> productEntry.getAddress().equals(address));
+        boolean allWithTheSameSalesType = productEntries.stream().allMatch(productEntry -> productEntry.getDeliveryFlag().equals(SalesType.DELIVERY));
         // 2. If they are the same, then continue as usual
         List<Receipt> results = new ArrayList<>();
+
         if (allWithTheSameAddress) {
-            receipt = sendReceiptWithProds(receipt, productEntries, false);
-            results.add(receipt);
+
+            if (!allWithTheSameSalesType) {
+                Set<ProductEntry> delivery = new HashSet<>();//to collect by salesType
+                Set<ProductEntry> takeaway = new HashSet<>();//to collect by salesType
+
+                for (ProductEntry productEntry : productEntries) {
+                    if (productEntry.getDeliveryFlag().equals(SalesType.DELIVERY)) {
+                        delivery.add(productEntry);
+                    }
+                    if (productEntry.getDeliveryFlag().equals(SalesType.TAKEOUT)) {
+                        productEntry.setAddress(null);
+                        takeaway.add(productEntry);
+                    }
+                }
+
+                results.add(sendReceiptWithProds(receipt, delivery, false));
+                results.add(sendReceiptWithProds(receipt, takeaway, true));
+
+            } else {
+                receipt = sendReceiptWithProds(receipt, productEntries, false);
+                results.add(receipt);
+            }
+
         } else {// 3. If they are not the same:
             // 3.0. Collect all addresses
             Set<Address> addresses = new HashSet<>();
@@ -336,9 +360,6 @@ public class ReceiptServiceImpl implements ReceiptService {
                         sorted.add(productEntry);
                     }
                 }
-                // 3.3. Detach the receipt to save it again
-//                entityManager.detach(saved);
-//                saved.setAddress(addrs);
                 // 3.4. Set collected products to receipt and save
                 sendReceiptWithProds(saved, sorted, true);
             }
@@ -493,7 +514,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<ReceiptStatus> statuses = new ArrayList<>();
         statuses.add(ReceiptStatus.ATTACHED_TO_DRIVER);
         statuses.add(ReceiptStatus.DELIVERY_PROCESS);
-        Page<Receipt> result = receiptRepository.findAllByStatusIn(pageable, statuses);
+        Page<Receipt> result = receiptRepository.findAllByStatusInOrderByIdDesc(pageable, statuses);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -509,7 +530,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<ReceiptStatus> statuses = new ArrayList<>();
         statuses.add(ReceiptStatus.DELIVERED);
         statuses.add(ReceiptStatus.TAKEOUT);
-        Page<Receipt> result = receiptRepository.findAllByStatusIn(pageable, statuses);
+        Page<Receipt> result = receiptRepository.findAllByStatusInOrderByIdDesc(pageable, statuses);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -522,7 +543,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findDisplacementReceipts(Pageable pageable) {
         log.debug("Request to get all displacement Receipts");
-        Page<Receipt> result = receiptRepository.findAllByDocType(pageable, DocType.DISPLACEMENT);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeOrderByIdDesc(pageable, DocType.DISPLACEMENT);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -543,7 +564,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (company != null) {
             companyIdNumber = company.getIdNumber();
         }
-        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumber(pageable, docTypes, companyIdNumber);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumberOrderByIdDesc(pageable, docTypes, companyIdNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -564,7 +585,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         if (company != null) {
             companyIdNumber = company.getIdNumber();
         }
-        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumber(pageable, docTypes, WholeSaleFlag.WHOLESALE, companyIdNumber);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, docTypes, WholeSaleFlag.WHOLESALE, companyIdNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -581,7 +602,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<DocType> docTypes = new ArrayList<>();
         docTypes.add(DocType.CREDIT);
         docTypes.add(DocType.INSTALLMENT);
-        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumber(pageable, docTypes, idNumber);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndCompanyIdNumberOrderByIdDesc(pageable, docTypes, idNumber);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -595,7 +616,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Page<ReceiptProductEntriesDTO> findByClientId(Pageable pageable, Long clientId) {
         log.debug("Request to get all Receipts of client {}", clientId);
-        Page<Receipt> result = receiptRepository.findByClientId(pageable, clientId);
+        Page<Receipt> result = receiptRepository.findByClientIdOrderByIdDesc(pageable, clientId);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 
@@ -628,6 +649,16 @@ public class ReceiptServiceImpl implements ReceiptService {
         Receipt result;
         User userWithAuthorities = userService.getUserWithAuthorities();
         if (isNew) {
+            if (productEntries.iterator().next().getDeliveryFlag().equals(SalesType.TAKEOUT)) {
+                receipt.setStatus(ReceiptStatus.TAKEOUT);
+                receipt.setDeliveryDate(null);
+                receipt.setFromTime(null);
+                receipt.setToTime(null);
+
+                productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.TAKEOUT));
+            } else {
+                receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            }
             Receipt newReceipt = new Receipt();
             BeanUtils.copyProperties(receipt, newReceipt);
             newReceipt.setAddress(productEntries.iterator().next().getAddress());
@@ -640,7 +671,6 @@ public class ReceiptServiceImpl implements ReceiptService {
             objects.addAll(receipt.getPayTypes());
             newReceipt.setPayTypes(objects);
             newReceipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
-            newReceipt.setStatus(ReceiptStatus.APPLICATION_SENT);
             newReceipt.setSentToDCTime(ZonedDateTime.now());
             newReceipt.setSentBy(userWithAuthorities);
             newReceipt.setId(null);
@@ -651,6 +681,7 @@ public class ReceiptServiceImpl implements ReceiptService {
             receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
             receipt.setSentToDCTime(ZonedDateTime.now());
             receipt.setSentBy(userWithAuthorities);
+            receipt.setProductEntries(productEntries);
             result = receiptRepository.save(receipt);
         }
 

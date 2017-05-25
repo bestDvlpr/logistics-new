@@ -16,7 +16,14 @@ export class CompanyResolve implements CanActivate {
     }
 
     canActivate() {
-        return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_CORPORATE']));
+        return this.principal.identity().then(account => this.principal.hasAnyAuthority(
+            [
+                'ROLE_ADMIN',
+                'ROLE_MANAGER',
+                'ROLE_CORPORATE',
+                'ROLE_CORPORATE'
+            ]
+        ));
     }
 }
 
@@ -53,7 +60,7 @@ export const companyRoute: Routes = [
         path: 'company/:id',
         component: CompanyDetailComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
+            authorities: ['ROLE_ADMIN', 'ROLE_DISPATCHER'],
             pageTitle: 'logisticsApp.company.home.title'
         },
         canActivate: [CompanyResolve],

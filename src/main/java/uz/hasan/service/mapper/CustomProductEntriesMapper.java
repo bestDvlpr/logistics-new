@@ -92,6 +92,7 @@ public class CustomProductEntriesMapper {
         productEntry.setVirtualFlag(productEntryDTO.getVirtualFlag());
         productEntry.setStatus(productEntryDTO.getStatus());
         productEntry.setComment(productEntryDTO.getComment());
+        productEntry.setDeliveryDate(productEntryDTO.getDeliveryDate());
 
         return productEntry;
     }
