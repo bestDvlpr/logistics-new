@@ -14,6 +14,7 @@ export class DataHolderService implements OnInit {
     _client: Client = null;
     _address: Address = null;
     _selectedProducts: ProductEntry[] = null;
+    _leftProducts: ProductEntry[] = null;
     _autocompleteObjects: ACElement[] = null;
     productCarExists: boolean = false;
     _autocompleteSelected: ACElement = null;
@@ -25,6 +26,7 @@ export class DataHolderService implements OnInit {
         this._company = null;
         this._address = null;
         this._selectedProducts = [];
+        this._leftProducts = [];
         this._autocompleteObjects = [];
         this.productCarExists = false;
         this._autocompleteSelected = null;

@@ -21,7 +21,7 @@ export class CompanyResolve implements CanActivate {
                 'ROLE_ADMIN',
                 'ROLE_MANAGER',
                 'ROLE_CORPORATE',
-                'ROLE_CORPORATE'
+                'ROLE_DISPATCHER'
             ]
         ));
     }

@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {JhiLanguageService} from 'ng-jhipster';
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiLanguageService} from "ng-jhipster";
 
-import {ProfileService} from '../profiles/profile.service'; // FIXME barrel doesnt work here
-import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../../shared';
+import {ProfileService} from "../profiles/profile.service"; // FIXME barrel doesnt work here
+import {JhiLanguageHelper, LoginModalService, LoginService, Principal} from "../../shared";
 
-import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
-import {ReceiptService} from '../../entities/receipt/receipt.service';
-import {Observable} from 'rxjs';
+import {DEBUG_INFO_ENABLED, VERSION} from "../../app.constants";
+import {ReceiptService} from "../../entities/receipt/receipt.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'jhi-navbar',
@@ -51,8 +51,10 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
 
-        this.getNewReceiptCount();
-        this.getAppliedReceiptsCount();
+        Observable.interval(10000).subscribe(x => {
+            this.getNewReceiptCount();
+            this.getAppliedReceiptsCount();
+        });
     }
 
     changeLanguage(languageKey: string) {
@@ -86,19 +88,17 @@ export class NavbarComponent implements OnInit {
     }
 
     private getNewReceiptCount() {
-        let pollData = this.receiptService.countNewApplications();
         if (this.principal.isAuthenticated()) {
-            pollData.expand(() => Observable.timer(60000).flatMap(() => pollData)).subscribe(count => {
+            this.receiptService.countNewApplications().subscribe(count => {
                 this.newOrderCount = count;
             });
         }
     }
 
     private getAppliedReceiptsCount() {
-        let pollData = this.receiptService.countAppliedApplications();
         if (this.principal.isAuthenticated()) {
-            pollData.expand(() => Observable.timer(60000).flatMap(() => pollData)).subscribe(count => {
-                this.appliedOrderCount = count;
+            this.receiptService.countAppliedApplications().subscribe((res) => {
+                this.appliedOrderCount = res;
             });
         }
     }

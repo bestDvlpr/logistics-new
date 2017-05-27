@@ -60,7 +60,12 @@ export class ReceiptSendProductComponent implements OnInit {
         this.client = this.dataHolderService._client;
         this.company = this.dataHolderService._company;
         this.address = this.dataHolderService._address;
-        this.productEntries = this.dataHolderService._receipt.productEntries;
+        this.productEntries = [];
+        for (let prod of this.dataHolderService._receipt.productEntries) {
+            if (prod.addressId === null) {
+                this.productEntries.push(prod);
+            }
+        }
         this.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
     }
 
