@@ -94,8 +94,10 @@ export class ReceiptProductToCarComponent implements OnInit {
         if (!this.isAllChecked) {
             this.productsSelected = [];
             this.productEntries.forEach(entry => {
-                entry.selected = true;
-                this.productsSelected.push(entry);
+                if (entry.attachedCarNumber === null) {
+                    entry.selected = true;
+                    this.productsSelected.push(entry);
+                }
             });
             this.isAllChecked = !this.isAllChecked;
         } else {
@@ -108,14 +110,14 @@ export class ReceiptProductToCarComponent implements OnInit {
     attach() {
         if (this.selectedCarNumber !== null) {
             let filter = this.cars.find((x) => x.number === this.selectedCarNumber);
-            let scar = this.cars[this.cars.indexOf(filter)];
             for (let selObj of this.productsSelected) {
                 let index: number = this.receipt.productEntries.indexOf(selObj, 0);
-                this.receipt.productEntries[index].attachedCarNumber = scar.number;
-                this.receipt.productEntries[index].attachedCarId = scar.id;
+                this.receipt.productEntries[index].attachedCarNumber = filter.number;
+                this.receipt.productEntries[index].attachedCarId = filter.id;
             }
             this.dataHolderService._receipt = this.receipt;
         }
+        this.productsSelected = [];
         this.prodsWithoutCar = false;
         this.checkProductCar();
     }
