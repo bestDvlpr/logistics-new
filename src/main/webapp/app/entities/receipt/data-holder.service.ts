@@ -1,10 +1,11 @@
-import {Receipt} from './receipt.model';
-import {Client} from '../client/client.model';
-import {Injectable, OnInit} from '@angular/core';
-import {Address} from '../address/address.model';
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {ACElement} from '../../shared/autocomplete/element.model';
+import {Receipt} from "./receipt.model";
+import {Client} from "../client/client.model";
+import {Injectable, OnInit} from "@angular/core";
+import {Address} from "../address/address.model";
+import {ProductEntry} from "../product-entry/product-entry.model";
+import {ACElement} from "../../shared/autocomplete/element.model";
 import {Company} from "../company/company.model";
+import {isNullOrUndefined} from "util";
 /**
  * Created by hasan on 3/11/17.
  */
@@ -42,5 +43,14 @@ export class DataHolderService implements OnInit {
                 }
             }
         }
+    }
+
+    static formatYYYYMMDD(date: any) {
+        if (isNullOrUndefined(date)) {
+            return null;
+        }
+        return date.year +
+            '-' + ((date.month < 10) ? '0' + date.month : date.month) +
+            '-' + ((date.day < 10) ? '0' + date.day : date.day);
     }
 }

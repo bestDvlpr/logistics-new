@@ -150,7 +150,8 @@
             "upload": "Upload",
             "takeOut": "Takeout",
             "yes": "Yes",
-            "no": "No"
+            "no": "No",
+            "export": "Export"
         },
         "detail": {
             "field": "Field",

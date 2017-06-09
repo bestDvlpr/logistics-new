@@ -1,4 +1,4 @@
-import {BaseRequestOptions, Http, Response} from "@angular/http";
+import {BaseRequestOptions, Http, Response, ResponseContentType} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
 import {CommonReportCriteria, ReportCriteria} from "./report.criteria";
@@ -34,5 +34,10 @@ export class ReportService {
             options.body = params;
         }
         return options;
+    }
+
+    downloadGenericReport(criteria: CommonReportCriteria) {
+        let mediaType = ResponseContentType.Blob;
+        return this.http.post(this.resourceUrl.concat('/generic/export'), criteria, {responseType: mediaType});
     }
 }

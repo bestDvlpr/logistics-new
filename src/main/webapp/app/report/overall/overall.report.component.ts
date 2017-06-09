@@ -10,7 +10,10 @@ import {EnumAware} from "../../entities/receipt/doctypaware.decorator";
 import {Location, LocationType} from "../../entities/location/location.model";
 import {CommonReportCriteria} from "../report.criteria";
 import {ACElement} from "../../shared/autocomplete/element.model";
+import {Response} from "@angular/http";
 import {isNullOrUndefined} from "util";
+import * as FileSaver from "file-saver";
+import {DataHolderService} from "../../entities/receipt/data-holder.service";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -89,15 +92,39 @@ export class OverallReportComponent implements OnInit {
     }
 
     getGenericReport() {
+        let criteria = this.createReportCriteria();
+
+        this.reportService.getGenericReport(criteria).subscribe((res) => {
+            this.reports = [];
+            this.reports = res.json();
+        });
+    }
+
+    exportGenericReport() {
+        let criteria = this.createReportCriteria();
+        this.reportService.downloadGenericReport(criteria).subscribe((res: Response) => {
+            this.onSuccessExport(res);
+        });
+    }
+
+    private onSuccessExport(res: Response) {
+        let mediaType = 'application/octet-stream;charset=UTF-8';
+        let blob = new Blob([res.blob()], {type: mediaType});
+        let filename = DataHolderService.formatYYYYMMDD(this.startTime) + '-' + DataHolderService.formatYYYYMMDD(this.endTime) + '_report.xlsx';
+
+        try {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+        } catch (ex) {
+            FileSaver.saveAs(blob, filename);
+        }
+    }
+
+    private createReportCriteria() {
         let startDate: string;
         let endDate: string;
         if (!isNullOrUndefined(this.startTime) && !isNullOrUndefined(this.endTime)) {
-            startDate = this.startTime.year +
-                '-' + ((this.startTime.month < 10) ? '0' + this.startTime.month : this.startTime.month) +
-                '-' + ((this.startTime.day < 10) ? '0' + this.startTime.day : this.startTime.day);
-            endDate = this.endTime.year +
-                '-' + ((this.endTime.month < 10) ? '0' + this.endTime.month : this.endTime.month) +
-                '-' + ((this.endTime.day < 10) ? '0' + this.endTime.day : this.endTime.day);
+            startDate = DataHolderService.formatYYYYMMDD(this.startTime);
+            endDate = DataHolderService.formatYYYYMMDD(this.endTime);
         }
 
         let district: ACElement = null;
@@ -121,11 +148,6 @@ export class OverallReportComponent implements OnInit {
             district = new ACElement(chosenDistrict.id, chosenDistrict.name);
         }
 
-        let criteria = new CommonReportCriteria(startDate, endDate, company, district);
-
-        this.reportService.getGenericReport(criteria).subscribe((res) => {
-            this.reports = [];
-            this.reports = res.json();
-        });
+        return new CommonReportCriteria(startDate, endDate, company, district);
     }
 }
