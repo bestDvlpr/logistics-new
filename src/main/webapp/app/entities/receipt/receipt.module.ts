@@ -33,6 +33,7 @@ import {
     ReceiptCorporateComponent,
 } from './';
 import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
+import {NguiAutoCompleteModule} from "@ngui/auto-complete";
 
 let ENTITY_STATES = [
     ...receiptRoute,
@@ -43,7 +44,8 @@ let ENTITY_STATES = [
     imports: [
         LogisticsSharedModule,
         RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
-        AutocompleteModule
+        AutocompleteModule,
+        NguiAutoCompleteModule
     ],
     declarations: [
         ReceiptComponent,

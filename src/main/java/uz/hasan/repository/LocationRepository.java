@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import uz.hasan.domain.Location;
 
 import org.springframework.data.jpa.repository.*;
+import uz.hasan.domain.enumeration.LocationType;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface LocationRepository extends JpaRepository<Location,Long> {
     List<Location> findByParentId(Long parentId);
 
     List<Location> findByParentIdIsNull();
+
+    List<Location> findByType(LocationType type);
 }

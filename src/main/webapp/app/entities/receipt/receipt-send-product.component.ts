@@ -23,8 +23,8 @@ export class ReceiptSendProductComponent implements OnInit {
     company: Company;
     address: Address;
     productEntries: ProductEntry[];
-    public productsSelected: ProductEntry[] = [];
-    public isCollapsed = false;
+    productsSelected: ProductEntry[] = [];
+    isCollapsed = false;
     isAllChecked: boolean = false;
     formattedStartTime: string;
     startTime: any = null;

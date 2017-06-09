@@ -51,10 +51,10 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
 
-        Observable.interval(10000).subscribe(x => {
-            this.getNewReceiptCount();
-            this.getAppliedReceiptsCount();
-        });
+        // Observable.interval(10000).subscribe(x => {
+        //     this.getNewReceiptCount();
+        //     this.getAppliedReceiptsCount();
+        // });
     }
 
     changeLanguage(languageKey: string) {

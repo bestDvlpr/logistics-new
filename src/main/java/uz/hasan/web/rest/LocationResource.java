@@ -2,6 +2,7 @@ package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import uz.hasan.domain.Location;
+import uz.hasan.domain.enumeration.LocationType;
 import uz.hasan.service.LocationService;
 import uz.hasan.web.rest.util.HeaderUtil;
 import uz.hasan.web.rest.util.PaginationUtil;
@@ -199,6 +200,19 @@ public class LocationResource {
         log.debug("REST request to delete Location : {}", id);
         locationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * Get location children by parent ID.
+     *
+     * @param type the type of the entity
+     * @return the entity list
+     */
+    @GetMapping("/locations/by-type/{type}")
+    public ResponseEntity<List<Location>> getByType(@PathVariable LocationType type) throws URISyntaxException {
+        log.debug("REST request to get Locations of type: {}", type);
+        List<Location> children = locationService.findByType(type);
+        return new ResponseEntity<>(children, HttpStatus.OK);
     }
 
 }

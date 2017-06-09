@@ -33,7 +33,7 @@
                 receipt.status!==receiptStatusEnum.DELIVERED &&
                 receipt.status!==receiptStatusEnum.CANCELLED &&
                 receipt.status!==receiptStatusEnum.TAKEOUT">
-            <button type="submit" jhiHasAuthority="ROLE_CASHIER"
+            <button type="submit" jhiHasAnyAuthority="ROLE_CASHIER, ROLE_CREDIT,ROLE_CORPORATE"
                     (click)="takenOut()"
                     class="btn btn-sm btn-primary btn-block">
                 <span class="fa fa-user"></span>&nbsp;<span jhiTranslate="entity.action.takeOut"> TakeOut</span>&nbsp;

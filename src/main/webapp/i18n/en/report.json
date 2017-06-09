@@ -1,0 +1,11 @@
+{
+    "logisticsApp": {
+        "report": {
+            "home": {
+                "title": "Reports"
+            },
+            "overallReport": "Overall Report",
+            "deliveryTookTime": "Delivery Took Time"
+        }
+    }
+}

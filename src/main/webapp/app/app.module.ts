@@ -1,7 +1,6 @@
 import './vendor.ts';
 
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {Ng2Webstorage} from 'ng2-webstorage';
 
@@ -27,6 +26,7 @@ import {SidenavComponent} from './layouts/sidenav/sidenav.component';
 import {CollapseDirective} from './layouts/sidenav/collapse.component';
 import {Ng2CompleterModule} from 'ng2-completer';
 import {FooterComponent} from './layouts/footer/footer.component';
+import {LogisticsReportModule} from "./report/report.module";
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import {FooterComponent} from './layouts/footer/footer.component';
         LogisticsAdminModule,
         LogisticsAccountModule,
         LogisticsEntityModule,
-        Ng2CompleterModule
+        Ng2CompleterModule,
+        LogisticsReportModule
     ],
     declarations: [
         JhiMainComponent,

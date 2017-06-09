@@ -68,7 +68,6 @@ export class ReceiptService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
@@ -176,4 +175,9 @@ export class ReceiptService {
      return res.json();
      });
      }*/
+    report() {
+        return this.http.get('api/report/generic').map((res: Response) => {
+            return res.json();
+        })
+    }
 }

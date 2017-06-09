@@ -1,0 +1,93 @@
+<div>
+    <h2>
+        <span jhiTranslate="logisticsApp.report.overallReport">Overall Report</span>
+    </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form form-inline">
+                <div class="input-group">
+                    <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
+                    <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
+                           [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
+                           class="form-control" name="startTime">
+                    <div class="input-group-addon" (click)="from.toggle()"
+                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
+                        <span class="fa fa-calendar"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
+                    <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
+                           [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
+                           class="form-control" name="endTime">
+                    <div class="input-group-addon" (click)="to.toggle()"
+                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
+                        <span class="fa fa-calendar"></span>
+                    </div>
+                </div>
+                <div class="input-group" *ngIf="companiesSource && companiesSource.length>0">
+                    <label class="input-group-addon" for="company" jhiTranslate="global.form.to">To</label>
+                    <input id="company" class="form-control" auto-complete [source]="companiesSource"
+                           [(ngModel)]="selectedCompany" name="selectedCompany">
+                </div>
+                <div class="input-group" *ngIf="regionsSource && regionsSource.length>0">
+                    <label class="input-group-addon" for="region" jhiTranslate="global.form.to">To</label>
+                    <input id="region" class="form-control" auto-complete [source]="regionsSource"
+                           [(ngModel)]="selectedRegion" name="selectedRegion">
+                </div>
+                <button class="btn btn-primary btn-block form-control" (click)="getGenericReport()">
+                    <span class="fa fa-search"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+    <div class="table-responsive" *ngIf="reports && reports.length>0">
+        <table class="table table-striped small">
+            <thead>
+            <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.client">Client</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.companyId">Company</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>
+                <th><span jhiTranslate="logisticsApp.receipt.deliveryDateTime">Delivery Date</span></th>
+                <th><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span></th>
+                <th><span jhiTranslate="logisticsApp.client.phoneNumbers">Phone Numbers</span></th>
+                <th><span jhiTranslate="logisticsApp.address.district">District</span></th>
+                <th><span jhiTranslate="logisticsApp.address.streetAddress">Street Address</span></th>
+                <th><span jhiTranslate="logisticsApp.carModel.detail.title">Car Model</span></th>
+                <th><span jhiTranslate="logisticsApp.car.number">Car Number</span></th>
+                <th><span jhiTranslate="logisticsApp.driver.detail.title">Driver</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.sentToDCTime">Sent to DC Time</span></th>
+                <th><span jhiTranslate="logisticsApp.receipt.deliveredTime">Delivered Time</span></th>
+                <th><span jhiTranslate="logisticsApp.report.deliveryTookTime">Delivery Took Time</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let report of reports; trackBy: trackId">
+                <td>{{report.id}}</td>
+                <td>{{report.clientFirstName + " " + report.clientLastName}}</td>
+                <td>{{report.companyName}}</td>
+                <td>{{report.productName}}</td>
+                <td>{{report.docDate}}</td>
+                <td>{{report.deliveredTime}}</td>
+                <td>{{report.productQty}}</td>
+                <td>{{report.phoneNumber}}</td>
+                <td>{{report.districtName}}</td>
+                <td>{{report.address}}</td>
+                <td>{{report.carModel}}</td>
+                <td>{{report.carNumber}}</td>
+                <td>{{report.driverFirstName + " " + report.driverLastName}}</td>
+                <td>{{report.sentToDCTime}}</td>
+                <td>{{report.deliveredTime}}</td>
+                <td>{{report.deliveryTookTime}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

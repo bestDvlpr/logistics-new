@@ -1,11 +1,15 @@
 import {ElementRef, Component, OnInit} from '@angular/core';
 import {DataHolderService} from '../../entities/receipt/data-holder.service';
 import {ACElement} from './element.model';
+import {ControlValueAccessor} from "@angular/forms";
 @Component({
     selector: 'jhi-autocomplete',
     templateUrl: 'autocomplete.component.html'
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements ControlValueAccessor {
+    writeValue(obj: any): void {
+    }
+
     public query: ACElement = {};
     public objects: ACElement[] = [];
     public filteredList = [];
@@ -56,5 +60,13 @@ export class AutocompleteComponent implements OnInit {
         if (!inside) {
             this.filteredList = [];
         }
+    }
+
+    registerOnChange(fn: any): void {
+        // this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        // this.onTouchedCallback = fn;
     }
 }

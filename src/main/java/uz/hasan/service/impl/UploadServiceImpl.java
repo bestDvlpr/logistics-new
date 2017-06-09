@@ -211,11 +211,11 @@ public class UploadServiceImpl implements UploadService {
         Authority warehouseAuthority = new Authority(AuthoritiesConstants.WAREHOUSE);
         Authority corporateAuthority = new Authority(AuthoritiesConstants.CORPORATE);
 
-        Set<Authority> userAuths = userService.getUserWithAuthorities().getAuthorities();
+        Set<Authority> authorities = userService.getUserWithAuthorities().getAuthorities();
 
-        if (userAuths.contains(creditAuthority)){
+        if (authorities.contains(creditAuthority)){
             wholeSaleFlag = WholeSaleFlag.RETAIL;
-        } else if (userAuths.contains(corporateAuthority)){
+        } else if (authorities.contains(corporateAuthority)){
             wholeSaleFlag = WholeSaleFlag.WHOLESALE;
         }
 

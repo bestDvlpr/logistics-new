@@ -1,12 +1,8 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import uz.hasan.service.CompanyService;
-import uz.hasan.web.rest.util.HeaderUtil;
-import uz.hasan.web.rest.util.PaginationUtil;
-import uz.hasan.service.dto.CompanyDTO;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,14 +11,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.hasan.service.CompanyService;
+import uz.hasan.service.dto.CompanyDTO;
+import uz.hasan.web.rest.util.HeaderUtil;
+import uz.hasan.web.rest.util.PaginationUtil;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Company.
@@ -157,4 +155,16 @@ public class CompanyResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * GET  /companies/autocomplete/{name} : get the "name" company.
+     *
+     * @param name the name of the companyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/companies/autocomplete/{name}")
+    public ResponseEntity<List<CompanyDTO>> autocomplete(@PathVariable String name) {
+        log.debug("REST request to get Company : {}", name);
+        List<CompanyDTO> companyDTOS = companyService.findByNameLike(name);
+        return new ResponseEntity<>(companyDTOS, HttpStatus.OK);
+    }
 }

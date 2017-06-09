@@ -63,7 +63,8 @@
             "creditReceipts": "Заявки кредит",
             "corporateReceipts": "Корпоративные заявки",
             "archivedReceipts": "Архив",
-            "appliedReceipts": "Принятые заявки"
+            "appliedReceipts": "Принятые заявки",
+            "report": "Отчеты"
         },
         "form": {
             "username": "Логин",
@@ -77,7 +78,9 @@
             "next": "Следующий",
             "search": "Поиск",
             "credit": "Кредит",
-            "installment": "Рассрочка"
+            "installment": "Рассрочка",
+            "from": "С",
+            "to": "По"
         },
         "messages": {
             "info": {

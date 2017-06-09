@@ -109,4 +109,17 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = companyRepository.findByIdNumber(idNumber);
         return companyMapper.companyToCompanyDTO(company);
     }
+
+    /**
+     * GET  /companies/autocomplete/{name} : get the "name" company.
+     *
+     * @param name the name of the companyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     */
+    @Override
+    public List<CompanyDTO> findByNameLike(String name) {
+        log.debug("REST request to get Company : {}", name);
+        List<Company> companies = companyRepository.findByNameLike(name);
+        return companyMapper.companiesToCompanyDTOs(companies);
+    }
 }

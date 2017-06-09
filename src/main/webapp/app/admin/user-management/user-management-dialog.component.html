@@ -102,9 +102,10 @@
                 <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
             </select>
         </div>
-        <div class="form-group">
-            <label jhiTranslate="userManagement.company">Company</label>
-            <jhi-autocomplete></jhi-autocomplete>
+        <div class="form-group" *ngIf="source">
+            <label jhiTranslate="userManagement.company" for="company">Company</label>
+            <input id="company" class="form-control" auto-complete [(ngModel)]="user.companyName" [source]="source"
+                   name="companyName">
         </div>
     </div>
     <div class="modal-footer">

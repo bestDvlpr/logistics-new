@@ -9,8 +9,6 @@ import {ReceiptService} from "./receipt.service";
 import {ITEMS_PER_PAGE, Principal} from "../../shared";
 import {EnumAware} from "./doctypaware.decorator";
 import {DataHolderService} from "./data-holder.service";
-import {Car} from "../car/car.model";
-import {ACElement} from "../../shared/autocomplete/element.model";
 import {CarService} from "../car/car.service";
 import {isUndefined} from "util";
 import {ProductEntryService} from "../product-entry/product-entry.service";
@@ -57,7 +55,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: EventManager,
-                private carService: CarService,
                 private dataHolderService: DataHolderService,
                 private productEntryService: ProductEntryService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -189,6 +186,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         });
         this.registerChangeInReceipts();
+        this.getReport();
     }
 
     ngOnDestroy() {
@@ -273,37 +271,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
 
     attachToDriver(receiptId: number) {
         this.saveToDataHolder(receiptId);
-        this.loadCars();
-    }
-
-    loadCars() {
-        this.carService.allWithoutPagination().subscribe((cars: Response) => {
-            this.setACObjects(cars.json());
-            this.router.navigate(['../receipt-product-to-car']);
-        });
-    }
-
-    viewReceipt(receiptId: number) {
-        for (let receipt of this.receipts) {
-            if (receipt.id === receiptId) {
-                this.dataHolderService._receipt = receipt;
-                this.dataHolderService._client = receipt.client;
-            }
-        }
-        this.router.navigate(['../receipt', receiptId]);
-    }
-
-    private setACObjects(cars: Car[]) {
-        if (cars !== null && cars.length > 0) {
-            let acObjects: ACElement[] = [];
-            for (let car of cars) {
-                let elem: ACElement = {};
-                elem.name = car.number;
-                elem.id = car.id;
-                acObjects.push(elem);
-            }
-            this.dataHolderService._autocompleteObjects = acObjects;
-        }
+        this.router.navigate(['../receipt-product-to-car']);
     }
 
     private saveToDataHolder(receiptId: number) {
@@ -362,5 +330,11 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.receipt = res.json();
             this.router.navigate(['/']);
         });
+    }
+
+    getReport() {
+        this.receiptService.report().subscribe((res) => {
+            console.log(res);
+        })
     }
 }

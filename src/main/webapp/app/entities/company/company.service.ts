@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import {Company} from './company.model';
+import {Company} from "./company.model";
 @Injectable()
 export class CompanyService {
 
@@ -65,5 +65,9 @@ export class CompanyService {
         return this.http.get(`${this.resourceUrl}/by-id-number/${companyId}`).map((res: Response) => {
             return res.json();
         });
+    }
+
+    autocomplete(companyName: string): Observable<Response> {
+        return this.http.get(`${this.resourceUrl.concat('/autocomplete')}/${companyName}`);
     }
 }

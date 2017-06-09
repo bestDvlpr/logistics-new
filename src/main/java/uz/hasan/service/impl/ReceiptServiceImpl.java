@@ -391,6 +391,9 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Long countNewReceipts() {
         User userWithAuthorities = userService.getUserWithAuthorities();
+        if (userWithAuthorities == null || userWithAuthorities.getAuthorities().isEmpty()) {
+            return 0L;
+        }
         Set<Authority> authorities = userWithAuthorities.getAuthorities();
         if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN)) ||
             authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.MANAGER)) ||
@@ -406,10 +409,10 @@ public class ReceiptServiceImpl implements ReceiptService {
                 docTypes.add(DocType.CREDIT);
                 docTypes.add(DocType.INSTALLMENT);
             }
-            if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))){
+            if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CASHIER))) {
                 docTypes.add(DocType.SALES);
             }
-            if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CORPORATE))){
+            if (authorities.stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CORPORATE))) {
                 docTypes.add(DocType.SALES);
                 docTypes.add(DocType.DISPLACEMENT);
                 wholeSaleFlag = WholeSaleFlag.WHOLESALE;

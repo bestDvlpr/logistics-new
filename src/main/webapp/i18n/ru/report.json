@@ -1,0 +1,11 @@
+{
+    "logisticsApp": {
+        "report": {
+            "home": {
+                "title": "Отчеты"
+            },
+            "overallReport": "Обший отчет",
+            "deliveryTookTime": "Потраченное время"
+        }
+    }
+}

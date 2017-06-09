@@ -32,13 +32,15 @@ import {
     UserModalService
 } from './';
 import {AutocompleteModule} from '../shared/autocomplete/autocomplete.module';
+import {NguiAutoCompleteModule} from "@ngui/auto-complete";
 
 
 @NgModule({
     imports: [
         LogisticsSharedModule,
         RouterModule.forRoot(adminState, { useHash: true }),
-        AutocompleteModule
+        AutocompleteModule,
+        NguiAutoCompleteModule
     ],
     declarations: [
         AuditsComponent,

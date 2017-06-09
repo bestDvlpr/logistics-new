@@ -1,17 +1,16 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {EventManager, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {EventManager, JhiLanguageService} from "ng-jhipster";
 
-import {UserModalService} from './user-modal.service';
-import {JhiLanguageHelper, User, UserService} from '../../shared';
-import {Shop} from '../../entities/shop/shop.model';
-import {ShopService} from '../../entities/shop/shop.service';
-import {Response} from '@angular/http';
-import {DataHolderService} from '../../entities/receipt/data-holder.service';
-import {ACElement} from '../../shared/autocomplete/element.model';
-import {CompanyService} from '../../entities/company/company.service';
+import {UserModalService} from "./user-modal.service";
+import {JhiLanguageHelper, User, UserService} from "../../shared";
+import {Response} from "@angular/http";
+import {DataHolderService} from "../../entities/receipt/data-holder.service";
+import {ACElement} from "../../shared/autocomplete/element.model";
+import {CompanyService} from "../../entities/company/company.service";
+import {Company} from "../../entities/company/company.model";
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
@@ -23,17 +22,22 @@ export class UserMgmtDialogComponent implements OnInit {
     languages: any[];
     authorities: any[];
     isSaving: Boolean;
+    companies: Company[];
+    acObjects: ACElement[];
+    source: string[];
 
     constructor(public activeModal: NgbActiveModal,
                 private languageHelper: JhiLanguageHelper,
                 private jhiLanguageService: JhiLanguageService,
                 private userService: UserService,
+                private companyService: CompanyService,
                 private eventManager: EventManager,
                 private dataHolderService: DataHolderService) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.loadCompanies();
         this.authorities = [
             'ROLE_USER',
             'ROLE_ADMIN',
@@ -47,7 +51,7 @@ export class UserMgmtDialogComponent implements OnInit {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
-        this.jhiLanguageService.setLocations(['user-management', 'shop']);
+        this.jhiLanguageService.setLocations(['user-management', 'company']);
     }
 
     clear() {
@@ -56,8 +60,12 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.user.companyId = this.dataHolderService._autocompleteSelected.id;
-        this.user.companyName = this.dataHolderService._autocompleteSelected.name;
+        if (this.user.companyName) {
+            let filter = this.companies.find((x) => x.name === this.user.companyName);
+            let company = this.companies[this.companies.indexOf(filter)];
+            this.user.companyId = company.id;
+            this.user.companyName = company.name;
+        }
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
@@ -74,6 +82,23 @@ export class UserMgmtDialogComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
+    private loadCompanies() {
+        this.companyService.all().subscribe((res: Response) => {
+            this.companies = res.json();
+            this.setACObjects(this.companies);
+        });
+    }
+
+    private setACObjects(shops: Company[]) {
+        this.dataHolderService.clearAll();
+        if (shops !== null && shops.length > 0) {
+            this.source = [];
+            for (let shop of shops) {
+                this.source.push(shop.name);
+            }
+        }
+    }
 }
 
 @Component({
@@ -84,16 +109,12 @@ export class UserDialogComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
-    companies: Shop[];
 
     constructor(private route: ActivatedRoute,
-                private userModalService: UserModalService,
-                private dataHolderService: DataHolderService,
-                private companyService: CompanyService) {
+                private userModalService: UserModalService) {
     }
 
     ngOnInit() {
-        this.loadShops();
         this.routeSub = this.route.params.subscribe(params => {
             if (params['login']) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
@@ -105,27 +126,5 @@ export class UserDialogComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.routeSub.unsubscribe();
-    }
-
-    private loadShops() {
-        this.companyService.all().subscribe((res: Response) => {
-            this.companies = res.json();
-            this.setACObjects(this.companies);
-        });
-    }
-
-    private setACObjects(shops: Shop[]) {
-        this.dataHolderService.clearAll();
-        if (shops !== null && shops.length > 0) {
-            let acObjects: ACElement[] = [];
-            for (let shop of shops) {
-                let elem: ACElement = {};
-                elem.name = shop.name;
-                elem.id = shop.id;
-                acObjects.push(elem);
-            }
-            this.dataHolderService._autocompleteObjects = acObjects;
-            console.log(this.dataHolderService._autocompleteObjects);
-        }
     }
 }

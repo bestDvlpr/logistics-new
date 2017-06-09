@@ -15,11 +15,46 @@ import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 
 import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 
 /**
  * A Receipt.
  */
 @Entity
+@SqlResultSetMapping(
+    name = "ProductDeliveryReportMapping",
+    classes = {
+        @ConstructorResult(
+            targetClass = ProductDeliveryReport.class,
+            columns = {
+                @ColumnResult(name = "companyName", type = String.class),
+                @ColumnResult(name = "date", type = String.class),
+                @ColumnResult(name = "id", type = Long.class),
+                @ColumnResult(name = "productName", type = String.class),
+                @ColumnResult(name = "productQty", type = Long.class),
+                @ColumnResult(name = "docDate", type = String.class),
+                @ColumnResult(name = "clientFirstName", type = String.class),
+                @ColumnResult(name = "clientLastName", type = String.class),
+                @ColumnResult(name = "phoneNumber", type = String.class),
+                @ColumnResult(name = "districtName", type = String.class),
+                @ColumnResult(name = "address", type = String.class),
+                @ColumnResult(name = "carModel", type = String.class),
+                @ColumnResult(name = "carNumber", type = String.class),
+                @ColumnResult(name = "driverFirstName", type = String.class),
+                @ColumnResult(name = "driverLastName", type = String.class),
+                @ColumnResult(name = "sentToDCTime", type = String.class),
+                @ColumnResult(name = "deliveredTime", type = String.class),
+                @ColumnResult(name = "deliveryTookTime", type = String.class),
+                @ColumnResult(name = "companyId", type = Long.class)
+            }
+        )
+    }
+)
+@NamedNativeQuery(name = "Receipt.overallReport",
+    query = "SELECT * FROM f_common_report(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
+    resultClass = ProductDeliveryReport.class,
+    resultSetMapping = "ProductDeliveryReportMapping"
+)
 @Table(name = "receipt")
 public class Receipt implements Serializable {
 

@@ -55,4 +55,12 @@ public interface CompanyService {
      *  @return the entity
      */
     CompanyDTO findByIdNumber(String idNumber);
+
+    /**
+     * GET  /companies/autocomplete/{name} : get the "name" company.
+     *
+     * @param name the name of the companyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     */
+    List<CompanyDTO> findByNameLike(String name);
 }
