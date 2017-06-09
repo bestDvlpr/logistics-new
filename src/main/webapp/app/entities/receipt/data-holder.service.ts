@@ -7,7 +7,8 @@ import {ACElement} from "../../shared/autocomplete/element.model";
 import {Company} from "../company/company.model";
 import {isNullOrUndefined} from "util";
 /**
- * Created by hasan on 3/11/17.
+ * @author: hasan
+ * @date: 3/11/17.
  */
 @Injectable()
 export class DataHolderService implements OnInit {
@@ -52,5 +53,15 @@ export class DataHolderService implements OnInit {
         return date.year +
             '-' + ((date.month < 10) ? '0' + date.month : date.month) +
             '-' + ((date.day < 10) ? '0' + date.day : date.day);
+    }
+
+    static format(date: any) {
+        if (isNullOrUndefined(date)) {
+            return null;
+        }
+        let month = date.getMonth() + 1;
+        return date.getFullYear() +
+            '-' + ((month < 10) ? '0' + month : month) +
+            '-' + ((date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
     }
 }

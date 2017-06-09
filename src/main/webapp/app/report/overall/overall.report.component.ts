@@ -29,8 +29,8 @@ export class OverallReportComponent implements OnInit {
     fromMaxDate: NgbDateStruct;
     toMinDate: NgbDateStruct;
     toMaxDate: NgbDateStruct;
-    startTime: any;
-    endTime: any;
+    startTime: any = null;
+    endTime: any = null;
     selectedCompany: string;
     selectedRegion: string;
     companies: Company[];
@@ -110,7 +110,12 @@ export class OverallReportComponent implements OnInit {
     private onSuccessExport(res: Response) {
         let mediaType = 'application/octet-stream;charset=UTF-8';
         let blob = new Blob([res.blob()], {type: mediaType});
-        let filename = DataHolderService.formatYYYYMMDD(this.startTime) + '-' + DataHolderService.formatYYYYMMDD(this.endTime) + '_report.xlsx';
+        let filename: string = '';
+        if (this.startTime === null) {
+            filename = DataHolderService.format(new Date()) + '_report.xlsx';
+        } else {
+            filename = DataHolderService.formatYYYYMMDD(this.startTime) + '-' + DataHolderService.formatYYYYMMDD(this.endTime) + '_report.xlsx';
+        }
 
         try {
             window.navigator.msSaveOrOpenBlob(blob, filename);
