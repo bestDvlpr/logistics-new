@@ -43,8 +43,8 @@ export class ReportService {
         return this.http.post(this.resourceUrl.concat('/generic/export'), criteria, {responseType: mediaType});
     }
 
-    deliveryCountChart(status: ReceiptStatus): Observable<DeliveryCountByCompany[]> {
-        return this.http.get(`${this.resourceUrl}/by-status/${status}`).map((res: Response) => {
+    deliveryCountChart(status: ReceiptStatus, startDate: string, endDate: string): Observable<DeliveryCountByCompany[]> {
+        return this.http.get(`${this.resourceUrl}/by-status/${status}/${startDate}/${endDate}`).map((res: Response) => {
             return res.json();
         });
     }

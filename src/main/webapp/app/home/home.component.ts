@@ -5,7 +5,7 @@ import {Account, LoginModalService, Principal} from "../shared";
 import {ReportService} from "../report/report.service";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {DeliveryCountByCompany} from "../report/delivery-count-by-ompany";
-import { TranslateService } from 'ng2-translate';
+import {TranslateService} from "ng2-translate";
 
 @Component({
     selector: 'jhi-home',
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
     }
 
     deliveryCountChart() {
-        this.reportService.deliveryCountChart(ReceiptStatus.DELIVERED).subscribe((res) => {
+        this.reportService.deliveryCountChart(ReceiptStatus.DELIVERED, null, null).subscribe((res) => {
             this.countByCompany = res;
             let data = [];
             let overall = this.countByCompany.find(x => x.companyName === null);

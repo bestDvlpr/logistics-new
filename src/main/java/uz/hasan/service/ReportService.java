@@ -26,5 +26,5 @@ public interface ReportService {
 
     void exportGenericReport(DeliveryReportCriteria criteria, HttpServletResponse response);
 
-    List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status);
+    List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status, String startDate, String endDate);
 }

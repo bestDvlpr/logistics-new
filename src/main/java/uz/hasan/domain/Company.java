@@ -27,7 +27,7 @@ import uz.hasan.domain.pojos.criteria.CustomCompany;
     }
 )
 @NamedNativeQuery(name = "Company.customCompany",
-    query = "SELECT * FROM f_custom_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')))",
+    query = "SELECT * FROM f_custom_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')))",
     resultClass = CustomCompany.class,
     resultSetMapping = "CustomCompanyMapping"
 )

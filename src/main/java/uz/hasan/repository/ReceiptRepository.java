@@ -10,6 +10,7 @@ import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
 
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,6 +48,9 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id")
     Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id);
+
+    @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id and r.deliveredTime between :startDate and :endDate")
+    Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id, @Param("startDate") ZonedDateTime startDate, @Param("endDate") ZonedDateTime endDate);
 
     Page<Receipt> findAllByStatusNotInOrderByIdDesc(Pageable pageable, Collection<ReceiptStatus> statuses);
 

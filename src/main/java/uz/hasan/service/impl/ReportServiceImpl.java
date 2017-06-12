@@ -1,7 +1,5 @@
 package uz.hasan.service.impl;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -27,6 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -199,13 +201,48 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status) {
-        List<CustomCompany> companies = companyRepository.customCompany("null", "null");
+    public List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status, String startDate, String endDate) {
+
+        if (status == null) {
+            return null;
+        }
+        List<CustomCompany> companies;
+
+        ZonedDateTime start;
+        ZonedDateTime end;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (startDate.isEmpty() || startDate.equals("null") || endDate.isEmpty() || endDate.equals("null")) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+            Date firstDate = calendar.getTime();
+            Date today = new Date();
+
+            start = ZonedDateTime.ofInstant(firstDate.toInstant(), ZoneId.systemDefault());
+            end = ZonedDateTime.now();
+
+            startDate = simpleDateFormat.format(firstDate);
+            endDate = simpleDateFormat.format(today);
+        } else {
+            Date firstDate = null;
+            try {
+                firstDate = simpleDateFormat.parse(startDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            start = ZonedDateTime.ofInstant(firstDate.toInstant(), ZoneId.systemDefault());
+            end = ZonedDateTime.now();
+        }
+
+        companies = companyRepository.customCompany(status.name(), startDate, endDate);
 
         Map<String, Long> companyWithDeliveryCounts = new HashMap<>();
 
         for (CustomCompany company : companies) {
-            companyWithDeliveryCounts.put(company.getName(), receiptRepository.getCountByStatusAndCompanyIdNumber(status, company.getIdNumber()));
+            companyWithDeliveryCounts.put(company.getName(), receiptRepository.getCountByStatusAndCompanyIdNumber(status, company.getIdNumber(), start, end));
         }
 
         List<DeliveryCountByCompany> list = new ArrayList<>();

@@ -59,12 +59,12 @@ public class ReportResource {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/report/by-status/{status}")
-    public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@PathVariable ReceiptStatus status) {
+    @GetMapping(value = "/report/by-status/{status}/{startDate}/{endDate}")
+    public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@PathVariable ReceiptStatus status, @PathVariable String startDate, @PathVariable String endDate) {
         if (status == null) {
             return null;
         }
-        List<DeliveryCountByCompany> deliveryCounts = reportService.getCountByCompanyByStatus(status);
+        List<DeliveryCountByCompany> deliveryCounts = reportService.getCountByCompanyByStatus(status, startDate, endDate);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
     }
 }
