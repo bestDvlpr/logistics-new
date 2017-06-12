@@ -4,6 +4,7 @@ CREATE OR REPLACE FUNCTION f_common_report(start_date VARCHAR(10) = NULL, end_da
         companyName      CHARACTER VARYING,
         date             CHARACTER VARYING,
         id               BIGINT,
+        docType          CHARACTER VARYING,
         productName      CHARACTER VARYING,
         productQty       BIGINT,
         docDate          CHARACTER VARYING,
@@ -24,41 +25,43 @@ AS $BODY$
 DECLARE
 BEGIN
     RETURN QUERY SELECT
-                     coalesce(c.name, '') AS companyName,
+                     coalesce(c.name, '')     AS companyName,
                      coalesce(TO_CHAR(TO_TIMESTAMP(r.doc_date / 1000), 'DD-MM-YYYY') :: CHARACTER VARYING,
-                              '')         AS date,
-                     coalesce(r.id, 0)    AS id,
-                     coalesce(p.name, '') AS productName,
+                              '')             AS date,
+                     coalesce(r.id, 0)        AS id,
+                     coalesce(r.doc_type, '') AS docType,
+                     coalesce(p.name, '')     AS productName,
                      coalesce(pe.qty :: BIGINT,
-                              0)          AS productQty,
+                              0)              AS productQty,
                      coalesce(TO_CHAR(TO_TIMESTAMP(r.doc_date / 1000), 'DD-MM-YYYY HH24:MM:HH') :: CHARACTER VARYING,
-                              '')         AS docDate,
+                              '')             AS docDate,
                      coalesce(cl.first_name,
-                              '')         AS clientFirstName,
+                              '')             AS clientFirstName,
                      coalesce(cl.last_name,
-                              '')         AS clientLastName,
+                              '')             AS clientLastName,
                      coalesce(pn.number,
-                              '')         AS phoneNumber,
+                              '')             AS phoneNumber,
                      coalesce(l.name,
-                              '')         AS districtName,
+                              '')             AS districtName,
                      coalesce(a.street_address,
-                              '')         AS address,
+                              '')             AS address,
                      coalesce(cm.name,
-                              '')         AS carModel,
+                              '')             AS carModel,
                      coalesce(cr.number,
-                              '')         AS carNumber,
+                              '')             AS carNumber,
                      coalesce(dr.first_name,
-                              '')         AS driverFirstName,
+                              '')             AS driverFirstName,
                      coalesce(dr.last_name,
-                              '')         AS driverLastName,
+                              '')             AS driverLastName,
                      coalesce(TO_CHAR(r.sent_to_dc_time, 'DD-MM-YYYY HH24:MM:SS') :: CHARACTER VARYING,
-                              '')         AS sentToDCTime,
+                              '')             AS sentToDCTime,
                      coalesce(TO_CHAR(r.delivered_time, 'DD-MM-YYYY HH24:MM:SS') :: CHARACTER VARYING,
-                              '')         AS deliveredTime,
-                     coalesce(to_char(r.delivered_time - to_timestamp(r.doc_date/ 1000), 'HH24:MM:SS') :: CHARACTER VARYING,
-                              '')         AS deliveryTookTime,
+                              '')             AS deliveredTime,
+                     coalesce(
+                         to_char(r.delivered_time - to_timestamp(r.doc_date / 1000), 'HH24:MM:SS') :: CHARACTER VARYING,
+                         '')                  AS deliveryTookTime,
                      coalesce(r.company_id,
-                              0)          AS companyId
+                              0)              AS companyId
                  FROM receipt r
                      LEFT JOIN address adr ON r.address_id = adr.id
                      LEFT JOIN company c ON r.company_id = c.id
@@ -94,5 +97,5 @@ $BODY$
 LANGUAGE plpgsql VOLATILE
 COST 100
 ROWS 1000;
-ALTER FUNCTION f_common_report( CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
+ALTER FUNCTION f_common_report( CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING )
 OWNER TO logistics;

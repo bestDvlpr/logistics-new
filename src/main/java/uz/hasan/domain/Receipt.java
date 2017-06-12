@@ -30,6 +30,7 @@ import uz.hasan.domain.pojos.report.ProductDeliveryReport;
                 @ColumnResult(name = "companyName", type = String.class),
                 @ColumnResult(name = "date", type = String.class),
                 @ColumnResult(name = "id", type = Long.class),
+                @ColumnResult(name = "docType", type = String.class),
                 @ColumnResult(name = "productName", type = String.class),
                 @ColumnResult(name = "productQty", type = Long.class),
                 @ColumnResult(name = "docDate", type = String.class),

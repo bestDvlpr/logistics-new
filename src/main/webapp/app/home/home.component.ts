@@ -86,4 +86,37 @@ export class HomeComponent implements OnInit {
             }
         })
     }
+
+    options = {
+        title: {text: 'simple chart'},
+        series: [
+            {
+                name: 'aaa',
+                data: [{name: 'sdas', y: 29.9}, {name: 'sdas', y: 71.5}, {name: 'sdas', y: 106.4}, {
+                    name: 'sdas',
+                    y: 129.2
+                }],
+            },
+            {
+                name: 'bbb',
+                data: [{name: 'sdas', y: 19.9}, {name: 'sdas', y: 51.5}, {name: 'sdas', y: 126.4}, {
+                    name: 'sdas',
+                    y: 89.2
+                }, {name: 'sdas', y: 51.5}, {name: 'sdas', y: 126.4}, {name: 'sdas', y: 126.4}, {
+                    name: 'sdas',
+                    y: 89.2
+                }, {name: 'sdas', y: 51.5}, {name: 'sdas', y: 126.4}, {name: 'sdas', y: 89.2}],
+            }
+        ],
+        chart: {
+            type: 'line'
+        },
+        xAxis: [{
+            title: {
+                title: 'Title',
+                x: -15
+            },
+            categories: ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh', 'iii', 'jjj', 'kkk']
+        }]
+    };
 }

@@ -5,6 +5,7 @@ export class ProductDeliveryReport {
     constructor(public companyName?: string,
                 public date?: string,
                 public id?: number,
+                public docType?: String,
                 public productName?: string,
                 public productQty?: number,
                 public docDate?: string,

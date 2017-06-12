@@ -62,6 +62,7 @@ export class OverallReportComponent implements OnInit {
                 'car',
                 'carModel',
                 'driver',
+                'company',
                 'receiptStatus',
                 'salesType'
             ]

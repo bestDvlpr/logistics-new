@@ -7,6 +7,7 @@ public class ProductDeliveryReport {
     private String companyName;
     private String date;
     private Long id;
+    private String docType;
     private String productName;
     private Long productQty;
     private String docDate;
@@ -30,6 +31,7 @@ public class ProductDeliveryReport {
     public ProductDeliveryReport(String companyName,
                                  String date,
                                  Long id,
+                                 String docType,
                                  String productName,
                                  Long productQty,
                                  String docDate,
@@ -49,6 +51,7 @@ public class ProductDeliveryReport {
         this.companyName = companyName;
         this.date = date;
         this.id = id;
+        this.docType = docType;
         this.productName = productName;
         this.productQty = productQty;
         this.docDate = docDate;
@@ -89,6 +92,14 @@ public class ProductDeliveryReport {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
     }
 
     public String getProductName() {
