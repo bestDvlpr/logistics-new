@@ -1,10 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {EventManager, JhiLanguageService} from "ng-jhipster";
 import {Account, LoginModalService, Principal} from "../shared";
 import {ReportService} from "../report/report.service";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {DeliveryCountByCompany} from "../report/delivery-count-by-ompany";
+import { TranslateService } from 'ng2-translate';
 
 @Component({
     selector: 'jhi-home',
@@ -20,12 +21,15 @@ export class HomeComponent implements OnInit {
 
     pieChartOptions: Object;
 
+    @ViewChild('deliveryAll') deliveryDiv: ElementRef;
+
     constructor(private jhiLanguageService: JhiLanguageService,
                 private principal: Principal,
                 private loginModalService: LoginModalService,
                 private reportService: ReportService,
+                private translateService: TranslateService,
                 private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['home']);
+        this.jhiLanguageService.setLocations(['home', 'global']);
     }
 
     ngOnInit() {
@@ -70,13 +74,14 @@ export class HomeComponent implements OnInit {
             }
 
             this.pieChartOptions = {
-                title: {text: 'Simple Chart'},
+                title: {text: this.translateService.instant('global.messages.report.delivery.deliveryStats')},
                 series: [{
-                    name: 'Delivery counts',
+                    name: this.translateService.instant('global.messages.report.delivery.byCompany'),
                     data: data
                 }],
                 chart: {
-                    type: 'pie'
+                    type: 'pie',
+                    width: this.deliveryDiv.nativeElement.offsetWidth / 12 * 10
                 }
             }
         })

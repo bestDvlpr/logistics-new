@@ -94,6 +94,12 @@
                     "link": "Register a new account"
                 }
             },
+            "report": {
+                "delivery":{
+                    "deliveryStats":"Delivery Statistics",
+                    "byCompany":"Delivery Counts by company"
+                }
+            },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!"
             },

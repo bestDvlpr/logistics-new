@@ -1,6 +1,7 @@
 {
     "home": {
         "title": "Добро пожаловать!",
+        "titlewithuser": "Добро пожаловать, {{username}}!",
         "subtitle": "Это ваша домашняя страница",
         "logged": {
             "message": "Вы вошли как пользователь \"{{username}}\"."
