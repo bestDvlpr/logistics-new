@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 
-import {DocType, Receipt} from "./receipt.model";
+import {DocType, Receipt, ReceiptStatus} from "./receipt.model";
 @Injectable()
 export class ReceiptService {
 
@@ -179,5 +179,17 @@ export class ReceiptService {
         return this.http.get('api/report/generic').map((res: Response) => {
             return res.json();
         })
+    }
+
+    countByStatus(status: ReceiptStatus): Observable<number> {
+        return this.http.get(`${this.resourceUrl}/count/by-status/${status}`).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    countByStatusAndCompanyId(status: ReceiptStatus, companyId: string): Observable<number> {
+        return this.http.get(`${this.resourceUrl}/count/by-status/by-company/${status}/${companyId}`).map((res: Response) => {
+            return res.json();
+        });
     }
 }

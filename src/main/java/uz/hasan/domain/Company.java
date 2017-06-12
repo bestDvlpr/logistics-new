@@ -7,11 +7,30 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import uz.hasan.domain.enumeration.CompanyType;
+import uz.hasan.domain.pojos.criteria.CustomCompany;
 
 /**
  * A Company.
  */
 @Entity
+@SqlResultSetMapping(
+    name = "CustomCompanyMapping",
+    classes = {
+        @ConstructorResult(
+            targetClass = CustomCompany.class,
+            columns = {
+                @ColumnResult(name = "id", type = Long.class),
+                @ColumnResult(name = "idNumber", type = String.class),
+                @ColumnResult(name = "name", type = String.class)
+            }
+        )
+    }
+)
+@NamedNativeQuery(name = "Company.customCompany",
+    query = "SELECT * FROM f_custom_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')))",
+    resultClass = CustomCompany.class,
+    resultSetMapping = "CustomCompanyMapping"
+)
 @Table(name = "company")
 public class Company implements Serializable {
 

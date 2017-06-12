@@ -2,6 +2,8 @@ import {BaseRequestOptions, Http, Response, ResponseContentType} from "@angular/
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
 import {CommonReportCriteria, ReportCriteria} from "./report.criteria";
+import {DeliveryCountByCompany} from "./delivery-count-by-ompany";
+import {ReceiptStatus} from "../entities/receipt/receipt.model";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -39,5 +41,11 @@ export class ReportService {
     downloadGenericReport(criteria: CommonReportCriteria) {
         let mediaType = ResponseContentType.Blob;
         return this.http.post(this.resourceUrl.concat('/generic/export'), criteria, {responseType: mediaType});
+    }
+
+    deliveryCountChart(status: ReceiptStatus): Observable<DeliveryCountByCompany[]> {
+        return this.http.get(`${this.resourceUrl}/by-status/${status}`).map((res: Response) => {
+            return res.json();
+        });
     }
 }

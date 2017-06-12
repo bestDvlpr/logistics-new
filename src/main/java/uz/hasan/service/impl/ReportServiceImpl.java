@@ -6,14 +6,20 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.CustomCompany;
 import uz.hasan.domain.pojos.criteria.CustomDistrict;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
+import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
+import uz.hasan.repository.CompanyRepository;
+import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.repository.ReportRepository;
 import uz.hasan.service.ReportService;
 
@@ -21,10 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: hasan @date: 6/9/17.
@@ -40,9 +43,13 @@ public class ReportServiceImpl implements ReportService {
     private final Logger log = LoggerFactory.getLogger(ReportServiceImpl.class);
 
     private final ReportRepository reportRepository;
+    private final ReceiptRepository receiptRepository;
+    private final CompanyRepository companyRepository;
 
-    public ReportServiceImpl(ReportRepository reportRepository) {
+    public ReportServiceImpl(ReportRepository reportRepository, ReceiptRepository receiptRepository, CompanyRepository companyRepository) {
         this.reportRepository = reportRepository;
+        this.receiptRepository = receiptRepository;
+        this.companyRepository = companyRepository;
     }
 
     /**
@@ -81,14 +88,14 @@ public class ReportServiceImpl implements ReportService {
         List<ProductDeliveryReport> reports = this.getGenericReport(criteria);
 
         String fileName = "report.xlsx";
-        HSSFWorkbook workbook = new HSSFWorkbook();
+        XSSFWorkbook workbook = new XSSFWorkbook();
 
         List<HashMap<String, String>> hashMapList = createRawData(reports);
 
         try {
             response.setContentType("application/vnd.ms-excel");
             response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-            HSSFSheet sheet = workbook.createSheet();
+            XSSFSheet sheet = workbook.createSheet();
             int rowNum = 1;
 
             Font font = workbook.createFont();
@@ -189,6 +196,31 @@ public class ReportServiceImpl implements ReportService {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status) {
+        List<CustomCompany> companies = companyRepository.customCompany("null", "null");
+
+        Map<String, Long> companyWithDeliveryCounts = new HashMap<>();
+
+        for (CustomCompany company : companies) {
+            companyWithDeliveryCounts.put(company.getName(), receiptRepository.getCountByStatusAndCompanyIdNumber(status, company.getIdNumber()));
+        }
+
+        List<DeliveryCountByCompany> list = new ArrayList<>();
+
+        Long all = 0L;
+
+        for (String key : companyWithDeliveryCounts.keySet()) {
+            Long count = companyWithDeliveryCounts.get(key);
+            list.add(new DeliveryCountByCompany(null, key, count));
+            all += count;
+        }
+
+        list.add(new DeliveryCountByCompany(null, null, all));
+
+        return list;
     }
 
     private List<HashMap<String, String>> createRawData(List<ProductDeliveryReport> deliveryReports) {

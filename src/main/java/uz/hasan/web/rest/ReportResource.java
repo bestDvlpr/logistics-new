@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.hasan.domain.pojos.criteria.CustomCompany;
-import uz.hasan.domain.pojos.criteria.CustomDistrict;
+import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
+import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 import uz.hasan.service.ReportService;
 
@@ -59,4 +59,12 @@ public class ReportResource {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/report/by-status/{status}")
+    public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@PathVariable ReceiptStatus status) {
+        if (status == null) {
+            return null;
+        }
+        List<DeliveryCountByCompany> deliveryCounts = reportService.getCountByCompanyByStatus(status);
+        return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
+    }
 }

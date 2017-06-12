@@ -9,7 +9,11 @@
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account" jhiTranslate="home.logged.message"
-                    translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
+                      translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
+            </div>
+
+            <div jhiHasAuthority="ROLE_ADMIN" *ngSwitchCase="true">
+                <chart [options]="pieChartOptions"></chart>
             </div>
 
             <!--<div class="alert alert-warning" *ngSwitchCase="false">
@@ -31,7 +35,8 @@
             <li><span jhiTranslate="home.label.supportPhone">Support Center Phone</span>:
                 <span class="fa fa-phone"></span>
                 <span>+(99871) 203-33-33</span></li>
-            <li><span jhiTranslate="home.label.dispatcherPhone" translateValues="{name:'Иброхим'}">Dispatcher Phone</span>: <br/>
+            <li><span jhiTranslate="home.label.dispatcherPhone"
+                      translateValues="{name:'Иброхим'}">Dispatcher Phone</span>: <br/>
                 <span class="fa fa-mobile-phone"></span>
                 <span>+(99897) 775-73-03</span> <br/>
                 <span class="fa fa-mobile-phone"></span>
@@ -39,7 +44,8 @@
                 <span class="fa fa-phone"></span>
                 <span>+(99871) 202-55-87</span>
             </li>
-            <li><span jhiTranslate="home.label.directorPhone" translateValues="{name:'Дилшод'}">Director Phone</span>: <br/>
+            <li><span jhiTranslate="home.label.directorPhone" translateValues="{name:'Дилшод'}">Director Phone</span>:
+                <br/>
                 <span class="fa fa-mobile-phone"></span>
                 <span>+(99897) 774-42-25</span>
             </li>
