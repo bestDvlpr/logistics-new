@@ -14,6 +14,8 @@ import {Response} from "@angular/http";
 import {isNullOrUndefined} from "util";
 import * as FileSaver from "file-saver";
 import {DataHolderService} from "../../entities/receipt/data-holder.service";
+import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
+import {ActivatedRoute} from "@angular/router";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -43,11 +45,6 @@ export class OverallReportComponent implements OnInit {
                 private companyService: CompanyService,
                 private locationService: LocationService,
                 private jhiLanguageService: JhiLanguageService) {
-    }
-
-    ngOnInit() {
-        this.getAllCompanies();
-        this.getAllDistricts();
         this.jhiLanguageService.setLocations(
             [
                 'report',
@@ -67,6 +64,11 @@ export class OverallReportComponent implements OnInit {
                 'salesType'
             ]
         );
+    }
+
+    ngOnInit() {
+        this.getAllCompanies();
+        this.getAllDistricts();
         this.getGenericReport();
     }
 

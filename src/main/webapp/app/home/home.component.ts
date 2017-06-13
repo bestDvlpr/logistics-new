@@ -68,9 +68,6 @@ export class HomeComponent implements OnInit {
                         y: a.count
                     });
                 }
-                console.log(Math.round((a.count / overall.count)));
-                console.log((a.count / overall.count));
-                console.log(overall.count);
             }
 
             this.pieChartOptions = {

@@ -160,16 +160,16 @@ public class ReportServiceImpl implements ReportService {
             Cell carNumber = initialRow.createCell(11);
             carNumber.setCellStyle(style);
             carNumber.setCellValue("Номер авт.");
-            Cell driver = initialRow.createCell(12);
+            /*Cell driver = initialRow.createCell(12);
             driver.setCellStyle(style);
-            driver.setCellValue("Водитель");
-            Cell sentToDCTime = initialRow.createCell(13);
+            driver.setCellValue("Водитель");*/
+            Cell sentToDCTime = initialRow.createCell(12);
             sentToDCTime.setCellStyle(style);
             sentToDCTime.setCellValue("Время отправки");
-            Cell deliveredTime = initialRow.createCell(14);
+            Cell deliveredTime = initialRow.createCell(13);
             deliveredTime.setCellStyle(style);
             deliveredTime.setCellValue("Доставленное время");
-            Cell deliveryTookTime = initialRow.createCell(15);
+            Cell deliveryTookTime = initialRow.createCell(14);
             deliveryTookTime.setCellStyle(style);
             deliveryTookTime.setCellValue("Потраченное время");
 
@@ -277,7 +277,7 @@ public class ReportServiceImpl implements ReportService {
             hashMap.put("address", report.getAddress());
             hashMap.put("carModel", report.getCarModel());
             hashMap.put("carNumber", report.getCarNumber());
-            hashMap.put("driver", report.getDriverFirstName() + " " + report.getDriverLastName());
+//            hashMap.put("driver", report.getDriverFirstName() + " " + report.getDriverLastName());
             hashMap.put("sentToDCTime", report.getSentToDCTime());
             hashMap.put("deliveredTime", report.getDeliveredTime());
             hashMap.put("deliveryTookTime", report.getDeliveryTookTime());

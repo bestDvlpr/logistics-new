@@ -16,8 +16,8 @@
                 <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
             </div>
 
-            <div jhiHasAuthority="ROLE_ADMIN" *ngSwitchCase="true" class="col-md-6" #deliveryAll>
-                <chart [options]="pieChartOptions"></chart>
+            <div jhiHasAnyAuthority="ROLE_ADMIN,ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6" #deliveryAll>
+                <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
             </div>
 
             <!--<div jhiHasAuthority="ROLE_ADMIN" *ngSwitchCase="true" class="col-md-6" #deliveryAll>
