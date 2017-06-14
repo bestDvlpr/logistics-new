@@ -20,9 +20,36 @@
                 <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
             </div>
 
-            <!--<div jhiHasAuthority="ROLE_ADMIN" *ngSwitchCase="true" class="col-md-6" #deliveryAll>
-                <chart [options]="options"></chart>
-            </div>-->
+            <div jhiHasAnyAuthority="ROLE_ADMIN, ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6" #deliveryCountAll>
+                <form class="form-inline">
+                    <div class="input-group">
+                        <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
+                        <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
+                               [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()" autocomplete="false"
+                               class="form-control" name="startTime">
+                        <div class="input-group-addon" (click)="from.toggle()"
+                             style="width: 1.2rem; height: 1rem; cursor: pointer;">
+                            <span class="fa fa-calendar"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
+                        <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate" autocomplete="false"
+                               [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
+                               class="form-control" name="endTime">
+                        <div class="input-group-addon" (click)="to.toggle()"
+                             style="width: 1.2rem; height: 1rem; cursor: pointer;">
+                            <span class="fa fa-calendar"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button class="btn btn-primary btn-block form-control" (click)="deliveryCountByCompanyChart()">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                </form>
+                <chart [options]="lineChartOptions"></chart>
+            </div>
         </div>
 
         <p jhiTranslate="home.question">

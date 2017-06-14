@@ -14,6 +14,8 @@ import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.CustomCompany;
 import uz.hasan.domain.pojos.criteria.CustomDistrict;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
+import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
+import uz.hasan.domain.pojos.report.CountByDate;
 import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 import uz.hasan.repository.CompanyRepository;
@@ -62,19 +64,7 @@ public class ReportServiceImpl implements ReportService {
      */
     @Override
     public List<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria) {
-        if (criteria == null || (criteria.getDistrict() == null && criteria.getCompany() == null && criteria.getStartDate() == null && criteria.getEndDate() == null)) {
-            criteria = new DeliveryReportCriteria("null", "null", new CustomCompany(null, "null"), new CustomDistrict(null, "null"));
-        }
-        if (criteria.getStartDate() == null || criteria.getEndDate() == null) {
-            criteria.setStartDate("null");
-            criteria.setEndDate("null");
-        }
-        if (criteria.getCompany() == null) {
-            criteria.setCompany(new CustomCompany(null, "null"));
-        }
-        if (criteria.getDistrict() == null) {
-            criteria.setDistrict(new CustomDistrict(null, "null"));
-        }
+        criteria = checkCriteriaToNull(criteria);
         return reportRepository.overallReport(criteria.getStartDate(), criteria.getEndDate(), criteria.getCompanyName(), criteria.getDistrictName());
     }
 
@@ -260,6 +250,48 @@ public class ReportServiceImpl implements ReportService {
         return list;
     }
 
+    @Override
+    public List<CompanyDeliveryCounts> countsByCompany(DeliveryReportCriteria criteria) {
+        criteria = checkCriteriaToNull(criteria);
+        List<DeliveryCountByCompany> list = reportRepository.countByCompany(criteria.getStartDate(), criteria.getEndDate(), criteria.getCompany().getName(), criteria.getDistrict().getName());
+        Set<String> companyNames = new HashSet<>();
+
+        for (DeliveryCountByCompany countByCompany : list) {
+            companyNames.add(countByCompany.getCompanyName());
+        }
+
+        List<CompanyDeliveryCounts> result = new ArrayList<>();
+
+        for (String companyName : companyNames) {
+
+            Set<CountByDate> countByDates = new LinkedHashSet<>();
+
+            Map<String, Long> map = new LinkedHashMap<>();
+
+            for (DeliveryCountByCompany countByCompany : list) {
+
+
+                if (companyName.equals(countByCompany.getCompanyName())) {
+                    map.put(countByCompany.getDate(), countByCompany.getCount());
+                }
+
+                map.putIfAbsent(countByCompany.getDate(), 0L);
+
+            }
+
+            for (String key : map.keySet()) {
+                CountByDate countByDate = new CountByDate(key, map.get(key));
+                countByDates.add(countByDate);
+            }
+
+            CompanyDeliveryCounts companyWithCount = new CompanyDeliveryCounts(companyName, countByDates);
+
+            result.add(companyWithCount);
+        }
+
+        return result;
+    }
+
     private List<HashMap<String, String>> createRawData(List<ProductDeliveryReport> deliveryReports) {
         List<HashMap<String, String>> result = new ArrayList<>();
 
@@ -285,6 +317,23 @@ public class ReportServiceImpl implements ReportService {
         }
 
         return result;
+    }
+
+    private DeliveryReportCriteria checkCriteriaToNull(DeliveryReportCriteria criteria) {
+        if (criteria == null || (criteria.getDistrict() == null && criteria.getCompany() == null && criteria.getStartDate() == null && criteria.getEndDate() == null)) {
+            criteria = new DeliveryReportCriteria("null", "null", new CustomCompany(null, "null"), new CustomDistrict(null, "null"));
+        }
+        if (criteria.getStartDate() == null || criteria.getEndDate() == null) {
+            criteria.setStartDate("null");
+            criteria.setEndDate("null");
+        }
+        if (criteria.getCompany() == null) {
+            criteria.setCompany(new CustomCompany(null, "null"));
+        }
+        if (criteria.getDistrict() == null) {
+            criteria.setDistrict(new CustomDistrict(null, "null"));
+        }
+        return criteria;
     }
 
 }

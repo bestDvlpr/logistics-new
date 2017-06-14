@@ -1,8 +1,9 @@
 package uz.hasan.service;
 
-import org.springframework.data.domain.Pageable;
+import org.json.JSONException;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
+import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
 import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 
@@ -25,4 +26,6 @@ public interface ReportService {
     void exportGenericReport(DeliveryReportCriteria criteria, HttpServletResponse response);
 
     List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status, String startDate, String endDate);
+
+    List<CompanyDeliveryCounts> countsByCompany(DeliveryReportCriteria criteria);
 }

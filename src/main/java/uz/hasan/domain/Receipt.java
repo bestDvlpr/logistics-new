@@ -1,60 +1,85 @@
 package uz.hasan.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import uz.hasan.domain.enumeration.DocType;
+import uz.hasan.domain.enumeration.ReceiptStatus;
+import uz.hasan.domain.enumeration.WholeSaleFlag;
+import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
+import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
-
-import uz.hasan.domain.enumeration.DocType;
-
-import uz.hasan.domain.enumeration.WholeSaleFlag;
-
-import uz.hasan.domain.enumeration.ReceiptStatus;
-import uz.hasan.domain.pojos.report.ProductDeliveryReport;
+import java.util.Set;
 
 /**
  * A Receipt.
  */
 @Entity
-@SqlResultSetMapping(
-    name = "ProductDeliveryReportMapping",
-    classes = {
-        @ConstructorResult(
-            targetClass = ProductDeliveryReport.class,
-            columns = {
-                @ColumnResult(name = "companyName", type = String.class),
-                @ColumnResult(name = "date", type = String.class),
-                @ColumnResult(name = "id", type = Long.class),
-                @ColumnResult(name = "docType", type = String.class),
-                @ColumnResult(name = "productName", type = String.class),
-                @ColumnResult(name = "productQty", type = Long.class),
-                @ColumnResult(name = "docDate", type = String.class),
-                @ColumnResult(name = "clientFirstName", type = String.class),
-                @ColumnResult(name = "clientLastName", type = String.class),
-                @ColumnResult(name = "phoneNumber", type = String.class),
-                @ColumnResult(name = "districtName", type = String.class),
-                @ColumnResult(name = "address", type = String.class),
-                @ColumnResult(name = "carModel", type = String.class),
-                @ColumnResult(name = "carNumber", type = String.class),
-                @ColumnResult(name = "driverFirstName", type = String.class),
-                @ColumnResult(name = "driverLastName", type = String.class),
-                @ColumnResult(name = "sentToDCTime", type = String.class),
-                @ColumnResult(name = "deliveredTime", type = String.class),
-                @ColumnResult(name = "deliveryTookTime", type = String.class),
-                @ColumnResult(name = "companyId", type = Long.class)
+@SqlResultSetMappings(
+    value = {
+        @SqlResultSetMapping(
+            name = "ProductDeliveryReportMapping",
+            classes = {
+                @ConstructorResult(
+                    targetClass = ProductDeliveryReport.class,
+                    columns = {
+                        @ColumnResult(name = "companyName", type = String.class),
+                        @ColumnResult(name = "date", type = String.class),
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "docType", type = String.class),
+                        @ColumnResult(name = "productName", type = String.class),
+                        @ColumnResult(name = "productQty", type = Long.class),
+                        @ColumnResult(name = "docDate", type = String.class),
+                        @ColumnResult(name = "clientFirstName", type = String.class),
+                        @ColumnResult(name = "clientLastName", type = String.class),
+                        @ColumnResult(name = "phoneNumber", type = String.class),
+                        @ColumnResult(name = "districtName", type = String.class),
+                        @ColumnResult(name = "address", type = String.class),
+                        @ColumnResult(name = "carModel", type = String.class),
+                        @ColumnResult(name = "carNumber", type = String.class),
+                        @ColumnResult(name = "driverFirstName", type = String.class),
+                        @ColumnResult(name = "driverLastName", type = String.class),
+                        @ColumnResult(name = "sentToDCTime", type = String.class),
+                        @ColumnResult(name = "deliveredTime", type = String.class),
+                        @ColumnResult(name = "deliveryTookTime", type = String.class),
+                        @ColumnResult(name = "companyId", type = Long.class)
+                    }
+                )
+            }
+        ),
+        @SqlResultSetMapping(
+            name = "DeliveryCountByCompanyMapping",
+            classes = {
+                @ConstructorResult(
+                    targetClass = DeliveryCountByCompany.class,
+                    columns = {
+                        @ColumnResult(name = "companyId", type = String.class),
+                        @ColumnResult(name = "companyName", type = String.class),
+                        @ColumnResult(name = "date", type = String.class),
+                        @ColumnResult(name = "count", type = Long.class)
+                    }
+                )
             }
         )
     }
 )
-@NamedNativeQuery(name = "Receipt.overallReport",
-    query = "SELECT * FROM f_common_report(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
-    resultClass = ProductDeliveryReport.class,
-    resultSetMapping = "ProductDeliveryReportMapping"
+@NamedNativeQueries(
+    value = {
+        @NamedNativeQuery(name = "Receipt.overallReport",
+            query = "SELECT * FROM f_common_report(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
+            resultClass = ProductDeliveryReport.class,
+            resultSetMapping = "ProductDeliveryReportMapping"
+        ),
+        @NamedNativeQuery(name = "Receipt.countByCompany",
+            query = "SELECT * FROM f_delivery_count_by_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
+            resultClass = DeliveryCountByCompany.class,
+            resultSetMapping = "DeliveryCountByCompanyMapping"
+        )
+    }
 )
 @Table(name = "receipt")
 public class Receipt implements Serializable {

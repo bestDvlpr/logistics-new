@@ -5,6 +5,7 @@ export class DeliveryCountByCompany {
 
     constructor(public companyId?: string,
                 public companyName?: string,
+                public date?: string,
                 public count?: number) {
     }
 }

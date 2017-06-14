@@ -16,7 +16,7 @@ export class CommonReportCriteria extends ReportCriteria {
     company: ACElement;
     district: ACElement;
 
-    constructor(startDate: string, endDate: string, company: ACElement, district: ACElement) {
+    constructor(startDate?: string, endDate?: string, company?: ACElement, district?: ACElement) {
         super(startDate, endDate);
         this.company = company;
         this.district = district;

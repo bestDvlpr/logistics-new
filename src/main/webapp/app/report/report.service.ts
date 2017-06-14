@@ -4,6 +4,8 @@ import {Injectable} from "@angular/core";
 import {CommonReportCriteria, ReportCriteria} from "./report.criteria";
 import {DeliveryCountByCompany} from "./delivery-count-by-ompany";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
+import {isNullOrUndefined} from "util";
+import {LineChartData} from "./line-chart-data.model";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -45,6 +47,16 @@ export class ReportService {
 
     deliveryCountChart(status: ReceiptStatus, startDate: string, endDate: string): Observable<DeliveryCountByCompany[]> {
         return this.http.get(`${this.resourceUrl}/by-status/${status}/${startDate}/${endDate}`).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    countByCompany(criteria: CommonReportCriteria): Observable<LineChartData[]> {
+        if (isNullOrUndefined(criteria)) {
+            criteria = Object.assign({}, null);
+        }
+        return this.http.post(`${this.resourceUrl}/count-by-company`, criteria).map((res: Response) => {
+            console.log(res.json());
             return res.json();
         });
     }

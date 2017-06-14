@@ -1,15 +1,14 @@
 package uz.hasan.web.rest;
 
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
+import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
 import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 import uz.hasan.service.ReportService;
@@ -55,7 +54,6 @@ public class ReportResource {
      */
     @PostMapping(value = "/report/generic/export", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity exportGenericReport(@RequestBody DeliveryReportCriteria criteria, HttpServletResponse response) throws URISyntaxException {
-//        DeliveryReportCriteria criteria = new DeliveryReportCriteria(startDate, endDate, new CustomCompany(null, companyName), new CustomDistrict(null, districtName));
         log.info("REST request to generate report according to criteria: {}", criteria);
         reportService.exportGenericReport(criteria, response);
         return new ResponseEntity(HttpStatus.OK);
@@ -67,6 +65,12 @@ public class ReportResource {
             return null;
         }
         List<DeliveryCountByCompany> deliveryCounts = reportService.getCountByCompanyByStatus(status, startDate, endDate);
+        return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/report/count-by-company", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CompanyDeliveryCounts>> getCountByCompany(@RequestBody DeliveryReportCriteria criteria) {
+        List<CompanyDeliveryCounts> deliveryCounts = reportService.countsByCompany(criteria);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
     }
 }

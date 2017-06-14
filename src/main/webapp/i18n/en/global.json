@@ -97,7 +97,8 @@
             "report": {
                 "delivery":{
                     "deliveryStats":"Delivery Statistics",
-                    "byCompany":"Delivery Counts by company"
+                    "byCompany":"Delivery Counts by company",
+                    "dailyCountByCompany":"Daily Delivery Count by Company"
                 }
             },
             "error": {
