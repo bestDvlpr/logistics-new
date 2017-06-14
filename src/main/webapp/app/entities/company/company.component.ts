@@ -102,8 +102,6 @@ currentAccount: any;
         return item.id;
     }
 
-
-
     registerChangeInCompanies() {
         this.eventSubscriber = this.eventManager.subscribe('companyListModification', (response) => this.loadAll());
     }

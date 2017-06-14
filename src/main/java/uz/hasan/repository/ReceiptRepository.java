@@ -81,4 +81,7 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findByStatusAndDocTypeInAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, String idNumber);
 
     Page<Receipt> findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String idNumber);
+
+    @Query(value = "SELECT * FROM f_common_report_paged_count(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))", nativeQuery = true)
+    Long countByDocDateAndCompanyAndRegion(String startDate, String endDate, String companyName, String districtName);
 }

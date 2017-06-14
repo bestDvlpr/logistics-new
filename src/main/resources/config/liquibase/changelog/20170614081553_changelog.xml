@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="20170612081553" author="hasan">
+        <sqlFile path="../sql/f_common_report_paged.sql"
+                 dbms="postgresql"
+                 encoding="UTF-8"
+                 splitStatements="false"
+                 relativeToChangelogFile="true"/>
+        <sqlFile path="../sql/f_common_report_paged_count.sql"
+                 dbms="postgresql"
+                 encoding="UTF-8"
+                 splitStatements="false"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

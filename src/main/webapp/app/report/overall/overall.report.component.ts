@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ReportService} from "../report.service";
 import {ProductDeliveryReport} from "../product-delivery-report.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {JhiLanguageService} from "ng-jhipster";
+import {AlertService, JhiLanguageService, ParseLinks} from "ng-jhipster";
 import {Company} from "../../entities/company/company.model";
 import {CompanyService} from "../../entities/company/company.service";
 import {LocationService} from "../../entities/location/location.service";
@@ -15,7 +15,7 @@ import {isNullOrUndefined} from "util";
 import * as FileSaver from "file-saver";
 import {DataHolderService} from "../../entities/receipt/data-holder.service";
 import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -40,11 +40,31 @@ export class OverallReportComponent implements OnInit {
     companiesSource: string[] = [];
     regionsSource: string[] = [];
     private locationType = LocationType;
+    routeData: any;
+    links: any;
+    totalItems: any;
+    queryCount: any;
+    itemsPerPage: any;
+    page: any;
+    predicate: any;
+    previousPage: any;
+    reverse: any;
 
     constructor(private reportService: ReportService,
                 private companyService: CompanyService,
                 private locationService: LocationService,
+                private activatedRoute: ActivatedRoute,
+                private parseLinks: ParseLinks,
+                private router: Router,
+                private alertService: AlertService,
                 private jhiLanguageService: JhiLanguageService) {
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.routeData = this.activatedRoute.data.subscribe(data => {
+            this.page = data['pagingParams'].page;
+            this.previousPage = data['pagingParams'].page;
+            this.reverse = data['pagingParams'].ascending;
+            this.predicate = data['pagingParams'].predicate;
+        });
         this.jhiLanguageService.setLocations(
             [
                 'report',
@@ -97,10 +117,44 @@ export class OverallReportComponent implements OnInit {
     getGenericReport() {
         let criteria = this.createReportCriteria();
 
-        this.reportService.getGenericReport(criteria).subscribe((res) => {
-            this.reports = [];
-            this.reports = res.json();
+        this.reportService.getGenericReport(criteria, {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        }).subscribe(
+            (res: Response) => this.onSuccess(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
+        );
+    }
+
+    private onSuccess(data, headers) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = headers.get('X-Total-Count');
+        this.queryCount = this.totalItems;
+        // this.page = pagingParams.page;
+        this.reports = data;
+    }
+
+    private onError(error) {
+        this.alertService.error(error.message, null, null);
+    }
+
+    transition() {
+        this.router.navigate(['/overall'], {
+            queryParams: {
+                page: this.page,
+                size: this.itemsPerPage,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }
         });
+        this.getGenericReport();
+    }
+
+    loadPage(page: number) {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.transition();
+        }
     }
 
     exportGenericReport() {
@@ -157,5 +211,13 @@ export class OverallReportComponent implements OnInit {
         }
 
         return new CommonReportCriteria(startDate, endDate, company, district);
+    }
+
+    sort() {
+        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        if (this.predicate !== 'id') {
+            result.push('id');
+        }
+        return result;
     }
 }

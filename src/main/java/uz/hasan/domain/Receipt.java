@@ -74,6 +74,11 @@ import java.util.Set;
             resultClass = ProductDeliveryReport.class,
             resultSetMapping = "ProductDeliveryReportMapping"
         ),
+        @NamedNativeQuery(name = "Receipt.pagedOverallReport",
+            query = "SELECT * FROM f_common_report_paged(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')), COALESCE(NULLIF(?5, 'null')), COALESCE(NULLIF(?6, 'null')))",
+            resultClass = ProductDeliveryReport.class,
+            resultSetMapping = "ProductDeliveryReportMapping"
+        ),
         @NamedNativeQuery(name = "Receipt.countByCompany",
             query = "SELECT * FROM f_delivery_count_by_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
             resultClass = DeliveryCountByCompany.class,

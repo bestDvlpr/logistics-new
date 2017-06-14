@@ -1,7 +1,7 @@
-import {BaseRequestOptions, Http, Response, ResponseContentType} from "@angular/http";
+import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
-import {CommonReportCriteria, ReportCriteria} from "./report.criteria";
+import {CommonReportCriteria} from "./report.criteria";
 import {DeliveryCountByCompany} from "./delivery-count-by-ompany";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {isNullOrUndefined} from "util";
@@ -16,26 +16,24 @@ export class ReportService {
     constructor(private http: Http) {
     }
 
-    getGenericReport(params: CommonReportCriteria): Observable<Response> {
+    getGenericReport(params: CommonReportCriteria, req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
         let copy: CommonReportCriteria = Object.assign({}, params);
-        return this.http.post(this.resourceUrl.concat('/generic'), copy);
+        return this.http.post(this.resourceUrl.concat('/generic'), copy, options);
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: ReportCriteria = new CommonReportCriteria('2017-04-29', '2017-05-29', {
-                id: 1,
-                name: 'name'
-            }, {id: 2, name: 'name'});
-            // params.set('page', req.page);
-            // params.set('size', req.size);
-            // if (req.sort) {
-            //     params.paramsMap.set('sort', req.sort);
-            // }
-            // params.set('query', req.query);
+            let params: URLSearchParams = new URLSearchParams();
+            params.set('page', req.page);
+            params.set('size', req.size);
+            if (req.sort) {
+                params.paramsMap.set('sort', req.sort);
+            }
+            params.set('query', req.query);
 
-            options.body = params;
+            options.search = params;
         }
         return options;
     }

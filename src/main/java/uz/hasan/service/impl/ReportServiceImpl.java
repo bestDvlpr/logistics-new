@@ -8,6 +8,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -63,6 +66,20 @@ public class ReportServiceImpl implements ReportService {
      * @return the persisted entity
      */
     @Override
+    public Page<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria, Pageable pageable) {
+        criteria = checkCriteriaToNull(criteria);
+        String limit = "null";
+        String offset = "null";
+        if (pageable != null) {
+            limit = String.valueOf(pageable.getPageSize());
+            offset = String.valueOf(pageable.getPageNumber());
+        }
+        List<ProductDeliveryReport> reports = reportRepository.pagedOverallReport(criteria.getStartDate(), criteria.getEndDate(), criteria.getCompanyName(), criteria.getDistrictName(), limit, offset);
+        Long count = receiptRepository.countByDocDateAndCompanyAndRegion(criteria.getStartDate(), criteria.getEndDate(), criteria.getCompanyName(), criteria.getDistrictName());
+        return new PageImpl<>(reports, pageable, count);
+    }
+
+    @Override
     public List<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria) {
         criteria = checkCriteriaToNull(criteria);
         return reportRepository.overallReport(criteria.getStartDate(), criteria.getEndDate(), criteria.getCompanyName(), criteria.getDistrictName());
@@ -76,7 +93,6 @@ public class ReportServiceImpl implements ReportService {
      */
     @Override
     public void exportGenericReport(DeliveryReportCriteria criteria, HttpServletResponse response) {
-
         List<ProductDeliveryReport> reports = this.getGenericReport(criteria);
 
         String fileName = "report.xlsx";

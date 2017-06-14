@@ -20,4 +20,7 @@ public interface ReportRepository extends JpaRepository<Receipt, Long> {
 
     @Query(nativeQuery = true)
     List<DeliveryCountByCompany> countByCompany(String startDate, String endDate, String companyName, String districtName);
+
+    @Query(nativeQuery = true)
+    List<ProductDeliveryReport> pagedOverallReport(String startDate, String endDate, String companyName, String districtName, String limit, String offset);
 }

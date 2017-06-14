@@ -1,6 +1,7 @@
 package uz.hasan.service;
 
-import org.json.JSONException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
 import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
@@ -21,6 +22,8 @@ public interface ReportService {
      * @param criteria the entity to save
      * @return the persisted entity
      */
+    Page<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria, Pageable pageable);
+
     List<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria);
 
     void exportGenericReport(DeliveryReportCriteria criteria, HttpServletResponse response);
