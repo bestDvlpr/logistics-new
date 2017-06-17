@@ -50,6 +50,7 @@ export class CountReportComponent implements OnInit {
     previousPage: any;
     reverse: any;
     chartOptions = [];
+    countByDistrict:any[];
 
     constructor(private reportService: ReportService,
                 private companyService: CompanyService,
@@ -195,6 +196,7 @@ export class CountReportComponent implements OnInit {
             }
             console.log(res.json());
             console.log(this.chartOptions);
+            this.countByDistrict = res.json();
         });
     }
 }

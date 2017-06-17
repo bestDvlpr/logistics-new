@@ -119,7 +119,8 @@
                 <div class="input-group">
                     <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
                     <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
-                           [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()" autocomplete="false"
+                           [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
+                           autocomplete="false"
                            class="form-control" name="startTime">
                     <div class="input-group-addon" (click)="from.toggle()"
                          style="width: 1.2rem; height: 1rem; cursor: pointer;">
@@ -128,7 +129,8 @@
                 </div>
                 <div class="input-group">
                     <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                    <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate" autocomplete="false"
+                    <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
+                           autocomplete="false"
                            [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
                            class="form-control" name="endTime">
                     <div class="input-group-addon" (click)="to.toggle()"
@@ -142,7 +144,8 @@
                            [(ngModel)]="selectedCompany" name="selectedCompany">
                 </div>
                 <div class="input-group" *ngIf="regionsSource && regionsSource.length>0">
-                    <label class="input-group-addon" for="region" jhiTranslate="logisticsApp.address.district">District</label>
+                    <label class="input-group-addon" for="region"
+                           jhiTranslate="logisticsApp.address.district">District</label>
                     <input id="region" class="form-control" auto-complete [source]="regionsSource"
                            [(ngModel)]="selectedRegion" name="selectedRegion">
                 </div>
@@ -170,4 +173,21 @@
             <chart [options]="chart"></chart>
         </div>
     </div>
+<!--    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-striped">
+                <tr *ngFor="let report of countByDistrict">
+                    <td *ngFor="let countReport of report.countByCompanies">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>{{countReport.companyId}}</td>
+                                <td>{{countReport.companyName}}</td>
+                                <td>{{countReport.count}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>-->
 </div>
