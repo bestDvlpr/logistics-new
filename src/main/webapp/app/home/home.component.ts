@@ -82,6 +82,14 @@ export class HomeComponent implements OnInit {
                 }
             }
 
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                x = w.innerWidth || e.clientWidth || g.clientWidth,
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
+            // alert(x + ' × ' + y);
+
             this.pieChartOptions = {
                 title: {text: this.translateService.instant('global.messages.report.delivery.deliveryStats')},
                 series: [{
@@ -90,7 +98,17 @@ export class HomeComponent implements OnInit {
                 }],
                 chart: {
                     type: 'pie',
-                    width: this.deliveryDiv.nativeElement.offsetWidth / 12 * 10
+                    width: this.deliveryDiv.nativeElement.offsetWidth / 12 * 10,
+                    height: w.innerHeight / 12 * 7
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 14px; font-weight: bold;">{point.key}</span><br/>',
+                    style:{
+                        fontSize: '15px'
+                    }
                 }
             }
         })
@@ -119,16 +137,37 @@ export class HomeComponent implements OnInit {
                 }
                 series.push({name: a.companyName, data: data})
             }
-
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                x = w.innerWidth || e.clientWidth || g.clientWidth,
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
             this.lineChartOptions = {
                 title: {text: this.translateService.instant('global.messages.report.delivery.dailyCountByCompany')},
                 series: series,
                 xAxis: [{
                     categories: categories,
-                    crosshair: true
+                    crosshair: true,
+                    labels: {
+                        style: {
+                            fontSize:'15px'
+                        }
+                    }
                 }], chart: {
                     type: 'line',
-                    width: this.deliveryCountDiv.nativeElement.offsetWidth / 12 * 10
+                    width: this.deliveryCountDiv.nativeElement.offsetWidth / 12 * 10,
+                    height: w.innerHeight / 12 * 7
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 12px; font-weight: bold;">{point.key}</span><br/>',
+                    useHTML: true,
+                    style: {
+                        fontSize: '15px'
+                    }
                 }
             };
             console.log(series);

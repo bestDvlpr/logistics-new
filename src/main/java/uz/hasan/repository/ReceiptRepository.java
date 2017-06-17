@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.Receipt;
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
@@ -23,15 +24,19 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Receipt findFirstByDocID(String docID);
 
     @Query("select distinct receipt from Receipt receipt")
+    @Transactional
     List<Receipt> findAllWithEagerRelationships();
 
     @Query("select receipt from Receipt receipt where receipt.id =:id")
+    @Transactional
     Receipt findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query("select receipt from Receipt receipt where receipt.sentBy.login = ?#{principal.username}")
+    @Transactional
     List<Receipt> findBySentByIsCurrentUser();
 
     @Query("select receipt from Receipt receipt where receipt.markedAsDeliveredBy.login = ?#{principal.username}")
+    @Transactional
     List<Receipt> findByMarkedAsDeliveredByIsCurrentUser();
 
     Page<Receipt> findByStatus(Pageable pageable, ReceiptStatus status);
@@ -47,9 +52,11 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findByCompanyIdNumberOrderByDocDateDesc(Pageable pageable, String idNumber);
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id")
+    @Transactional
     Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id);
 
     @Query(value = "select count(r) from Receipt r where r.status = :status and r.company.idNumber = :id and r.deliveredTime between :startDate and :endDate")
+    @Transactional
     Long getCountByStatusAndCompanyIdNumber(@Param("status") ReceiptStatus status, @Param("id") String id, @Param("startDate") ZonedDateTime startDate, @Param("endDate") ZonedDateTime endDate);
 
     Page<Receipt> findAllByStatusNotInOrderByIdDesc(Pageable pageable, Collection<ReceiptStatus> statuses);
@@ -83,5 +90,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     Page<Receipt> findByStatusAndDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(Pageable pageable, ReceiptStatus status, List<DocType> docTypes, WholeSaleFlag wholeSaleFlag, String idNumber);
 
     @Query(value = "SELECT * FROM f_common_report_paged_count(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))", nativeQuery = true)
+    @Transactional
     Long countByDocDateAndCompanyAndRegion(String startDate, String endDate, String companyName, String districtName);
 }

@@ -21,7 +21,7 @@
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
                 jhiHasAnyAuthority="ROLE_CASHIER,ROLE_MANAGER">
                 <a class="nav-link" [routerLink]="'new-receipts'" (click)="collapseNavbar()" placement="bottom">
-                    <i class="fa fa-first-order" aria-hidden="true"></i>
+                    <!--<i class="fa fa-first-order" aria-hidden="true"></i>-->
                     <span class="tag tag-pill tag-success">{{newOrderCount}}</span>
                     <span jhiTranslate="global.menu.newReceipts">New Applications</span>
                 </a>
@@ -30,7 +30,7 @@
             <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active"
                 jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_MANAGER">
                 <a class="nav-link" [routerLink]="'applied-receipts'" (click)="collapseNavbar()" placement="bottom">
-                    <i class="fa fa-first-order" aria-hidden="true"></i>
+                    <!--<i class="fa fa-first-order" aria-hidden="true"></i>-->
                     <span class="tag tag-pill tag-success">{{appliedOrderCount}}</span>
                     <span jhiTranslate="global.menu.newReceipts">New Applications</span>
                 </a>

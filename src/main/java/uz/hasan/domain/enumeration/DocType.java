@@ -6,7 +6,7 @@ import javax.xml.bind.ValidationException;
  * The DocType enumeration.
  */
 public enum DocType {
-    RETURN, SALES, DISPLACEMENT, INCOMING, OUTGOING, CREDIT, INSTALLMENT;
+    RETURN, SALES, DISPLACEMENT, INCOMING, OUTGOING, CREDIT, INSTALLMENT, INSTALLATION;
 
 
     public static DocType get(String type) throws ValidationException {

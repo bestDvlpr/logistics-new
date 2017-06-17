@@ -11,6 +11,8 @@ import {ReportService} from "./report.service";
 import {BrowserModule} from "@angular/platform-browser";
 import {LogisticsSharedModule} from "../shared/shared.module";
 import {NguiAutoCompleteModule} from "@ngui/auto-complete";
+import {CountReportComponent} from "./overall/count.report.component";
+import {ChartModule} from "angular2-highcharts";
 
 let ENTITY_STATES = [
     ...reportRoute
@@ -20,11 +22,13 @@ let ENTITY_STATES = [
         LogisticsSharedModule,
         RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
         BrowserModule,
-        NguiAutoCompleteModule
+        NguiAutoCompleteModule,
+        ChartModule.forRoot(require('highcharts'))
     ],
     declarations: [
         ReportComponent,
-        OverallReportComponent
+        OverallReportComponent,
+        CountReportComponent
     ],
     entryComponents: [
         ReportComponent

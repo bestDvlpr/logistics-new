@@ -13,14 +13,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.CustomCompany;
 import uz.hasan.domain.pojos.criteria.CustomDistrict;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
-import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
-import uz.hasan.domain.pojos.report.CountByDate;
-import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
-import uz.hasan.domain.pojos.report.ProductDeliveryReport;
+import uz.hasan.domain.pojos.report.*;
 import uz.hasan.repository.CompanyRepository;
 import uz.hasan.repository.ReceiptRepository;
 import uz.hasan.repository.ReportRepository;
@@ -60,10 +56,11 @@ public class ReportServiceImpl implements ReportService {
     }
 
     /**
-     * Generate a generic report.
+     * Generate a generic report page.
      *
-     * @param criteria the entity to use for filter
-     * @return the persisted entity
+     * @param criteria the entity to filter result by
+     * @param pageable the entity to make result pageable
+     * @return the persisted entity list
      */
     @Override
     public Page<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria, Pageable pageable) {
@@ -79,6 +76,12 @@ public class ReportServiceImpl implements ReportService {
         return new PageImpl<>(reports, pageable, count);
     }
 
+    /**
+     * Generate a generic report list.
+     *
+     * @param criteria the entity to filter result by
+     * @return the persisted entity list
+     */
     @Override
     public List<ProductDeliveryReport> getGenericReport(DeliveryReportCriteria criteria) {
         criteria = checkCriteriaToNull(criteria);
@@ -86,10 +89,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     /**
-     * Generate a generic report and return it as file.
+     * Generate a generic report list and export them to MS-Excel file.
      *
-     * @param criteria the entity to use for filter
-     * @param response the entity to save file to
+     * @param criteria the entity to filter result by
+     * @param response the entity to give generated file to
      */
     @Override
     public void exportGenericReport(DeliveryReportCriteria criteria, HttpServletResponse response) {
@@ -206,19 +209,28 @@ public class ReportServiceImpl implements ReportService {
 
     }
 
+    /**
+     * Generate a generic report list and export them to MS-Excel file.
+     *
+     * @param criteria the entity to filter result by
+     * @return the persisted entity list
+     */
     @Override
-    public List<DeliveryCountByCompany> getCountByCompanyByStatus(ReceiptStatus status, String startDate, String endDate) {
+    public List<DeliveryCountByCompany> getDeliveryCountByCompanyByStatus(DeliveryReportCriteria criteria) {
 
-        if (status == null) {
-            return null;
-        }
         List<CustomCompany> companies;
 
         ZonedDateTime start;
         ZonedDateTime end;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (startDate.isEmpty() || startDate.equals("null") || endDate.isEmpty() || endDate.equals("null")) {
+        if (criteria == null ||
+            criteria.getStartDate() == null ||
+            criteria.getStartDate().isEmpty() ||
+            criteria.getStartDate().equals("null") ||
+            criteria.getEndDate() == null ||
+            criteria.getEndDate().isEmpty() ||
+            criteria.getEndDate().equals("null")) {
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -229,12 +241,12 @@ public class ReportServiceImpl implements ReportService {
             start = ZonedDateTime.ofInstant(firstDate.toInstant(), ZoneId.systemDefault());
             end = ZonedDateTime.now();
 
-            startDate = simpleDateFormat.format(firstDate);
-            endDate = simpleDateFormat.format(today);
+            criteria.setStartDate(simpleDateFormat.format(firstDate));
+            criteria.setEndDate(simpleDateFormat.format(today));
         } else {
             Date firstDate = null;
             try {
-                firstDate = simpleDateFormat.parse(startDate);
+                firstDate = simpleDateFormat.parse(criteria.getStartDate());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -243,12 +255,12 @@ public class ReportServiceImpl implements ReportService {
             end = ZonedDateTime.now();
         }
 
-        companies = companyRepository.customCompany(status.name(), startDate, endDate);
+        companies = companyRepository.customCompany(criteria.getStatus().name(), criteria.getStartDate(), criteria.getEndDate());
 
         Map<String, Long> companyWithDeliveryCounts = new HashMap<>();
 
         for (CustomCompany company : companies) {
-            companyWithDeliveryCounts.put(company.getName(), receiptRepository.getCountByStatusAndCompanyIdNumber(status, company.getIdNumber(), start, end));
+            companyWithDeliveryCounts.put(company.getName(), receiptRepository.getCountByStatusAndCompanyIdNumber(criteria.getStatus(), company.getIdNumber(), start, end));
         }
 
         List<DeliveryCountByCompany> list = new ArrayList<>();
@@ -266,6 +278,12 @@ public class ReportServiceImpl implements ReportService {
         return list;
     }
 
+    /**
+     * Generate a generic report list.
+     *
+     * @param criteria the entity to filter result by
+     * @return the persisted entity list
+     */
     @Override
     public List<CompanyDeliveryCounts> countsByCompany(DeliveryReportCriteria criteria) {
         criteria = checkCriteriaToNull(criteria);
@@ -306,6 +324,32 @@ public class ReportServiceImpl implements ReportService {
         }
 
         return result;
+    }
+
+    @Override
+    public List<DeliveryCountByCompanyByDistrict> countByCompanyByStatus(DeliveryReportCriteria criteria) {
+        String startDate = (criteria.getStartDate() != null && !criteria.getStartDate().isEmpty()) ? criteria.getStartDate() : "null";
+        String endDate = (criteria.getEndDate() != null && !criteria.getEndDate().isEmpty()) ? criteria.getEndDate() : "null";
+        String status = criteria.getStatus() != null ? criteria.getStatus().name() : "null";
+        String district = criteria.getDistrictName() != null ? criteria.getDistrictName() : "null";
+        String companyName = criteria.getCompanyName() != null ? criteria.getDistrictName() : "null";
+
+        List<ByDistrict> countByDistrictByCompanies = reportRepository.countByCompanyByDistrictByStatus(startDate, endDate, companyName, district, status);
+        Set<String> districtNames = new HashSet<>();
+        countByDistrictByCompanies.forEach(deliveryCountByCompany -> districtNames.add(deliveryCountByCompany.getDistrictName()));
+
+        List<DeliveryCountByCompanyByDistrict> byCompanies = new LinkedList<>();
+        for (String districtName : districtNames) {
+            List<ByDistrict> countByCompanies = new LinkedList<>();
+            for (ByDistrict countByCompany : countByDistrictByCompanies) {
+                if (districtName.equals(countByCompany.getDistrictName())) {
+                    countByCompanies.add(countByCompany);
+                }
+            }
+            byCompanies.add(new DeliveryCountByCompanyByDistrict(districtName, countByCompanies));
+        }
+
+        return byCompanies;
     }
 
     private List<HashMap<String, String>> createRawData(List<ProductDeliveryReport> deliveryReports) {

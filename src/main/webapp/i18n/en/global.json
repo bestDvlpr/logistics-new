@@ -95,10 +95,10 @@
                 }
             },
             "report": {
-                "delivery":{
-                    "deliveryStats":"Delivery Statistics",
-                    "byCompany":"Delivery Counts by company",
-                    "dailyCountByCompany":"Daily Delivery Count by Company"
+                "delivery": {
+                    "deliveryStats": "Delivery Statistics",
+                    "byCompany": "Delivery Counts by company",
+                    "dailyCountByCompany": "Daily Delivery Count"
                 }
             },
             "error": {

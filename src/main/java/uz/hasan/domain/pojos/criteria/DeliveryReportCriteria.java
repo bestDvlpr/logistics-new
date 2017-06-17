@@ -1,11 +1,14 @@
 package uz.hasan.domain.pojos.criteria;
 
+import uz.hasan.domain.enumeration.ReceiptStatus;
+
 /**
  * @author: hasan @date: 6/5/17.
  */
 public class DeliveryReportCriteria extends CommonCriteria {
     private CustomCompany company;
     private CustomDistrict district;
+    private ReceiptStatus status;
 
     public DeliveryReportCriteria() {
     }
@@ -19,6 +22,13 @@ public class DeliveryReportCriteria extends CommonCriteria {
         super(startDate, endDate);
         this.company = company;
         this.district = district;
+    }
+
+    public DeliveryReportCriteria(String startDate, String endDate, CustomCompany company, CustomDistrict district, ReceiptStatus status) {
+        super(startDate, endDate);
+        this.company = company;
+        this.district = district;
+        this.status = status;
     }
 
     public CustomCompany getCompany() {
@@ -63,5 +73,13 @@ public class DeliveryReportCriteria extends CommonCriteria {
             return null;
         }
         return this.district.getName();
+    }
+
+    public ReceiptStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReceiptStatus status) {
+        this.status = status;
     }
 }

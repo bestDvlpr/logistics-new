@@ -5,7 +5,9 @@
                 "title": "Reports"
             },
             "overallReport": "Overall Report",
-            "deliveryTookTime": "Delivery Took Time"
+            "applicationCountReport": "Application Count Report",
+            "deliveryTookTime": "Delivery Took Time",
+            "date": "Date"
         }
     }
 }

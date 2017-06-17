@@ -10,10 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.pojos.criteria.DeliveryReportCriteria;
 import uz.hasan.domain.pojos.report.CompanyDeliveryCounts;
 import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
+import uz.hasan.domain.pojos.report.DeliveryCountByCompanyByDistrict;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 import uz.hasan.service.ReportService;
 import uz.hasan.web.rest.util.PaginationUtil;
@@ -38,7 +38,7 @@ public class ReportResource {
     }
 
     /**
-     * POST /report/generic : Generate a generic report.
+     * POST  /report/generic : Generate a generic report.
      *
      * @param criteria the entity to save
      * @return the persisted entity
@@ -53,7 +53,7 @@ public class ReportResource {
     }
 
     /**
-     * POST /report/generic/export : Generate a generic report and create file from it.
+     * POST  /report/generic/export : Generate a generic report and create file from it.
      *
      * @param criteria the var for save
      * @return the persisted entity
@@ -66,18 +66,39 @@ public class ReportResource {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/report/by-status/{status}/{startDate}/{endDate}")
-    public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@PathVariable ReceiptStatus status, @PathVariable String startDate, @PathVariable String endDate) {
-        if (status == null) {
-            return null;
-        }
-        List<DeliveryCountByCompany> deliveryCounts = reportService.getCountByCompanyByStatus(status, startDate, endDate);
+    /**
+     * POST  /report/by-status : Generate a generic report and create file from it.
+     *
+     * @param criteria the var for save
+     * @return the persisted entity
+     */
+    @PostMapping(value = "/report/by-status")
+    public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@RequestBody DeliveryReportCriteria criteria) {
+        List<DeliveryCountByCompany> deliveryCounts = reportService.getDeliveryCountByCompanyByStatus(criteria);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
     }
 
+    /**
+     * POST  /report/count-by-company : Generate a generic report and create file from it.
+     *
+     * @param criteria the var for save
+     * @return the persisted entity
+     */
     @PostMapping(value = "/report/count-by-company", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CompanyDeliveryCounts>> getCountByCompany(@RequestBody DeliveryReportCriteria criteria) {
         List<CompanyDeliveryCounts> deliveryCounts = reportService.countsByCompany(criteria);
+        return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
+    }
+
+    /**
+     * POST  /report/count-by-status : Generate a generic report and create file from it.
+     *
+     * @param criteria the var for save
+     * @return the persisted entity
+     */
+    @PostMapping(value = "/report/count-by-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DeliveryCountByCompanyByDistrict>> countByStatus(@RequestBody DeliveryReportCriteria criteria) {
+        List<DeliveryCountByCompanyByDistrict> deliveryCounts = reportService.countByCompanyByStatus(criteria);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
     }
 }

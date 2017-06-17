@@ -6,6 +6,7 @@ import {ProductEntry} from "../product-entry/product-entry.model";
 import {ACElement} from "../../shared/autocomplete/element.model";
 import {Company} from "../company/company.model";
 import {isNullOrUndefined} from "util";
+import {CountByDistrictReport} from "../../report/count-by-district.model";
 /**
  * @author: hasan
  * @date: 3/11/17.
@@ -63,5 +64,37 @@ export class DataHolderService implements OnInit {
         return date.getFullYear() +
             '-' + ((month < 10) ? '0' + month : month) +
             '-' + ((date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
+    }
+
+    static drawChart(report: CountByDistrictReport) {
+        let data: any = [];
+        for (let a of report.countByCompanies) {
+            data.push({name: a.companyName + ': ' + a.count, y: a.count});
+        }
+
+        let allCount: number = 0;
+        report.countByCompanies.forEach(value => allCount += value.count);
+
+        return {
+            title: {text: report.districtName + ': ' + allCount},
+            series: [{
+                name: report.districtName,
+                data: data
+            }],
+            chart: {
+                type: 'pie',
+                width: null,
+                height: null
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 14px; font-weight: bold;">{point.key}</span><br/>',
+                style: {
+                    fontSize: '15px'
+                }
+            }
+        };
     }
 }

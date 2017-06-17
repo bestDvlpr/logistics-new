@@ -1,11 +1,12 @@
 import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
-import {CommonReportCriteria} from "./report.criteria";
+import {CommonReportCriteria, CountReportCriteria} from "./report.criteria";
 import {DeliveryCountByCompany} from "./delivery-count-by-ompany";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {isNullOrUndefined} from "util";
 import {LineChartData} from "./line-chart-data.model";
+import {Res} from "awesome-typescript-loader/dist/checker/protocol";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -44,7 +45,8 @@ export class ReportService {
     }
 
     deliveryCountChart(status: ReceiptStatus, startDate: string, endDate: string): Observable<DeliveryCountByCompany[]> {
-        return this.http.get(`${this.resourceUrl}/by-status/${status}/${startDate}/${endDate}`).map((res: Response) => {
+        let criteria = new CountReportCriteria(startDate, endDate, status);
+        return this.http.post(this.resourceUrl.concat('/by-status'), criteria).map((res: Response) => {
             return res.json();
         });
     }
@@ -57,5 +59,9 @@ export class ReportService {
             console.log(res.json());
             return res.json();
         });
+    }
+
+    countByStatus(criteria: CommonReportCriteria): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/count-by-status'), criteria);
     }
 }

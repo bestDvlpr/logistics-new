@@ -1,6 +1,7 @@
 import {ACElement} from "../shared/autocomplete/element.model";
+import {ReceiptStatus} from "../entities/receipt/receipt.model";
 /**
- * Created by hasan on 6/6/17.
+ * @author: hasan @date: 6/6/17.
  */
 export class ReportCriteria {
     startDate: string;
@@ -20,5 +21,14 @@ export class CommonReportCriteria extends ReportCriteria {
         super(startDate, endDate);
         this.company = company;
         this.district = district;
+    }
+}
+
+export class CountReportCriteria extends ReportCriteria {
+    status: ReceiptStatus;
+
+    constructor(startDate: string, endDate: string, status: ReceiptStatus) {
+        super(startDate, endDate);
+        this.status = status;
     }
 }

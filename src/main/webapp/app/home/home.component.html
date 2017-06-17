@@ -10,7 +10,8 @@
                 <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
             </div>
             <div *ngSwitchCase="true" class="col-md-12">
-                <h1 class="display-4" *ngIf="account" jhiTranslate="home.titlewithuser" translateValues="{username: '{{account.login}}'}">
+                <h1 class="display-4" *ngIf="account" jhiTranslate="home.titlewithuser"
+                    translateValues="{username: '{{account.login}}'}">
                     Welcome, Java Hipster!
                 </h1>
                 <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
@@ -20,12 +21,14 @@
                 <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
             </div>
 
-            <div jhiHasAnyAuthority="ROLE_ADMIN, ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6" #deliveryCountAll>
+            <div jhiHasAnyAuthority="ROLE_ADMIN, ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6"
+                 #deliveryCountAll>
                 <form class="form-inline">
                     <div class="input-group">
                         <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
                         <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
-                               [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()" autocomplete="false"
+                               [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
+                               autocomplete="false"
                                class="form-control" name="startTime">
                         <div class="input-group-addon" (click)="from.toggle()"
                              style="width: 1.2rem; height: 1rem; cursor: pointer;">
@@ -34,7 +37,8 @@
                     </div>
                     <div class="input-group">
                         <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                        <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate" autocomplete="false"
+                        <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
+                               autocomplete="false"
                                [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
                                class="form-control" name="endTime">
                         <div class="input-group-addon" (click)="to.toggle()"

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import uz.hasan.domain.enumeration.DocType;
 import uz.hasan.domain.enumeration.ReceiptStatus;
 import uz.hasan.domain.enumeration.WholeSaleFlag;
+import uz.hasan.domain.pojos.report.ByDistrict;
 import uz.hasan.domain.pojos.report.DeliveryCountByCompany;
 import uz.hasan.domain.pojos.report.ProductDeliveryReport;
 
@@ -64,6 +65,20 @@ import java.util.Set;
                     }
                 )
             }
+        ),
+        @SqlResultSetMapping(
+            name = "DeliveryCountByCompanyByDistrictMapping",
+            classes = {
+                @ConstructorResult(
+                    targetClass = ByDistrict.class,
+                    columns = {
+                        @ColumnResult(name = "companyId", type = String.class),
+                        @ColumnResult(name = "companyName", type = String.class),
+                        @ColumnResult(name = "districtName", type = String.class),
+                        @ColumnResult(name = "count", type = Long.class)
+                    }
+                )
+            }
         )
     }
 )
@@ -83,6 +98,11 @@ import java.util.Set;
             query = "SELECT * FROM f_delivery_count_by_company(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')))",
             resultClass = DeliveryCountByCompany.class,
             resultSetMapping = "DeliveryCountByCompanyMapping"
+        ),
+        @NamedNativeQuery(name = "Receipt.countByCompanyByDistrictByStatus",
+            query = "SELECT * FROM f_delivery_count_by_company_by_status_by_date(COALESCE(NULLIF(?1, 'null')), COALESCE(NULLIF(?2, 'null')), COALESCE(NULLIF(?3, 'null')), COALESCE(NULLIF(?4, 'null')), COALESCE(NULLIF(?5, 'null')))",
+            resultClass = ByDistrict.class,
+            resultSetMapping = "DeliveryCountByCompanyByDistrictMapping"
         )
     }
 )

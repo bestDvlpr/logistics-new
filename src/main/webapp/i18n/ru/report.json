@@ -5,7 +5,9 @@
                 "title": "Отчеты"
             },
             "overallReport": "Обший отчет",
-            "deliveryTookTime": "Потраченное время"
+            "applicationCountReport": "Отчет по количестве заявки",
+            "deliveryTookTime": "Потраченное время",
+            "date": "Дата"
         }
     }
 }

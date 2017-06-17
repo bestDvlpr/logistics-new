@@ -4,6 +4,7 @@ import {Principal} from "../shared/auth/principal.service";
 import {PaginationUtil} from "ng-jhipster";
 import {ReportComponent} from "./report.component";
 import {OverallReportComponent} from "./overall/overall.report.component";
+import {CountReportComponent} from "./overall/count.report.component";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -57,6 +58,17 @@ export const reportRoute: Routes = [
     }, {
         path: 'overall',
         component: OverallReportComponent,
+        resolve: {
+            'pagingParams': ReportResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_DISPATCHER'],
+            pageTitle: 'logisticsApp.report.home.title'
+        },
+        canActivate: [ReportResolve],
+    }, {
+        path: 'count-report',
+        component: CountReportComponent,
         resolve: {
             'pagingParams': ReportResolvePagingParams
         },
