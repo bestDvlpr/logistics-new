@@ -193,6 +193,9 @@ export class CountReportComponent implements OnInit {
                 items.chart.width = w.innerWidth / 12 * 5;
                 items.chart.height = w.innerHeight / 12 * 5;
                 this.chartOptions.push(items);
+                let items2 = DataHolderService.drawChart(a);
+                items2.chart.type='column';
+                this.chartOptions.push(items2);
             }
             console.log(res.json());
             console.log(this.chartOptions);
