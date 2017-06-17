@@ -45,8 +45,8 @@ export class ReportService {
     }
 
     deliveryCountChart(status: ReceiptStatus, startDate: string, endDate: string): Observable<DeliveryCountByCompany[]> {
-        let criteria = new CountReportCriteria(startDate, endDate, status);
-        return this.http.post(this.resourceUrl.concat('/by-status'), criteria).map((res: Response) => {
+        let criteria = new CountReportCriteria(startDate, endDate, null, null, status);
+        return this.http.post(this.resourceUrl.concat('/count-by-company-by-status'), criteria).map((res: Response) => {
             return res.json();
         });
     }
@@ -61,7 +61,7 @@ export class ReportService {
         });
     }
 
-    countByStatus(criteria: CommonReportCriteria): Observable<Response> {
-        return this.http.post(this.resourceUrl.concat('/count-by-status'), criteria);
+    countByStatus(criteria: CountReportCriteria): Observable<Response> {
+        return this.http.post(this.resourceUrl.concat('/count-by-company-by-status-by-district'), criteria);
     }
 }

@@ -7,6 +7,8 @@ import {ACElement} from "../../shared/autocomplete/element.model";
 import {Company} from "../company/company.model";
 import {isNullOrUndefined} from "util";
 import {CountByDistrictReport} from "../../report/count-by-district.model";
+import {TranslateService} from "ng2-translate";
+import {JhiLanguageService} from "ng-jhipster";
 /**
  * @author: hasan
  * @date: 3/11/17.
@@ -22,6 +24,30 @@ export class DataHolderService implements OnInit {
     productCarExists: boolean = false;
     _autocompleteSelected: ACElement = null;
     _company: Company = null;
+
+
+    constructor(private translateService: TranslateService,
+                private jhiLanguageService: JhiLanguageService) {
+        this.jhiLanguageService.setLocations(
+            [
+                'report',
+                'receipt',
+                'docType',
+                'wholeSaleFlag',
+                'productEntry',
+                'product',
+                'client',
+                'phoneNumber',
+                'address',
+                'car',
+                'carModel',
+                'driver',
+                'company',
+                'receiptStatus',
+                'salesType'
+            ]
+        );
+    }
 
     public clearAll() {
         this._receipt = null;
@@ -66,7 +92,7 @@ export class DataHolderService implements OnInit {
             '-' + ((date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
     }
 
-    static drawChart(report: CountByDistrictReport) {
+    drawChart(report: CountByDistrictReport) {
         let data: any = [];
         for (let a of report.countByCompanies) {
             data.push({name: a.companyName + ': ' + a.count, y: a.count});
@@ -76,7 +102,7 @@ export class DataHolderService implements OnInit {
         report.countByCompanies.forEach(value => allCount += value.count);
 
         return {
-            title: {text: report.districtName + ': ' + allCount},
+            title: {text: isNullOrUndefined(report.districtName) ? this.translateService.instant('logisticsApp.report.count') : report.districtName + ': ' + allCount},
             series: [{
                 name: report.districtName,
                 data: data
@@ -94,6 +120,24 @@ export class DataHolderService implements OnInit {
                 style: {
                     fontSize: '15px'
                 }
+            },
+            navigation: {
+                buttonOptions: {
+                    enabled: true
+                }
+            },
+            exporting: {
+                allowHTML: true,
+                chartOptions: { // specific options for the exported image
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    }
+                },
+                fallbackToExportServer: false
             }
         };
     }

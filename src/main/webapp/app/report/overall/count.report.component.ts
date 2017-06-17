@@ -8,7 +8,7 @@ import {CompanyService} from "../../entities/company/company.service";
 import {LocationService} from "../../entities/location/location.service";
 import {EnumAware} from "../../entities/receipt/doctypaware.decorator";
 import {Location, LocationType} from "../../entities/location/location.model";
-import {CommonReportCriteria} from "../report.criteria";
+import {CommonReportCriteria, CountReportCriteria} from "../report.criteria";
 import {ACElement} from "../../shared/autocomplete/element.model";
 import {Response} from "@angular/http";
 import {isNullOrUndefined} from "util";
@@ -16,6 +16,8 @@ import * as FileSaver from "file-saver";
 import {DataHolderService} from "../../entities/receipt/data-holder.service";
 import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ReceiptStatus} from "../../entities/receipt/receipt.model";
+import {TranslateService} from "ng2-translate";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -50,14 +52,17 @@ export class CountReportComponent implements OnInit {
     previousPage: any;
     reverse: any;
     chartOptions = [];
-    countByDistrict:any[];
+    countByDistrict: any[];
+    receiptStatus: ReceiptStatus;
 
     constructor(private reportService: ReportService,
                 private companyService: CompanyService,
+                private translateService: TranslateService,
                 private locationService: LocationService,
                 private activatedRoute: ActivatedRoute,
                 private parseLinks: ParseLinks,
                 private router: Router,
+                private dataholderService: DataHolderService,
                 private alertService: AlertService,
                 private jhiLanguageService: JhiLanguageService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -181,20 +186,21 @@ export class CountReportComponent implements OnInit {
             district = new ACElement(chosenDistrict.id, chosenDistrict.name);
         }
 
-        return new CommonReportCriteria(startDate, endDate, company, district);
+        return new CountReportCriteria(startDate, endDate, company, district, this.receiptStatus);
     }
 
     countByStatus() {
         let w = window;
         let criteria = this.createReportCriteria();
         this.reportService.countByStatus(criteria).subscribe((res: Response) => {
+            this.chartOptions = [];
             for (let a of res.json()) {
-                let items = DataHolderService.drawChart(a);
+                let items = this.dataholderService.drawChart(a);
                 items.chart.width = w.innerWidth / 12 * 5;
                 items.chart.height = w.innerHeight / 12 * 5;
                 this.chartOptions.push(items);
-                let items2 = DataHolderService.drawChart(a);
-                items2.chart.type='column';
+                let items2 = this.dataholderService.drawChart(a);
+                items2.chart.type = 'column';
                 this.chartOptions.push(items2);
             }
             console.log(res.json());

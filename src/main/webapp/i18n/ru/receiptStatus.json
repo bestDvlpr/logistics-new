@@ -7,6 +7,7 @@
             "ATTACHED_TO_DRIVER": "ВОДИТЕЛЬЮ_ПРИКРЕПЛЕН",
             "DELIVERY_PROCESS": "В_ПРОЦЕССЕ_ДОСТАВКИ",
             "DELIVERED": "ДОСТАВЛЕН",
+            "CANCELLED": "ОТМЕНЕН",
             "TAKEOUT": "САМОВЫВОЗ"
         }
     }

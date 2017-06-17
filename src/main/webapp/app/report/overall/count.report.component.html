@@ -1,114 +1,3 @@
-<!--<div>
-    <h2>
-        <span jhiTranslate="logisticsApp.report.overallReport">Overall Report</span>
-    </h2>
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form form-inline">
-                <div class="input-group">
-                    <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
-                    <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
-                           [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()" autocomplete="false"
-                           class="form-control" name="startTime">
-                    <div class="input-group-addon" (click)="from.toggle()"
-                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                        <span class="fa fa-calendar"></span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                    <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate" autocomplete="false"
-                           [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
-                           class="form-control" name="endTime">
-                    <div class="input-group-addon" (click)="to.toggle()"
-                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                        <span class="fa fa-calendar"></span>
-                    </div>
-                </div>
-                <div class="input-group" *ngIf="companiesSource && companiesSource.length>0">
-                    <label class="input-group-addon" for="company" jhiTranslate="logisticsApp.company.detail.title">Company</label>
-                    <input id="company" class="form-control" auto-complete [source]="companiesSource"
-                           [(ngModel)]="selectedCompany" name="selectedCompany">
-                </div>
-                <div class="input-group" *ngIf="regionsSource && regionsSource.length>0">
-                    <label class="input-group-addon" for="region" jhiTranslate="logisticsApp.address.district">District</label>
-                    <input id="region" class="form-control" auto-complete [source]="regionsSource"
-                           [(ngModel)]="selectedRegion" name="selectedRegion">
-                </div>
-                <div class="input-group">
-                    <button class="btn btn-primary btn-block form-control" (click)="getGenericReport()">
-                        <span class="fa fa-search"></span>
-                    </button>
-                </div>
-                <div class="input-group">
-                    <button class="btn btn-success btn-block form-control" (click)="exportGenericReport()">
-                        <span jhiTranslate="entity.action.export"></span>
-                        <span class="fa fa-table"></span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            &nbsp;
-        </div>
-    </div>
-    <div class="table-responsive" *ngIf="reports && reports.length>0">
-        <table class="table table-striped small">
-            <thead>
-            <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.client">Client</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.companyId">Company</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span>
-                <th><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></th>
-                <th><span jhiTranslate="logisticsApp.productEntry.qty">Qty</span></th>
-                <th><span jhiTranslate="logisticsApp.client.phoneNumbers">Phone Numbers</span></th>
-                <th><span jhiTranslate="logisticsApp.address.district">District</span></th>
-                <th><span jhiTranslate="logisticsApp.address.streetAddress">Street Address</span></th>
-                <th><span jhiTranslate="logisticsApp.carModel.detail.title">Car Model</span></th>
-                <th><span jhiTranslate="logisticsApp.car.number">Car Number</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.sentToDCTime">Sent to DC Time</span></th>
-                <th><span jhiTranslate="logisticsApp.receipt.deliveredTime">Delivered Time</span></th>
-                <th><span jhiTranslate="logisticsApp.report.deliveryTookTime">Delivery Took Time</span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let report of reports; trackBy: trackId">
-                <td>{{report.id}}</td>
-                <td>{{report.clientFirstName + " " + report.clientLastName}}</td>
-                <td>{{report.companyName}}</td>
-                <td>{{report.productName}}</td>
-                <td>{{report.docDate}}</td>
-                <td>
-                    <span class="tag tag-default" jhiTranslate="{{'logisticsApp.DocType.' + report.docType}}">
-                        {{report.docType}}
-                    </span>
-                </td>
-                <td>{{report.productQty}}</td>
-                <td>{{report.phoneNumber}}</td>
-                <td>{{report.districtName}}</td>
-                <td>{{report.address}}</td>
-                <td>{{report.carModel}}</td>
-                <td>{{report.carNumber}}</td>
-                <td>{{report.sentToDCTime}}</td>
-                <td>{{report.deliveredTime}}</td>
-                <td>{{report.deliveryTookTime}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="reports && reports.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
-    </div>
-</div>-->
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.report.applicationCountReport">Application Count Report</span>
@@ -149,17 +38,37 @@
                     <input id="region" class="form-control" auto-complete [source]="regionsSource"
                            [(ngModel)]="selectedRegion" name="selectedRegion">
                 </div>
+
                 <div class="input-group">
-                    <button class="btn btn-primary btn-block form-control" (click)="getCountReport()">
+                    <label class="input-group-addon" jhiTranslate="logisticsApp.receipt.status"
+                           for="field_status">Status</label>
+                    <select class="form-control" name="status" [(ngModel)]="receiptStatus" id="field_status">
+                        <option value="NEW" jhiTranslate="logisticsApp.ReceiptStatus.NEW">NEW</option>
+                        <option value="APPLICATION_SENT" jhiTranslate="logisticsApp.ReceiptStatus.APPLICATION_SENT">
+                            APPLICATION_SENT
+                        </option>
+                        <option value="ATTACHED_TO_DRIVER" jhiTranslate="logisticsApp.ReceiptStatus.ATTACHED_TO_DRIVER">
+                            ATTACHED_TO_DRIVER
+                        </option>
+                        <option value="DELIVERY_PROCESS" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERY_PROCESS">
+                            DELIVERY_PROCESS
+                        </option>
+                        <option value="DELIVERED" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERED">DELIVERED</option>
+                        <option value="TAKEOUT" jhiTranslate="logisticsApp.ReceiptStatus.TAKEOUT">TAKEOUT</option>
+                        <option value="CANCELLED" jhiTranslate="logisticsApp.ReceiptStatus.CANCELLED">CANCELLED</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary btn-block form-control" (click)="countByStatus()">
                         <span class="fa fa-search"></span>
                     </button>
                 </div>
-                <div class="input-group">
+                <!--<div class="input-group">
                     <button class="btn btn-success btn-block form-control" (click)="exportCountReport()">
                         <span jhiTranslate="entity.action.export"></span>
                         <span class="fa fa-table"></span>
                     </button>
-                </div>
+                </div>-->
             </form>
         </div>
     </div>
@@ -173,21 +82,4 @@
             <chart [options]="chart"></chart>
         </div>
     </div>
-<!--    <div class="row">
-        <div class="col-md-12 table-responsive">
-            <table class="table table-striped">
-                <tr *ngFor="let report of countByDistrict">
-                    <td *ngFor="let countReport of report.countByCompanies">
-                        <table class="table table-striped">
-                            <tr>
-                                <td>{{countReport.companyId}}</td>
-                                <td>{{countReport.companyName}}</td>
-                                <td>{{countReport.count}}</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>-->
 </div>

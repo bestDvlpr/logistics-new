@@ -26,9 +26,14 @@ export class CommonReportCriteria extends ReportCriteria {
 
 export class CountReportCriteria extends ReportCriteria {
     status: ReceiptStatus;
+    company: ACElement;
+    district: ACElement;
 
-    constructor(startDate: string, endDate: string, status: ReceiptStatus) {
+
+    constructor(startDate: string, endDate: string, company: ACElement, district: ACElement, status: ReceiptStatus) {
         super(startDate, endDate);
         this.status = status;
+        this.company = company;
+        this.district = district;
     }
 }

@@ -332,7 +332,19 @@ public class ReportServiceImpl implements ReportService {
         String endDate = (criteria.getEndDate() != null && !criteria.getEndDate().isEmpty()) ? criteria.getEndDate() : "null";
         String status = criteria.getStatus() != null ? criteria.getStatus().name() : "null";
         String district = criteria.getDistrictName() != null ? criteria.getDistrictName() : "null";
-        String companyName = criteria.getCompanyName() != null ? criteria.getDistrictName() : "null";
+        String companyName = criteria.getCompanyName() != null ? criteria.getCompanyName() : "null";
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (startDate.equals("null")||endDate.equals("null")){
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+            Date firstDate = calendar.getTime();
+            Date today = new Date();
+
+            startDate = simpleDateFormat.format(firstDate);
+            endDate = simpleDateFormat.format(today);
+        }
 
         List<ByDistrict> countByDistrictByCompanies = reportRepository.countByCompanyByDistrictByStatus(startDate, endDate, companyName, district, status);
         Set<String> districtNames = new HashSet<>();

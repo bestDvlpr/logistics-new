@@ -23,7 +23,7 @@ let ENTITY_STATES = [
         RouterModule.forRoot(ENTITY_STATES, {useHash: true}),
         BrowserModule,
         NguiAutoCompleteModule,
-        ChartModule.forRoot(require('highcharts'))
+        ChartModule.forRoot(require('highcharts'), require('highcharts/highchart-3d'), require('highcharts/modules/exporting'))
     ],
     declarations: [
         ReportComponent,

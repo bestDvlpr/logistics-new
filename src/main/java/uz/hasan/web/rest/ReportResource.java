@@ -72,7 +72,7 @@ public class ReportResource {
      * @param criteria the var for save
      * @return the persisted entity
      */
-    @PostMapping(value = "/report/by-status")
+    @PostMapping(value = "/report/count-by-company-by-status")
     public ResponseEntity<List<DeliveryCountByCompany>> getCountByCompanyByStatus(@RequestBody DeliveryReportCriteria criteria) {
         List<DeliveryCountByCompany> deliveryCounts = reportService.getDeliveryCountByCompanyByStatus(criteria);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
@@ -96,7 +96,7 @@ public class ReportResource {
      * @param criteria the var for save
      * @return the persisted entity
      */
-    @PostMapping(value = "/report/count-by-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/report/count-by-company-by-status-by-district", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DeliveryCountByCompanyByDistrict>> countByStatus(@RequestBody DeliveryReportCriteria criteria) {
         List<DeliveryCountByCompanyByDistrict> deliveryCounts = reportService.countByCompanyByStatus(criteria);
         return new ResponseEntity<>(deliveryCounts, HttpStatus.OK);
