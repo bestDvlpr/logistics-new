@@ -75,6 +75,7 @@ import java.util.Set;
                         @ColumnResult(name = "companyId", type = String.class),
                         @ColumnResult(name = "companyName", type = String.class),
                         @ColumnResult(name = "districtName", type = String.class),
+                        @ColumnResult(name = "districtName2", type = String.class),
                         @ColumnResult(name = "count", type = Long.class)
                     }
                 )

@@ -335,7 +335,7 @@ public class ReportServiceImpl implements ReportService {
         String companyName = criteria.getCompanyName() != null ? criteria.getCompanyName() : "null";
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (startDate.equals("null")||endDate.equals("null")){
+        if (startDate.equals("null") || endDate.equals("null")) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
 
@@ -348,7 +348,14 @@ public class ReportServiceImpl implements ReportService {
 
         List<ByDistrict> countByDistrictByCompanies = reportRepository.countByCompanyByDistrictByStatus(startDate, endDate, companyName, district, status);
         Set<String> districtNames = new HashSet<>();
-        countByDistrictByCompanies.forEach(deliveryCountByCompany -> districtNames.add(deliveryCountByCompany.getDistrictName()));
+
+        for (ByDistrict countByCompany : countByDistrictByCompanies) {
+            if (countByCompany.getDistrictName() != null && !countByCompany.getDistrictName().isEmpty()) {
+                districtNames.add(countByCompany.getDistrictName());
+            } else if (countByCompany.getDistrictName2() != null && !countByCompany.getDistrictName2().isEmpty()) {
+                districtNames.add(countByCompany.getDistrictName2());
+            }
+        }
 
         List<DeliveryCountByCompanyByDistrict> byCompanies = new LinkedList<>();
         for (String districtName : districtNames) {

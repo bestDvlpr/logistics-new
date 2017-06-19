@@ -8,7 +8,8 @@
             "applicationCountReport": "Application Count Report",
             "deliveryTookTime": "Delivery Took Time",
             "date": "Date",
-            "count": "Delivery Count"
+            "count": "Delivery Count",
+            "other": "Others"
         }
     }
 }

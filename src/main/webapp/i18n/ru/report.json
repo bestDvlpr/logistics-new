@@ -4,11 +4,12 @@
             "home": {
                 "title": "Отчеты"
             },
-            "overallReport": "Обший отчет",
-            "applicationCountReport": "Отчет по количестве заявки",
+            "overallReport": "Общий отчет",
+            "applicationCountReport": "Отчет по количеству заявок",
             "deliveryTookTime": "Потраченное время",
             "date": "Дата",
-            "count": "Количество доставки"
+            "count": "Количество доставок",
+            "other": "Другие"
         }
     }
 }

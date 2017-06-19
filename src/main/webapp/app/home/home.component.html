@@ -52,7 +52,7 @@
                         </button>
                     </div>
                 </form>
-                <chart [options]="lineChartOptions"></chart>
+                <chart *ngIf="lineChartOptions" [options]="lineChartOptions"></chart>
             </div>
         </div>
 

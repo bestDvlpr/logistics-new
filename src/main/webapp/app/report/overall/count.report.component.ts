@@ -8,7 +8,7 @@ import {CompanyService} from "../../entities/company/company.service";
 import {LocationService} from "../../entities/location/location.service";
 import {EnumAware} from "../../entities/receipt/doctypaware.decorator";
 import {Location, LocationType} from "../../entities/location/location.model";
-import {CommonReportCriteria, CountReportCriteria} from "../report.criteria";
+import {CountReportCriteria} from "../report.criteria";
 import {ACElement} from "../../shared/autocomplete/element.model";
 import {Response} from "@angular/http";
 import {isNullOrUndefined} from "util";
@@ -199,8 +199,7 @@ export class CountReportComponent implements OnInit {
                 items.chart.width = w.innerWidth / 12 * 5;
                 items.chart.height = w.innerHeight / 12 * 5;
                 this.chartOptions.push(items);
-                let items2 = this.dataholderService.drawChart(a);
-                items2.chart.type = 'column';
+                let items2 = this.dataholderService.drawColumnChart(a);
                 this.chartOptions.push(items2);
             }
             console.log(res.json());

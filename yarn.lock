@@ -3258,6 +3258,10 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highcharts-3d@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/highcharts-3d/-/highcharts-3d-0.1.2.tgz#6c7b7f8b6dbaf0ddf5a0eb88f93e04f4386320bd"
+
 highcharts@^5.0.7:
   version v5.0.12
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.12.tgz#f73b970fe5c7f04100220b64aa7bd7fb019d11e2"

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION f_delivery_count_by_company(start_date VARCHAR(10) = NULL, end_date VARCHAR(10) = NULL,
+CREATE OR REPLACE FUNCTION f_delivery_count_by_company_status(start_date VARCHAR(10) = NULL, end_date VARCHAR(10) = NULL,
                                                        company_id VARCHAR(255) = NULL, region_id VARCHAR(255) = NULL,
                                                        status     VARCHAR(255) = NULL)
     RETURNS TABLE(
@@ -33,5 +33,5 @@ BEGIN
 END;
 $BODY$
 LANGUAGE plpgsql VOLATILE COST 100 ROWS 1000;
-ALTER FUNCTION f_delivery_count_by_company( CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING )
+ALTER FUNCTION f_delivery_count_by_company_status( CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING )
 OWNER TO logistics;

@@ -95,16 +95,30 @@ export class DataHolderService implements OnInit {
     drawChart(report: CountByDistrictReport) {
         let data: any = [];
         for (let a of report.countByCompanies) {
-            data.push({name: a.companyName + ': ' + a.count, y: a.count});
+            data.push({
+                name: (a.companyName !== null ? a.companyName : this.translateService.instant('logisticsApp.report.other')) + ': ' + a.count,
+                y: a.count
+            });
         }
 
         let allCount: number = 0;
         report.countByCompanies.forEach(value => allCount += value.count);
 
+        let district = null;
+        if (report.districtName !== null) {
+            district = report.districtName;
+        } else if (report.districtName2) {
+            district = report.districtName2;
+        } else {
+            district = this.translateService.instant('logisticsApp.report.other');
+        }
+
         return {
-            title: {text: isNullOrUndefined(report.districtName) ? this.translateService.instant('logisticsApp.report.count') : report.districtName + ': ' + allCount},
+            title: {
+                text: district + ': ' + allCount
+            },
             series: [{
-                name: report.districtName,
+                name: report.districtName !== null ? report.districtName : this.translateService.instant('logisticsApp.report.other'),
                 data: data
             }],
             chart: {
@@ -126,6 +140,11 @@ export class DataHolderService implements OnInit {
                     enabled: true
                 }
             },
+            yAxis: {
+                title: {
+                    text: this.translateService.instant('logisticsApp.report.count')
+                }
+            },
             exporting: {
                 allowHTML: true,
                 chartOptions: { // specific options for the exported image
@@ -138,6 +157,84 @@ export class DataHolderService implements OnInit {
                     }
                 },
                 fallbackToExportServer: false
+            }
+        };
+    }
+
+    drawColumnChart(report: CountByDistrictReport) {
+        let data: any = [];
+        let companyNames = [];
+        for (let a of report.countByCompanies) {
+            data.push({
+                y: a.count
+            });
+
+            if (companyNames.indexOf(a.companyName) === -1) {
+                companyNames.push(a.companyName);
+            }
+        }
+
+        let allCount: number = 0;
+        report.countByCompanies.forEach(value => allCount += value.count);
+
+        let district = null;
+        if (report.districtName !== null) {
+            district = report.districtName;
+        } else if (report.districtName2) {
+            district = report.districtName2;
+        } else {
+            district = this.translateService.instant('logisticsApp.report.other');
+        }
+
+        return {
+            title: {
+                text: district + ': ' + allCount
+            },
+            series: [{
+                name: report.districtName !== null ? report.districtName : this.translateService.instant('logisticsApp.report.other'),
+                data: data,
+                colorByPoint: true
+            }],
+            chart: {
+                type: 'column',
+                width: null,
+                height: null
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 14px; font-weight: bold;">{point.key}</span><br/>',
+                style: {
+                    fontSize: '15px'
+                }
+            },
+            navigation: {
+                buttonOptions: {
+                    enabled: true
+                }
+            },
+            yAxis: {
+                title: {
+                    text: this.translateService.instant('logisticsApp.report.count')
+                }
+            },
+            exporting: {
+                allowHTML: true,
+                chartOptions: { // specific options for the exported image
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    }
+                },
+                fallbackToExportServer: false
+            },
+            xAxis: {
+                categories: companyNames,
+                crosshair: true
             }
         };
     }

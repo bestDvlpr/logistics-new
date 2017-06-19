@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
     criteriaForAll: CommonReportCriteria;
     criteriaForByCompany: CommonReportCriteria;
 
-    pieChartOptions: any;
-    lineChartOptions: any;
+    pieChartOptions: any = null;
+    lineChartOptions: any = null;
     startTime: any;
     endTime: any;
 

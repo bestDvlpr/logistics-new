@@ -40,7 +40,7 @@ import {LogisticsReportModule} from "./report/report.module";
         LogisticsEntityModule,
         Ng2CompleterModule,
         LogisticsReportModule,
-        ChartModule.forRoot(require('highcharts'), require('highcharts/highchart-3d'), require('highcharts/modules/exporting'))
+        ChartModule.forRoot(require('highcharts'), require('highcharts/modules/exporting'))
     ],
     declarations: [
         JhiMainComponent,

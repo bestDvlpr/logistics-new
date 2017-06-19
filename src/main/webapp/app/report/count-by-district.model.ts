@@ -4,6 +4,7 @@
 export class CountByDistrictReport {
 
     constructor(public districtName?: string,
+                public districtName2?: string,
                 public countByCompanies?: ByDistrict[]) {
     }
 }
@@ -16,6 +17,7 @@ export class ByDistrict {
     constructor(public companyId?: string,
                 public companyName?: string,
                 public districtName?: string,
+                public districtName2?: string,
                 public count?: number) {
     }
 }
