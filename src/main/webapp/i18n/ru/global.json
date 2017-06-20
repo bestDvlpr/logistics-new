@@ -97,8 +97,8 @@
             "report": {
                 "delivery":{
                     "deliveryStats": "Статистика по доставкам",
-                    "byCompany":"Количество доставки по компаниям",
-                    "dailyCountByCompany":"Количество доставки по дням"
+                    "byCompany":"Количество доставок по компаниям",
+                    "dailyCountByCompany":"Количество доставок по дням"
                 }
             },
             "error": {
