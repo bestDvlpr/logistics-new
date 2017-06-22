@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions, ResponseContentType} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import {ProductEntry} from './product-entry.model';
+import {ProductEntry} from "./product-entry.model";
 @Injectable()
 export class ProductEntryService {
 

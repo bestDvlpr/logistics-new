@@ -1,8 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="logisticsApp.receipt.home.title" jhiHasAuthority="ROLE_ADMIN">Receipts</span>
-        <span jhiTranslate="logisticsApp.receipt.home.acceptedTitle" jhiHasAuthority="ROLE_DISPATCHER">Receipts</span>
-        <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_ADMIN"
+        <span jhiTranslate="logisticsApp.receipt.home.title" *jhiHasAnyAuthority="['ROLE_ADMIN']">Receipts</span>
+        <span jhiTranslate="logisticsApp.receipt.home.acceptedTitle"
+              *jhiHasAnyAuthority="['ROLE_DISPATCHER']">Receipts</span>
+        <button class="btn btn-primary float-xs-right create-receipt" *jhiHasAnyAuthority="['ROLE_ADMIN']"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
@@ -10,7 +11,7 @@
             </span>
         </button>
 
-        <button class="btn btn-primary float-xs-right create-receipt" jhiHasAuthority="ROLE_WAREHOUSE"
+        <button class="btn btn-primary float-xs-right create-receipt" *jhiHasAnyAuthority="['ROLE_WAREHOUSE']"
                 (click)="toggleUploadForm()">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
@@ -113,31 +114,31 @@
                 </td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-success"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-success"
                           *ngIf="receipt.docType === docTypeEnum.SALES">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-danger"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-danger"
                           *ngIf="receipt.docType === docTypeEnum.RETURN">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-info"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-info"
                           *ngIf="receipt.docType === docTypeEnum.DISPLACEMENT">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-primary"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-primary"
                           *ngIf="receipt.docType === docTypeEnum.INCOMING">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-warning"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-warning"
                           *ngIf="receipt.docType === docTypeEnum.OUTGOING">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-default"
                           *ngIf="receipt.docType === docTypeEnum.CREDIT">
                     {{receipt.docType}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="tag tag-default"
+                    <span jhiTranslate="{{'logisticsApp.DocType.' + receipt.docType}}" class="badge badge-default"
                           *ngIf="receipt.docType === docTypeEnum.INSTALLMENT">
                     {{receipt.docType}}
                     </span>
@@ -170,32 +171,32 @@
                     </div>
                 </td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-info"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-info"
                           *ngIf="receipt.status === receiptStatusEnum.NEW">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-primary"
                           *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-warning"
                           *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-default"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-success"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
                         {{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-danger"
                           *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
                         {{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-danger"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-danger"
                           *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
                         {{receipt.status}}
                     </span>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container" jhiHasAuthority="ROLE_ADMIN">
+                    <div class="btn-group flex-btn-group-container" *jhiHasAnyAuthority="['ROLE_ADMIN']">
                         <button type="submit"
                                 [routerLink]="['../receipt', receipt.id ]"
                                 class="btn btn-info btn-sm">
@@ -217,48 +218,54 @@
                             <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
-                            *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT"
-                            jhiHasAuthority="ROLE_DISPATCHER">
-                        <span class="fa fa-car"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
-                    </button>
-                    <button type="button" class="btn btn-warning btn-sm" (click)="attachToDriver(receipt.id)"
-                            *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER"
-                            jhiHasAuthority="ROLE_DISPATCHER">
-                        <span class="fa fa-car"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" *ngIf="receipt.status===receiptStatusEnum.NEW"
-                            (click)="goClientSelectionStep(receipt.id)"
-                            jhiHasAnyAuthority="ROLE_CASHIER,ROLE_CREDIT">
-                        <span class="fa fa-send"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" [routerLink]="['../receipt', receipt.id ]"
-                            jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_CASHIER,ROLE_WAREHOUSE,ROLE_CREDIT">
-                        <span class="fa fa-eye"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm"
-                            [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/cancel-car'} }]"
-                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER ||
-                                    receipt.status===receiptStatusEnum.DELIVERY_PROCESS"
-                            jhiHasAnyAuthority="ROLE_DISPATCHER">
-                        <span class="fa fa-eye"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.cancelcar">Cancel car</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
-                            *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT && !isDCEmployee">
-                        <span class="fa fa-download"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.predownload">Download</span>
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm"
-                            [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/delivery'} }]"
-                            *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER && !isDCEmployee">
-                        <span class="fa fa-download"></span>
-                        <span class="hidden-md-down" jhiTranslate="entity.action.fulldownload">Download</span>
-                    </button>
+                    <div class="btn-group flex-btn-group-container" *jhiHasAnyAuthority="['ROLE_DISPATCHER']">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
+                                *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT">
+                            <span class="fa fa-car"></span>
+                            <span class="hidden-md-down"
+                                  jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
+                        </button>
+                        <button type="button" class="btn btn-warning btn-sm" (click)="attachToDriver(receipt.id)"
+                                *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER">
+                            <span class="fa fa-car"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.attachAnotherDriver">Attach to Another Driver</span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['../receipt', receipt.id ]">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/cancel-car'} }]"
+                                *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER ||
+                                    receipt.status===receiptStatusEnum.DELIVERY_PROCESS">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.cancelcar">Cancel car</span>
+                        </button>
+                    </div>
+                    <div class="btn-group flex-btn-group-container"
+                         *jhiHasAnyAuthority="['ROLE_CASHIER','ROLE_CREDIT']">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="downloadReceipt(receipt.id)"
+                                *ngIf="receipt.status===receiptStatusEnum.APPLICATION_SENT && !isDCEmployee">
+                            <span class="fa fa-download"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.predownload">Download</span>
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm"
+                                [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/delivery'} }]"
+                                *ngIf="receipt.status===receiptStatusEnum.ATTACHED_TO_DRIVER && !isDCEmployee">
+                            <span class="fa fa-download"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.fulldownload">Download</span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                                *ngIf="receipt.status===receiptStatusEnum.NEW"
+                                (click)="goClientSelectionStep(receipt.id)">
+                            <span class="fa fa-send"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.sendOrder">Send the Order</span>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['../receipt', receipt.id ]">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>

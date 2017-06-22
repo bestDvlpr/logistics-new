@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { Driver } from './driver.model';
-import { DriverService } from './driver.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Driver} from "./driver.model";
+import {DriverService} from "./driver.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-driver-detail',
@@ -12,18 +12,21 @@ export class DriverDetailComponent implements OnInit, OnDestroy {
 
     driver: Driver;
     private subscription: any;
+    languages: any[];
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private driverService: DriverService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['driver']);
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
+        });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
         });
     }
 

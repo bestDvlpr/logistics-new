@@ -1,35 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
-import { Seller } from './seller.model';
-import { SellerPopupService } from './seller-popup.service';
-import { SellerService } from './seller.service';
+import {Seller} from "./seller.model";
+import {SellerPopupService} from "./seller-popup.service";
+import {SellerService} from "./seller.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {JhiEventManager} from "ng-jhipster";
 
 @Component({
     selector: 'jhi-seller-delete-dialog',
     templateUrl: './seller-delete-dialog.component.html'
 })
-export class SellerDeleteDialogComponent {
-
-    seller: Seller;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private sellerService: SellerService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['seller']);
+export class SellerDeleteDialogComponent implements OnInit {
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    clear () {
+    seller: Seller;
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper,
+                private sellerService: SellerService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
+    }
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.sellerService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'sellerListModification',
@@ -49,10 +53,9 @@ export class SellerDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private sellerPopupService: SellerPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private sellerPopupService: SellerPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

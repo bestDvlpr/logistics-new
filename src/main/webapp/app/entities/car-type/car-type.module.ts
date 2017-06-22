@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    CarTypeService,
-    CarTypePopupService,
     CarTypeComponent,
+    CarTypeDeleteDialogComponent,
+    CarTypeDeletePopupComponent,
     CarTypeDetailComponent,
     CarTypeDialogComponent,
     CarTypePopupComponent,
-    CarTypeDeletePopupComponent,
-    CarTypeDeleteDialogComponent,
-    carTypeRoute,
     carTypePopupRoute,
+    CarTypePopupService,
     CarTypeResolvePagingParams,
-} from './';
+    carTypeRoute,
+    CarTypeService
+} from "./";
 
 let ENTITY_STATES = [
     ...carTypeRoute,

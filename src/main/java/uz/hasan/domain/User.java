@@ -1,26 +1,28 @@
 package uz.hasan.domain;
 
-import uz.hasan.config.Constants;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
+import uz.hasan.config.Constants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.time.ZonedDateTime;
 
 /**
  * A user.
  */
 @Entity
 @Table(name = "jhi_user")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +41,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @NotNull
     @Size(min = 60, max = 60)
-    @Column(name = "password_hash",length = 60)
+    @Column(name = "password_hash", length = 60)
     private String password;
 
     @Size(max = 50)
@@ -51,7 +53,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     @Email
-    @Size(max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100, unique = true)
     private String email;
 
@@ -74,10 +76,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
+    @JsonIgnore
     private String resetKey;
 
     @Column(name = "reset_date")
-    private ZonedDateTime resetDate = null;
+    private Instant resetDate = null;
 
     @JsonIgnore
     @ManyToMany
@@ -85,6 +88,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         name = "jhi_user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
@@ -172,12 +176,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.resetKey = resetKey;
     }
 
-    public ZonedDateTime getResetDate() {
-       return resetDate;
+    public Instant getResetDate() {
+        return resetDate;
     }
 
-    public void setResetDate(ZonedDateTime resetDate) {
-       this.resetDate = resetDate;
+    public void setResetDate(Instant resetDate) {
+        this.resetDate = resetDate;
     }
 
     public String getLangKey() {
@@ -215,11 +219,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
-            return false;
-        }
-
-        return true;
+        return login.equals(user.login);
     }
 
     @Override

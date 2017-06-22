@@ -1,7 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Route} from '@angular/router';
+import {Route} from "@angular/router";
 
-import {SidenavComponent} from './sidenav.component';
+import {SidenavComponent} from "./sidenav.component";
 /* import { AuthService } from './shared';
 
  @Injectable()

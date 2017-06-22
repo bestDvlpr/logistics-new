@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ReportService} from "../report.service";
 import {ProductDeliveryReport} from "../product-delivery-report.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {AlertService, JhiLanguageService, ParseLinks} from "ng-jhipster";
+import {JhiAlertService, JhiParseLinks} from "ng-jhipster";
 import {Company} from "../../entities/company/company.model";
 import {CompanyService} from "../../entities/company/company.service";
 import {LocationService} from "../../entities/location/location.service";
@@ -18,6 +18,7 @@ import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ReceiptStatus} from "../../entities/receipt/receipt.model";
 import {TranslateService} from "ng2-translate";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -54,17 +55,18 @@ export class CountReportComponent implements OnInit {
     chartOptions = [];
     countByDistrict: any[];
     receiptStatus: ReceiptStatus;
+    languages: any[];
 
     constructor(private reportService: ReportService,
                 private companyService: CompanyService,
                 private translateService: TranslateService,
                 private locationService: LocationService,
                 private activatedRoute: ActivatedRoute,
-                private parseLinks: ParseLinks,
+                private parseLinks: JhiParseLinks,
                 private router: Router,
                 private dataholderService: DataHolderService,
-                private alertService: AlertService,
-                private jhiLanguageService: JhiLanguageService) {
+                private alertService: JhiAlertService,
+                private languageHelper: JhiLanguageHelper) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -72,31 +74,15 @@ export class CountReportComponent implements OnInit {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(
-            [
-                'report',
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'carModel',
-                'driver',
-                'company',
-                'receiptStatus',
-                'salesType'
-            ]
-        );
     }
 
     ngOnInit() {
         this.getAllCompanies();
         this.getAllDistricts();
         this.countByStatus();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     trackId(index: number, item: ProductDeliveryReport) {

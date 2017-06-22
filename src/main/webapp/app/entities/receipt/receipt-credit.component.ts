@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Headers, Response} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
-import {AlertService, EventManager, JhiLanguageService, ParseLinks} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
 
 import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
@@ -13,6 +13,7 @@ import {Car} from "../car/car.model";
 import {ACElement} from "../../shared/autocomplete/element.model";
 import {CarService} from "../car/car.service";
 import * as FileSaver from "file-saver";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-credit',
@@ -44,15 +45,16 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
     receipt: Receipt;
     isDCEmployee = false;
     docTypeSelected: DocType;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private carService: CarService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -62,9 +64,6 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'address', 'product', 'productEntry']
-        );
     }
 
     loadAllCredited() {
@@ -118,6 +117,9 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
             this.loadAllCredited();
         });
         this.registerChangeInReceipts();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

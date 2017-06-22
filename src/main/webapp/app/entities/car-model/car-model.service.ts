@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import { CarModel } from './car-model.model';
+import {CarModel} from "./car-model.model";
 @Injectable()
 export class CarModelService {
 

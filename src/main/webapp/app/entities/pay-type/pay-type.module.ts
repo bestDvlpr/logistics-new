@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    PayTypeService,
-    PayTypePopupService,
     PayTypeComponent,
+    PayTypeDeleteDialogComponent,
+    PayTypeDeletePopupComponent,
     PayTypeDetailComponent,
     PayTypeDialogComponent,
     PayTypePopupComponent,
-    PayTypeDeletePopupComponent,
-    PayTypeDeleteDialogComponent,
-    payTypeRoute,
     payTypePopupRoute,
+    PayTypePopupService,
     PayTypeResolvePagingParams,
-} from './';
+    payTypeRoute,
+    PayTypeService
+} from "./";
 
 let ENTITY_STATES = [
     ...payTypeRoute,

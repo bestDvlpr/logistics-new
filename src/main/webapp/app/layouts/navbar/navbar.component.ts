@@ -3,10 +3,10 @@ import {Router} from "@angular/router";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {JhiLanguageService} from "ng-jhipster";
 
-import {ProfileService} from "../profiles/profile.service"; // FIXME barrel doesnt work here
+import {ProfileService} from "../profiles/profile.service";
 import {JhiLanguageHelper, LoginModalService, LoginService, Principal} from "../../shared";
 
-import {DEBUG_INFO_ENABLED, VERSION} from "../../app.constants";
+import {VERSION} from "../../app.constants";
 import {ReceiptService} from "../../entities/receipt/receipt.service";
 import {Observable} from "rxjs";
 
@@ -29,16 +29,15 @@ export class NavbarComponent implements OnInit {
     appliedOrderCount: number = 0;
 
     constructor(private loginService: LoginService,
-                private languageHelper: JhiLanguageHelper,
                 private languageService: JhiLanguageService,
+                private languageHelper: JhiLanguageHelper,
                 private principal: Principal,
                 private loginModalService: LoginModalService,
                 private profileService: ProfileService,
                 private receiptService: ReceiptService,
                 private router: Router) {
-        this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
+        this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
-        this.languageService.setLocations(['home', 'receipt']);
     }
 
     ngOnInit() {
@@ -46,7 +45,7 @@ export class NavbarComponent implements OnInit {
             this.languages = languages;
         });
 
-        this.profileService.getProfileInfo().subscribe(profileInfo => {
+        this.profileService.getProfileInfo().subscribe((profileInfo) => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });

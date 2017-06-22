@@ -6,7 +6,6 @@ import {DeliveryCountByCompany} from "./delivery-count-by-ompany";
 import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {isNullOrUndefined} from "util";
 import {LineChartData} from "./line-chart-data.model";
-import {Res} from "awesome-typescript-loader/dist/checker/protocol";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -56,7 +55,6 @@ export class ReportService {
             criteria = Object.assign({}, null);
         }
         return this.http.post(`${this.resourceUrl}/count-by-company`, criteria).map((res: Response) => {
-            console.log(res.json());
             return res.json();
         });
     }

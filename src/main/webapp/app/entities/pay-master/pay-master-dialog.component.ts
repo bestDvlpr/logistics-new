@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { PayMaster } from './pay-master.model';
-import { PayMasterPopupService } from './pay-master-popup.service';
-import { PayMasterService } from './pay-master.service';
+import {PayMaster} from "./pay-master.model";
+import {PayMasterPopupService} from "./pay-master-popup.service";
+import {PayMasterService} from "./pay-master.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-pay-master-dialog',
     templateUrl: './pay-master-dialog.component.html'
@@ -17,25 +18,28 @@ export class PayMasterDialogComponent implements OnInit {
     payMaster: PayMaster;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private payMasterService: PayMasterService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['payMaster']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private payMasterService: PayMasterService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.payMaster.id !== undefined) {
             this.payMasterService.update(this.payMaster)
@@ -46,18 +50,18 @@ export class PayMasterDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: PayMaster) {
-        this.eventManager.broadcast({ name: 'payMasterListModification', content: 'OK'});
+    private onSaveSuccess(result: PayMaster) {
+        this.eventManager.broadcast({name: 'payMasterListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +75,13 @@ export class PayMasterPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private payMasterPopupService: PayMasterPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private payMasterPopupService: PayMasterPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.payMasterPopupService
                     .open(PayMasterDialogComponent, params['id']);
             } else {

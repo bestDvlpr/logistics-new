@@ -1,6 +1,5 @@
 import {Receipt} from "./receipt.model";
 import {Client} from "../client/client.model";
-import {Injectable, OnInit} from "@angular/core";
 import {Address} from "../address/address.model";
 import {ProductEntry} from "../product-entry/product-entry.model";
 import {ACElement} from "../../shared/autocomplete/element.model";
@@ -8,10 +7,10 @@ import {Company} from "../company/company.model";
 import {isNullOrUndefined} from "util";
 import {CountByDistrictReport} from "../../report/count-by-district.model";
 import {TranslateService} from "ng2-translate";
-import {JhiLanguageService} from "ng-jhipster";
+import {Injectable, OnInit} from "@angular/core";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 /**
- * @author: hasan
- * @date: 3/11/17.
+ * @author: hasan @date: 3/11/17.
  */
 @Injectable()
 export class DataHolderService implements OnInit {
@@ -24,29 +23,10 @@ export class DataHolderService implements OnInit {
     productCarExists: boolean = false;
     _autocompleteSelected: ACElement = null;
     _company: Company = null;
-
+    languages: any[];
 
     constructor(private translateService: TranslateService,
-                private jhiLanguageService: JhiLanguageService) {
-        this.jhiLanguageService.setLocations(
-            [
-                'report',
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'carModel',
-                'driver',
-                'company',
-                'receiptStatus',
-                'salesType'
-            ]
-        );
+                private languageHelper: JhiLanguageHelper) {
     }
 
     public clearAll() {
@@ -71,6 +51,9 @@ export class DataHolderService implements OnInit {
                 }
             }
         }
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     static formatYYYYMMDD(date: any) {

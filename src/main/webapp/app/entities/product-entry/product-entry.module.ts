@@ -1,23 +1,23 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    ProductEntryService,
-    ProductEntryPopupService,
     ProductEntryComponent,
+    ProductEntryDeleteDialogComponent,
+    ProductEntryDeletePopupComponent,
+    ProductEntryDeliveryComponent,
     ProductEntryDetailComponent,
     ProductEntryDialogComponent,
-    ProductEntryPopupComponent,
-    ProductEntryDeletePopupComponent,
-    ProductEntryDeleteDialogComponent,
-    productEntryRoute,
-    productEntryPopupRoute,
-    ProductEntryResolvePagingParams,
-    ProductEntryDeliveryComponent,
     ProductEntryDoneComponent,
-} from './';
+    ProductEntryPopupComponent,
+    productEntryPopupRoute,
+    ProductEntryPopupService,
+    ProductEntryResolvePagingParams,
+    productEntryRoute,
+    ProductEntryService
+} from "./";
 
 let ENTITY_STATES = [
     ...productEntryRoute,

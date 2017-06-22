@@ -9,7 +9,7 @@
 ######################
 # Node
 ######################
-node/
+/node/
 node_tmp/
 node_modules/
 npm-debug.log.*
@@ -59,6 +59,7 @@ local.properties
 *.ipr
 *.ids
 *.orig
+classes/
 
 ######################
 # Visual Studio Code
@@ -68,14 +69,14 @@ local.properties
 ######################
 # Maven
 ######################
-log/
-target/
+/log/
+/target/
 
 ######################
 # Gradle
 ######################
 .gradle/
-build/
+/build/
 
 ######################
 # Package Files
@@ -110,7 +111,6 @@ Desktop.ini
 ######################
 # Directories
 ######################
-/build/
 /bin/
 /deploy/
 

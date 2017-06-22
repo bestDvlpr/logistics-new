@@ -1,17 +1,18 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
 
-import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {EnumAware} from './doctypaware.decorator';
-import {DataHolderService} from './data-holder.service';
-import {Car} from '../car/car.model';
-import {ACElement} from '../../shared/autocomplete/element.model';
-import {CarService} from '../car/car.service';
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {EnumAware} from "./doctypaware.decorator";
+import {DataHolderService} from "./data-holder.service";
+import {Car} from "../car/car.model";
+import {ACElement} from "../../shared/autocomplete/element.model";
+import {CarService} from "../car/car.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-archived',
@@ -37,15 +38,16 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
     docTypeEnum = DocType;
     wholeSaleFlagEnum = WholeSaleFlag;
     archivedReceipts: Receipt[];
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private carService: CarService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -55,11 +57,6 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'address', 'product', 'productEntry',
-                'company',
-                'companyType']
-        );
     }
 
     loadAllArchived() {
@@ -106,6 +103,9 @@ export class ReceiptArchivedComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInReceipts();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

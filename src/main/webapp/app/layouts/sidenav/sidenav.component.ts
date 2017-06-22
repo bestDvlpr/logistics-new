@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Principal, JhiLanguageHelper, LoginModalService, LoginService} from '../../shared';
-import {Router} from '@angular/router';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from "@angular/core";
+import {LoginModalService, LoginService, Principal} from "../../shared";
+import {Router} from "@angular/router";
+import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'jhi-sidenav',

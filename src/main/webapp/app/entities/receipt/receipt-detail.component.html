@@ -3,12 +3,12 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <jhi-collapsed-receipt></jhi-collapsed-receipt>
-    <div class="row" jhiHasAuthority="ROLE_DISPATCHER" *ngIf="receipt.status===receiptStatusEnum.DELIVERY_PROCESS">
-        <div class="col-md-2 offset-md-8">
+    <div class="row" *jhiHasAnyAuthority="['ROLE_DISPATCHER']">
+        <div class="col-md-2 offset-md-8" *ngIf="receipt.status===receiptStatusEnum.DELIVERY_PROCESS">
             <label for="deliveryTime" jhiTranslate="logisticsApp.receipt.deliveredTime"></label>
             <ngb-timepicker [(ngModel)]="deliveredTime" id="deliveryTime"></ngb-timepicker>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" *ngIf="receipt.status===receiptStatusEnum.DELIVERY_PROCESS">
             <label for="deliveryTime" jhiTranslate="logisticsApp.receipt.deliveryDate"></label>
             <div class="input-group">
                 <input ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" class="form-control"
@@ -33,7 +33,7 @@
                 receipt.status!==receiptStatusEnum.DELIVERED &&
                 receipt.status!==receiptStatusEnum.CANCELLED &&
                 receipt.status!==receiptStatusEnum.TAKEOUT">
-            <button type="submit" jhiHasAnyAuthority="ROLE_CASHIER, ROLE_CREDIT,ROLE_CORPORATE"
+            <button type="submit" *jhiHasAnyAuthority="['ROLE_CASHIER', 'ROLE_CREDIT','ROLE_CORPORATE']"
                     (click)="takenOut()"
                     class="btn btn-sm btn-primary btn-block">
                 <span class="fa fa-user"></span>&nbsp;<span jhiTranslate="entity.action.takeOut"> TakeOut</span>&nbsp;
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-md-2 offset-md-8" *ngIf="deliveredDate && deliveredTime">
-            <button type="submit" jhiHasAuthority="ROLE_DISPATCHER"
+            <button type="submit" *jhiHasAnyAuthority="['ROLE_DISPATCHER']"
                     (click)="delivered()"
                     class="btn btn-sm btn-success btn-block">
                 <span class="fa fa-check-square"></span>&nbsp;<span

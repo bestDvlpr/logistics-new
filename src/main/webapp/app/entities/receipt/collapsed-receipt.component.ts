@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiEventManager} from "ng-jhipster";
 import {Receipt, ReceiptStatus} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {ProductEntry} from "../product-entry/product-entry.model";
@@ -10,6 +10,7 @@ import {Address} from "../address/address.model";
 import {Subscription} from "rxjs/Subscription";
 import {EnumAware} from "./doctypaware.decorator";
 import {Company} from "../company/company.model";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-collapsed-receipt',
@@ -29,29 +30,13 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
     productCarExists: boolean = false;
     eventSubscriber: Subscription;
     receiptStatusEnum = ReceiptStatus;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
-                public eventManager: EventManager,
+                public eventManager: JhiEventManager,
                 private router: Router) {
-        this.jhiLanguageService.setLocations(
-            [
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'receiptStatus',
-                'companyType',
-                'salesType',
-                'company'
-            ]
-        );
     }
 
     ngOnInit() {
@@ -67,6 +52,9 @@ export class CollapsedReceiptComponent implements OnInit, OnDestroy {
             }
         }
         this.registerChangeInAddresses();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

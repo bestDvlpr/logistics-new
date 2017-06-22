@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { ProductEntry } from './product-entry.model';
-import { ProductEntryService } from './product-entry.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {ProductEntry} from "./product-entry.model";
+import {ProductEntryService} from "./product-entry.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-product-entry-detail',
@@ -12,28 +12,28 @@ export class ProductEntryDetailComponent implements OnInit, OnDestroy {
 
     productEntry: ProductEntry;
     private subscription: any;
+    languages: any[];
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private productEntryService: ProductEntryService,
-        private route: ActivatedRoute
-    ) {
-        this.jhiLanguageService.setLocations(
-            ['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus', 'shop']
-        );
+    constructor(private languageHelper: JhiLanguageHelper,
+                private productEntryService: ProductEntryService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    load (id) {
+    load(id) {
         this.productEntryService.find(id).subscribe(productEntry => {
             this.productEntry = productEntry;
         });
     }
+
     previousState() {
         window.history.back();
     }

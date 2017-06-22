@@ -1,15 +1,15 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
 
-import {Receipt, ReceiptStatus} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
-import {EnumAware} from './doctypaware.decorator';
-import {DataHolderService} from './data-holder.service';
+import {Receipt, ReceiptStatus} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {EnumAware} from "./doctypaware.decorator";
+import {DataHolderService} from "./data-holder.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-new',
@@ -33,15 +33,16 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
     reverse: any;
     receiptStatusEnum = ReceiptStatus;
     newReceipts: Receipt[];
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,7 +51,6 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus']);
     }
 
     loadAllNew() {
@@ -97,6 +97,9 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInReceipts();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

@@ -1,35 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
-import { XmlHolder } from './xml-holder.model';
-import { XmlHolderPopupService } from './xml-holder-popup.service';
-import { XmlHolderService } from './xml-holder.service';
+import {XmlHolder} from "./xml-holder.model";
+import {XmlHolderPopupService} from "./xml-holder-popup.service";
+import {XmlHolderService} from "./xml-holder.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-xml-holder-delete-dialog',
     templateUrl: './xml-holder-delete-dialog.component.html'
 })
-export class XmlHolderDeleteDialogComponent {
-
-    xmlHolder: XmlHolder;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private xmlHolderService: XmlHolderService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['xmlHolder']);
+export class XmlHolderDeleteDialogComponent implements OnInit {
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    clear () {
+    xmlHolder: XmlHolder;
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper,
+                private xmlHolderService: XmlHolderService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
+    }
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.xmlHolderService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'xmlHolderListModification',
@@ -49,10 +53,9 @@ export class XmlHolderDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private xmlHolderPopupService: XmlHolderPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private xmlHolderPopupService: XmlHolderPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

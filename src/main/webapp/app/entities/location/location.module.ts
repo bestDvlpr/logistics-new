@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    LocationService,
-    LocationPopupService,
     LocationComponent,
+    LocationDeleteDialogComponent,
+    LocationDeletePopupComponent,
     LocationDetailComponent,
     LocationDialogComponent,
     LocationPopupComponent,
-    LocationDeletePopupComponent,
-    LocationDeleteDialogComponent,
-    locationRoute,
     locationPopupRoute,
+    LocationPopupService,
     LocationResolvePagingParams,
-} from './';
+    locationRoute,
+    LocationService
+} from "./";
 
 let ENTITY_STATES = [
     ...locationRoute,

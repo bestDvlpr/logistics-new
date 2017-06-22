@@ -1,13 +1,14 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import {Location} from './location.model';
-import {LocationPopupService} from './location-popup.service';
-import {LocationService} from './location.service';
+import {Location} from "./location.model";
+import {LocationPopupService} from "./location-popup.service";
+import {LocationService} from "./location.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-location-dialog',
     templateUrl: './location-dialog.component.html'
@@ -17,15 +18,14 @@ export class LocationDialogComponent implements OnInit {
     location: Location;
     authorities: any[];
     isSaving: boolean;
-
     locations: Location[];
+    languages: any[];
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private locationService: LocationService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['location', 'locationType']);
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -35,6 +35,9 @@ export class LocationDialogComponent implements OnInit {
             (res: Location[]) => {
                 this.locations = res;
             }, (res: Response) => this.onError(res.json()));
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     clear() {

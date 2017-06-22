@@ -2,15 +2,10 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 
 import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
 import {UserModalService} from "./user-modal.service";
 import {JhiLanguageHelper, User, UserService} from "../../shared";
-import {Response} from "@angular/http";
-import {DataHolderService} from "../../entities/receipt/data-holder.service";
-import {ACElement} from "../../shared/autocomplete/element.model";
-import {CompanyService} from "../../entities/company/company.service";
-import {Company} from "../../entities/company/company.model";
 
 @Component({
     selector: 'jhi-user-mgmt-dialog',
@@ -22,36 +17,24 @@ export class UserMgmtDialogComponent implements OnInit {
     languages: any[];
     authorities: any[];
     isSaving: Boolean;
-    companies: Company[];
-    acObjects: ACElement[];
-    source: string[];
 
-    constructor(public activeModal: NgbActiveModal,
-                private languageHelper: JhiLanguageHelper,
-                private jhiLanguageService: JhiLanguageService,
-                private userService: UserService,
-                private companyService: CompanyService,
-                private eventManager: EventManager,
-                private dataHolderService: DataHolderService) {
-    }
+    constructor(
+        public activeModal: NgbActiveModal,
+        private languageHelper: JhiLanguageHelper,
+        private userService: UserService,
+        private alertService: JhiAlertService,
+        private eventManager: JhiEventManager
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.loadCompanies();
-        this.authorities = [
-            'ROLE_USER',
-            'ROLE_ADMIN',
-            'ROLE_DISPATCHER',
-            'ROLE_CASHIER',
-            'ROLE_MANAGER',
-            'ROLE_CREDIT',
-            'ROLE_CORPORATE',
-            'ROLE_WAREHOUSE'
-        ];
+        this.authorities = [];
+        this.userService.authorities().subscribe((authorities) => {
+            this.authorities = authorities;
+        });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
-        this.jhiLanguageService.setLocations(['user-management', 'company']);
     }
 
     clear() {
@@ -60,44 +43,25 @@ export class UserMgmtDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.user.companyName) {
-            let filter = this.companies.find((x) => x.name === this.user.companyName);
-            let company = this.companies[this.companies.indexOf(filter)];
-            this.user.companyId = company.id;
-            this.user.companyName = company.name;
-        }
         if (this.user.id !== null) {
-            this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response, false), () => this.onSaveError());
         } else {
-            this.userService.create(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userService.create(this.user).subscribe((response) => this.onSaveSuccess(response, true), () => this.onSaveError());
         }
     }
 
-    private onSaveSuccess(result) {
-        this.eventManager.broadcast({name: 'userListModification', content: 'OK'});
+    private onSaveSuccess(result, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'userManagement.created'
+            : 'userManagement.updated',
+            { param : result.json.login }, null);
+        this.eventManager.broadcast({ name: 'userListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private loadCompanies() {
-        this.companyService.all().subscribe((res: Response) => {
-            this.companies = res.json();
-            this.setACObjects(this.companies);
-        });
-    }
-
-    private setACObjects(shops: Company[]) {
-        this.dataHolderService.clearAll();
-        if (shops !== null && shops.length > 0) {
-            this.source = [];
-            for (let shop of shops) {
-                this.source.push(shop.name);
-            }
-        }
     }
 }
 
@@ -110,13 +74,14 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private userModalService: UserModalService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private userModalService: UserModalService
+    ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
-            if (params['login']) {
+        this.routeSub = this.route.params.subscribe((params) => {
+            if ( params['login'] ) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);

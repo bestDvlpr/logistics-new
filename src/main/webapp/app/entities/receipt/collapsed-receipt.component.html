@@ -111,7 +111,7 @@
                                 <span>{{product.productName}}</span>
                             </div>
                             <div class="col-md-2">
-                                <span class="tag tag-default"
+                                <span class="badge badge-default"
                                       jhiTranslate="{{'logisticsApp.ReceiptStatus.' + product.status}}">
                                     {{product.status}}
                                 </span>
@@ -142,7 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="row small" jhiHasAnyAuthority="ROLE_DISPATCHER,ROLE_ADMIN">
+        <div class="row small" *jhiHasAnyAuthority="['ROLE_DISPATCHER','ROLE_ADMIN']">
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-1">

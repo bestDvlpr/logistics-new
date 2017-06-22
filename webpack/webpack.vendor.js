@@ -1,4 +1,6 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
+const path = require('path');
+
 module.exports = {
     entry: {
         'vendor': [
@@ -12,13 +14,12 @@ module.exports = {
             '@angular/platform-browser-dynamic',
             '@angular/router',
             '@ng-bootstrap/ng-bootstrap',
-            'angular2-cookie',
-            'angular2-infinite-scroll',
+            'ngx-infinite-scroll',
             'jquery',
             'ng-jhipster',
             'ng2-webstorage',
-            'rxjs',
-            'ng2-completer'
+            'ngx-cookie',
+            'rxjs'
         ]
     },
     resolve: {
@@ -33,23 +34,20 @@ module.exports = {
                 loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
-                test: /\.(jpe?g|png|gif|svg|woff|woff2|ttf|eot)$/i,
-                loaders: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-                ]
+                test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
+                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
             }
         ]
     },
     output: {
         filename: '[name].dll.js',
-        path: './target/www',
+        path: path.resolve('./target/www'),
         library: '[name]'
     },
     plugins: [
         new webpack.DllPlugin({
             name: '[name]',
-            path: './target/www/[name].json'
+            path: path.resolve('./target/www/[name].json')
         })
     ]
 };

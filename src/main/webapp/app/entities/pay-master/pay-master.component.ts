@@ -1,13 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {
+    JhiAlertService,
+    JhiEventManager,
+    JhiPaginationUtil,
+    JhiParseLinks
+} from "ng-jhipster";
 
-import { PayMaster } from './pay-master.model';
-import { PayMasterService } from './pay-master.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import {PayMaster} from "./pay-master.model";
+import {PayMasterService} from "./pay-master.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-pay-master',
@@ -29,17 +35,18 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
+    languages: any[];
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private payMasterService: PayMasterService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
+        private parseLinks: JhiParseLinks,
+        private alertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
+        private eventManager: JhiEventManager,
+        private paginationUtil: JhiPaginationUtil,
         private paginationConfig: PaginationConfig
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -49,7 +56,6 @@ currentAccount: any;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['payMaster']);
     }
 
     loadAll() {
@@ -92,6 +98,9 @@ currentAccount: any;
             this.currentAccount = account;
         });
         this.registerChangeInPayMasters();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

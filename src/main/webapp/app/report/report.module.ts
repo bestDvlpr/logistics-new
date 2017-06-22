@@ -13,6 +13,8 @@ import {LogisticsSharedModule} from "../shared/shared.module";
 import {NguiAutoCompleteModule} from "@ngui/auto-complete";
 import {CountReportComponent} from "./overall/count.report.component";
 import {ChartModule} from "angular2-highcharts";
+import {CompanyService} from "../entities/company/company.service";
+import {LocationService} from "../entities/location/location.service";
 
 let ENTITY_STATES = [
     ...reportRoute
@@ -36,7 +38,9 @@ let ENTITY_STATES = [
     providers: [
         ReportService,
         ReportResolve,
-        ReportResolvePagingParams
+        ReportResolvePagingParams,
+        CompanyService,
+        LocationService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

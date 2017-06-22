@@ -27,7 +27,7 @@
             </a>
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <li *ngSwitchCase="true" jhiHasAuthority="ROLE_ADMIN" ngbDropdown class="nav-item dropdown pointer">
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN']" ngbDropdown class="nav-item dropdown pointer">
             <a class="nav-link" id="admin-menu" (click)="isAdministrationCollapsed = !isAdministrationCollapsed">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 <span class="hidden-sm-down" jhiTranslate="global.menu.admin.main">Administration</span>
@@ -114,13 +114,13 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item" *ngSwitchCase="true" jhiHasAnyAuthority="ROLE_MANAGER,ROLE_DISPATCHER,ROLE_CASHIER">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_MANAGER','ROLE_DISPATCHER','ROLE_CASHIER']">
             <a class="nav-link" [routerLink]="['receipt']">
                 <i class="fa fa-list-alt" aria-hidden="true"></i>
                 <span jhiTranslate="global.menu.entities.order">Orders</span>
             </a>
         </li>
-        <li class="nav-item" *ngSwitchCase="true" jhiHasAuthority="ROLE_ADMIN">
+        <li class="nav-item" *jhiHasAnyAuthority="['ROLE_ADMIN']">
             <a class="nav-link" id="entity-menu" data-toggle="collapse"
                (click)="isEntitiesCollapsed = !isEntitiesCollapsed" aria-expanded="false"
                aria-controls="collapseEntitiesDD">

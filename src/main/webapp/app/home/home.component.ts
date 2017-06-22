@@ -1,14 +1,16 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiEventManager} from "ng-jhipster";
+
 import {Account, LoginModalService, Principal} from "../shared";
-import {ReportService} from "../report/report.service";
-import {ReceiptStatus} from "../entities/receipt/receipt.model";
 import {DeliveryCountByCompany} from "../report/delivery-count-by-ompany";
-import {TranslateService} from "ng2-translate";
-import {CommonReportCriteria} from "../report/report.criteria";
 import {LineChartData} from "../report/line-chart-data.model";
+import {CommonReportCriteria} from "../report/report.criteria";
+import {ReportService} from "../report/report.service";
 import {DataHolderService} from "../entities/receipt/data-holder.service";
+import {TranslateService} from "ng2-translate";
+import {ReceiptStatus} from "../entities/receipt/receipt.model";
+import {JhiLanguageHelper} from "../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-home',
@@ -16,6 +18,7 @@ import {DataHolderService} from "../entities/receipt/data-holder.service";
     styleUrls: [
         'home.scss'
     ]
+
 })
 export class HomeComponent implements OnInit {
     account: Account;
@@ -29,18 +32,19 @@ export class HomeComponent implements OnInit {
     lineChartOptions: any = null;
     startTime: any;
     endTime: any;
+    languages: any[];
+    w = window;
 
     @ViewChild('deliveryAll') deliveryDiv: ElementRef;
     @ViewChild('deliveryCountAll') deliveryCountDiv: ElementRef;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private principal: Principal,
                 private loginModalService: LoginModalService,
                 private reportService: ReportService,
                 private dataHolderService: DataHolderService,
                 private translateService: TranslateService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['home', 'global']);
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -48,6 +52,9 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
         this.deliveryCountChart();
         this.deliveryCountByCompanyChart();
     }
@@ -82,14 +89,6 @@ export class HomeComponent implements OnInit {
                 }
             }
 
-            var w = window,
-                d = document,
-                e = d.documentElement,
-                g = d.getElementsByTagName('body')[0],
-                x = w.innerWidth || e.clientWidth || g.clientWidth,
-                y = w.innerHeight || e.clientHeight || g.clientHeight;
-            // alert(x + ' × ' + y);
-
             this.pieChartOptions = {
                 title: {text: this.translateService.instant('global.messages.report.delivery.deliveryStats')},
                 series: [{
@@ -99,14 +98,14 @@ export class HomeComponent implements OnInit {
                 chart: {
                     type: 'pie',
                     width: this.deliveryDiv.nativeElement.offsetWidth / 12 * 10,
-                    height: w.innerHeight / 12 * 7
+                    height: this.w.innerHeight / 12 * 7
                 },
                 credits: {
                     enabled: false
                 },
                 tooltip: {
                     headerFormat: '<span style="font-size: 14px; font-weight: bold;">{point.key}</span><br/>',
-                    style:{
+                    style: {
                         fontSize: '15px'
                     }
                 }
@@ -124,7 +123,6 @@ export class HomeComponent implements OnInit {
         }
         this.reportService.countByCompany(this.criteriaForByCompany).subscribe((res) => {
             this.countByCompany = res;
-            console.log(this.countByCompany);
             let series: any[] = [];
             let categories = [];
             let companyNames = [];
@@ -137,12 +135,9 @@ export class HomeComponent implements OnInit {
                 }
                 series.push({name: a.companyName, data: data})
             }
-            var w = window,
-                d = document,
-                e = d.documentElement,
-                g = d.getElementsByTagName('body')[0],
-                x = w.innerWidth || e.clientWidth || g.clientWidth,
-                y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+            console.log(this.translateService.getTranslation(this.translateService.currentLang.concat('/global.messages.report.delivery.deliveryStats')));
+
             this.lineChartOptions = {
                 title: {text: this.translateService.instant('global.messages.report.delivery.dailyCountByCompany')},
                 series: series,
@@ -151,13 +146,13 @@ export class HomeComponent implements OnInit {
                     crosshair: true,
                     labels: {
                         style: {
-                            fontSize:'15px'
+                            fontSize: '15px'
                         }
                     }
                 }], chart: {
                     type: 'line',
                     width: this.deliveryCountDiv.nativeElement.offsetWidth / 12 * 10,
-                    height: w.innerHeight / 12 * 7
+                    height: this.w.innerHeight / 12 * 7
                 },
                 credits: {
                     enabled: false
@@ -170,7 +165,6 @@ export class HomeComponent implements OnInit {
                     }
                 }
             };
-            console.log(series);
         });
     }
 

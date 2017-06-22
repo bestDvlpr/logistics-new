@@ -1,5 +1,15 @@
 package uz.hasan.service;
 
+import uz.hasan.domain.Authority;
+import uz.hasan.domain.User;
+import uz.hasan.repository.AuthorityRepository;
+import uz.hasan.config.Constants;
+import uz.hasan.repository.UserRepository;
+import uz.hasan.security.AuthoritiesConstants;
+import uz.hasan.security.SecurityUtils;
+import uz.hasan.service.util.RandomUtil;
+import uz.hasan.service.dto.UserDTO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -8,21 +18,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hasan.domain.Authority;
-import uz.hasan.domain.User;
-import uz.hasan.repository.AuthorityRepository;
-import uz.hasan.repository.CompanyRepository;
-import uz.hasan.repository.UserRepository;
-import uz.hasan.security.AuthoritiesConstants;
-import uz.hasan.security.SecurityUtils;
-import uz.hasan.service.dto.UserDTO;
-import uz.hasan.service.util.RandomUtil;
 
-import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -39,16 +39,10 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    private final CompanyRepository companyRepository;
-
-    public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       AuthorityRepository authorityRepository,
-                       CompanyRepository companyRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
-        this.companyRepository = companyRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -64,19 +58,16 @@ public class UserService {
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-        log.debug("Reset user password for reset key {}", key);
+       log.debug("Reset user password for reset key {}", key);
 
-        return userRepository.findOneByResetKey(key)
-            .filter(user -> {
-                ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
-                return user.getResetDate().isAfter(oneDayAgo);
-            })
-            .map(user -> {
+       return userRepository.findOneByResetKey(key)
+           .filter(user -> user.getResetDate().isAfter(Instant.now().minusSeconds(86400)))
+           .map(user -> {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
                 user.setResetDate(null);
                 return user;
-            });
+           });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
@@ -84,13 +75,13 @@ public class UserService {
             .filter(User::getActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
+                user.setResetDate(Instant.now());
                 return user;
             });
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
-                           String imageUrl, String langKey) {
+        String imageUrl, String langKey) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -123,7 +114,7 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
         if (userDTO.getLangKey() == null) {
-            user.setLangKey("en"); // default language
+            user.setLangKey("ru"); // default language
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
@@ -137,9 +128,8 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(ZonedDateTime.now());
+        user.setResetDate(Instant.now());
         user.setActivated(true);
-        user.setCompany(companyRepository.findOne(userDTO.getCompanyId()));
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -147,19 +137,29 @@ public class UserService {
 
     /**
      * Update basic information (first name, last name, email, language) for the current user.
+     *
+     * @param firstName first name of user
+     * @param lastName last name of user
+     * @param email email id of user
+     * @param langKey language key
+     * @param imageUrl image URL of user
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey) {
+    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
             user.setLangKey(langKey);
+            user.setImageUrl(imageUrl);
             log.debug("Changed Information for User: {}", user);
         });
     }
 
     /**
      * Update all information for a specific user, and return the modified user.
+     *
+     * @param userDTO user to update
+     * @return updated user
      */
     public Optional<UserDTO> updateUser(UserDTO userDTO) {
         return Optional.of(userRepository
@@ -172,7 +172,6 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
-                user.setCompany(companyRepository.findOne(userDTO.getCompanyId()));
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
@@ -201,7 +200,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserDTO::new);
+        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -228,11 +227,17 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
-        ZonedDateTime now = ZonedDateTime.now();
-        List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
+        List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
         }
+    }
+
+    /**
+     * @return a list of all the authorities
+     */
+    public List<String> getAuthorities() {
+        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 }

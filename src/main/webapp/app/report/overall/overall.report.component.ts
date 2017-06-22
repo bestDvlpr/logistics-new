@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ReportService} from "../report.service";
 import {ProductDeliveryReport} from "../product-delivery-report.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {AlertService, JhiLanguageService, ParseLinks} from "ng-jhipster";
+import {JhiAlertService, JhiParseLinks} from "ng-jhipster";
 import {Company} from "../../entities/company/company.model";
 import {CompanyService} from "../../entities/company/company.service";
 import {LocationService} from "../../entities/location/location.service";
@@ -16,6 +16,7 @@ import * as FileSaver from "file-saver";
 import {DataHolderService} from "../../entities/receipt/data-holder.service";
 import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
 import {ActivatedRoute, Router} from "@angular/router";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -49,15 +50,16 @@ export class OverallReportComponent implements OnInit {
     predicate: any;
     previousPage: any;
     reverse: any;
+    languages: any[];
 
     constructor(private reportService: ReportService,
                 private companyService: CompanyService,
                 private locationService: LocationService,
                 private activatedRoute: ActivatedRoute,
-                private parseLinks: ParseLinks,
+                private parseLinks: JhiParseLinks,
                 private router: Router,
-                private alertService: AlertService,
-                private jhiLanguageService: JhiLanguageService) {
+                private alertService: JhiAlertService,
+                private languageHelper: JhiLanguageHelper) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -65,31 +67,15 @@ export class OverallReportComponent implements OnInit {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(
-            [
-                'report',
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'carModel',
-                'driver',
-                'company',
-                'receiptStatus',
-                'salesType'
-            ]
-        );
     }
 
     ngOnInit() {
         this.getAllCompanies();
         this.getAllDistricts();
         this.getGenericReport();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     trackId(index: number, item: ProductDeliveryReport) {

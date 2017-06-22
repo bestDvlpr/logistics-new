@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import { Client } from './client.model';
-import { DateUtils } from 'ng-jhipster';
+import {Client} from "./client.model";
+import {JhiDateUtils} from "ng-jhipster";
 @Injectable()
 export class ClientService {
 
     private resourceUrl = 'api/clients';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) {
+    }
 
     create(client: Client): Observable<Client> {
         let copy: Client = Object.assign({}, client);
@@ -41,7 +42,7 @@ export class ClientService {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
-        ;
+            ;
     }
 
     byPhoneNumber(phoneNumber: string): Observable<Client> {

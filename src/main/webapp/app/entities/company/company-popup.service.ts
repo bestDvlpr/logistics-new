@@ -1,8 +1,8 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Company } from './company.model';
-import { CompanyService } from './company.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {Company} from "./company.model";
+import {CompanyService} from "./company.service";
 @Injectable()
 export class CompanyPopupService {
     private isOpen = false;

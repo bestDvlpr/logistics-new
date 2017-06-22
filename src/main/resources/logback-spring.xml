@@ -22,9 +22,9 @@
     </appender>
 -->
 
-    <logger name="uz.multimafe" level="#logback.loglevel#"/>
+    <logger name="uz.hasan" level="#logback.loglevel#"/>
 
-    <logger name="io.github.jhipster" level="DEBUG"/>
+    <logger name="io.github.jhipster" level="#logback.loglevel#"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
@@ -63,6 +63,9 @@
 
     <root level="#logback.loglevel#">
         <appender-ref ref="CONSOLE"/>
+<!--
+        <appender-ref ref="FILE"/>
+-->
     </root>
 
 </configuration>

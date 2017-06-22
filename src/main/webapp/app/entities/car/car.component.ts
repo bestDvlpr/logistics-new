@@ -1,14 +1,15 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Response} from '@angular/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService} from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from "ng-jhipster";
 
-import {Car, CarStatus} from './car.model';
-import {CarService} from './car.service';
-import {ITEMS_PER_PAGE, Principal} from '../../shared';
-import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
-import {EnumAware} from '../receipt/doctypaware.decorator';
+import {Car, CarStatus} from "./car.model";
+import {CarService} from "./car.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {EnumAware} from "../receipt/doctypaware.decorator";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-car',
@@ -32,16 +33,17 @@ export class CarComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     carStatusEnum = CarStatus;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private carService: CarService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
+                private eventManager: JhiEventManager,
+                private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,7 +52,6 @@ export class CarComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['car', 'carStatus']);
     }
 
     loadAll() {
@@ -97,6 +98,9 @@ export class CarComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInCars();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {

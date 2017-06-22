@@ -1,15 +1,15 @@
 {
     "gateway": {
-        "title": "Шлюз",
+        "title": "Gateway",
         "routes": {
-            "title": "Текущие маршруты",
+            "title": "Current routes",
             "url": "URL",
-            "service": "Сервис",
-            "servers": "Доступные серверы",
-            "error": "Внимание! Сервер недоступен!"
+            "service": "service",
+            "servers": "Available servers",
+            "error": "Warning: no server available!"
         },
         "refresh": {
-            "button": "Обновить"
+            "button": "Refresh"
         }
     }
 }

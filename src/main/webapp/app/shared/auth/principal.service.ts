@@ -1,30 +1,35 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { AccountService } from './account.service';
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+import {AccountService} from "./account.service";
 
 @Injectable()
 export class Principal {
-    private _identity: any;
-    private authenticated: boolean = false;
+    private userIdentity: any;
+    private authenticated = false;
     private authenticationState = new Subject<any>();
 
     constructor(
         private account: AccountService
     ) {}
 
-    authenticate (_identity) {
-        this._identity = _identity;
-        this.authenticated = _identity !== null;
+    authenticate(identity) {
+        this.userIdentity = identity;
+        this.authenticated = identity !== null;
+        this.authenticationState.next(this.userIdentity);
     }
 
-    hasAnyAuthority (authorities) {
-        if (!this.authenticated || !this._identity || !this._identity.authorities) {
+    hasAnyAuthority(authorities: string[]): Promise<boolean> {
+        return Promise.resolve(this.hasAnyAuthorityDirect(authorities));
+    }
+
+    hasAnyAuthorityDirect(authorities: string[]): boolean {
+        if (!this.authenticated || !this.userIdentity || !this.userIdentity.authorities) {
             return false;
         }
 
         for (let i = 0; i < authorities.length; i++) {
-            if (this._identity.authorities.indexOf(authorities[i]) !== -1) {
+            if (this.userIdentity.authorities.indexOf(authorities[i]) !== -1) {
                 return true;
             }
         }
@@ -32,54 +37,54 @@ export class Principal {
         return false;
     }
 
-    hasAuthority (authority): Promise<any> {
+    hasAuthority(authority: string): Promise<boolean> {
         if (!this.authenticated) {
            return Promise.resolve(false);
         }
 
-        return this.identity().then(id => {
-            return id.authorities && id.authorities.indexOf(authority) !== -1;
+        return this.identity().then((id) => {
+            return Promise.resolve(id.authorities && id.authorities.indexOf(authority) !== -1);
         }, () => {
-            return false;
+            return Promise.resolve(false);
         });
     }
 
-    identity (force?: boolean): Promise<any> {
+    identity(force?: boolean): Promise<any> {
         if (force === true) {
-            this._identity = undefined;
+            this.userIdentity = undefined;
         }
 
-        // check and see if we have retrieved the _identity data from the server.
+        // check and see if we have retrieved the userIdentity data from the server.
         // if we have, reuse it by immediately resolving
-        if (this._identity) {
-            return Promise.resolve(this._identity);
+        if (this.userIdentity) {
+            return Promise.resolve(this.userIdentity);
         }
 
-        // retrieve the _identity data from the server, update the _identity object, and then resolve.
-        return this.account.get().toPromise().then(account => {
+        // retrieve the userIdentity data from the server, update the identity object, and then resolve.
+        return this.account.get().toPromise().then((account) => {
             if (account) {
-                this._identity = account;
+                this.userIdentity = account;
                 this.authenticated = true;
             } else {
-                this._identity = null;
+                this.userIdentity = null;
                 this.authenticated = false;
             }
-            this.authenticationState.next(this._identity);
-            return this._identity;
-        }).catch(err => {
-            this._identity = null;
+            this.authenticationState.next(this.userIdentity);
+            return this.userIdentity;
+        }).catch((err) => {
+            this.userIdentity = null;
             this.authenticated = false;
-            this.authenticationState.next(this._identity);
+            this.authenticationState.next(this.userIdentity);
             return null;
         });
     }
 
-    isAuthenticated (): boolean {
+    isAuthenticated(): boolean {
         return this.authenticated;
     }
 
-    isIdentityResolved (): boolean {
-        return this._identity !== undefined;
+    isIdentityResolved(): boolean {
+        return this.userIdentity !== undefined;
     }
 
     getAuthenticationState(): Observable<any> {
@@ -87,6 +92,6 @@ export class Principal {
     }
 
     getImageUrl(): String {
-        return this.isIdentityResolved () ? this._identity.imageUrl : null;
+        return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
     }
 }

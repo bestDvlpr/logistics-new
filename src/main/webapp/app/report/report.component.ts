@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {JhiLanguageService} from "ng-jhipster";
+import {JhiLanguageHelper} from "../shared/language/language.helper";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -9,15 +9,14 @@ import {JhiLanguageService} from "ng-jhipster";
 })
 export class ReportComponent implements OnInit {
 
-    constructor(private jhiLanguageService: JhiLanguageService) {
-        this.jhiLanguageService.setLocations(
-            [
-                'report'
-            ]
-        );
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper) {
     }
 
     ngOnInit() {
-
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 }

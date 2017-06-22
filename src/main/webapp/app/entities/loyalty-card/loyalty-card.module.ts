@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    LoyaltyCardService,
-    LoyaltyCardPopupService,
     LoyaltyCardComponent,
+    LoyaltyCardDeleteDialogComponent,
+    LoyaltyCardDeletePopupComponent,
     LoyaltyCardDetailComponent,
     LoyaltyCardDialogComponent,
     LoyaltyCardPopupComponent,
-    LoyaltyCardDeletePopupComponent,
-    LoyaltyCardDeleteDialogComponent,
-    loyaltyCardRoute,
     loyaltyCardPopupRoute,
+    LoyaltyCardPopupService,
     LoyaltyCardResolvePagingParams,
-} from './';
+    loyaltyCardRoute,
+    LoyaltyCardService
+} from "./";
 
 let ENTITY_STATES = [
     ...loyaltyCardRoute,

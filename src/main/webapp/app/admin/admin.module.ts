@@ -1,46 +1,41 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ParseLinks } from 'ng-jhipster';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../shared';
-
+import {LogisticsSharedModule} from "../shared";
 import {
     adminState,
     AuditsComponent,
-    UserMgmtComponent,
-    UserDialogComponent,
+    AuditsService,
+    GatewayRoutesService,
+    JhiConfigurationComponent,
+    JhiConfigurationService,
+    JhiDocsComponent,
+    JhiGatewayComponent,
+    JhiHealthCheckComponent,
+    JhiHealthModalComponent,
+    JhiHealthService,
+    JhiMetricsMonitoringComponent,
+    JhiMetricsMonitoringModalComponent,
+    JhiMetricsService,
+    LogsComponent,
+    LogsService,
     UserDeleteDialogComponent,
+    UserDialogComponent,
+    UserMgmtComponent,
+    UserMgmtDeleteDialogComponent,
     UserMgmtDetailComponent,
     UserMgmtDialogComponent,
-    UserMgmtDeleteDialogComponent,
-    LogsComponent,
-    JhiMetricsMonitoringModalComponent,
-    JhiMetricsMonitoringComponent,
-    JhiHealthModalComponent,
-    JhiHealthCheckComponent,
-    JhiConfigurationComponent,
-    JhiDocsComponent,
-    AuditsService,
-    JhiConfigurationService,
-    JhiHealthService,
-    JhiMetricsService,
-    GatewayRoutesService,
-    JhiGatewayComponent,
-    LogsService,
-    UserResolvePagingParams,
+    UserModalService,
     UserResolve,
-    UserModalService
-} from './';
-import {AutocompleteModule} from '../shared/autocomplete/autocomplete.module';
-import {NguiAutoCompleteModule} from "@ngui/auto-complete";
-
+    UserResolvePagingParams
+} from "./";
+/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 @NgModule({
     imports: [
         LogisticsSharedModule,
         RouterModule.forRoot(adminState, { useHash: true }),
-        AutocompleteModule,
-        NguiAutoCompleteModule
+        /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
         AuditsComponent,

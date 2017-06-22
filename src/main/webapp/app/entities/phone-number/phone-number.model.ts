@@ -3,7 +3,7 @@ export enum PhoneType {
     HOME = <any>'HOME',
     WORK = <any>'WORK'
 }
-import {Client} from '../client';
+import {Client} from "../client";
 export class PhoneNumber {
     constructor(public id?: number,
                 public number?: string,

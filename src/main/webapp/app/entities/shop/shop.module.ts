@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    ShopService,
-    ShopPopupService,
     ShopComponent,
+    ShopDeleteDialogComponent,
+    ShopDeletePopupComponent,
     ShopDetailComponent,
     ShopDialogComponent,
     ShopPopupComponent,
-    ShopDeletePopupComponent,
-    ShopDeleteDialogComponent,
-    shopRoute,
     shopPopupRoute,
+    ShopPopupService,
     ShopResolvePagingParams,
-} from './';
+    shopRoute,
+    ShopService
+} from "./";
 
 let ENTITY_STATES = [
     ...shopRoute,

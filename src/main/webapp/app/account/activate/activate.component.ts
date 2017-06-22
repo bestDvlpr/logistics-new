@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import {Component, OnInit} from "@angular/core";
+import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {ActivatedRoute} from "@angular/router";
 
-import { Activate } from './activate.service';
-import { LoginModalService } from '../../shared';
+import {ActivateService} from "./activate.service";
+import {LoginModalService} from "../../shared";
 
 @Component({
     selector: 'jhi-activate',
@@ -16,17 +15,15 @@ export class ActivateComponent implements OnInit {
     modalRef: NgbModalRef;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private activate: Activate,
+        private activateService: ActivateService,
         private loginModalService: LoginModalService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['activate']);
     }
 
-    ngOnInit () {
-        this.route.queryParams.subscribe(params => {
-            this.activate.get(params['key']).subscribe(() => {
+    ngOnInit() {
+        this.route.queryParams.subscribe((params) => {
+            this.activateService.get(params['key']).subscribe(() => {
                 this.error = null;
                 this.success = 'OK';
             }, () => {

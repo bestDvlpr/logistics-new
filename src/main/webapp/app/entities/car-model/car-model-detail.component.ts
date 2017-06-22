@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { CarModel } from './car-model.model';
-import { CarModelService } from './car-model.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {CarModel} from "./car-model.model";
+import {CarModelService} from "./car-model.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-car-model-detail',
@@ -12,18 +12,21 @@ export class CarModelDetailComponent implements OnInit, OnDestroy {
 
     carModel: CarModel;
     private subscription: any;
+    languages: any[];
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private carModelService: CarModelService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['carModel']);
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
+        });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
         });
     }
 

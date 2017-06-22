@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { Driver } from './driver.model';
-import { DriverPopupService } from './driver-popup.service';
-import { DriverService } from './driver.service';
-import { Car, CarService } from '../car';
+import {Driver} from "./driver.model";
+import {DriverPopupService} from "./driver-popup.service";
+import {DriverService} from "./driver.service";
+import {Car, CarService} from "../car";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-driver-dialog',
     templateUrl: './driver-dialog.component.html'
@@ -18,30 +19,34 @@ export class DriverDialogComponent implements OnInit {
     driver: Driver;
     authorities: any[];
     isSaving: boolean;
-
     cars: Car[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private driverService: DriverService,
-        private carService: CarService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['driver']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private driverService: DriverService,
+                private carService: CarService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.carService.query().subscribe(
-            (res: Response) => { this.cars = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.cars = res.json();
+            }, (res: Response) => this.onError(res.json()));
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.driver.id !== undefined) {
             this.driverService.update(this.driver)
@@ -52,18 +57,18 @@ export class DriverDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Driver) {
-        this.eventManager.broadcast({ name: 'driverListModification', content: 'OK'});
+    private onSaveSuccess(result: Driver) {
+        this.eventManager.broadcast({name: 'driverListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -92,14 +97,13 @@ export class DriverPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private driverPopupService: DriverPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private driverPopupService: DriverPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.driverPopupService
                     .open(DriverDialogComponent, params['id']);
             } else {

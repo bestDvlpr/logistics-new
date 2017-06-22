@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 import {Receipt, WholeSaleFlag} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {TranslateService} from "ng2-translate";
@@ -11,7 +11,7 @@ import {Response} from "@angular/http";
 import {Company} from "../company/company.model";
 import {CompanyService} from "../company/company.service";
 import {EnumAware} from "./doctypaware.decorator";
-import {ProductEntry} from "../product-entry/product-entry.model";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-send-client',
@@ -33,33 +33,18 @@ export class ReceiptSendClientComponent implements OnInit {
     companies: Company[];
     wholeSaleFlagEnum = WholeSaleFlag;
     isClientCompany = false;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
                 private route: ActivatedRoute,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private clientService: ClientService,
                 public dataHolderService: DataHolderService,
                 public translateService: TranslateService,
                 private router: Router,
                 private companyService: CompanyService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(
-            [
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'companyType',
-                'receiptStatus',
-                'company'
-            ]
-        );
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -85,6 +70,9 @@ export class ReceiptSendClientComponent implements OnInit {
         }
         this.companyService.all().subscribe((res) => {
             this.companies = res.json();
+        });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
         });
     }
 

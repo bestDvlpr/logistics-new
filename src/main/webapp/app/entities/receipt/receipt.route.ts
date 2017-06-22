@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
-import {PaginationUtil} from "ng-jhipster";
+import {JhiPaginationUtil} from "ng-jhipster";
 
 import {ReceiptComponent} from "./receipt.component";
 import {ReceiptDetailComponent} from "./receipt-detail.component";
@@ -23,7 +23,7 @@ import {ReceiptCancelCarPopupComponent} from "./receipt-cancel-car-dialog.compon
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

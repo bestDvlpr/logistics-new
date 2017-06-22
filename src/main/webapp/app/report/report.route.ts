@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
 import {Principal} from "../shared/auth/principal.service";
-import {PaginationUtil} from "ng-jhipster";
+import {JhiPaginationUtil} from "ng-jhipster";
 import {ReportComponent} from "./report.component";
 import {OverallReportComponent} from "./overall/overall.report.component";
 import {CountReportComponent} from "./overall/count.report.component";
@@ -29,7 +29,7 @@ export class ReportResolve implements CanActivate {
 @Injectable()
 export class ReportResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

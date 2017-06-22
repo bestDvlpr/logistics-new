@@ -33,11 +33,11 @@ Generic styles
 
 /* other generic styles */
 
-/*.card {
+.jh-card {
     padding: 1.5%;
     margin-top: 20px;
     border: none;
-}*/
+}
 
 .error {
     color: white;
@@ -48,32 +48,22 @@ Generic styles
     padding: 10px;
 }
 
+.w-40 {
+    width: 40% !important;
+}
+
+.w-60 {
+    width: 60% !important;
+}
+
 .break {
     white-space: normal;
     word-break:break-all;
 }
 
-.voffset  { margin-top: 2px; }
-.voffset1 { margin-top: 5px; }
-.voffset2 { margin-top: 10px; }
-.voffset3 { margin-top: 15px; }
-.voffset4 { margin-top: 30px; }
-.voffset5 { margin-top: 40px; }
-.voffset6 { margin-top: 60px; }
-.voffset7 { margin-top: 80px; }
-.voffset8 { margin-top: 100px; }
-.voffset9 { margin-top: 150px; }
-
 .readonly {
     background-color: #eee;
     opacity: 1;
-}
-
-/*FIXME this is to support grids in table class; */
-table td[class*=col-], table th[class*=col-] {
-    position: static;
-    display: table-cell;
-    float: none;
 }
 
 .footer {
@@ -212,19 +202,3 @@ ui bootstrap tweaks
 
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
-/*=============================================================
-HASAN CHANGES
-===============================================================*/
-.main_content_wrapper{
-    margin-top: 65px;
-}
-.custom-file-control:before{
-    content: "Browse";
-}
-.custom-file-control:after{
-    content: "Add files..";
-}
-/*=============================================================
-HASAN CHANGES
-===============================================================*/

@@ -6,9 +6,10 @@ import uz.hasan.domain.Authority;
 import uz.hasan.domain.User;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ public class UserDTO {
 
     private Long id;
 
+    @NotBlank
     @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 1, max = 50)
     private String login;
@@ -43,36 +45,30 @@ public class UserDTO {
 
     private String createdBy;
 
-    private ZonedDateTime createdDate;
+    private Instant createdDate;
 
     private String lastModifiedBy;
 
-    private ZonedDateTime lastModifiedDate;
+    private Instant lastModifiedDate;
 
     private Set<String> authorities;
 
-    private Long companyId;
-
-    private String companyName;
-
     public UserDTO() {
-        // Empty constructor needed for MapStruct.
+        // Empty constructor needed for Jackson.
     }
 
     public UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            (user.getCompany() != null && user.getCompany().getId() != null) ? user.getCompany().getId() : null,
-            (user.getCompany() != null && user.getCompany().getName() != null) ? user.getCompany().getName() : null,
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()));
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
-                   String email, boolean activated, String imageUrl, String langKey,
-                   String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-                   Long companyId, String companyName, Set<String> authorities) {
+        String email, boolean activated, String imageUrl, String langKey,
+        String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+        Set<String> authorities) {
 
         this.id = id;
         this.login = login;
@@ -87,8 +83,6 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
-        this.companyId = companyId;
-        this.companyName = companyName;
     }
 
     public Long getId() {
@@ -135,7 +129,7 @@ public class UserDTO {
         return createdBy;
     }
 
-    public ZonedDateTime getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
@@ -143,32 +137,16 @@ public class UserDTO {
         return lastModifiedBy;
     }
 
-    public ZonedDateTime getLastModifiedDate() {
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+    public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
     public Set<String> getAuthorities() {
         return authorities;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
 
     @Override

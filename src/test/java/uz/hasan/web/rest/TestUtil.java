@@ -102,6 +102,7 @@ public class TestUtil {
     /**
      * Verifies the equals/hashcode contract on the domain object.
      */
+    @SuppressWarnings("unchecked")
     public static void equalsVerifier(Class clazz) throws Exception {
         Object domainObject1 = clazz.getConstructor().newInstance();
         assertThat(domainObject1.toString()).isNotNull();
@@ -110,6 +111,7 @@ public class TestUtil {
         // Test with an instance of another class
         Object testOtherObject = new Object();
         assertThat(domainObject1).isNotEqualTo(testOtherObject);
+        assertThat(domainObject1).isNotEqualTo(null);
         // Test with an instance of the same class
         Object domainObject2 = clazz.getConstructor().newInstance();
         assertThat(domainObject1).isNotEqualTo(domainObject2);

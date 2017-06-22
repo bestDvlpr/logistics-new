@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import { Log } from './log.model';
+import {Log} from "./log.model";
 
 @Injectable()
 export class LogsService {

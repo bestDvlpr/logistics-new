@@ -7,11 +7,14 @@ import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
+import com.hazelcast.core.HazelcastInstance;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.*;
+import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
+import io.undertow.UndertowOptions;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +40,15 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
 
     private final JHipsterProperties jHipsterProperties;
 
+    private final HazelcastInstance hazelcastInstance;
+
     private MetricRegistry metricRegistry;
 
-    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties) {
+    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties, HazelcastInstance hazelcastInstance) {
 
         this.env = env;
         this.jHipsterProperties = jHipsterProperties;
+        this.hazelcastInstance = hazelcastInstance;
     }
 
     @Override
@@ -71,6 +77,20 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         container.setMimeMappings(mappings);
         // When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
         setLocationForStaticAssets(container);
+
+        /*
+         * Enable HTTP/2 for Undertow - https://twitter.com/ankinson/status/829256167700492288
+         * HTTP/2 requires HTTPS, so HTTP requests will fallback to HTTP/1.1.
+         * See the JHipsterProperties class and your application-*.yml configuration files
+         * for more information.
+         */
+        if (jHipsterProperties.getHttp().getVersion().equals(JHipsterProperties.Http.Version.V_2_0) &&
+            container instanceof UndertowEmbeddedServletContainerFactory) {
+
+            ((UndertowEmbeddedServletContainerFactory) container)
+                .addBuilderCustomizers(builder ->
+                    builder.setServerOption(UndertowOptions.ENABLE_HTTP2, true));
+        }
     }
 
     private void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {

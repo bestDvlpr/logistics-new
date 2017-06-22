@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { CarType } from './car-type.model';
-import { CarTypePopupService } from './car-type-popup.service';
-import { CarTypeService } from './car-type.service';
+import {CarType} from "./car-type.model";
+import {CarTypePopupService} from "./car-type-popup.service";
+import {CarTypeService} from "./car-type.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-car-type-dialog',
     templateUrl: './car-type-dialog.component.html'
@@ -17,19 +18,23 @@ export class CarTypeDialogComponent implements OnInit {
     carType: CarType;
     authorities: any[];
     isSaving: boolean;
+    languages: any[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
+        private languageHelper: JhiLanguageHelper,
+        private alertService: JhiAlertService,
         private carTypeService: CarTypeService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['carType']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
     clear () {
         this.activeModal.dismiss('cancel');

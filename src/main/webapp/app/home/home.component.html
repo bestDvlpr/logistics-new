@@ -17,37 +17,32 @@
                 <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
             </div>
 
-            <div jhiHasAnyAuthority="ROLE_ADMIN,ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6" #deliveryAll>
+            <div *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_DISPATCHER']" class="col-md-6" #deliveryAll>
                 <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
             </div>
 
-            <div jhiHasAnyAuthority="ROLE_ADMIN, ROLE_DISPATCHER" *ngSwitchCase="true" class="col-md-6"
+            <div *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_DISPATCHER']" class="col-md-6"
                  #deliveryCountAll>
                 <form class="form-inline">
-                    <div class="input-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
                         <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
                                [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
-                               autocomplete="false"
+                               autocomplete="off"
                                class="form-control" name="startTime">
-                        <div class="input-group-addon" (click)="from.toggle()"
-                             style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                            <span class="fa fa-calendar"></span>
-                        </div>
+                        <span class="fa fa-calendar input-group-addon" (click)="from.toggle()"></span>
                     </div>
-                    <div class="input-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
                         <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
-                               autocomplete="false"
+                               autocomplete="off"
                                [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
                                class="form-control" name="endTime">
-                        <div class="input-group-addon" (click)="to.toggle()"
-                             style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                            <span class="fa fa-calendar"></span>
-                        </div>
+                        <span class="fa fa-calendar input-group-addon" (click)="to.toggle()"></span>
                     </div>
-                    <div class="input-group">
+                    <div>
                         <button class="btn btn-primary btn-block form-control" (click)="deliveryCountByCompanyChart()">
+                            <span jhiTranslate="global.form.search"></span>
                             <span class="fa fa-search"></span>
                         </button>
                     </div>
@@ -78,15 +73,6 @@
                 <span class="fa fa-mobile-phone"></span>
                 <span>+(99897) 774-42-25</span>
             </li>
-            <!--<li><a href="http://jhipster.github.io/" target="_blank" jhiTranslate="home.link.homepage">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" jhiTranslate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" jhiTranslate="home.link.bugtracker">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" jhiTranslate="home.link.chat">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/java_hipster" target="_blank"  jhiTranslate="home.link.follow">follow @java_hipster on Twitter</a></li>-->
         </ul>
-
-        <!--<p>
-            <span jhiTranslate="home.like">If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" jhiTranslate="home.github">Github</a>!
-        </p>-->
     </div>
 </div>

@@ -1,35 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
-import { PhoneNumber } from './phone-number.model';
-import { PhoneNumberPopupService } from './phone-number-popup.service';
-import { PhoneNumberService } from './phone-number.service';
+import {PhoneNumber} from "./phone-number.model";
+import {PhoneNumberPopupService} from "./phone-number-popup.service";
+import {PhoneNumberService} from "./phone-number.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-phone-number-delete-dialog',
     templateUrl: './phone-number-delete-dialog.component.html'
 })
-export class PhoneNumberDeleteDialogComponent {
-
-    phoneNumber: PhoneNumber;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private phoneNumberService: PhoneNumberService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['phoneNumber', 'phoneType']);
+export class PhoneNumberDeleteDialogComponent implements OnInit {
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    clear () {
+    phoneNumber: PhoneNumber;
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper,
+                private phoneNumberService: PhoneNumberService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
+    }
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.phoneNumberService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'phoneNumberListModification',
@@ -49,10 +53,9 @@ export class PhoneNumberDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private phoneNumberPopupService: PhoneNumberPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private phoneNumberPopupService: PhoneNumberPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

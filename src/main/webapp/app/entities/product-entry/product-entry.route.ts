@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate} from '@angular/router';
+import {Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
 
-import {PaginationUtil} from 'ng-jhipster';
+import {JhiPaginationUtil} from "ng-jhipster";
 
-import {ProductEntryComponent} from './product-entry.component';
-import {ProductEntryDetailComponent} from './product-entry-detail.component';
-import {ProductEntryPopupComponent} from './product-entry-dialog.component';
-import {ProductEntryDeletePopupComponent} from './product-entry-delete-dialog.component';
+import {ProductEntryComponent} from "./product-entry.component";
+import {ProductEntryDetailComponent} from "./product-entry-detail.component";
+import {ProductEntryPopupComponent} from "./product-entry-dialog.component";
+import {ProductEntryDeletePopupComponent} from "./product-entry-delete-dialog.component";
 
-import {ProductEntryDeliveryComponent} from './product-entry-delivery.component';
-import {ProductEntryDoneComponent} from './product-entry-done.component';
+import {ProductEntryDeliveryComponent} from "./product-entry-delivery.component";
+import {ProductEntryDoneComponent} from "./product-entry-done.component";
 
 @Injectable()
 export class ProductEntryResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

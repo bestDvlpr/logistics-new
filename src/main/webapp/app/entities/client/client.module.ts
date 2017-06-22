@@ -1,22 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    ClientService,
-    ClientPopupService,
     ClientComponent,
+    ClientDeleteDialogComponent,
+    ClientDeletePopupComponent,
     ClientDetailComponent,
     ClientDialogComponent,
     ClientPopupComponent,
-    ClientDeletePopupComponent,
-    ClientDeleteDialogComponent,
-    clientRoute,
     clientPopupRoute,
+    ClientPopupService,
     ClientResolvePagingParams,
-} from './';
+    clientRoute,
+    ClientService
+} from "./";
 
 let ENTITY_STATES = [
     ...clientRoute,

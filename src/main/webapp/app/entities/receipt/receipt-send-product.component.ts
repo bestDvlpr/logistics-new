@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {JhiLanguageService} from "ng-jhipster";
 import {Receipt, WholeSaleFlag} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {ProductEntry} from "../product-entry/product-entry.model";
@@ -10,6 +9,7 @@ import {Address} from "../address/address.model";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Company} from "../company/company.model";
 import {EnumAware} from "./doctypaware.decorator";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-receipt-send-product',
     templateUrl: 'receipt-send-product.component.html'
@@ -24,34 +24,18 @@ export class ReceiptSendProductComponent implements OnInit {
     address: Address;
     productEntries: ProductEntry[];
     productsSelected: ProductEntry[] = [];
-    isCollapsed = false;
     isAllChecked: boolean = false;
-    formattedStartTime: string;
     startTime: any = null;
     endTime: any = null;
     deliveryDate: any = null;
     minDate: NgbDateStruct;
     wholeSaleFlagEnum = WholeSaleFlag;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
                 private router: Router) {
-        this.jhiLanguageService.setLocations(
-            [
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'car',
-                'receiptStatus',
-                'salesType'
-            ]
-        );
     }
 
     ngOnInit() {
@@ -67,6 +51,9 @@ export class ReceiptSendProductComponent implements OnInit {
             }
         }
         this.minDate = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     load(id) {

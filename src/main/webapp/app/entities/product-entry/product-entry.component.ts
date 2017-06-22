@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs/Rx";
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from "ng-jhipster";
 
-import {DefectFlag, ProductEntry, SalesPlace, SalesType, VirtualFlag} from './product-entry.model';
-import { ProductEntryService } from './product-entry.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
-import {EnumAware} from '../receipt/doctypaware.decorator';
-import {ReceiptStatus} from '../receipt/receipt.model';
+import {DefectFlag, ProductEntry, SalesPlace, SalesType, VirtualFlag} from "./product-entry.model";
+import {ProductEntryService} from "./product-entry.service";
+import {ITEMS_PER_PAGE, Principal} from "../../shared";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {EnumAware} from "../receipt/doctypaware.decorator";
+import {ReceiptStatus} from "../receipt/receipt.model";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-product-entry',
@@ -18,7 +19,7 @@ import {ReceiptStatus} from '../receipt/receipt.model';
 @EnumAware
 export class ProductEntryComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     productEntries: ProductEntry[];
     error: any;
     success: any;
@@ -37,19 +38,18 @@ currentAccount: any;
     defectFlagEnum = DefectFlag;
     virtualFlagEnum = VirtualFlag;
     receiptStatusEnum = ReceiptStatus;
+    languages: any[];
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private productEntryService: ProductEntryService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private productEntryService: ProductEntryService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: JhiEventManager,
+                private paginationUtil: JhiPaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -57,27 +57,29 @@ currentAccount: any;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['productEntry', 'salesType', 'salesPlace', 'defectFlag', 'virtualFlag', 'receiptStatus']);
     }
 
     loadAll() {
         this.productEntryService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
     }
-    loadPage (page: number) {
+
+    loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/product-entry'], {queryParams:
-            {
+        this.router.navigate(['/product-entry'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -94,29 +96,32 @@ currentAccount: any;
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInProductEntries();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: ProductEntry) {
+    trackId(index: number, item: ProductEntry) {
         return item.id;
     }
-
 
 
     registerChangeInProductEntries() {
         this.eventSubscriber = this.eventManager.subscribe('productEntryListModification', (response) => this.loadAll());
     }
 
-    sort () {
+    sort() {
         let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
@@ -124,7 +129,7 @@ currentAccount: any;
         return result;
     }
 
-    private onSuccess (data, headers) {
+    private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
@@ -132,7 +137,7 @@ currentAccount: any;
         this.productEntries = data;
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

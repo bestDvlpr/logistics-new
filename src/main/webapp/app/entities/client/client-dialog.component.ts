@@ -1,16 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {AlertService, EventManager, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import {Client} from './client.model';
-import {ClientPopupService} from './client-popup.service';
-import {ClientService} from './client.service';
-import {PhoneNumber} from '../phone-number/phone-number.model';
-import {EnumAware} from '../receipt/doctypaware.decorator';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Client} from "./client.model";
+import {ClientPopupService} from "./client-popup.service";
+import {ClientService} from "./client.service";
+import {PhoneNumber} from "../phone-number/phone-number.model";
+import {EnumAware} from "../receipt/doctypaware.decorator";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
@@ -24,26 +25,14 @@ export class ClientDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
     public myForm: FormGroup; // our form model
+    languages: any[];
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private clientService: ClientService,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private formBuilder: FormBuilder) {
-        this.jhiLanguageService.setLocations(
-            [
-                'client',
-                'receipt',
-                'productEntry',
-                'address',
-                'phoneNumber',
-                'product',
-                'phoneType',
-                'receiptStatus',
-                'company'
-            ]
-        );
     }
 
     ngOnInit() {
@@ -82,6 +71,9 @@ export class ClientDialogComponent implements OnInit {
                 ])
             });
         }
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     initPhoneNumbers() {

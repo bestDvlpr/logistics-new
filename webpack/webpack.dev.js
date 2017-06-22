@@ -1,39 +1,42 @@
 const webpack = require('webpack');
-const path = require('path');
-const commonConfig = require('./webpack.common.js');
 const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const ENV = 'dev';
 const execSync = require('child_process').execSync;
 const fs = require('fs');
+const path = require('path');
+
+const commonConfig = require('./webpack.common.js');
+
 const ddlPath = './target/www/vendor.json';
+const ENV = 'dev';
 
 if (!fs.existsSync(ddlPath)) {
     execSync('webpack --config webpack/webpack.vendor.js');
 }
 
-module.exports = webpackMerge(commonConfig({env: ENV}), {
+module.exports = webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './target/www',
         proxy: [{
             context: [
+                /* jhipster-needle-add-entity-to-webpack - JHipster will add entity api paths here */
                 '/api',
                 '/management',
                 '/swagger-resources',
                 '/v2/api-docs',
                 '/h2-console'
             ],
-            target: 'http://127.0.0.1:8888',
+            target: 'http://127.0.0.1:8998',
             secure: false
         }]
     },
     output: {
-        path: path.resolve('target/www') ,
-        filename: '[name].bundle.js',
-        chunkFilename: '[id].chunk.js'
+        path: path.resolve('target/www'),
+        filename: 'app/[name].bundle.js',
+        chunkFilename: 'app/[id].chunk.js'
     },
     module: {
         rules: [{
@@ -48,10 +51,11 @@ module.exports = webpackMerge(commonConfig({env: ENV}), {
         new BrowserSyncPlugin({
             host: 'localhost',
             port: 9000,
-            proxy: 'http://localhost:9060',
-            browser: "google chrome"
+            proxy: {
+                target: 'http://localhost:9060'
+            }
         }, {
-            reload: true
+            reload: false
         }),
         new ExtractTextPlugin('styles.css'),
         new webpack.NoEmitOnErrorsPlugin(),

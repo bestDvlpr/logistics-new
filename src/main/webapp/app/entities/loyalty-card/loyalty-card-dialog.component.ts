@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { LoyaltyCard } from './loyalty-card.model';
-import { LoyaltyCardPopupService } from './loyalty-card-popup.service';
-import { LoyaltyCardService } from './loyalty-card.service';
+import {LoyaltyCard} from "./loyalty-card.model";
+import {LoyaltyCardPopupService} from "./loyalty-card-popup.service";
+import {LoyaltyCardService} from "./loyalty-card.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-loyalty-card-dialog',
     templateUrl: './loyalty-card-dialog.component.html'
@@ -17,25 +18,28 @@ export class LoyaltyCardDialogComponent implements OnInit {
     loyaltyCard: LoyaltyCard;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private loyaltyCardService: LoyaltyCardService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['loyaltyCard']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private loyaltyCardService: LoyaltyCardService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.loyaltyCard.id !== undefined) {
             this.loyaltyCardService.update(this.loyaltyCard)
@@ -46,18 +50,18 @@ export class LoyaltyCardDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: LoyaltyCard) {
-        this.eventManager.broadcast({ name: 'loyaltyCardListModification', content: 'OK'});
+    private onSaveSuccess(result: LoyaltyCard) {
+        this.eventManager.broadcast({name: 'loyaltyCardListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +75,13 @@ export class LoyaltyCardPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private loyaltyCardPopupService: LoyaltyCardPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private loyaltyCardPopupService: LoyaltyCardPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.loyaltyCardPopupService
                     .open(LoyaltyCardDialogComponent, params['id']);
             } else {

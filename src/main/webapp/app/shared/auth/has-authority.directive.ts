@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, Renderer, OnInit } from '@angular/core';
-import { Principal } from './principal.service';
+import {Directive, ElementRef, Input, OnInit, Renderer} from "@angular/core";
+import {Principal} from "./principal.service";
 
 @Directive({
     selector: '[jhiHasAuthority]'

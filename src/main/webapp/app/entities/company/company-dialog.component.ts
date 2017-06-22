@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {AlertService, EventManager, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import {Company} from './company.model';
-import {CompanyPopupService} from './company-popup.service';
-import {CompanyService} from './company.service';
-import {Address, AddressService} from '../address';
+import {Company} from "./company.model";
+import {CompanyPopupService} from "./company-popup.service";
+import {CompanyService} from "./company.service";
+import {Address, AddressService} from "../address";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-company-dialog',
     templateUrl: './company-dialog.component.html'
@@ -18,29 +19,15 @@ export class CompanyDialogComponent implements OnInit {
     company: Company;
     authorities: any[];
     isSaving: boolean;
-
     addresses: Address[];
+    languages: any[];
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private companyService: CompanyService,
                 private addressService: AddressService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(
-            [
-                'company',
-                'companyType',
-                'client',
-                'receipt',
-                'receiptStatus',
-                'docType',
-                'product',
-                'productEntry',
-                'address',
-                'phoneNumber'
-            ]
-        );
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -50,6 +37,9 @@ export class CompanyDialogComponent implements OnInit {
             (res: Address[]) => {
                 this.addresses = res;
             }, (res: Response) => this.onError(res.json()));
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     clear() {

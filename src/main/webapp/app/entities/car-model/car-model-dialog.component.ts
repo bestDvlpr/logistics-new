@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { CarModel } from './car-model.model';
-import { CarModelPopupService } from './car-model-popup.service';
-import { CarModelService } from './car-model.service';
+import {CarModel} from "./car-model.model";
+import {CarModelPopupService} from "./car-model-popup.service";
+import {CarModelService} from "./car-model.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-car-model-dialog',
     templateUrl: './car-model-dialog.component.html'
@@ -17,25 +18,28 @@ export class CarModelDialogComponent implements OnInit {
     carModel: CarModel;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private carModelService: CarModelService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['carModel']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private carModelService: CarModelService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.carModel.id !== undefined) {
             this.carModelService.update(this.carModel)
@@ -46,18 +50,18 @@ export class CarModelDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: CarModel) {
-        this.eventManager.broadcast({ name: 'carModelListModification', content: 'OK'});
+    private onSaveSuccess(result: CarModel) {
+        this.eventManager.broadcast({name: 'carModelListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +75,13 @@ export class CarModelPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private carModelPopupService: CarModelPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private carModelPopupService: CarModelPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.carModelPopupService
                     .open(CarModelDialogComponent, params['id']);
             } else {

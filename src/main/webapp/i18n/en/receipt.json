@@ -21,7 +21,7 @@
             },
             "cancel": {
                 "car":{
-                    "question": "\{{ id }}?"
+                    "question": "{{ id }}?"
                 }
             },
             "delivery": {

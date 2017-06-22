@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 import {Receipt} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {ProductEntry} from "../product-entry/product-entry.model";
@@ -10,6 +10,7 @@ import {Address} from "../address/address.model";
 import {Response} from "@angular/http";
 import {Car} from "../car/car.model";
 import {CarService} from "../car/car.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-product-to-car',
@@ -29,17 +30,15 @@ export class ReceiptProductToCarComponent implements OnInit {
     acObjects: string[];
     cars: Car[];
     selectedCarNumber: string;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private router: Router,
                 private carService: CarService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'productEntry', 'product', 'client', 'phoneNumber', 'address', 'car']
-        );
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -49,6 +48,9 @@ export class ReceiptProductToCarComponent implements OnInit {
         this.productEntries = this.dataHolderService._receipt.productEntries;
         this.checkProductCar();
         this.loadCars();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     /** Checks whether one of the receipt products has not been attached car */

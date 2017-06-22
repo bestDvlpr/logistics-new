@@ -65,39 +65,39 @@
                 <td>{{productEntry.price}}</td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}"
-                          class="tag tag-danger">
+                          class="badge badge-danger">
                         {{productEntry.deliveryFlag}}
                     </span>
                 </td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.SalesPlace.' + productEntry.hallFlag}}" class="tag tag-default">
+                    <span jhiTranslate="{{'logisticsApp.SalesPlace.' + productEntry.hallFlag}}" class="badge badge-default">
                         {{productEntry.hallFlag}}
                     </span>
                 </td>
                 <td>
                     <span jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}"
-                          class="tag tag-default">
+                          class="badge badge-default">
                         {{productEntry.virtualFlag}}
                     </span>
                 </td>
                 <td>{{productEntry.qty}}</td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-info"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-info"
                           *ngIf="productEntry.status === receiptStatusEnum.NEW">{{productEntry.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-primary"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-primary"
                           *ngIf="productEntry.status === receiptStatusEnum.APPLICATION_SENT">{{productEntry.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-warning"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-warning"
                           *ngIf="productEntry.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{productEntry.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-default"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-default"
                           *ngIf="productEntry.status === receiptStatusEnum.DELIVERY_PROCESS">{{productEntry.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-success"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-success"
                           *ngIf="productEntry.status === receiptStatusEnum.DELIVERED">
                         {{productEntry.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="tag tag-danger"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + productEntry.status}}" class="badge badge-danger"
                           *ngIf="productEntry.status === receiptStatusEnum.CANCELLED">
                         {{productEntry.status}}
                     </span>

@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { CarColor } from './car-color.model';
-import { CarColorPopupService } from './car-color-popup.service';
-import { CarColorService } from './car-color.service';
+import {CarColor} from "./car-color.model";
+import {CarColorPopupService} from "./car-color-popup.service";
+import {CarColorService} from "./car-color.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-car-color-dialog',
     templateUrl: './car-color-dialog.component.html'
@@ -17,25 +18,28 @@ export class CarColorDialogComponent implements OnInit {
     carColor: CarColor;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private carColorService: CarColorService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['carColor']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private carColorService: CarColorService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.carColor.id !== undefined) {
             this.carColorService.update(this.carColor)
@@ -46,18 +50,18 @@ export class CarColorDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: CarColor) {
-        this.eventManager.broadcast({ name: 'carColorListModification', content: 'OK'});
+    private onSaveSuccess(result: CarColor) {
+        this.eventManager.broadcast({name: 'carColorListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +75,13 @@ export class CarColorPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private carColorPopupService: CarColorPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private carColorPopupService: CarColorPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.carColorPopupService
                     .open(CarColorDialogComponent, params['id']);
             } else {

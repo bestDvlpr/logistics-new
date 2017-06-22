@@ -2,53 +2,45 @@
     <h2>
         <span jhiTranslate="logisticsApp.report.overallReport">Overall Report</span>
     </h2>
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form form-inline">
-                <div class="input-group">
-                    <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
-                    <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
-                           [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()" autocomplete="false"
-                           class="form-control" name="startTime">
-                    <div class="input-group-addon" (click)="from.toggle()"
-                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                        <span class="fa fa-calendar"></span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                    <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate" autocomplete="false"
-                           [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
-                           class="form-control" name="endTime">
-                    <div class="input-group-addon" (click)="to.toggle()"
-                         style="width: 1.2rem; height: 1rem; cursor: pointer;">
-                        <span class="fa fa-calendar"></span>
-                    </div>
-                </div>
-                <div class="input-group" *ngIf="companiesSource && companiesSource.length>0">
-                    <label class="input-group-addon" for="company" jhiTranslate="logisticsApp.company.detail.title">Company</label>
-                    <input id="company" class="form-control" auto-complete [source]="companiesSource"
-                           [(ngModel)]="selectedCompany" name="selectedCompany">
-                </div>
-                <div class="input-group" *ngIf="regionsSource && regionsSource.length>0">
-                    <label class="input-group-addon" for="region" jhiTranslate="logisticsApp.address.district">District</label>
-                    <input id="region" class="form-control" auto-complete [source]="regionsSource"
-                           [(ngModel)]="selectedRegion" name="selectedRegion">
-                </div>
-                <div class="input-group">
-                    <button class="btn btn-primary btn-block form-control" (click)="getGenericReport()">
-                        <span class="fa fa-search"></span>
-                    </button>
-                </div>
-                <div class="input-group">
-                    <button class="btn btn-success btn-block form-control" (click)="exportGenericReport()">
-                        <span jhiTranslate="entity.action.export"></span>
-                        <span class="fa fa-table"></span>
-                    </button>
-                </div>
-            </form>
+    <form class="form-inline">
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
+            <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
+                   [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
+                   autocomplete="off"
+                   class="form-control" name="startTime">
+            <span class="fa fa-calendar input-group-addon" (click)="from.toggle()"></span>
         </div>
-    </div>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
+            <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
+                   autocomplete="off"
+                   [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
+                   class="form-control" name="endTime">
+            <span class="fa fa-calendar input-group-addon" (click)="to.toggle()"></span>
+        </div>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0" *ngIf="companiesSource && companiesSource.length>0">
+            <label class="input-group-addon" for="company"
+                   jhiTranslate="logisticsApp.company.detail.title">Company</label>
+            <input id="company" class="form-control" auto-complete [source]="companiesSource" autocomplete="off"
+                   [(ngModel)]="selectedCompany" name="selectedCompany" style="width: 100%">
+        </div>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0" *ngIf="regionsSource && regionsSource.length>0">
+            <label class="input-group-addon" for="region"
+                   jhiTranslate="logisticsApp.address.district">District</label>
+            <input id="region" class="form-control" auto-complete [source]="regionsSource" autocomplete="off"
+                   [(ngModel)]="selectedRegion" name="selectedRegion" style="width: 100%">
+        </div>
+        <button class="btn btn-primary form-control mb-2 mr-sm-2 mb-sm-0" (click)="getGenericReport()">
+            <span jhiTranslate="global.form.search">Search</span>
+            <span class="fa fa-search"></span>
+        </button>
+        <button class="btn btn-success form-control mb-2 mr-sm-2 mb-sm-0" (click)="exportGenericReport()">
+            <span jhiTranslate="entity.action.export"></span>
+            <span class="fa fa-sign-out"></span>
+            <span class="fa fa-table"></span>
+        </button>
+    </form>
     <div class="row">
         <div class="col-md-12">
             &nbsp;
@@ -83,7 +75,7 @@
                 <td>{{report.productName}}</td>
                 <td>{{report.docDate}}</td>
                 <td>
-                    <span class="tag tag-default" jhiTranslate="{{'logisticsApp.DocType.' + report.docType}}">
+                    <span class="badge badge-default" jhiTranslate="{{'logisticsApp.DocType.' + report.docType}}">
                         {{report.docType}}
                     </span>
                 </td>
@@ -105,7 +97,8 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

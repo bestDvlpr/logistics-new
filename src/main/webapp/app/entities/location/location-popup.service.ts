@@ -1,8 +1,8 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Location } from './location.model';
-import { LocationService } from './location.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {Location} from "./location.model";
+import {LocationService} from "./location.service";
 @Injectable()
 export class LocationPopupService {
     private isOpen = false;

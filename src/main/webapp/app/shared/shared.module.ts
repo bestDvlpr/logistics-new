@@ -1,23 +1,20 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {DatePipe} from "@angular/common";
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
-    LogisticsSharedLibsModule,
-    LogisticsSharedCommonModule,
-    CSRFService,
-    AuthService,
-    AuthServerProvider,
     AccountService,
-    UserService,
-    StateStorageService,
-    LoginService,
-    LoginModalService,
-    Principal,
-    HasAuthorityDirective,
+    AuthServerProvider,
+    CSRFService,
     HasAnyAuthorityDirective,
-    JhiLoginModalComponent
-} from './';
+    JhiLoginModalComponent,
+    LoginModalService,
+    LoginService,
+    LogisticsSharedCommonModule,
+    LogisticsSharedLibsModule,
+    Principal,
+    StateStorageService,
+    UserService
+} from "./";
 
 @NgModule({
     imports: [
@@ -26,11 +23,9 @@ import {
     ],
     declarations: [
         JhiLoginModalComponent,
-        HasAuthorityDirective,
         HasAnyAuthorityDirective
     ],
     providers: [
-        CookieService,
         LoginService,
         LoginModalService,
         AccountService,
@@ -38,7 +33,6 @@ import {
         Principal,
         CSRFService,
         AuthServerProvider,
-        AuthService,
         UserService,
         DatePipe
     ],
@@ -46,7 +40,6 @@ import {
     exports: [
         LogisticsSharedCommonModule,
         JhiLoginModalComponent,
-        HasAuthorityDirective,
         HasAnyAuthorityDirective,
         DatePipe
     ],

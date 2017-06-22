@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    XmlHolderService,
-    XmlHolderPopupService,
     XmlHolderComponent,
+    XmlHolderDeleteDialogComponent,
+    XmlHolderDeletePopupComponent,
     XmlHolderDetailComponent,
     XmlHolderDialogComponent,
     XmlHolderPopupComponent,
-    XmlHolderDeletePopupComponent,
-    XmlHolderDeleteDialogComponent,
-    xmlHolderRoute,
     xmlHolderPopupRoute,
+    XmlHolderPopupService,
     XmlHolderResolvePagingParams,
-} from './';
+    xmlHolderRoute,
+    XmlHolderService
+} from "./";
 
 let ENTITY_STATES = [
     ...xmlHolderRoute,

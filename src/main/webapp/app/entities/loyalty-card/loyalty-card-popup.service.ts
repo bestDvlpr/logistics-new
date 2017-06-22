@@ -1,8 +1,8 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { LoyaltyCard } from './loyalty-card.model';
-import { LoyaltyCardService } from './loyalty-card.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {LoyaltyCard} from "./loyalty-card.model";
+import {LoyaltyCardService} from "./loyalty-card.service";
 @Injectable()
 export class LoyaltyCardPopupService {
     private isOpen = false;

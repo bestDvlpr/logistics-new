@@ -1,11 +1,12 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AlertService, JhiLanguageService} from 'ng-jhipster';
-import {Receipt, ReceiptStatus} from './receipt.model';
-import {ReceiptService} from './receipt.service';
-import {Response} from '@angular/http';
-import {DataHolderService} from './data-holder.service';
-import {EnumAware} from './doctypaware.decorator';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {JhiAlertService} from "ng-jhipster";
+import {Receipt, ReceiptStatus} from "./receipt.model";
+import {ReceiptService} from "./receipt.service";
+import {Response} from "@angular/http";
+import {DataHolderService} from "./data-holder.service";
+import {EnumAware} from "./doctypaware.decorator";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-detail',
@@ -19,21 +20,22 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     deliveredTime: any;
     deliveredDate: any;
     receiptStatusEnum = ReceiptStatus;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
                 private router: Router,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private dataHolderService: DataHolderService,
                 private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(
-            ['receipt', 'product', 'productEntry', 'address', 'client', 'docType', 'wholeSaleFlag', 'receiptStatus']
-        );
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
+        });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
         });
     }
 

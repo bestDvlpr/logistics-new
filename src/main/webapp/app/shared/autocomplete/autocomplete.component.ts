@@ -1,6 +1,6 @@
-import {ElementRef, Component, OnInit} from '@angular/core';
-import {DataHolderService} from '../../entities/receipt/data-holder.service';
-import {ACElement} from './element.model';
+import {Component, ElementRef} from "@angular/core";
+import {DataHolderService} from "../../entities/receipt/data-holder.service";
+import {ACElement} from "./element.model";
 import {ControlValueAccessor} from "@angular/forms";
 @Component({
     selector: 'jhi-autocomplete',

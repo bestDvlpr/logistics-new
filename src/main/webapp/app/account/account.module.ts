@@ -1,23 +1,23 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../shared';
+import {LogisticsSharedModule} from "../shared";
 
 import {
-    Register,
-    Activate,
-    Password,
-    PasswordResetInit,
-    PasswordResetFinish,
-    PasswordStrengthBarComponent,
-    RegisterComponent,
+    accountState,
     ActivateComponent,
+    ActivateService,
     PasswordComponent,
-    PasswordResetInitComponent,
     PasswordResetFinishComponent,
-    SettingsComponent,
-    accountState
-} from './';
+    PasswordResetFinishService,
+    PasswordResetInitComponent,
+    PasswordResetInitService,
+    PasswordService,
+    PasswordStrengthBarComponent,
+    Register,
+    RegisterComponent,
+    SettingsComponent
+} from "./";
 
 @NgModule({
     imports: [
@@ -35,10 +35,10 @@ import {
     ],
     providers: [
         Register,
-        Activate,
-        Password,
-        PasswordResetInit,
-        PasswordResetFinish
+        ActivateService,
+        PasswordService,
+        PasswordResetInitService,
+        PasswordResetFinishService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

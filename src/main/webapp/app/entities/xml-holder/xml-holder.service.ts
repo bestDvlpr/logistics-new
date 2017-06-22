@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from "@angular/core";
+import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 
-import { XmlHolder } from './xml-holder.model';
-import { DateUtils } from 'ng-jhipster';
+import {XmlHolder} from "./xml-holder.model";
+import {JhiDateUtils} from "ng-jhipster";
 @Injectable()
 export class XmlHolderService {
 
     private resourceUrl = 'api/xml-holders';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(xmlHolder: XmlHolder): Observable<XmlHolder> {
         let copy: XmlHolder = Object.assign({}, xmlHolder);

@@ -1,8 +1,8 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { PhoneNumber } from './phone-number.model';
-import { PhoneNumberService } from './phone-number.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {PhoneNumber} from "./phone-number.model";
+import {PhoneNumberService} from "./phone-number.service";
 @Injectable()
 export class PhoneNumberPopupService {
     private isOpen = false;

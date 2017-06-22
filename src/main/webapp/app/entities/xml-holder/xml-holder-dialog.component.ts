@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import { XmlHolder } from './xml-holder.model';
-import { XmlHolderPopupService } from './xml-holder-popup.service';
-import { XmlHolderService } from './xml-holder.service';
+import {XmlHolder} from "./xml-holder.model";
+import {XmlHolderPopupService} from "./xml-holder-popup.service";
+import {XmlHolderService} from "./xml-holder.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-xml-holder-dialog',
     templateUrl: './xml-holder-dialog.component.html'
@@ -17,25 +18,28 @@ export class XmlHolderDialogComponent implements OnInit {
     xmlHolder: XmlHolder;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private xmlHolderService: XmlHolderService,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['xmlHolder']);
+    languages: any[];
+
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private xmlHolderService: XmlHolderService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.xmlHolder.id !== undefined) {
             this.xmlHolderService.update(this.xmlHolder)
@@ -46,18 +50,18 @@ export class XmlHolderDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: XmlHolder) {
-        this.eventManager.broadcast({ name: 'xmlHolderListModification', content: 'OK'});
+    private onSaveSuccess(result: XmlHolder) {
+        this.eventManager.broadcast({name: 'xmlHolderListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -71,14 +75,13 @@ export class XmlHolderPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private xmlHolderPopupService: XmlHolderPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private xmlHolderPopupService: XmlHolderPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.xmlHolderPopupService
                     .open(XmlHolderDialogComponent, params['id']);
             } else {

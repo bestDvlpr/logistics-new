@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {JhiLanguageService, AlertService, EventManager} from 'ng-jhipster';
-import {Receipt} from './receipt.model';
-import {ProductEntry} from '../product-entry/product-entry.model';
-import {Client} from '../client/client.model';
-import {DataHolderService} from './data-holder.service';
-import {TranslateService} from 'ng2-translate';
-import {Router} from '@angular/router';
-import {ClientService} from '../client/client.service';
-import {Subscription} from 'rxjs/Rx';
-import {DatePipe} from '@angular/common';
+import {Component, OnInit} from "@angular/core";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {Receipt} from "./receipt.model";
+import {ProductEntry} from "../product-entry/product-entry.model";
+import {Client} from "../client/client.model";
+import {DataHolderService} from "./data-holder.service";
+import {TranslateService} from "ng2-translate";
+import {Router} from "@angular/router";
+import {ClientService} from "../client/client.service";
+import {Subscription} from "rxjs/Rx";
+import {DatePipe} from "@angular/common";
 import {Company} from "../company/company.model";
 import {CompanyService} from "../company/company.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-send-address',
@@ -24,31 +25,17 @@ export class ReceiptSendAddressComponent implements OnInit {
     productEntries: ProductEntry[];
     addressSelected: number;
     eventSubscriber: Subscription;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+    constructor(private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private translateService: TranslateService,
                 public dataHolderService: DataHolderService,
                 private clientService: ClientService,
                 private companyService: CompanyService,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private router: Router,
                 private datePipe: DatePipe) {
-        this.jhiLanguageService.setLocations(
-            [
-                'receipt',
-                'docType',
-                'wholeSaleFlag',
-                'productEntry',
-                'product',
-                'client',
-                'phoneNumber',
-                'address',
-                'receiptStatus',
-                'salesType',
-                'car'
-            ]
-        );
     }
 
     ngOnInit() {
@@ -56,6 +43,9 @@ export class ReceiptSendAddressComponent implements OnInit {
         this.client = this.dataHolderService._client;
         this.company = this.dataHolderService._company;
         this.registerChangeInAddresses();
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     previousState() {
@@ -86,7 +76,7 @@ export class ReceiptSendAddressComponent implements OnInit {
                 this.receipt.addresses = [];
             }
             this.receipt.addresses.push(this.addressSelected);
-            this.receipt.receiver=this.company;
+            this.receipt.receiver = this.company;
             this.dataHolderService._client = this.client;
             this.dataHolderService._company = this.company;
             this.dataHolderService._receipt = this.receipt;
@@ -96,10 +86,10 @@ export class ReceiptSendAddressComponent implements OnInit {
     }
 
     registerChangeInAddresses() {
-        if (this.client!==null && this.client.id!==null){
+        if (this.client !== null && this.client.id !== null) {
             this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadClient());
         }
-        if (this.company!==null && this.company.id!==null){
+        if (this.company !== null && this.company.id !== null) {
             this.eventSubscriber = this.eventManager.subscribe('addressListModification', (response) => this.reloadCompany());
         }
     }

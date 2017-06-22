@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService, JhiLanguageService, ParseLinks} from "ng-jhipster";
+import {JhiAlertService, JhiParseLinks} from "ng-jhipster";
 import {Client} from "./client.model";
 import {ClientService} from "./client.service";
 import {ReceiptService} from "../receipt/receipt.service";
 import {Response} from "@angular/http";
 import {DocType, Receipt, ReceiptStatus} from "../receipt/receipt.model";
 import {EnumAware} from "../receipt/doctypaware.decorator";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-client-detail',
@@ -30,17 +31,16 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     docTypeEnum = DocType;
     links: any;
     receipts: Receipt[];
-    isDCEmployee = false;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private clientService: ClientService,
                 private route: ActivatedRoute,
-                private parseLinks: ParseLinks,
+                private parseLinks: JhiParseLinks,
                 private activatedRoute: ActivatedRoute,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private receiptService: ReceiptService,
                 private router: Router) {
-        this.jhiLanguageService.setLocations(['client', 'receipt', 'receiptStatus', 'docType', 'address']);
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
@@ -53,6 +53,9 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
             this.loadSalesHistory(params['id']);
+        });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
         });
     }
 

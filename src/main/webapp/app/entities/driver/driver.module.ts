@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import { LogisticsSharedModule } from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    DriverService,
-    DriverPopupService,
     DriverComponent,
+    DriverDeleteDialogComponent,
+    DriverDeletePopupComponent,
     DriverDetailComponent,
     DriverDialogComponent,
     DriverPopupComponent,
-    DriverDeletePopupComponent,
-    DriverDeleteDialogComponent,
-    driverRoute,
     driverPopupRoute,
+    DriverPopupService,
     DriverResolvePagingParams,
-} from './';
+    driverRoute,
+    DriverService
+} from "./";
 
 let ENTITY_STATES = [
     ...driverRoute,

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component} from "@angular/core";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
-import { JhiHealthService } from './health.service';
+import {JhiHealthService} from "./health.service";
 
 @Component({
     selector: 'jhi-health-modal',
@@ -27,7 +27,7 @@ export class JhiHealthModalComponent {
         }
 
         // Should display storage space in an human readable unit
-        let val = value / 1073741824;
+        const val = value / 1073741824;
         if (val > 1) { // Value
             return val.toFixed(2) + ' GB';
         } else {

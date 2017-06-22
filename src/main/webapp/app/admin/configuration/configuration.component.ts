@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
+import {Component, OnInit} from "@angular/core";
 
-import { JhiConfigurationService } from './configuration.service';
+import {JhiConfigurationService} from "./configuration.service";
 
 @Component({
     selector: 'jhi-configuration',
@@ -16,10 +15,8 @@ export class JhiConfigurationComponent implements OnInit {
     reverse: boolean;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private configurationService: JhiConfigurationService
     ) {
-        this.jhiLanguageService.setLocations(['configuration']);
         this.configKeys = [];
         this.filter = '';
         this.orderProp = 'prefix';
@@ -34,7 +31,7 @@ export class JhiConfigurationComponent implements OnInit {
         this.configurationService.get().subscribe((configuration) => {
             this.configuration = configuration;
 
-            for (let config of configuration) {
+            for (const config of configuration) {
                 if (config.properties !== undefined) {
                     this.configKeys.push(Object.keys(config.properties));
                 }

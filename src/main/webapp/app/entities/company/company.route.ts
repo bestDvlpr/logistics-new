@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
 
-import {Principal, UserRouteAccessService} from "../../shared";
-import {PaginationUtil} from "ng-jhipster";
+import {Principal} from "../../shared";
+import {JhiPaginationUtil} from "ng-jhipster";
 
 import {CompanyComponent} from "./company.component";
 import {CompanyDetailComponent} from "./company-detail.component";
@@ -30,7 +30,7 @@ export class CompanyResolve implements CanActivate {
 @Injectable()
 export class CompanyResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

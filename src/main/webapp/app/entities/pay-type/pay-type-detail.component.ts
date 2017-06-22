@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { PayType } from './pay-type.model';
-import { PayTypeService } from './pay-type.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {PayType} from "./pay-type.model";
+import {PayTypeService} from "./pay-type.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-pay-type-detail',
@@ -12,26 +12,28 @@ export class PayTypeDetailComponent implements OnInit, OnDestroy {
 
     payType: PayType;
     private subscription: any;
+    languages: any[];
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private payTypeService: PayTypeService,
-        private route: ActivatedRoute
-    ) {
-        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
+    constructor(private languageHelper: JhiLanguageHelper,
+                private payTypeService: PayTypeService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    load (id) {
+    load(id) {
         this.payTypeService.find(id).subscribe(payType => {
             this.payType = payType;
         });
     }
+
     previousState() {
         window.history.back();
     }

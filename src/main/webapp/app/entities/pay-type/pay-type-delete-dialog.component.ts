@@ -1,35 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
-import { PayType } from './pay-type.model';
-import { PayTypePopupService } from './pay-type-popup.service';
-import { PayTypeService } from './pay-type.service';
+import {PayType} from "./pay-type.model";
+import {PayTypePopupService} from "./pay-type-popup.service";
+import {PayTypeService} from "./pay-type.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-pay-type-delete-dialog',
     templateUrl: './pay-type-delete-dialog.component.html'
 })
-export class PayTypeDeleteDialogComponent {
-
-    payType: PayType;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private payTypeService: PayTypeService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
+export class PayTypeDeleteDialogComponent implements OnInit {
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    clear () {
+    payType: PayType;
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper,
+                private payTypeService: PayTypeService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
+    }
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.payTypeService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'payTypeListModification',
@@ -49,10 +53,9 @@ export class PayTypeDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private payTypePopupService: PayTypePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private payTypePopupService: PayTypePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

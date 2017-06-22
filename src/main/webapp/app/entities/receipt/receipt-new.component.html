@@ -35,22 +35,22 @@
                 <td>{{receipt.id}}</td>
                 <td>{{receipt.docDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td>
-                    <span class="tag tag-primary"
+                    <span class="badge badge-primary"
                           jhiTranslate="{{'logisticsApp.WholeSaleFlag.' + receipt.wholeSaleFlag}}">
                     {{receipt.wholeSaleFlag}}
                     </span>
                 </td>
                 <td>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-info"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-info"
                           *ngIf="receipt.status === receiptStatusEnum.NEW">{{receipt.status}}
                     </span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-primary"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-primary"
                           *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-warning"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-warning"
                           *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-default"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-default"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}</span>
-                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="tag tag-success"
+                    <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-success"
                           *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
                         <span class="fa fa-check-circle"></span>
                         {{receipt.status}}

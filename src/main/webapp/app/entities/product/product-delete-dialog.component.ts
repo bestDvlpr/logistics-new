@@ -1,28 +1,34 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
-import { Product } from './product.model';
-import { ProductPopupService } from './product-popup.service';
-import { ProductService } from './product.service';
+import {Product} from "./product.model";
+import {ProductPopupService} from "./product-popup.service";
+import {ProductService} from "./product.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-product-delete-dialog',
     templateUrl: './product-delete-dialog.component.html'
 })
-export class ProductDeleteDialogComponent {
+export class ProductDeleteDialogComponent implements OnInit{
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
+    }
 
     product: Product;
+    languages: any[];
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
         private productService: ProductService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['product']);
     }
 
     clear () {

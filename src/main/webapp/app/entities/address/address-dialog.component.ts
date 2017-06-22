@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Response} from "@angular/http";
 
 import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {AlertService, EventManager, JhiLanguageService} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
 import {Address} from "./address.model";
 import {AddressPopupService} from "./address-popup.service";
@@ -14,6 +14,7 @@ import {Receipt, ReceiptService} from "../receipt";
 import {DataHolderService} from "../receipt/data-holder.service";
 import {EnumAware} from "../receipt/doctypaware.decorator";
 import {LocationType} from "../location/location.model";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
@@ -31,30 +32,17 @@ export class AddressDialogComponent implements OnInit {
     receipts: Receipt[];
     locations: Location[];
     locationTypeEnum = LocationType;
+    languages: any[];
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private addressService: AddressService,
                 private locationService: LocationService,
                 private clientService: ClientService,
                 private receiptService: ReceiptService,
                 public dataHolderService: DataHolderService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(
-            [
-                'address',
-                'phoneNumber',
-                'receipt',
-                'productEntry',
-                'address',
-                'client',
-                'product',
-                'receiptStatus',
-                'company',
-                'companyType'
-            ]
-        );
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -78,6 +66,9 @@ export class AddressDialogComponent implements OnInit {
             (res: Receipt[]) => {
                 this.receipts = res;
             }, (res: Response) => this.onError(res.json()));
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     setCountries() {

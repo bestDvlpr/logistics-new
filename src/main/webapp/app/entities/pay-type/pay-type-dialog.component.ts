@@ -1,14 +1,15 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Response} from "@angular/http";
 
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {EventManager, AlertService, JhiLanguageService} from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiAlertService, JhiEventManager} from "ng-jhipster";
 
-import {PayType} from './pay-type.model';
-import {PayTypePopupService} from './pay-type-popup.service';
-import {PayTypeService} from './pay-type.service';
-import {Receipt, ReceiptService} from '../receipt';
+import {PayType} from "./pay-type.model";
+import {PayTypePopupService} from "./pay-type-popup.service";
+import {PayTypeService} from "./pay-type.service";
+import {Receipt, ReceiptService} from "../receipt";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 @Component({
     selector: 'jhi-pay-type-dialog',
     templateUrl: './pay-type-dialog.component.html'
@@ -18,16 +19,15 @@ export class PayTypeDialogComponent implements OnInit {
     payType: PayType;
     authorities: any[];
     isSaving: boolean;
-
     receipts: Receipt[];
+    languages: any[];
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
                 private payTypeService: PayTypeService,
                 private receiptService: ReceiptService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['payType', 'paymentType']);
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -37,6 +37,9 @@ export class PayTypeDialogComponent implements OnInit {
             (res: Receipt[]) => {
                 this.receipts = res;
             }, (res: Response) => this.onError(res.json()));
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     clear() {

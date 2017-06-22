@@ -58,7 +58,7 @@ BEGIN
                      coalesce(TO_CHAR(r.delivered_time, 'DD-MM-YYYY HH24:MM:SS') :: CHARACTER VARYING,
                               '')             AS deliveredTime,
                      coalesce(
-                         to_char(r.delivered_time - to_timestamp(r.doc_date / 1000), 'HH24:MM:SS') :: CHARACTER VARYING,
+                         to_char(r.delivered_time - to_timestamp(r.doc_date / 1000), 'DD-MM-YYYY HH24:MM:SS') :: CHARACTER VARYING,
                          '')                  AS deliveryTookTime,
                      coalesce(r.company_id,
                               0)              AS companyId

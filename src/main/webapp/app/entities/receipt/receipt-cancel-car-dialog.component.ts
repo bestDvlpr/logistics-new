@@ -1,31 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
 
-import { Receipt } from './receipt.model';
-import { ReceiptPopupService } from './receipt-popup.service';
-import { ReceiptService } from './receipt.service';
+import {Receipt} from "./receipt.model";
+import {ReceiptPopupService} from "./receipt-popup.service";
+import {ReceiptService} from "./receipt.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt-cancel-car-dialog',
     templateUrl: './receipt-cancel-car-dialog.component.html'
 })
-export class ReceiptCancelCarDialogComponent {
-
-    receipt: Receipt;
-
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private receiptService: ReceiptService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
-        this.jhiLanguageService.setLocations(['receipt', 'docType', 'address', 'wholeSaleFlag', 'receiptStatus']);
+export class ReceiptCancelCarDialogComponent implements OnInit {
+    ngOnInit(): void {
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
-    clear () {
+    receipt: Receipt;
+    languages: any[];
+
+    constructor(private languageHelper: JhiLanguageHelper,
+                private receiptService: ReceiptService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
+    }
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
@@ -46,10 +50,9 @@ export class ReceiptCancelCarPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private receiptPopupService: ReceiptPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private receiptPopupService: ReceiptPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

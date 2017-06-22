@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import {Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
+import {JhiPaginationUtil} from "ng-jhipster";
 
-import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
-
-import { CarColorComponent } from './car-color.component';
-import { CarColorDetailComponent } from './car-color-detail.component';
-import { CarColorPopupComponent } from './car-color-dialog.component';
-import { CarColorDeletePopupComponent } from './car-color-delete-dialog.component';
-
-import { Principal } from '../../shared';
+import {CarColorComponent} from "./car-color.component";
+import {CarColorDetailComponent} from "./car-color-detail.component";
+import {CarColorPopupComponent} from "./car-color-dialog.component";
+import {CarColorDeletePopupComponent} from "./car-color-delete-dialog.component";
 
 @Injectable()
 export class CarColorResolvePagingParams implements Resolve<any> {
 
-  constructor(private paginationUtil: PaginationUtil) {}
+  constructor(private paginationUtil: JhiPaginationUtil) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       let page = route.queryParams['page'] ? route.queryParams['page'] : '1';

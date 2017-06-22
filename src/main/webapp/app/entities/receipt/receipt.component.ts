@@ -2,18 +2,18 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Response} from "@angular/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Rx";
-import {AlertService, EventManager, JhiLanguageService, ParseLinks} from "ng-jhipster";
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
 
 import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
 import {ReceiptService} from "./receipt.service";
 import {ITEMS_PER_PAGE, Principal} from "../../shared";
 import {EnumAware} from "./doctypaware.decorator";
 import {DataHolderService} from "./data-holder.service";
-import {CarService} from "../car/car.service";
 import {isUndefined} from "util";
 import {ProductEntryService} from "../product-entry/product-entry.service";
 import * as FileSaver from "file-saver";
 import {UploadService} from "./upload.service";
+import {JhiLanguageHelper} from "../../shared/language/language.helper";
 
 @Component({
     selector: 'jhi-receipt',
@@ -45,16 +45,17 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     receiptFile: any;
     isWarehouseUser = false;
     receipt: Receipt;
+    languages: any[];
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private uploadService: UploadService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
+                private eventManager: JhiEventManager,
                 private dataHolderService: DataHolderService,
                 private productEntryService: ProductEntryService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -64,9 +65,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(
-            ['receipt', 'docType', 'wholeSaleFlag', 'receiptStatus', 'car', 'address', 'companyType']
-        );
     }
 
     loadAccepted() {
@@ -78,6 +76,10 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
+
+        this.languageHelper.getAll().then((languages) => {
+            this.languages = languages;
+        });
     }
 
     loadAll() {

@@ -1,38 +1,38 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
 
-import {LogisticsSharedModule} from '../../shared';
+import {LogisticsSharedModule} from "../../shared";
 
 import {
-    ReceiptService,
-    UploadService,
-    ReceiptPopupService,
-    DataHolderService,
-    ReceiptComponent,
-    ReceiptDetailComponent,
-    ReceiptDialogComponent,
-    ReceiptPopupComponent,
-    ReceiptDeletePopupComponent,
-    ReceiptDeleteDialogComponent,
-    ReceiptCancelCarPopupComponent,
-    ReceiptCancelCarDialogComponent,
-    receiptRoute,
-    receiptPopupRoute,
-    ReceiptResolvePagingParams,
-    ReceiptSendClientComponent,
-    ReceiptSendProductComponent,
     CollapsedReceiptComponent,
-    ReceiptNewComponent,
+    DataHolderService,
     ReceiptAppliedComponent,
-    ReceiptProductToCarComponent,
-    ReceiptSendAddressComponent,
     ReceiptArchivedComponent,
+    ReceiptCancelCarDialogComponent,
+    ReceiptCancelCarPopupComponent,
+    ReceiptComponent,
+    ReceiptCorporateComponent,
+    ReceiptCreditComponent,
+    ReceiptDeleteDialogComponent,
+    ReceiptDeletePopupComponent,
     ReceiptDeliveryDialogComponent,
     ReceiptDeliveryPopupComponent,
-    ReceiptCreditComponent,
-    ReceiptCorporateComponent,
-} from './';
-import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
+    ReceiptDetailComponent,
+    ReceiptDialogComponent,
+    ReceiptNewComponent,
+    ReceiptPopupComponent,
+    receiptPopupRoute,
+    ReceiptPopupService,
+    ReceiptProductToCarComponent,
+    ReceiptResolvePagingParams,
+    receiptRoute,
+    ReceiptSendAddressComponent,
+    ReceiptSendClientComponent,
+    ReceiptSendProductComponent,
+    ReceiptService,
+    UploadService
+} from "./";
+import {AutocompleteModule} from "../../shared/autocomplete/autocomplete.module";
 import {NguiAutoCompleteModule} from "@ngui/auto-complete";
 
 let ENTITY_STATES = [

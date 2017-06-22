@@ -129,7 +129,8 @@
         },
         "ribbon": {
             "dev":"Разработка"
-        }
+        },
+        "item-count": "Видно {{first}} - {{second}} от {{total}} элементов."
     },
     "entity": {
         "action": {

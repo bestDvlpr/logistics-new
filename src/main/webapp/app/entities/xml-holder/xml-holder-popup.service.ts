@@ -1,9 +1,9 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
-import { XmlHolder } from './xml-holder.model';
-import { XmlHolderService } from './xml-holder.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {DatePipe} from "@angular/common";
+import {XmlHolder} from "./xml-holder.model";
+import {XmlHolderService} from "./xml-holder.service";
 @Injectable()
 export class XmlHolderPopupService {
     private isOpen = false;

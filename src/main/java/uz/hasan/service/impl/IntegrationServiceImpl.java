@@ -13,7 +13,6 @@ import uz.hasan.service.dto.IntegrateDTO;
 import uz.hasan.service.dto.PaymentIntegrate;
 import uz.hasan.service.dto.ProductIntegrate;
 
-import javax.inject.Inject;
 import javax.xml.bind.ValidationException;
 import java.time.LocalDate;
 import java.util.List;
@@ -25,32 +24,35 @@ public class IntegrationServiceImpl implements IntegrationService {
 
     private final Logger log = LoggerFactory.getLogger(IntegrationServiceImpl.class);
 
+    private final ReceiptRepository receiptRepository;
 
-    @Inject
-    private ReceiptRepository receiptRepository;
+    private final PayMasterRepository payMasterRepository;
 
-    @Inject
-    private PayMasterRepository payMasterRepository;
+    private final LoyaltyCardRepository loyaltyCardRepository;
 
-    @Inject
-    private LoyaltyCardRepository loyaltyCardRepository;
+    private final ProductEntryRepository productEntryRepository;
 
-    @Inject
-    private ProductEntryRepository productEntryRepository;
+    private final ProductRepository productRepository;
 
-    @Inject
-    private ProductRepository productRepository;
+    private final SellerRepository sellerRepository;
 
-    @Inject
-    private SellerRepository sellerRepository;
+    private final PayTypeRepository payTypeRepository;
 
-    @Inject
-    private PayTypeRepository payTypeRepository;
+    private final ShopRepository shopRepository;
 
-    @Inject
-    private ShopRepository shopRepository;
-    @Inject
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
+
+    public IntegrationServiceImpl(ReceiptRepository receiptRepository, PayMasterRepository payMasterRepository, LoyaltyCardRepository loyaltyCardRepository, ProductEntryRepository productEntryRepository, ProductRepository productRepository, SellerRepository sellerRepository, PayTypeRepository payTypeRepository, ShopRepository shopRepository, CompanyRepository companyRepository) {
+        this.receiptRepository = receiptRepository;
+        this.payMasterRepository = payMasterRepository;
+        this.loyaltyCardRepository = loyaltyCardRepository;
+        this.productEntryRepository = productEntryRepository;
+        this.productRepository = productRepository;
+        this.sellerRepository = sellerRepository;
+        this.payTypeRepository = payTypeRepository;
+        this.shopRepository = shopRepository;
+        this.companyRepository = companyRepository;
+    }
 
     @Override
     public Boolean integrate(List<IntegrateDTO> integrateDTOS) {

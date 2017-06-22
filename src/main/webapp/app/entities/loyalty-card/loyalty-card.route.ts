@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import {Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
+import {JhiPaginationUtil} from "ng-jhipster";
 
-import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
-
-import { LoyaltyCardComponent } from './loyalty-card.component';
-import { LoyaltyCardDetailComponent } from './loyalty-card-detail.component';
-import { LoyaltyCardPopupComponent } from './loyalty-card-dialog.component';
-import { LoyaltyCardDeletePopupComponent } from './loyalty-card-delete-dialog.component';
-
-import { Principal } from '../../shared';
+import {LoyaltyCardComponent} from "./loyalty-card.component";
+import {LoyaltyCardDetailComponent} from "./loyalty-card-detail.component";
+import {LoyaltyCardPopupComponent} from "./loyalty-card-dialog.component";
+import {LoyaltyCardDeletePopupComponent} from "./loyalty-card-delete-dialog.component";
 
 @Injectable()
 export class LoyaltyCardResolvePagingParams implements Resolve<any> {
 
-  constructor(private paginationUtil: PaginationUtil) {}
+  constructor(private paginationUtil: JhiPaginationUtil) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       let page = route.queryParams['page'] ? route.queryParams['page'] : '1';

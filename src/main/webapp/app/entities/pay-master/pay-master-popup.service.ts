@@ -1,8 +1,8 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { PayMaster } from './pay-master.model';
-import { PayMasterService } from './pay-master.service';
+import {Component, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {PayMaster} from "./pay-master.model";
+import {PayMasterService} from "./pay-master.service";
 @Injectable()
 export class PayMasterPopupService {
     private isOpen = false;

@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import {Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
+import {JhiPaginationUtil} from "ng-jhipster";
 
-import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
-
-import { PayMasterComponent } from './pay-master.component';
-import { PayMasterDetailComponent } from './pay-master-detail.component';
-import { PayMasterPopupComponent } from './pay-master-dialog.component';
-import { PayMasterDeletePopupComponent } from './pay-master-delete-dialog.component';
-
-import { Principal } from '../../shared';
+import {PayMasterComponent} from "./pay-master.component";
+import {PayMasterDetailComponent} from "./pay-master-detail.component";
+import {PayMasterPopupComponent} from "./pay-master-dialog.component";
+import {PayMasterDeletePopupComponent} from "./pay-master-delete-dialog.component";
 
 @Injectable()
 export class PayMasterResolvePagingParams implements Resolve<any> {
 
-  constructor(private paginationUtil: PaginationUtil) {}
+  constructor(private paginationUtil: JhiPaginationUtil) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
