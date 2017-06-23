@@ -16,6 +16,7 @@ import * as FileSaver from "file-saver";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
 import {Company, CompanyType} from "../company/company.model";
 import {CompanyService} from "../company/company.service";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
 
 @Component({
     selector: 'jhi-receipt-corporate',
@@ -61,9 +62,10 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
                 private eventManager: JhiEventManager,
                 private carService: CarService,
                 private companyService: CompanyService,
-                private dataHolderService: DataHolderService) {
+                private dataHolderService: DataHolderService,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -85,7 +87,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     allCorps() {
         this.companyService.byType(CompanyType.CORPORATE_SHOP).subscribe((res: Response) => {
             this.corps = res.json();
-        })
+        });
     }
 
     loadPage(page: number) {
@@ -132,13 +134,12 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInReceipts() {
         this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.allCorpReceipts());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -167,9 +168,9 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
 
     private setACObjects(cars: Car[]) {
         if (cars !== null && cars.length > 0) {
-            let acObjects: ACElement[] = [];
-            for (let car of cars) {
-                let elem: ACElement = {};
+            const acObjects: ACElement[] = [];
+            for (const car of cars) {
+                const elem: ACElement = {};
                 elem.name = car.number;
                 elem.id = car.id;
                 acObjects.push(elem);
@@ -186,7 +187,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     private saveToDataHolder(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.corporateReceipts) {
+        for (const res of this.corporateReceipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }
@@ -203,7 +204,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     }
 
     viewReceipt(receiptId: number) {
-        for (let receipt of this.corporateReceipts) {
+        for (const receipt of this.corporateReceipts) {
             if (receipt.id === receiptId) {
                 this.dataHolderService._receipt = receipt;
                 this.dataHolderService._client = receipt.client;
@@ -223,11 +224,11 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     uploadReceipt() {
         console.log(this.receiptFile);
         const postData = {name: this.receiptFile.name, size: this.receiptFile.size};
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
 
-        let formData: FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('file', this.receiptFile, this.receiptFile.name);
 
         // For multiple files
@@ -236,7 +237,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
         // }
 
         if (postData !== undefined && postData !== null) {
-            for (let property in postData) {
+            for (const property in postData) {
                 if (postData.hasOwnProperty(property)) {
                     formData.append(property, postData[property]);
                 }
@@ -260,10 +261,10 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     }
 
     private onSuccessDocx(res: Response, receiptId: number) {
-        let mediaType = 'application/octet-stream;charset=UTF-8';
-        let blob = new Blob([res.blob()], {type: mediaType});
-        let receiptNumber = receiptId + '';
-        let filename = receiptNumber + '_invoice.docx';
+        const mediaType = 'application/octet-stream;charset=UTF-8';
+        const blob = new Blob([res.blob()], {type: mediaType});
+        const receiptNumber = receiptId + '';
+        const filename = receiptNumber + '_invoice.docx';
 
         try {
             window.navigator.msSaveOrOpenBlob(blob, filename);

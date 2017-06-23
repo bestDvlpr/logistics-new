@@ -16,14 +16,15 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
     templateUrl: './receipt-delivery-dialog.component.html'
 })
 export class ReceiptDeliveryDialogComponent implements OnInit {
+
+    receipt: Receipt;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    receipt: Receipt;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,

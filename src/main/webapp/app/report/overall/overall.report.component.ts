@@ -17,6 +17,7 @@ import {DataHolderService} from "../../entities/receipt/data-holder.service";
 import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -59,7 +60,8 @@ export class OverallReportComponent implements OnInit {
                 private parseLinks: JhiParseLinks,
                 private router: Router,
                 private alertService: JhiAlertService,
-                private languageHelper: JhiLanguageHelper) {
+                private languageHelper: JhiLanguageHelper,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;

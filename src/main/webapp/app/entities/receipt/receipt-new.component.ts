@@ -10,6 +10,7 @@ import {ITEMS_PER_PAGE, Principal} from "../../shared";
 import {EnumAware} from "./doctypaware.decorator";
 import {DataHolderService} from "./data-holder.service";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
 
 @Component({
     selector: 'jhi-receipt-new',
@@ -43,9 +44,10 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private eventManager: JhiEventManager,
-                private dataHolderService: DataHolderService) {
+                private dataHolderService: DataHolderService,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -110,13 +112,12 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInReceipts() {
         this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllNew());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -138,7 +139,7 @@ export class ReceiptNewComponent implements OnInit, OnDestroy {
     public goClientSelectionStep(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.newReceipts) {
+        for (const res of this.newReceipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }
