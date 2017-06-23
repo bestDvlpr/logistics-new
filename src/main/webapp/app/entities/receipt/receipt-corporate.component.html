@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.receipt.home.title-corporate">Corporate Applications</span>
-        <button class="btn btn-primary float-xs-right create-receipt" (click)="toggleUploadForm()">
+        <button class="btn btn-primary float-right create-receipt" (click)="toggleUploadForm()">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
                 Create new Corporate Application
@@ -23,6 +23,7 @@
                     <div class="form-group">
                         <input type="file" (change)="fileChangeEvent($event)"/>
                     </div>
+                    <h6 jhiTranslate="logisticsApp.receipt.applicationType">Application Type</h6>
                     <div class="custom-controls-stacked">
                         <label class="custom-control custom-radio has-success">
                             <input type="radio" class="custom-control-input" name="credit"
@@ -41,6 +42,17 @@
                                   jhiTranslate="logisticsApp.DocType.DISPLACEMENT">DISPLACEMENT</span>
                         </label>
                     </div>
+                    <h6 jhiTranslate="logisticsApp.receipt.companyId">Company</h6>
+                    <div class="custom-controls-stacked" *ngFor="let company of corps">
+                        <label class="custom-control custom-radio has-success">
+                            <input type="radio" class="custom-control-input" name="company"
+                                   [(ngModel)]="companySelected" [value]="company"
+                                   [checked]="companySelected===company"/>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">{{company.name}}</span>
+                        </label>
+                    </div>
+
                     <button type="submit" class="btn btn-block btn-primary" (click)="uploadReceipt()"
                             *ngIf="docTypeSelected && receiptFile">
                         <span jhiTranslate="entity.action.upload">Upload</span>

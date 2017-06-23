@@ -52,7 +52,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
                 private carService: CarService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -103,7 +103,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInReceipts();this.languageHelper.getAll().then((languages) => {
+        this.registerChangeInReceipts(); this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
@@ -116,13 +116,12 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInReceipts() {
         this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllApplied());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -150,9 +149,9 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
 
     private setACObjects(cars: Car[]) {
         if (cars !== null && cars.length > 0) {
-            let acObjects: ACElement[] = [];
-            for (let car of cars) {
-                let elem: ACElement = {};
+            const acObjects: ACElement[] = [];
+            for (const car of cars) {
+                const elem: ACElement = {};
                 elem.name = car.number;
                 elem.id = car.id;
                 acObjects.push(elem);
@@ -169,7 +168,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     private saveToDataHolder(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.appliedReceipts) {
+        for (const res of this.appliedReceipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }
@@ -181,7 +180,7 @@ export class ReceiptAppliedComponent implements OnInit, OnDestroy {
     }
 
     viewReceipt(receiptId: number) {
-        for (let receipt of this.appliedReceipts) {
+        for (const receipt of this.appliedReceipts) {
             if (receipt.id === receiptId) {
                 this.dataHolderService._receipt = receipt;
                 this.dataHolderService._client = receipt.client;

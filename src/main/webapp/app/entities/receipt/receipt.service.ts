@@ -14,14 +14,14 @@ export class ReceiptService {
     }
 
     create(receipt: Receipt): Observable<Receipt> {
-        let copy: Receipt = Object.assign({}, receipt);
+        const copy: Receipt = Object.assign({}, receipt);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(receipt: Receipt): Observable<Receipt> {
-        let copy: Receipt = Object.assign({}, receipt);
+        const copy: Receipt = Object.assign({}, receipt);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -40,27 +40,27 @@ export class ReceiptService {
     }
 
     newReceipts(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/new/sales/retail'), options);
     }
 
     appliedReceipts(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/applied'), options);
     }
 
     archivedReceipts(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/archived'), options);
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options);
     }
 
     accepted(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/accepted'), options);
     }
 
@@ -69,9 +69,9 @@ export class ReceiptService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {
@@ -104,19 +104,19 @@ export class ReceiptService {
     }
 
     attachDrivers(receipt: Receipt): Observable<Receipt> {
-        let copy: Receipt = Object.assign({}, receipt);
+        const copy: Receipt = Object.assign({}, receipt);
         return this.http.post(this.resourceUrl.concat('/attached'), copy).map((res: Response) => {
             return res.json();
         });
     }
 
     allByCompanyId(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/by-company-id'), options);
     }
 
     downloadReceipt(receiptId: number) {
-        let mediaType = ResponseContentType.Blob;
+        const mediaType = ResponseContentType.Blob;
         return this.http.get(this.resourceUrl.concat('/sent-receipt/').concat(receiptId + ''), {responseType: mediaType});
     }
 
@@ -133,22 +133,22 @@ export class ReceiptService {
     }
 
     creditedReceipts(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/credit'), options);
     }
 
     corporateReceipts(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/corporate'), options);
     }
 
     creditedReceiptsByCompanyId(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl.concat('/credit/by-company-id'), options);
     }
 
     getByClientId(clientId: number, req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(`${this.resourceUrl.concat('/by-client-id')}/${clientId}`, options);
     }
 
@@ -158,8 +158,8 @@ export class ReceiptService {
         });
     }
 
-    uploadReceipt(formData: FormData, docType: DocType): Observable<Response> {
-        return this.http.post(`${this.resourceUrl.concat('/upload')}/${docType}`, formData).map((res: Response) => {
+    uploadReceipt(formData: FormData, docType: DocType, companyId: string): Observable<Response> {
+        return this.http.post(`${this.resourceUrl.concat('/upload')}/${docType}/${companyId}`, formData).map((res: Response) => {
             return res;
         });
     }
@@ -178,7 +178,7 @@ export class ReceiptService {
     report() {
         return this.http.get('api/report/generic').map((res: Response) => {
             return res.json();
-        })
+        });
     }
 
     countByStatus(status: ReceiptStatus): Observable<number> {

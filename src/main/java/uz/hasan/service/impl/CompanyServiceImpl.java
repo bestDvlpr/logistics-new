@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.hasan.domain.Company;
+import uz.hasan.domain.enumeration.CompanyType;
 import uz.hasan.repository.CompanyRepository;
 import uz.hasan.service.CompanyService;
 import uz.hasan.service.dto.CompanyDTO;
@@ -99,12 +100,12 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     /**
-     *  Get the "idNumber" company.
+     * Get the "idNumber" company.
      *
-     *  @param idNumber the idNumber of the entity
-     *  @return the entity
+     * @param idNumber the idNumber of the entity
+     * @return the entity
      */
-    public CompanyDTO findByIdNumber(String idNumber){
+    public CompanyDTO findByIdNumber(String idNumber) {
         log.debug("Request to get Company : {}", idNumber);
         Company company = companyRepository.findByIdNumber(idNumber);
         return companyMapper.companyToCompanyDTO(company);
@@ -121,5 +122,24 @@ public class CompanyServiceImpl implements CompanyService {
         log.debug("REST request to get Company : {}", name);
         List<Company> companies = companyRepository.findByNameLike(name);
         return companyMapper.companiesToCompanyDTOs(companies);
+    }
+
+    /**
+     * Get companies by their type.
+     *
+     * @param type the type of the companyDTO to retrieve
+     * @return persisted entity list
+     */
+    @Override
+    public List<CompanyDTO> findByType(CompanyType type) {
+        if (type == null) {
+            return null;
+        }
+        List<Company> byType = companyRepository.findByType(type);
+        List<CompanyDTO> companyDTOS = null;
+        if (byType != null && !byType.isEmpty()) {
+            companyDTOS = companyMapper.companiesToCompanyDTOs(byType);
+        }
+        return companyDTOS;
     }
 }

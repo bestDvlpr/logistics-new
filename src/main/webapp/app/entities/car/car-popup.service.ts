@@ -6,21 +6,20 @@ import {CarService} from "./car.service";
 @Injectable()
 export class CarPopupService {
     private isOpen = false;
-    constructor (
-        private modalService: NgbModal,
-        private router: Router,
-        private carService: CarService
 
-    ) {}
+    constructor(private modalService: NgbModal,
+                private router: Router,
+                private carService: CarService) {
+    }
 
-    open (component: Component, id?: number | any): NgbModalRef {
+    open(component: Component, id?: number | any): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
 
         if (id) {
-            this.carService.find(id).subscribe(car => {
+            this.carService.find(id).subscribe((car) => {
                 this.carModalRef(component, car);
             });
         } else {
@@ -29,13 +28,13 @@ export class CarPopupService {
     }
 
     carModalRef(component: Component, car: Car): NgbModalRef {
-        let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.car = car;
-        modalRef.result.then(result => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+        modalRef.result.then((result) => {
+            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         });
         return modalRef;

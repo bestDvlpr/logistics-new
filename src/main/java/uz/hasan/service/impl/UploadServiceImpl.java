@@ -117,7 +117,7 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public ReceiptProductEntriesDTO createApplicationFromFile(MultipartFile file, DocType docType) {
+    public ReceiptProductEntriesDTO createApplicationFromFile(MultipartFile file, DocType docType, String companyId) {
         InputStream inputStream = null;
         try {
             inputStream = file.getInputStream();
@@ -125,7 +125,7 @@ public class UploadServiceImpl implements UploadService {
             e.printStackTrace();
         }
 
-        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createReceiptFromFile(inputStream, docType));
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(createReceiptFromFile(inputStream, docType, companyId));
     }
 
     private Receipt createReceipt(InputStream file) {
@@ -204,7 +204,7 @@ public class UploadServiceImpl implements UploadService {
         return receipt;
     }
 
-    private Receipt createReceiptFromFile(InputStream file, DocType docType) {
+    private Receipt createReceiptFromFile(InputStream file, DocType docType, String companyId) {
         Receipt receipt = new Receipt();
         WholeSaleFlag wholeSaleFlag = null;
         Authority creditAuthority = new Authority(AuthoritiesConstants.CREDIT);
@@ -213,9 +213,9 @@ public class UploadServiceImpl implements UploadService {
 
         Set<Authority> authorities = userService.getUserWithAuthorities().getAuthorities();
 
-        if (authorities.contains(creditAuthority)){
+        if (authorities.contains(creditAuthority)) {
             wholeSaleFlag = WholeSaleFlag.RETAIL;
-        } else if (authorities.contains(corporateAuthority)){
+        } else if (authorities.contains(corporateAuthority)) {
             wholeSaleFlag = WholeSaleFlag.WHOLESALE;
         }
 
@@ -228,7 +228,12 @@ public class UploadServiceImpl implements UploadService {
 
             Set<ProductEntry> productEntrySet = new HashSet<>();
 
-            Company company = userService.getUserWithAuthorities().getCompany();
+            Company company;
+            if (companyId == null || companyId.isEmpty()) {
+                company = userService.getUserWithAuthorities().getCompany();
+            } else {
+                company = companyRepository.findByIdNumber(companyId);
+            }
 
             receipt.setDocType(docType);
             receipt.setWholeSaleFlag(wholeSaleFlag);

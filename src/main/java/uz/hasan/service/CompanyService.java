@@ -1,5 +1,6 @@
 package uz.hasan.service;
 
+import uz.hasan.domain.enumeration.CompanyType;
 import uz.hasan.service.dto.CompanyDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,10 +58,18 @@ public interface CompanyService {
     CompanyDTO findByIdNumber(String idNumber);
 
     /**
-     * GET  /companies/autocomplete/{name} : get the "name" company.
+     * Get company by its "name".
      *
      * @param name the name of the companyDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     * @return persisted entity list
      */
     List<CompanyDTO> findByNameLike(String name);
+
+    /**
+     * Get companies by their type.
+     *
+     * @param type the type of the companyDTO to retrieve
+     * @return persisted entity list
+     */
+    List<CompanyDTO> findByType(CompanyType type);
 }

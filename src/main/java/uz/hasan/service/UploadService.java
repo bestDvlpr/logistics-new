@@ -11,5 +11,5 @@ public interface UploadService {
 
     ReceiptProductEntriesDTO createDisplacementApplication(MultipartFile file);
 
-    ReceiptProductEntriesDTO createApplicationFromFile(MultipartFile file, DocType docType);
+    ReceiptProductEntriesDTO createApplicationFromFile(MultipartFile file, DocType docType, String companyId);
 }

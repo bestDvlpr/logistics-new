@@ -53,7 +53,7 @@ export class AddressDialogComponent implements OnInit {
                 this.locations = [];
                 this.locations = res;
                 this.setCountries();
-                if(this.address.id!==null){
+                if (this.address.id !== null) {
                     this.setRegions();
                     this.setDistricts();
                 }

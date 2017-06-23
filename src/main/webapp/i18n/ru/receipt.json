@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "receipt" : {
+        "receipt": {
             "home": {
                 "title": "Заявки",
                 "title-credit": "Заявки кредит",
@@ -19,7 +19,7 @@
                 "question": "Вы уверены что хотите удалить Заявка {{ id }}?"
             },
             "cancel": {
-                "car":{
+                "car": {
                     "question": "Вы уверены что хотите отменить машину по Заявке № {{ id }}?"
                 }
             },
@@ -54,7 +54,8 @@
             "deliveryMessage": "Доставка будет осуществлена в течении 48 часов с момента покупки!",
             "deliveryTimeMessage": "Доставка будет осуществлена с {{time1}} по {{time2}}!",
             "deliveryDate": "Дата Доставки",
-            "deliveryDateTime": "Предпочтительное время доставки"
+            "deliveryDateTime": "Предпочтительное время доставки",
+            "applicationType": "Тип заявки"
         }
     }
 }

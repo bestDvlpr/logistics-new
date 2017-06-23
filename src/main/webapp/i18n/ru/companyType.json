@@ -4,6 +4,7 @@
             "null": "",
             "WAREHOUSE": "СКЛАД",
             "SHOP": "МАГАЗИН",
+            "CORPORATE_SHOP": "ГОС МАГАЗИН",
             "DELIVERY_CENTER": "ЦЕНТР ДОСТАВКИ",
             "DELIVERY_CENTER_BRANCH": "ФИЛИАЛ ЦЕНТРА ДОСТАВКИ"
         }

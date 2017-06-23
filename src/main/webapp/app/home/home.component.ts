@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     countByCompany: LineChartData[];
     criteriaForAll: CommonReportCriteria;
     criteriaForByCompany: CommonReportCriteria;
-
     pieChartOptions: any = null;
     lineChartOptions: any = null;
     startTime: any;
@@ -60,7 +59,7 @@ export class HomeComponent implements OnInit {
     }
 
     registerAuthenticationSuccess() {
-        this.eventManager.subscribe('authenticationSuccess', (message) => {
+        this.eventManager.subscribe("authenticationSuccess", (message) => {
             this.principal.identity().then((account) => {
                 this.account = account;
             });
@@ -78,9 +77,9 @@ export class HomeComponent implements OnInit {
     deliveryCountChart() {
         this.reportService.deliveryCountChart(ReceiptStatus.DELIVERED, null, null).subscribe((res) => {
             this.overallCountByCompany = res;
-            let data = [];
-            let overall = this.overallCountByCompany.find(x => x.companyName === null);
-            for (let a of this.overallCountByCompany) {
+            const data = [];
+            const overall = this.overallCountByCompany.find((x) => x.companyName === null);
+            for (const a of this.overallCountByCompany) {
                 if (a.companyName !== null) {
                     data.push({
                         name: a.companyName + ' ' + (Math.round((a.count / overall.count) * 10000) / 100) + ' %',
@@ -93,7 +92,7 @@ export class HomeComponent implements OnInit {
                 title: {text: this.translateService.instant('global.messages.report.delivery.deliveryStats')},
                 series: [{
                     name: this.translateService.instant('global.messages.report.delivery.byCompany'),
-                    data: data
+                    data
                 }],
                 chart: {
                     type: 'pie',
@@ -109,40 +108,38 @@ export class HomeComponent implements OnInit {
                         fontSize: '15px'
                     }
                 }
-            }
-        })
+            };
+        });
     }
 
     deliveryCountByCompanyChart() {
         if (this.startTime && this.endTime) {
-            let startDate = DataHolderService.formatYYYYMMDD(this.startTime);
-            let endDate = DataHolderService.formatYYYYMMDD(this.endTime);
+            const startDate = DataHolderService.formatYYYYMMDD(this.startTime);
+            const endDate = DataHolderService.formatYYYYMMDD(this.endTime);
             this.criteriaForByCompany = new CommonReportCriteria();
             this.criteriaForByCompany.startDate = startDate;
             this.criteriaForByCompany.endDate = endDate;
         }
         this.reportService.countByCompany(this.criteriaForByCompany).subscribe((res) => {
             this.countByCompany = res;
-            let series: any[] = [];
-            let categories = [];
-            let companyNames = [];
-            for (let a of this.countByCompany) {
+            const series: any[] = [];
+            const categories = [];
+            const companyNames = [];
+            for (const a of this.countByCompany) {
                 companyNames.push(a.companyName);
-                let data = [];
-                for (let b of a.map) {
+                const data = [];
+                for (const b of a.map) {
                     data.push(b.count);
                     categories.push(b.name);
                 }
-                series.push({name: a.companyName, data: data})
+                series.push({name: a.companyName, data});
             }
-
-            console.log(this.translateService.getTranslation(this.translateService.currentLang.concat('/global.messages.report.delivery.deliveryStats')));
 
             this.lineChartOptions = {
                 title: {text: this.translateService.instant('global.messages.report.delivery.dailyCountByCompany')},
-                series: series,
+                series,
                 xAxis: [{
-                    categories: categories,
+                    categories,
                     crosshair: true,
                     labels: {
                         style: {
@@ -167,6 +164,5 @@ export class HomeComponent implements OnInit {
             };
         });
     }
-
 
 }

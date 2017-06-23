@@ -17,7 +17,7 @@ import {
     CarColorService
 } from "./";
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...carColorRoute,
     ...carColorPopupRoute,
 ];

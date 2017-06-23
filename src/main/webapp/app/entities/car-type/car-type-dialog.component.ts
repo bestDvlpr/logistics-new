@@ -20,13 +20,11 @@ export class CarTypeDialogComponent implements OnInit {
     isSaving: boolean;
     languages: any[];
 
-    constructor(
-        public activeModal: NgbActiveModal,
-        private languageHelper: JhiLanguageHelper,
-        private alertService: JhiAlertService,
-        private carTypeService: CarTypeService,
-        private eventManager: JhiEventManager
-    ) {
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private alertService: JhiAlertService,
+                private carTypeService: CarTypeService,
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -36,11 +34,12 @@ export class CarTypeDialogComponent implements OnInit {
             this.languages = languages;
         });
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.carType.id !== undefined) {
             this.carTypeService.update(this.carType)
@@ -51,18 +50,18 @@ export class CarTypeDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: CarType) {
-        this.eventManager.broadcast({ name: 'carTypeListModification', content: 'OK'});
+    private onSaveSuccess(result: CarType) {
+        this.eventManager.broadcast({name: 'carTypeListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -76,14 +75,13 @@ export class CarTypePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private carTypePopupService: CarTypePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private carTypePopupService: CarTypePopupService) {
+    }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+        this.routeSub = this.route.params.subscribe((params) => {
+            if (params['id']) {
                 this.modalRef = this.carTypePopupService
                     .open(CarTypeDialogComponent, params['id']);
             } else {

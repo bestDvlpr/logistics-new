@@ -234,7 +234,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        this.receiptService.uploadReceipt(formData, this.docTypeSelected).subscribe((res: Response) => {
+        this.receiptService.uploadReceipt(formData, this.docTypeSelected, "").subscribe((res: Response) => {
             this.receipt = res.json();
             this.router.navigate(['/']);
         });

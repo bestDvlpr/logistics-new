@@ -14,14 +14,14 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
     templateUrl: './car-delete-dialog.component.html'
 })
 export class CarDeleteDialogComponent implements OnInit {
+    car: Car;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    car: Car;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private carService: CarService,

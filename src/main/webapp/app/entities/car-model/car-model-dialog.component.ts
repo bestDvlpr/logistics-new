@@ -80,7 +80,7 @@ export class CarModelPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.carModelPopupService
                     .open(CarModelDialogComponent, params['id']);

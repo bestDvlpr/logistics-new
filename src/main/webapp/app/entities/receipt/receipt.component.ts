@@ -1,19 +1,19 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {EnumAware} from "./doctypaware.decorator";
-import {DataHolderService} from "./data-holder.service";
-import {isUndefined} from "util";
-import {ProductEntryService} from "../product-entry/product-entry.service";
-import * as FileSaver from "file-saver";
-import {UploadService} from "./upload.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {EnumAware} from './doctypaware.decorator';
+import {DataHolderService} from './data-holder.service';
+import {isUndefined} from 'util';
+import {ProductEntryService} from '../product-entry/product-entry.service';
+import * as FileSaver from 'file-saver';
+import {UploadService} from './upload.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt',
@@ -59,7 +59,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private dataHolderService: DataHolderService,
                 private productEntryService: ProductEntryService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -120,8 +120,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         });
         this.isDCEmployee = false;
-        let authorities = this.currentAccount.authorities;
-        for (let auth of authorities) {
+        const authorities = this.currentAccount.authorities;
+        for (const auth of authorities) {
             if (auth === 'ROLE_ADMIN' ||
                 auth === 'ROLE_MANAGER' ||
                 auth === 'ROLE_DISPATCHER') {
@@ -155,7 +155,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }]);
-            this.loadAccepted()
+            this.loadAccepted();
         }
     }
 
@@ -163,8 +163,8 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
             this.isDCEmployee = false;
-            let authorities = this.currentAccount.authorities;
-            for (let auth of authorities) {
+            const authorities = this.currentAccount.authorities;
+            for (const auth of authorities) {
                 if (auth === 'ROLE_ADMIN' ||
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
@@ -204,7 +204,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         if (this.currentAccount === null || isUndefined(this.currentAccount)) {
             this.principal.identity().then((account) => {
                 this.currentAccount = account;
-                for (let auth of this.currentAccount.authorities) { // todo extract block to a method
+                for (const auth of this.currentAccount.authorities) { // todo extract block to a method
                     if (auth === 'ROLE_ADMIN' ||
                         auth === 'ROLE_MANAGER' ||
                         auth === 'ROLE_DISPATCHER') {
@@ -223,7 +223,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 }
             });
         } else {
-            for (let auth of this.currentAccount.authorities) {
+            for (const auth of this.currentAccount.authorities) {
                 if (auth === 'ROLE_ADMIN' ||
                     auth === 'ROLE_MANAGER' ||
                     auth === 'ROLE_DISPATCHER') {
@@ -247,7 +247,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -279,12 +279,12 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     private saveToDataHolder(receiptId: number) {
         this.dataHolderService.clearAll();
         let receipt: Receipt;
-        for (let res of this.receipts) {
+        for (const res of this.receipts) {
             if (res.id === receiptId) {
                 receipt = res;
             }
         }
-        for (let prod of receipt.productEntries) {
+        for (const prod of receipt.productEntries) {
             prod.attachedCarId = null;
             prod.attachedCarNumber = null;
             prod.attachedToCarTime = null;
@@ -303,10 +303,10 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     private onSuccessDocx(res: Response, receiptId: number) {
-        let mediaType = 'application/octet-stream;charset=UTF-8';
-        let blob = new Blob([res.blob()], {type: mediaType});
-        let receiptNumber = receiptId + '';
-        let filename = receiptNumber + '_invoice.docx';
+        const mediaType = 'application/octet-stream;charset=UTF-8';
+        const blob = new Blob([res.blob()], {type: mediaType});
+        const receiptNumber = receiptId + '';
+        const filename = receiptNumber + '_invoice.docx';
 
         try {
             window.navigator.msSaveOrOpenBlob(blob, filename);
@@ -337,6 +337,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     getReport() {
         this.receiptService.report().subscribe((res) => {
             console.log(res);
-        })
+        });
     }
 }

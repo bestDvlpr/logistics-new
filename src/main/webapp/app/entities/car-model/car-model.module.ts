@@ -17,7 +17,7 @@ import {
     CarModelService
 } from "./";
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...carModelRoute,
     ...carModelPopupRoute,
 ];

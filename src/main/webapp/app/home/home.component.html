@@ -26,7 +26,7 @@
                 <form class="form-inline">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
-                        <input ngbDatepicker #from="ngbDatepicker" [minDate]="fromMinDate" [maxDate]="fromMaxDate"
+                        <input ngbDatepicker #from="ngbDatepicker"
                                [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
                                autocomplete="off"
                                class="form-control" name="startTime">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                        <input ngbDatepicker #to="ngbDatepicker" [minDate]="toMinDate" [maxDate]="toMaxDate"
+                        <input ngbDatepicker #to="ngbDatepicker"
                                autocomplete="off"
                                [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
                                class="form-control" name="endTime">

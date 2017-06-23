@@ -1,6 +1,6 @@
 {
     "logisticsApp": {
-        "receipt" : {
+        "receipt": {
             "home": {
                 "title": "Applications",
                 "title-credit": "Credit Applications",
@@ -20,7 +20,7 @@
                 "question": "Are you sure you want to delete Application {{ id }}?"
             },
             "cancel": {
-                "car":{
+                "car": {
                     "question": "{{ id }}?"
                 }
             },
@@ -55,7 +55,8 @@
             "deliveryMessage": "Delivery process starts in an hour and for 48 hours products will be delivered!",
             "deliveryTimeMessage": "Delivery process happens from {{time1}} to {{time2}}!",
             "deliveryDate": "Delivery Date",
-            "deliveryDateTime": "Preferred"
+            "deliveryDateTime": "Preferred",
+            "applicationType": "Application type"
         }
     }
 }

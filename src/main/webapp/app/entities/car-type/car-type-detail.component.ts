@@ -14,15 +14,13 @@ export class CarTypeDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     languages: any[];
 
-    constructor(
-        private languageHelper: JhiLanguageHelper,
-        private carTypeService: CarTypeService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private carTypeService: CarTypeService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -30,11 +28,12 @@ export class CarTypeDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    load (id) {
-        this.carTypeService.find(id).subscribe(carType => {
+    load(id) {
+        this.carTypeService.find(id).subscribe((carType) => {
             this.carType = carType;
         });
     }
+
     previousState() {
         window.history.back();
     }

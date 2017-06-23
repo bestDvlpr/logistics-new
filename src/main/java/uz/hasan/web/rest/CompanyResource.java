@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.hasan.domain.enumeration.CompanyType;
 import uz.hasan.service.CompanyService;
 import uz.hasan.service.dto.CompanyDTO;
 import uz.hasan.web.rest.util.HeaderUtil;
@@ -163,8 +164,21 @@ public class CompanyResource {
      */
     @GetMapping("/companies/autocomplete/{name}")
     public ResponseEntity<List<CompanyDTO>> autocomplete(@PathVariable String name) {
-        log.debug("REST request to get Company : {}", name);
+        log.debug("REST request to get Companies : {}", name);
         List<CompanyDTO> companyDTOS = companyService.findByNameLike(name);
+        return new ResponseEntity<>(companyDTOS, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /companies/by-type/{type} : get companies of type "type".
+     *
+     * @param type the type of the companyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the companyDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/companies/by-type/{type}")
+    public ResponseEntity<List<CompanyDTO>> companiesByType(@PathVariable CompanyType type) {
+        log.debug("REST request to get Companies of type : {}", type);
+        List<CompanyDTO> companyDTOS = companyService.findByType(type);
         return new ResponseEntity<>(companyDTOS, HttpStatus.OK);
     }
 }

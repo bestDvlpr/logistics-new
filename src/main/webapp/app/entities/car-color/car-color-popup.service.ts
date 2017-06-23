@@ -6,20 +6,20 @@ import {CarColorService} from "./car-color.service";
 @Injectable()
 export class CarColorPopupService {
     private isOpen = false;
-    constructor (
+    constructor(
         private modalService: NgbModal,
         private router: Router,
         private carColorService: CarColorService
     ) {}
 
-    open (component: Component, id?: number | any): NgbModalRef {
+    open(component: Component, id?: number | any): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
 
         if (id) {
-            this.carColorService.find(id).subscribe(carColor => {
+            this.carColorService.find(id).subscribe((carColor) => {
                 this.carColorModalRef(component, carColor);
             });
         } else {
@@ -28,9 +28,9 @@ export class CarColorPopupService {
     }
 
     carColorModalRef(component: Component, carColor: CarColor): NgbModalRef {
-        let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.carColor = carColor;
-        modalRef.result.then(result => {
+        modalRef.result.then((result) => {
             console.log(`Closed with: ${result}`);
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;

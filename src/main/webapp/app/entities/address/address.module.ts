@@ -17,7 +17,7 @@ import {
     AddressService
 } from "./";
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...addressRoute,
     ...addressPopupRoute,
 ];

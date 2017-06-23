@@ -14,14 +14,14 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
     templateUrl: './address-delete-dialog.component.html'
 })
 export class AddressDeleteDialogComponent implements OnInit {
+
+    address: Address;
+    languages: any[];
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    address: Address;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private addressService: AddressService,

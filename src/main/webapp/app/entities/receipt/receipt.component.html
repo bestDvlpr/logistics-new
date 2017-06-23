@@ -3,7 +3,7 @@
         <span jhiTranslate="logisticsApp.receipt.home.title" *jhiHasAnyAuthority="['ROLE_ADMIN']">Receipts</span>
         <span jhiTranslate="logisticsApp.receipt.home.acceptedTitle"
               *jhiHasAnyAuthority="['ROLE_DISPATCHER']">Receipts</span>
-        <button class="btn btn-primary float-xs-right create-receipt" *jhiHasAnyAuthority="['ROLE_ADMIN']"
+        <button class="btn btn-primary float-right create-receipt" *jhiHasAnyAuthority="['ROLE_ADMIN']"
                 [routerLink]="['/', { outlets: { popup: ['receipt-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">
@@ -11,7 +11,7 @@
             </span>
         </button>
 
-        <button class="btn btn-primary float-xs-right create-receipt" *jhiHasAnyAuthority="['ROLE_WAREHOUSE']"
+        <button class="btn btn-primary float-right create-receipt" *jhiHasAnyAuthority="['ROLE_WAREHOUSE']"
                 (click)="toggleUploadForm()">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="logisticsApp.receipt.home.createLabel">

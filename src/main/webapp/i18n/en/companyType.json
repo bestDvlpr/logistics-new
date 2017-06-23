@@ -4,6 +4,7 @@
             "null": "",
             "WAREHOUSE": "WAREHOUSE",
             "SHOP": "SHOP",
+            "CORPORATE_SHOP": "CORPORATE_SHOP",
             "DELIVERY_CENTER": "DELIVERY_CENTER",
             "DELIVERY_CENTER_BRANCH": "DELIVERY_CENTER_BRANCH"
         }

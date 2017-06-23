@@ -14,6 +14,8 @@ import {ACElement} from "../../shared/autocomplete/element.model";
 import {CarService} from "../car/car.service";
 import * as FileSaver from "file-saver";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Company, CompanyType} from "../company/company.model";
+import {CompanyService} from "../company/company.service";
 
 @Component({
     selector: 'jhi-receipt-corporate',
@@ -45,7 +47,9 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
     receipt: Receipt;
     isDCEmployee = false;
     docTypeSelected: DocType;
+    companySelected: Company;
     languages: any[];
+    corps: Company[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
@@ -56,6 +60,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private eventManager: JhiEventManager,
                 private carService: CarService,
+                private companyService: CompanyService,
                 private dataHolderService: DataHolderService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -66,7 +71,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadAllCorporate() {
+    allCorpReceipts() {
         this.receiptService.corporateReceipts({
             page: this.page - 1,
             size: this.itemsPerPage,
@@ -75,6 +80,12 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
+    }
+
+    allCorps() {
+        this.companyService.byType(CompanyType.CORPORATE_SHOP).subscribe((res: Response) => {
+            this.corps = res.json();
+        })
     }
 
     loadPage(page: number) {
@@ -92,7 +103,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.loadAllCorporate();
+        this.allCorpReceipts();
     }
 
     clear() {
@@ -101,11 +112,12 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
-        this.loadAllCorporate();
+        this.allCorpReceipts();
     }
 
     ngOnInit() {
-        this.loadAllCorporate();
+        this.allCorpReceipts();
+        this.allCorps();
         this.registerChangeInReceipts();
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
@@ -122,7 +134,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
 
 
     registerChangeInReceipts() {
-        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.loadAllCorporate());
+        this.eventSubscriber = this.eventManager.subscribe('receiptListModification', (response) => this.allCorpReceipts());
     }
 
     sort() {
@@ -230,7 +242,7 @@ export class ReceiptCorporateComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        this.receiptService.uploadReceipt(formData, this.docTypeSelected).subscribe((res: Response) => {
+        this.receiptService.uploadReceipt(formData, this.docTypeSelected, this.companySelected.idNumber).subscribe((res: Response) => {
             this.receipt = res.json();
             this.router.navigate(['/']);
         });

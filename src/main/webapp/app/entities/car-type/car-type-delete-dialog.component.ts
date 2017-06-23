@@ -15,14 +15,14 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
 })
 export class CarTypeDeleteDialogComponent implements OnInit {
 
+    carType: CarType;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    carType: CarType;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private carTypeService: CarTypeService,
@@ -35,7 +35,7 @@ export class CarTypeDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.carTypeService.delete(id).subscribe(response => {
+        this.carTypeService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'carTypeListModification',
                 content: 'Deleted an carType'
@@ -59,7 +59,7 @@ export class CarTypeDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.carTypePopupService
                 .open(CarTypeDeleteDialogComponent, params['id']);
         });

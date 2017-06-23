@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 
-import {Company} from "./company.model";
+import {Company, CompanyType} from "./company.model";
 @Injectable()
 export class CompanyService {
 
@@ -69,5 +69,9 @@ export class CompanyService {
 
     autocomplete(companyName: string): Observable<Response> {
         return this.http.get(`${this.resourceUrl.concat('/autocomplete')}/${companyName}`);
+    }
+
+    byType(type: CompanyType): Observable<Response> {
+        return this.http.get(`${this.resourceUrl.concat('/by-type')}/${type}`);
     }
 }

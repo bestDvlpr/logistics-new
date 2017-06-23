@@ -10,66 +10,67 @@ import {CarColorDeletePopupComponent} from "./car-color-delete-dialog.component"
 @Injectable()
 export class CarColorResolvePagingParams implements Resolve<any> {
 
-  constructor(private paginationUtil: JhiPaginationUtil) {}
+    constructor(private paginationUtil: JhiPaginationUtil) {
+    }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-      let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
-      return {
-          page: this.paginationUtil.parsePage(page),
-          predicate: this.paginationUtil.parsePredicate(sort),
-          ascending: this.paginationUtil.parseAscending(sort)
-    };
-  }
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        return {
+            page: this.paginationUtil.parsePage(page),
+            predicate: this.paginationUtil.parsePredicate(sort),
+            ascending: this.paginationUtil.parseAscending(sort)
+        };
+    }
 }
 
 export const carColorRoute: Routes = [
-  {
-    path: 'car-color',
-    component: CarColorComponent,
-    resolve: {
-      'pagingParams': CarColorResolvePagingParams
-    },
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.carColor.home.title'
+    {
+        path: 'car-color',
+        component: CarColorComponent,
+        resolve: {
+            'pagingParams': CarColorResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.carColor.home.title'
+        }
+    }, {
+        path: 'car-color/:id',
+        component: CarColorDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.carColor.home.title'
+        }
     }
-  }, {
-    path: 'car-color/:id',
-    component: CarColorDetailComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.carColor.home.title'
-    }
-  }
 ];
 
 export const carColorPopupRoute: Routes = [
-  {
-    path: 'car-color-new',
-    component: CarColorPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.carColor.home.title'
+    {
+        path: 'car-color-new',
+        component: CarColorPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.carColor.home.title'
+        },
+        outlet: 'popup'
     },
-    outlet: 'popup'
-  },
-  {
-    path: 'car-color/:id/edit',
-    component: CarColorPopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.carColor.home.title'
+    {
+        path: 'car-color/:id/edit',
+        component: CarColorPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.carColor.home.title'
+        },
+        outlet: 'popup'
     },
-    outlet: 'popup'
-  },
-  {
-    path: 'car-color/:id/delete',
-    component: CarColorDeletePopupComponent,
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'logisticsApp.carColor.home.title'
-    },
-    outlet: 'popup'
-  }
+    {
+        path: 'car-color/:id/delete',
+        component: CarColorDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'logisticsApp.carColor.home.title'
+        },
+        outlet: 'popup'
+    }
 ];

@@ -80,7 +80,7 @@ export class CarColorPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.carColorPopupService
                     .open(CarColorDialogComponent, params['id']);

@@ -2,8 +2,8 @@ package uz.hasan.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import uz.hasan.domain.Company;
+import uz.hasan.domain.enumeration.CompanyType;
 import uz.hasan.domain.pojos.criteria.CustomCompany;
 
 import java.util.List;
@@ -25,4 +25,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     @Query(value = "SELECT DISTINCT company_id FROM receipt WHERE status='DELIVERED'", nativeQuery = true)
     List<Long> getAllShopIds();
+
+    List<Company> findByType(CompanyType type);
 }

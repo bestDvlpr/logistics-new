@@ -608,12 +608,13 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<DocType> docTypes = new ArrayList<>();
         docTypes.add(DocType.DISPLACEMENT);
         docTypes.add(DocType.SALES);
-        Company company = userService.getUserWithAuthorities().getCompany();
-        String companyIdNumber = null;
-        if (company != null) {
-            companyIdNumber = company.getIdNumber();
-        }
-        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, docTypes, WholeSaleFlag.WHOLESALE, companyIdNumber);
+//        Company company = userService.getUserWithAuthorities().getCompany();
+//        String companyIdNumber = null;
+//        if (company != null) {
+//            companyIdNumber = company.getIdNumber();
+//        }
+//        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagAndCompanyIdNumberOrderByIdDesc(pageable, docTypes, WholeSaleFlag.WHOLESALE, companyIdNumber);
+        Page<Receipt> result = receiptRepository.findAllByDocTypeInAndWholeSaleFlagOrderByIdDesc(pageable, docTypes, WholeSaleFlag.WHOLESALE);
         return result.map(receiptProductEntriesMapper::receiptToReceiptProductEntryDTO);
     }
 

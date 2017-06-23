@@ -22,7 +22,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -30,8 +30,8 @@ export class CarDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    load (id) {
-        this.carService.find(id).subscribe(car => {
+    load(id) {
+        this.carService.find(id).subscribe((car) => {
             this.car = car;
         });
     }

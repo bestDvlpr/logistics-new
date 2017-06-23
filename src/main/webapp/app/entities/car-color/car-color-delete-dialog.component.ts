@@ -14,14 +14,14 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
     templateUrl: './car-color-delete-dialog.component.html'
 })
 export class CarColorDeleteDialogComponent implements OnInit {
+    carColor: CarColor;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    carColor: CarColor;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private carColorService: CarColorService,
@@ -34,7 +34,7 @@ export class CarColorDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.carColorService.delete(id).subscribe(response => {
+        this.carColorService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'carColorListModification',
                 content: 'Deleted an carColor'
@@ -58,7 +58,7 @@ export class CarColorDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.carColorPopupService
                 .open(CarColorDeleteDialogComponent, params['id']);
         });

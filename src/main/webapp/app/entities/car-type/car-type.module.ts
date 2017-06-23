@@ -17,7 +17,7 @@ import {
     CarTypeService
 } from "./";
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...carTypeRoute,
     ...carTypePopupRoute,
 ];
@@ -25,7 +25,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         CarTypeComponent,
@@ -49,4 +49,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsCarTypeModule {}
+export class LogisticsCarTypeModule {
+}
