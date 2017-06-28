@@ -1,23 +1,23 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {ProductEntry} from "./product-entry.model";
-import {ProductEntryPopupService} from "./product-entry-popup.service";
-import {ProductEntryService} from "./product-entry.service";
-import {Product, ProductService} from "../product";
-import {Seller, SellerService} from "../seller";
-import {Receipt, ReceiptService} from "../receipt";
-import {Driver, DriverService} from "../driver";
-import {Car, CarService} from "../car";
-import {Address, AddressService} from "../address";
-import {User, UserService} from "../../shared";
-import {Company} from "../company/company.model";
-import {CompanyService} from "../company/company.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {ProductEntry} from './product-entry.model';
+import {ProductEntryPopupService} from './product-entry-popup.service';
+import {ProductEntryService} from './product-entry.service';
+import {Product, ProductService} from '../product';
+import {Seller, SellerService} from '../seller';
+import {Receipt, ReceiptService} from '../receipt';
+import {Driver, DriverService} from '../driver';
+import {Car, CarService} from '../car';
+import {Address, AddressService} from '../address';
+import {User, UserService} from '../../shared';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-product-entry-dialog',
     templateUrl: './product-entry-dialog.component.html'
@@ -165,7 +165,7 @@ export class ProductEntryPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.productEntryPopupService
                     .open(ProductEntryDialogComponent, params['id']);

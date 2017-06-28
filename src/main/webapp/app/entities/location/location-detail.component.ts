@@ -1,19 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {
-    JhiAlertService,
-    JhiEventManager,
-    JhiLanguageService,
-    JhiPaginationUtil,
-    JhiParseLinks
-} from "ng-jhipster";
-import {Location} from "./location.model";
-import {LocationService} from "./location.service";
-import {Response} from "@angular/http";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {Subscription} from "rxjs";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
+import {Location} from './location.model';
+import {LocationService} from './location.service';
+import {Response} from '@angular/http';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {Subscription} from 'rxjs';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-location-detail',
@@ -49,7 +43,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
                 private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -57,9 +51,8 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
             this.loadChildren(params['id']);
             this.parentId = params['id'];
@@ -72,7 +65,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.locationService.find(id).subscribe(location => {
+        this.locationService.find(id).subscribe((location) => {
             this.location = location;
         });
     }
@@ -109,7 +102,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -128,7 +121,7 @@ export class LocationDetailComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.load(params['id']);
             this.loadChildren(params['id']);
         });

@@ -1,22 +1,22 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Receipt} from "./receipt.model";
-import {ReceiptPopupService} from "./receipt-popup.service";
-import {ReceiptService} from "./receipt.service";
-import {PayMaster, PayMasterService} from "../pay-master";
-import {LoyaltyCard, LoyaltyCardService} from "../loyalty-card";
-import {Client, ClientService} from "../client";
-import {ProductEntry, ProductEntryService} from "../product-entry";
-import {Car, CarService} from "../car";
-import {Address, AddressService} from "../address";
-import {Company} from "../company/company.model";
-import {CompanyService} from "../company/company.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Receipt} from './receipt.model';
+import {ReceiptPopupService} from './receipt-popup.service';
+import {ReceiptService} from './receipt.service';
+import {PayMaster, PayMasterService} from '../pay-master';
+import {LoyaltyCard, LoyaltyCardService} from '../loyalty-card';
+import {Client, ClientService} from '../client';
+import {ProductEntry, ProductEntryService} from '../product-entry';
+import {Car, CarService} from '../car';
+import {Address, AddressService} from '../address';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'
@@ -134,7 +134,7 @@ export class ReceiptPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.receiptPopupService
                     .open(ReceiptDialogComponent, params['id']);

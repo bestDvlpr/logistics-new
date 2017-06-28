@@ -53,6 +53,10 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Long companyId;
+
+    private String companyName;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -61,14 +65,16 @@ public class UserDTO {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
+            (user.getCompany() != null && user.getCompany().getId() != null) ? user.getCompany().getId() : null,
+            (user.getCompany() != null && user.getCompany().getName() != null) ? user.getCompany().getName() : null,
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()));
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
-        String email, boolean activated, String imageUrl, String langKey,
-        String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities) {
+                   String email, boolean activated, String imageUrl, String langKey,
+                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                   Long companyId, String companyName, Set<String> authorities) {
 
         this.id = id;
         this.login = login;
@@ -83,6 +89,8 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.companyId = companyId;
+        this.companyName = companyName;
     }
 
     public Long getId() {
@@ -147,6 +155,22 @@ public class UserDTO {
 
     public Set<String> getAuthorities() {
         return authorities;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     @Override

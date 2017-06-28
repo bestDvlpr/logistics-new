@@ -8,6 +8,6 @@ export class Location {
     constructor(public id?: number,
                 public name?: string,
                 public parent?: Location,
-                public type?: LocationType ) {
+                public type?: LocationType) {
     }
 }

@@ -1,23 +1,23 @@
-import {Component, OnInit} from "@angular/core";
-import {ReportService} from "../report.service";
-import {ProductDeliveryReport} from "../product-delivery-report.model";
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiParseLinks} from "ng-jhipster";
-import {Company} from "../../entities/company/company.model";
-import {CompanyService} from "../../entities/company/company.service";
-import {LocationService} from "../../entities/location/location.service";
-import {EnumAware} from "../../entities/receipt/doctypaware.decorator";
-import {Location, LocationType} from "../../entities/location/location.model";
-import {CommonReportCriteria} from "../report.criteria";
-import {ACElement} from "../../shared/autocomplete/element.model";
-import {Response} from "@angular/http";
-import {isNullOrUndefined} from "util";
-import * as FileSaver from "file-saver";
-import {DataHolderService} from "../../entities/receipt/data-holder.service";
-import {ITEMS_PER_PAGE} from "../../shared/constants/pagination.constants";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {Component, OnInit} from '@angular/core';
+import {ReportService} from '../report.service';
+import {ProductDeliveryReport} from '../product-delivery-report.model';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiParseLinks} from 'ng-jhipster';
+import {Company} from '../../entities/company/company.model';
+import {CompanyService} from '../../entities/company/company.service';
+import {LocationService} from '../../entities/location/location.service';
+import {EnumAware} from '../../entities/receipt/doctypaware.decorator';
+import {Location, LocationType} from '../../entities/location/location.model';
+import {CommonReportCriteria} from '../report.criteria';
+import {ACElement} from '../../shared/autocomplete/element.model';
+import {Response} from '@angular/http';
+import {isNullOrUndefined} from 'util';
+import * as FileSaver from 'file-saver';
+import {DataHolderService} from '../../entities/receipt/data-holder.service';
+import {ITEMS_PER_PAGE} from '../../shared/constants/pagination.constants';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -63,7 +63,7 @@ export class OverallReportComponent implements OnInit {
                 private languageHelper: JhiLanguageHelper,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -91,19 +91,19 @@ export class OverallReportComponent implements OnInit {
     private getAllCompanies() {
         this.companyService.all().subscribe((res) => {
             this.companies = res.json();
-            this.companies.filter(x => this.companiesSource.push(x.name));
+            this.companies.filter((x) => this.companiesSource.push(x.name));
         });
     }
 
     private getAllDistricts() {
         this.locationService.findByType(this.locationType.DISTRICT).subscribe((res) => {
             this.districts = res.json();
-            this.districts.filter(x => this.regionsSource.push(x.name));
+            this.districts.filter((x) => this.regionsSource.push(x.name));
         });
     }
 
     getGenericReport() {
-        let criteria = this.createReportCriteria();
+        const criteria = this.createReportCriteria();
 
         this.reportService.getGenericReport(criteria, {
             page: this.page - 1,
@@ -146,16 +146,16 @@ export class OverallReportComponent implements OnInit {
     }
 
     exportGenericReport() {
-        let criteria = this.createReportCriteria();
+        const criteria = this.createReportCriteria();
         this.reportService.downloadGenericReport(criteria).subscribe((res: Response) => {
             this.onSuccessExport(res);
         });
     }
 
     private onSuccessExport(res: Response) {
-        let mediaType = 'application/octet-stream;charset=UTF-8';
-        let blob = new Blob([res.blob()], {type: mediaType});
-        let filename: string = '';
+        const mediaType = 'application/octet-stream;charset=UTF-8';
+        const blob = new Blob([res.blob()], {type: mediaType});
+        let filename = '';
         if (this.startTime === null) {
             filename = DataHolderService.format(new Date()) + '_report.xlsx';
         } else {
@@ -180,21 +180,21 @@ export class OverallReportComponent implements OnInit {
         let district: ACElement = null;
         let company: ACElement = null;
 
-        if (this.selectedRegion === "") {
+        if (this.selectedRegion === '') {
             this.selectedRegion = null;
         }
 
-        if (this.selectedCompany === "") {
+        if (this.selectedCompany === '') {
             this.selectedCompany = null;
         }
 
         if (!isNullOrUndefined(this.companies) && !isNullOrUndefined(this.selectedCompany)) {
-            let chosenCompany = this.companies.find(c => c.name === this.selectedCompany);
+            const chosenCompany = this.companies.find((c) => c.name === this.selectedCompany);
             company = new ACElement(chosenCompany.id, chosenCompany.name);
         }
 
         if (!isNullOrUndefined(this.districts) && !isNullOrUndefined(this.selectedRegion)) {
-            let chosenDistrict = this.districts.find(r => r.name === this.selectedRegion);
+            const chosenDistrict = this.districts.find((r) => r.name === this.selectedRegion);
             district = new ACElement(chosenDistrict.id, chosenDistrict.name);
         }
 
@@ -202,7 +202,7 @@ export class OverallReportComponent implements OnInit {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Product} from "./product.model";
-import {ProductPopupService} from "./product-popup.service";
-import {ProductService} from "./product.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Product} from './product.model';
+import {ProductPopupService} from './product-popup.service';
+import {ProductService} from './product.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-product-dialog',
     templateUrl: './product-dialog.component.html'
@@ -80,7 +80,7 @@ export class ProductPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.productPopupService
                     .open(ProductDialogComponent, params['id']);

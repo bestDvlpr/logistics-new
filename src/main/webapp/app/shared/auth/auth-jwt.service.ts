@@ -1,15 +1,14 @@
-import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
-import {Observable} from "rxjs/Rx";
-import {LocalStorageService, SessionStorageService} from "ng2-webstorage";
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 
 @Injectable()
 export class AuthServerProvider {
-    constructor(
-        private http: Http,
-        private $localStorage: LocalStorageService,
-        private $sessionStorage: SessionStorageService
-    ) {}
+    constructor(private http: Http,
+                private $localStorage: LocalStorageService,
+                private $sessionStorage: SessionStorageService) {
+    }
 
     getToken() {
         return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');

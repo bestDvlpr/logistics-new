@@ -1,14 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiLanguageService} from "ng-jhipster";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiLanguageService} from 'ng-jhipster';
 
-import {ProfileService} from "../profiles/profile.service";
-import {JhiLanguageHelper, LoginModalService, LoginService, Principal} from "../../shared";
+import {ProfileService} from '../profiles/profile.service';
+import {JhiLanguageHelper, LoginModalService, LoginService, Principal} from '../../shared';
 
-import {VERSION} from "../../app.constants";
-import {ReceiptService} from "../../entities/receipt/receipt.service";
-import {Observable} from "rxjs";
+import {VERSION} from '../../app.constants';
+import {ReceiptService} from '../../entities/receipt/receipt.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'jhi-navbar',
@@ -25,8 +25,8 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-    newOrderCount: number = 0;
-    appliedOrderCount: number = 0;
+    newOrderCount = 0;
+    appliedOrderCount = 0;
 
     constructor(private loginService: LoginService,
                 private languageService: JhiLanguageService,
@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
 
-        Observable.interval(10000).subscribe(x => {
+        Observable.interval(10000).subscribe((x) => {
             this.getNewReceiptCount();
             this.getAppliedReceiptsCount();
         });
@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit {
 
     private getNewReceiptCount() {
         if (this.principal.isAuthenticated()) {
-            this.receiptService.countNewApplications().subscribe(count => {
+            this.receiptService.countNewApplications().subscribe((count) => {
                 this.newOrderCount = count;
             });
         }

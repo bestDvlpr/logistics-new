@@ -1,5 +1,5 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {DatePipe} from "@angular/common";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {DatePipe} from '@angular/common';
 
 import {
     AccountService,
@@ -14,7 +14,7 @@ import {
     Principal,
     StateStorageService,
     UserService
-} from "./";
+} from './';
 
 @NgModule({
     imports: [
@@ -46,4 +46,5 @@ import {
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class LogisticsSharedModule {}
+export class LogisticsSharedModule {
+}

@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Company} from "./company.model";
-import {CompanyPopupService} from "./company-popup.service";
-import {CompanyService} from "./company.service";
-import {Address, AddressService} from "../address";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Company} from './company.model';
+import {CompanyPopupService} from './company-popup.service';
+import {CompanyService} from './company.service';
+import {Address, AddressService} from '../address';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-company-dialog',
     templateUrl: './company-dialog.component.html'
@@ -91,7 +91,7 @@ export class CompanyPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.companyPopupService
                     .open(CompanyDialogComponent, params['id']);

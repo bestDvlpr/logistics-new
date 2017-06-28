@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {CarColor} from "./car-color.model";
-import {CarColorService} from "./car-color.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {CarColor} from './car-color.model';
+import {CarColorService} from './car-color.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-car-color-detail',
@@ -20,7 +20,7 @@ export class CarColorDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class CarColorDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.carColorService.find(id).subscribe(carColor => {
+        this.carColorService.find(id).subscribe((carColor) => {
             this.carColor = carColor;
         });
     }

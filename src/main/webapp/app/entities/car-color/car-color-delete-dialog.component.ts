@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {CarColor} from "./car-color.model";
-import {CarColorPopupService} from "./car-color-popup.service";
-import {CarColorService} from "./car-color.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {CarColor} from './car-color.model';
+import {CarColorPopupService} from './car-color-popup.service';
+import {CarColorService} from './car-color.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-car-color-delete-dialog',

@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JhiAlertService, JhiParseLinks} from "ng-jhipster";
-import {Client} from "./client.model";
-import {ClientService} from "./client.service";
-import {ReceiptService} from "../receipt/receipt.service";
-import {Response} from "@angular/http";
-import {DocType, Receipt, ReceiptStatus} from "../receipt/receipt.model";
-import {EnumAware} from "../receipt/doctypaware.decorator";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiAlertService, JhiParseLinks} from 'ng-jhipster';
+import {Client} from './client.model';
+import {ClientService} from './client.service';
+import {ReceiptService} from '../receipt/receipt.service';
+import {Response} from '@angular/http';
+import {DocType, Receipt, ReceiptStatus} from '../receipt/receipt.model';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-client-detail',
@@ -40,8 +41,9 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private alertService: JhiAlertService,
                 private receiptService: ReceiptService,
-                private router: Router) {
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+                private router: Router,
+                private paginationConfig: PaginationConfig) {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -50,7 +52,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
             this.loadSalesHistory(params['id']);
         });
@@ -60,7 +62,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.clientService.find(id).subscribe(client => {
+        this.clientService.find(id).subscribe((client) => {
             this.client = client;
         });
     }
@@ -76,7 +78,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

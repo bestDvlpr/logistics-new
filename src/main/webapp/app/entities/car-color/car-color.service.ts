@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {CarColor} from "./car-color.model";
+import {CarColor} from './car-color.model';
 @Injectable()
 export class CarColorService {
 

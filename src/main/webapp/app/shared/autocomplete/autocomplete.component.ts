@@ -1,14 +1,12 @@
-import {Component, ElementRef} from "@angular/core";
-import {DataHolderService} from "../../entities/receipt/data-holder.service";
-import {ACElement} from "./element.model";
-import {ControlValueAccessor} from "@angular/forms";
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {DataHolderService} from '../../entities/receipt/data-holder.service';
+import {ACElement} from './element.model';
+import {ControlValueAccessor} from '@angular/forms';
 @Component({
     selector: 'jhi-autocomplete',
     templateUrl: 'autocomplete.component.html'
 })
-export class AutocompleteComponent implements ControlValueAccessor {
-    writeValue(obj: any): void {
-    }
+export class AutocompleteComponent implements ControlValueAccessor, OnInit {
 
     public query: ACElement = {};
     public objects: ACElement[] = [];
@@ -20,6 +18,9 @@ export class AutocompleteComponent implements ControlValueAccessor {
         this.elementRef = myElement;
     }
 
+    writeValue(obj: any): void {
+    }
+
     ngOnInit() {
         if (this.dataHolderService._autocompleteObjects !== null && this.dataHolderService._autocompleteObjects.length > 0) {
             this.objects = this.dataHolderService._autocompleteObjects;
@@ -29,12 +30,12 @@ export class AutocompleteComponent implements ControlValueAccessor {
     filter() {
         if (this.query !== null && this.query.name !== '') {
             let elem: ACElement;
-            for (let a of this.objects) {
+            for (const a of this.objects) {
                 if (this.query.name === a.name) {
                     elem = a;
                 }
             }
-            this.filteredList = this.objects.filter(function (el: ACElement) {
+            this.filteredList = this.objects.filter(function(el: ACElement) {
                 return el;
             }.bind(this.objects));
         } else {

@@ -1,7 +1,7 @@
-import {Component, OnDestroy} from "@angular/core";
-import {TranslateService} from "@ngx-translate/core";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
-import {Subscription} from "rxjs/Rx";
+import {Component, OnDestroy} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import {Subscription} from 'rxjs/Rx';
 
 @Component({
     selector: 'jhi-alert-error',
@@ -48,7 +48,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
                     }
                     if (errorHeader) {
                         const entityName = translateService.instant('global.menu.entities.' + entityKey);
-                        this.addErrorAlert(errorHeader, errorHeader, { entityName });
+                        this.addErrorAlert(errorHeader, errorHeader, {entityName});
                     } else if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().fieldErrors) {
                         const fieldErrors = httpResponse.json().fieldErrors;
                         for (i = 0; i < fieldErrors.length; i++) {
@@ -58,7 +58,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
                             const fieldName = translateService.instant('logisticsApp.' +
                                 fieldError.objectName + '.' + convertedField);
                             this.addErrorAlert(
-                                'Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
+                                'Error on field "' + fieldName + '"', 'error.' + fieldError.message, {fieldName});
                         }
                     } else if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().message) {
                         this.addErrorAlert(httpResponse.json().message, httpResponse.json().message, httpResponse.json().params);

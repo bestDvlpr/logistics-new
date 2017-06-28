@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {PayMaster} from "./pay-master.model";
-import {PayMasterPopupService} from "./pay-master-popup.service";
-import {PayMasterService} from "./pay-master.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PayMaster} from './pay-master.model';
+import {PayMasterPopupService} from './pay-master-popup.service';
+import {PayMasterService} from './pay-master.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-pay-master-dialog',
     templateUrl: './pay-master-dialog.component.html'
@@ -80,7 +80,7 @@ export class PayMasterPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.payMasterPopupService
                     .open(PayMasterDialogComponent, params['id']);

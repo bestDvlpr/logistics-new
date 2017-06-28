@@ -1,6 +1,6 @@
-import {JhiEventManager, JhiHttpInterceptor} from "ng-jhipster";
-import {RequestOptionsArgs, Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
+import {JhiEventManager, JhiHttpInterceptor} from 'ng-jhipster';
+import {RequestOptionsArgs, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 export class ErrorHandlerInterceptor extends JhiHttpInterceptor {
 
@@ -16,7 +16,7 @@ export class ErrorHandlerInterceptor extends JhiHttpInterceptor {
         return <Observable<Response>> observable.catch((error) => {
             if (!(error.status === 401 && (error.text() === '' ||
                 (error.json().path && error.json().path.indexOf('/api/account') === 0 )))) {
-                this.eventManager.broadcast( {name: 'logisticsApp.httpError', content: error});
+                this.eventManager.broadcast({name: 'logisticsApp.httpError', content: error});
             }
             return Observable.throw(error);
         });

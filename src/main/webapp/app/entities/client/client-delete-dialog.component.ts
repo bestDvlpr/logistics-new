@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Client} from "./client.model";
-import {ClientPopupService} from "./client-popup.service";
-import {ClientService} from "./client.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Client} from './client.model';
+import {ClientPopupService} from './client-popup.service';
+import {ClientService} from './client.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-client-delete-dialog',
     templateUrl: './client-delete-dialog.component.html'
 })
 export class ClientDeleteDialogComponent implements OnInit {
+
+    client: Client;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    client: Client;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private clientService: ClientService,
@@ -34,7 +35,7 @@ export class ClientDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.clientService.delete(id).subscribe(response => {
+        this.clientService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'clientListModification',
                 content: 'Deleted an client'
@@ -58,7 +59,7 @@ export class ClientDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.clientPopupService
                 .open(ClientDeleteDialogComponent, params['id']);
         });

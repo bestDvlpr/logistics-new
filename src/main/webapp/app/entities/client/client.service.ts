@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {Client} from "./client.model";
-import {JhiDateUtils} from "ng-jhipster";
+import {Client} from './client.model';
+import {JhiDateUtils} from 'ng-jhipster';
 @Injectable()
 export class ClientService {
 
@@ -13,7 +13,7 @@ export class ClientService {
     }
 
     create(client: Client): Observable<Client> {
-        let copy: Client = Object.assign({}, client);
+        const copy: Client = Object.assign({}, client);
         copy.regDate = this.dateUtils.toDate(client.regDate);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
@@ -21,7 +21,7 @@ export class ClientService {
     }
 
     update(client: Client): Observable<Client> {
-        let copy: Client = Object.assign({}, client);
+        const copy: Client = Object.assign({}, client);
 
         copy.regDate = this.dateUtils.toDate(client.regDate);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
@@ -31,7 +31,7 @@ export class ClientService {
 
     find(id: number): Observable<Client> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
+            const jsonResponse = res.json();
             jsonResponse.regDate = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.regDate);
             return jsonResponse;
@@ -39,7 +39,7 @@ export class ClientService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
             ;
@@ -55,9 +55,8 @@ export class ClientService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].regDate = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].regDate);
@@ -67,9 +66,9 @@ export class ClientService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

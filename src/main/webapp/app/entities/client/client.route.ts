@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
 
-import {Principal} from "../../shared";
-import {JhiPaginationUtil} from "ng-jhipster";
+import {Principal} from '../../shared';
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import {ClientComponent} from "./client.component";
-import {ClientDetailComponent} from "./client-detail.component";
-import {ClientPopupComponent} from "./client-dialog.component";
-import {ClientDeletePopupComponent} from "./client-delete-dialog.component";
+import {ClientComponent} from './client.component';
+import {ClientDetailComponent} from './client-detail.component';
+import {ClientPopupComponent} from './client-dialog.component';
+import {ClientDeletePopupComponent} from './client-delete-dialog.component';
 
 @Injectable()
 export class ClientResolvePagingParams implements Resolve<any> {
@@ -16,12 +16,12 @@ export class ClientResolvePagingParams implements Resolve<any> {
     }
 
     canActivate() {
-        return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_USER']));
+        return this.principal.identity().then((account) => this.principal.hasAnyAuthority(['ROLE_USER']));
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),

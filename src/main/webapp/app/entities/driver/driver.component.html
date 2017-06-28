@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.driver.home.title">Drivers</span>
-        <button class="btn btn-primary float-right create-driver" [routerLink]="['/', { outlets: { popup: ['driver-new'] } }]">
+        <button class="btn btn-primary float-right create-driver"
+                [routerLink]="['/', { outlets: { popup: ['driver-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.driver.home.createLabel">
+            <span jhiTranslate="logisticsApp.driver.home.createLabel">
             Create new Driver
             </span>
         </button>
@@ -16,14 +17,20 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="phone"><span jhiTranslate="logisticsApp.driver.phone">Phone</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="address"><span jhiTranslate="logisticsApp.driver.address">Address</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="firstName"><span jhiTranslate="logisticsApp.driver.firstName">First Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="lastName"><span jhiTranslate="logisticsApp.driver.lastName">Last Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="mobileId"><span jhiTranslate="logisticsApp.driver.mobileId">Mobile Id</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.driver.deleted-flag">Deleted</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="phone"><span jhiTranslate="logisticsApp.driver.phone">Phone</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="address"><span jhiTranslate="logisticsApp.driver.address">Address</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="firstName"><span jhiTranslate="logisticsApp.driver.firstName">First Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="lastName"><span jhiTranslate="logisticsApp.driver.lastName">Last Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="mobileId"><span jhiTranslate="logisticsApp.driver.mobileId">Mobile Id</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="deleted"><span jhiTranslate="logisticsApp.driver.deleted-flag">Deleted</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +75,8 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

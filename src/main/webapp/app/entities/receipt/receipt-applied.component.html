@@ -41,8 +41,6 @@
                     <span jhiTranslate="logisticsApp.receipt.address">Addresses</span> <span
                     class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="cars"><span jhiTranslate="logisticsApp.receipt.cars">Cars</span> <span
-                    class="fa fa-sort"></span></th>
                 <th jhiSortBy="status"><span jhiTranslate="logisticsApp.receipt.status">Status</span> <span
                     class="fa fa-sort"></span></th>
                 <th></th>
@@ -127,12 +125,6 @@
                     </div>
                 </td>
                 <td>
-                    <div
-                        *ngIf="receipt.productEntries && receipt.productEntries[0] && receipt.productEntries[0].attachedCarNumber">
-                        {{receipt.productEntries[0].attachedCarNumber}}
-                    </div>
-                </td>
-                <td>
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-info"
                           *ngIf="receipt.status === receiptStatusEnum.NEW">{{receipt.status}}
                     </span>
@@ -182,7 +174,8 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

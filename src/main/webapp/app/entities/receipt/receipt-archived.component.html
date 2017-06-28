@@ -183,7 +183,8 @@
                         <button type="button" class="btn btn-primary btn-sm" (click)="attachToDriver(receipt.id)"
                                 *ngIf="receipt.status==receiptStatusEnum.APPLICATION_SENT">
                             <span class="fa fa-car"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
+                            <span class="hidden-md-down"
+                                  jhiTranslate="entity.action.attachDriver">Attach to Driver</span>
                         </button>
                         <button type="button" class="btn btn-warning btn-sm" (click)="attachToDriver(receipt.id)"
                                 *ngIf="receipt.status==receiptStatusEnum.ATTACHED_TO_DRIVER">
@@ -205,7 +206,7 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems"  [(page)]="page"
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
                             (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>

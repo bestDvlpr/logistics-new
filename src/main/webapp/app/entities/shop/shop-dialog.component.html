@@ -1,121 +1,133 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myShopLabel" jhiTranslate="logisticsApp.shop.home.createOrEditLabel">Create or edit a Shop</h4>
+        <h4 class="modal-title" id="myShopLabel" jhiTranslate="logisticsApp.shop.home.createOrEditLabel">Create or edit
+            a Shop</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!shop.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="shop.id" readonly />
+                   [(ngModel)]="shop.id" readonly/>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.shopId" for="field_shopId">Shop Id</label>
             <input type="text" class="form-control" name="shopId" id="field_shopId"
-                [(ngModel)]="shop.shopId"
-            required />
+                   [(ngModel)]="shop.shopId"
+                   required/>
             <div [hidden]="!(editForm.controls.shopId?.dirty && editForm.controls.shopId?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.shopId?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.shopId?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="shop.name"
-            required />
+                   [(ngModel)]="shop.name"
+                   required/>
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankAccountNumber" for="field_bankAccountNumber">Bank Account Number</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankAccountNumber"
+                   for="field_bankAccountNumber">Bank Account Number</label>
             <input type="text" class="form-control" name="bankAccountNumber" id="field_bankAccountNumber"
-                [(ngModel)]="shop.bankAccountNumber"
-            minlength="16" maxlength="24" />
-            <div [hidden]="!(editForm.controls.bankAccountNumber?.dirty && editForm.controls.bankAccountNumber?.invalid)">
+                   [(ngModel)]="shop.bankAccountNumber"
+                   minlength="16" maxlength="24"/>
+            <div
+                [hidden]="!(editForm.controls.bankAccountNumber?.dirty && editForm.controls.bankAccountNumber?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.bankAccountNumber?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 16 }">
-                   This field is required to be at least 16 characters.
+                       [hidden]="!editForm.controls.bankAccountNumber?.errors?.minlength"
+                       jhiTranslate="entity.validation.minlength" translateValues="{ min: 16 }">
+                    This field is required to be at least 16 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.bankAccountNumber?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 24 }">
-                   This field cannot be longer than 24 characters.
+                       [hidden]="!editForm.controls.bankAccountNumber?.errors?.maxlength"
+                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 24 }">
+                    This field cannot be longer than 24 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankName" for="field_bankName">Bank Name</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankName" for="field_bankName">Bank
+                Name</label>
             <input type="text" class="form-control" name="bankName" id="field_bankName"
-                [(ngModel)]="shop.bankName"
-             />
+                   [(ngModel)]="shop.bankName"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankBranchRegion" for="field_bankBranchRegion">Bank Branch Region</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.shop.bankBranchRegion"
+                   for="field_bankBranchRegion">Bank Branch Region</label>
             <input type="text" class="form-control" name="bankBranchRegion" id="field_bankBranchRegion"
-                [(ngModel)]="shop.bankBranchRegion"
-             />
+                   [(ngModel)]="shop.bankBranchRegion"
+            />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.mfo" for="field_mfo">Mfo</label>
             <input type="text" class="form-control" name="mfo" id="field_mfo"
-                [(ngModel)]="shop.mfo"
-            minlength="5" maxlength="5" />
+                   [(ngModel)]="shop.mfo"
+                   minlength="5" maxlength="5"/>
             <div [hidden]="!(editForm.controls.mfo?.dirty && editForm.controls.mfo?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.mfo?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 5 }">
-                   This field is required to be at least 5 characters.
+                       [hidden]="!editForm.controls.mfo?.errors?.minlength" jhiTranslate="entity.validation.minlength"
+                       translateValues="{ min: 5 }">
+                    This field is required to be at least 5 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.mfo?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 5 }">
-                   This field cannot be longer than 5 characters.
+                       [hidden]="!editForm.controls.mfo?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
+                       translateValues="{ max: 5 }">
+                    This field cannot be longer than 5 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.tin" for="field_tin">Tin</label>
             <input type="text" class="form-control" name="tin" id="field_tin"
-                [(ngModel)]="shop.tin"
-            minlength="9" maxlength="9" />
+                   [(ngModel)]="shop.tin"
+                   minlength="9" maxlength="9"/>
             <div [hidden]="!(editForm.controls.tin?.dirty && editForm.controls.tin?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.tin?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 9 }">
-                   This field is required to be at least 9 characters.
+                       [hidden]="!editForm.controls.tin?.errors?.minlength" jhiTranslate="entity.validation.minlength"
+                       translateValues="{ min: 9 }">
+                    This field is required to be at least 9 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.tin?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 9 }">
-                   This field cannot be longer than 9 characters.
+                       [hidden]="!editForm.controls.tin?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
+                       translateValues="{ max: 9 }">
+                    This field cannot be longer than 9 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.okonx" for="field_okonx">Okonx</label>
             <input type="text" class="form-control" name="okonx" id="field_okonx"
-                [(ngModel)]="shop.okonx"
-             />
+                   [(ngModel)]="shop.okonx"
+            />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.shop.oked" for="field_oked">Oked</label>
             <input type="text" class="form-control" name="oked" id="field_oked"
-                [(ngModel)]="shop.oked"
-             />
+                   [(ngModel)]="shop.oked"
+            />
         </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.shop.address" for="field_address">Address</label>
-            <select class="form-control" id="field_address" name="address" [(ngModel)]="shop.addressId" >
+            <select class="form-control" id="field_address" name="address" [(ngModel)]="shop.addressId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="addressOption.id" *ngFor="let addressOption of address; trackBy: trackAddressById">{{addressOption.streetAddress}}</option>
+                <option [ngValue]="addressOption.id" *ngFor="let addressOption of address; trackBy: trackAddressById">
+                    {{addressOption.streetAddress}}
+                </option>
             </select>
         </div>
     </div>

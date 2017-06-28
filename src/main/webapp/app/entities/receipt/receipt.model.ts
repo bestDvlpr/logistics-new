@@ -1,8 +1,8 @@
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {Address} from "../address/address.model";
-import {Car} from "../car/car.model";
-import {Client} from "../client/client.model";
-import {Company} from "../company/company.model";
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {Address} from '../address/address.model';
+import {Car} from '../car/car.model';
+import {Client} from '../client/client.model';
+import {Company} from '../company/company.model';
 export enum DocType {
     RETURN = <any>'RETURN',
     SALES = <any>'SALES',

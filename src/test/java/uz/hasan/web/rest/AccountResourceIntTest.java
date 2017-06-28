@@ -168,6 +168,8 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
@@ -197,6 +199,8 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
@@ -225,6 +229,8 @@ public class AccountResourceIntTest {
             "ru",                   // langKey
             null,                   // createdBy
             null,                   // createdDate
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
@@ -256,6 +262,8 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
+            null,                   // lastModifiedDate
+            null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
         restUserMockMvc.perform(
@@ -284,6 +292,8 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedDate
+            null,                   // lastModifiedDate
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
@@ -314,12 +324,14 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
         // Duplicate login, different email
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getFirstName(), validUser.getLastName(),
-            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), null, null, validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -356,12 +368,14 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
 
         // Duplicate email, different login
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), null, null, validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -396,6 +410,8 @@ public class AccountResourceIntTest {
             "ru",                   // langKey
             null,                   // createdBy
             null,                   // createdDate
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.ADMIN)));
@@ -462,6 +478,8 @@ public class AccountResourceIntTest {
             "ru",                   // langKey
             null,                   // createdBy
             null,                   // createdDate
+            null,                   // createdDate
+            null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.ADMIN))
@@ -508,6 +526,8 @@ public class AccountResourceIntTest {
             null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
+            null,                   // lastModifiedBy
             null,                   // lastModifiedDate
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.ADMIN))
         );
@@ -551,6 +571,8 @@ public class AccountResourceIntTest {
             "http://placehold.it/50x50", //imageUrl
             "ru",                   // langKey
             null,                   // createdBy
+            null,                   // createdBy
+            null,                   // createdBy
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
@@ -589,6 +611,8 @@ public class AccountResourceIntTest {
             "http://placehold.it/50x50", //imageUrl
             "ru",                   // langKey
             null,                   // createdBy
+            null,                   // createdDate
+            null,                   // createdDate
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate

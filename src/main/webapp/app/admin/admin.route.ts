@@ -1,4 +1,4 @@
-import {Routes} from "@angular/router";
+import {Routes} from '@angular/router';
 
 import {
     auditsRoute,
@@ -10,9 +10,9 @@ import {
     metricsRoute,
     userDialogRoute,
     userMgmtRoute
-} from "./";
+} from './';
 
-import {UserRouteAccessService} from "../shared";
+import {UserRouteAccessService} from '../shared';
 
 const ADMIN_ROUTES = [
     auditsRoute,

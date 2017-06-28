@@ -40,9 +40,11 @@
                     <th><span jhiTranslate="logisticsApp.receipt.productEntries">Product Entries</span></th>
                     <th><span jhiTranslate="logisticsApp.receipt.docDate">Doc Date</span></th>
                     <th><span jhiTranslate="logisticsApp.receipt.docType">Doc Type</span></th>
-                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span></th>
+                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.startTime">From Time</span>
+                    </th>
                     <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.endTime">To Time</span></th>
-                    <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
+                    <th *ngIf="!isWarehouseUser"><span
+                        jhiTranslate="logisticsApp.receipt.deliveryDate">Delivery Date</span>
                     </th>
                     <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.region">Region</span></th>
                     <th *ngIf="!isWarehouseUser"><span jhiTranslate="logisticsApp.address.district">District</span></th>
@@ -128,23 +130,29 @@
                     <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-info"
                           *ngIf="receipt.status === receiptStatusEnum.NEW">{{receipt.status}}
                     </span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-primary"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-primary"
                               *ngIf="receipt.status === receiptStatusEnum.APPLICATION_SENT">{{receipt.status}}</span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-warning"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-warning"
                               *ngIf="receipt.status === receiptStatusEnum.ATTACHED_TO_DRIVER">{{receipt.status}}
                     </span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-default"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-default"
                               *ngIf="receipt.status === receiptStatusEnum.DELIVERY_PROCESS">{{receipt.status}}
                     </span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-success"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-success"
                               *ngIf="receipt.status === receiptStatusEnum.DELIVERED">
                         {{receipt.status}}
                     </span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-danger"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-danger"
                               *ngIf="receipt.status === receiptStatusEnum.CANCELLED">
                         {{receipt.status}}
                     </span>
-                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}" class="badge badge-danger"
+                        <span jhiTranslate="{{'logisticsApp.ReceiptStatus.' + receipt.status}}"
+                              class="badge badge-danger"
                               *ngIf="receipt.status === receiptStatusEnum.TAKEOUT">
                         {{receipt.status}}
                     </span>

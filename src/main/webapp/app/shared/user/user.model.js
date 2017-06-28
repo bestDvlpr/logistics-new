@@ -15,6 +15,7 @@ var User = (function () {
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
     }
+
     return User;
 }());
 exports.User = User;

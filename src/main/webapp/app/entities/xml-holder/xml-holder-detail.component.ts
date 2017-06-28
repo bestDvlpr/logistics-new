@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {XmlHolder} from "./xml-holder.model";
-import {XmlHolderService} from "./xml-holder.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {XmlHolder} from './xml-holder.model';
+import {XmlHolderService} from './xml-holder.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-xml-holder-detail',
@@ -20,7 +20,7 @@ export class XmlHolderDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class XmlHolderDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.xmlHolderService.find(id).subscribe(xmlHolder => {
+        this.xmlHolderService.find(id).subscribe((xmlHolder) => {
             this.xmlHolder = xmlHolder;
         });
     }

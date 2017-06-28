@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {PayMaster} from "./pay-master.model";
-import {PayMasterService} from "./pay-master.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PayMaster} from './pay-master.model';
+import {PayMasterService} from './pay-master.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-pay-master-detail',
@@ -20,7 +20,7 @@ export class PayMasterDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class PayMasterDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.payMasterService.find(id).subscribe(payMaster => {
+        this.payMasterService.find(id).subscribe((payMaster) => {
             this.payMaster = payMaster;
         });
     }

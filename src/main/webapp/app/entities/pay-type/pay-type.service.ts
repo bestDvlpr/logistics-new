@@ -1,24 +1,25 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {PayType} from "./pay-type.model";
+import {PayType} from './pay-type.model';
 @Injectable()
 export class PayTypeService {
 
     private resourceUrl = 'api/pay-types';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(payType: PayType): Observable<PayType> {
-        let copy: PayType = Object.assign({}, payType);
+        const copy: PayType = Object.assign({}, payType);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(payType: PayType): Observable<PayType> {
-        let copy: PayType = Object.assign({}, payType);
+        const copy: PayType = Object.assign({}, payType);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -31,21 +32,19 @@ export class PayTypeService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
-
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

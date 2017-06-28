@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
-import {Principal} from "../shared/auth/principal.service";
-import {JhiPaginationUtil} from "ng-jhipster";
-import {ReportComponent} from "./report.component";
-import {OverallReportComponent} from "./overall/overall.report.component";
-import {CountReportComponent} from "./overall/count.report.component";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {Principal} from '../shared/auth/principal.service';
+import {JhiPaginationUtil} from 'ng-jhipster';
+import {ReportComponent} from './report.component';
+import {OverallReportComponent} from './overall/overall.report.component';
+import {CountReportComponent} from './overall/count.report.component';
 /**
  * @author: hasan @date: 6/3/17.
  */
@@ -15,7 +15,7 @@ export class ReportResolve implements CanActivate {
     }
 
     canActivate() {
-        return this.principal.identity().then(account => this.principal.hasAnyAuthority(
+        return this.principal.identity().then((account) => this.principal.hasAnyAuthority(
             [
                 'ROLE_ADMIN',
                 'ROLE_MANAGER',
@@ -33,8 +33,8 @@ export class ReportResolvePagingParams implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),

@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {PayType} from "./pay-type.model";
-import {PayTypePopupService} from "./pay-type-popup.service";
-import {PayTypeService} from "./pay-type.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PayType} from './pay-type.model';
+import {PayTypePopupService} from './pay-type-popup.service';
+import {PayTypeService} from './pay-type.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-pay-type-delete-dialog',
     templateUrl: './pay-type-delete-dialog.component.html'
 })
 export class PayTypeDeleteDialogComponent implements OnInit {
+
+    payType: PayType;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    payType: PayType;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private payTypeService: PayTypeService,
@@ -34,7 +35,7 @@ export class PayTypeDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.payTypeService.delete(id).subscribe(response => {
+        this.payTypeService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'payTypeListModification',
                 content: 'Deleted an payType'
@@ -58,7 +59,7 @@ export class PayTypeDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.payTypePopupService
                 .open(PayTypeDeleteDialogComponent, params['id']);
         });

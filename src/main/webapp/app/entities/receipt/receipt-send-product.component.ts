@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {Receipt, WholeSaleFlag} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {Client} from "../client/client.model";
-import {DataHolderService} from "./data-holder.service";
-import {Address} from "../address/address.model";
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {Company} from "../company/company.model";
-import {EnumAware} from "./doctypaware.decorator";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Receipt, WholeSaleFlag} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {Client} from '../client/client.model';
+import {DataHolderService} from './data-holder.service';
+import {Address} from '../address/address.model';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {Company} from '../company/company.model';
+import {EnumAware} from './doctypaware.decorator';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-receipt-send-product',
     templateUrl: 'receipt-send-product.component.html'
@@ -24,7 +24,7 @@ export class ReceiptSendProductComponent implements OnInit {
     address: Address;
     productEntries: ProductEntry[];
     productsSelected: ProductEntry[] = [];
-    isAllChecked: boolean = false;
+    isAllChecked = false;
     startTime: any = null;
     endTime: any = null;
     deliveryDate: any = null;
@@ -39,13 +39,13 @@ export class ReceiptSendProductComponent implements OnInit {
     }
 
     ngOnInit() {
-        let date = new Date();
+        const date = new Date();
         this.receipt = this.dataHolderService._receipt;
         this.client = this.dataHolderService._client;
         this.company = this.dataHolderService._company;
         this.address = this.dataHolderService._address;
         this.productEntries = [];
-        for (let prod of this.dataHolderService._receipt.productEntries) {
+        for (const prod of this.dataHolderService._receipt.productEntries) {
             if (prod.addressId === null) {
                 this.productEntries.push(prod);
             }
@@ -57,7 +57,7 @@ export class ReceiptSendProductComponent implements OnInit {
     }
 
     load(id) {
-        this.receiptService.find(id).subscribe(receipt => {
+        this.receiptService.find(id).subscribe((receipt) => {
             this.receipt = receipt;
         });
     }
@@ -84,8 +84,8 @@ export class ReceiptSendProductComponent implements OnInit {
         this.dataHolderService._client = this.client;
         this.dataHolderService._company = this.company;
         this.dataHolderService._address = this.address;
-        for (let prod of this.productsSelected) {
-            for (let pro of this.receipt.productEntries) {
+        for (const prod of this.productsSelected) {
+            for (const pro of this.receipt.productEntries) {
                 if (prod.id === pro.id) {
                     pro.addressId = this.address.id;
                     pro.address = this.address;
@@ -97,7 +97,7 @@ export class ReceiptSendProductComponent implements OnInit {
     }
 
     productChecked(product: ProductEntry) {
-        let indexProd: number = this.productEntries.indexOf(product);
+        const indexProd: number = this.productEntries.indexOf(product);
         if (indexProd !== null && indexProd !== -1) {
             if (!product.selected) {
                 this.productsSelected.push(product);
@@ -117,13 +117,13 @@ export class ReceiptSendProductComponent implements OnInit {
     productAllChecked() {
         if (!this.isAllChecked) {
             this.productsSelected = [];
-            this.productEntries.forEach(entry => {
+            this.productEntries.forEach((entry) => {
                 entry.selected = true;
                 this.productsSelected.push(entry);
             });
             this.isAllChecked = !this.isAllChecked;
         } else {
-            this.productEntries.forEach(entry => entry.selected = false);
+            this.productEntries.forEach((entry) => entry.selected = false);
             this.isAllChecked = !this.isAllChecked;
             this.productsSelected = [];
         }

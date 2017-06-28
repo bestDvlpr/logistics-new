@@ -1,16 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Account, LoginModalService, Principal} from "../shared";
-import {DeliveryCountByCompany} from "../report/delivery-count-by-ompany";
-import {LineChartData} from "../report/line-chart-data.model";
-import {CommonReportCriteria} from "../report/report.criteria";
-import {ReportService} from "../report/report.service";
-import {DataHolderService} from "../entities/receipt/data-holder.service";
-import {TranslateService} from "ng2-translate";
-import {ReceiptStatus} from "../entities/receipt/receipt.model";
-import {JhiLanguageHelper} from "../shared/language/language.helper";
+import {Account, LoginModalService, Principal} from '../shared';
+import {DeliveryCountByCompany} from '../report/delivery-count-by-ompany';
+import {LineChartData} from '../report/line-chart-data.model';
+import {CommonReportCriteria} from '../report/report.criteria';
+import {ReportService} from '../report/report.service';
+import {DataHolderService} from '../entities/receipt/data-holder.service';
+import {ReceiptStatus} from '../entities/receipt/receipt.model';
+import {JhiLanguageHelper} from '../shared/language/language.helper';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'jhi-home',
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     }
 
     registerAuthenticationSuccess() {
-        this.eventManager.subscribe("authenticationSuccess", (message) => {
+        this.eventManager.subscribe('authenticationSuccess', (message) => {
             this.principal.identity().then((account) => {
                 this.account = account;
             });

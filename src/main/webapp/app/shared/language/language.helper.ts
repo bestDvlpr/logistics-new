@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Title} from "@angular/platform-browser";
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
-import {LangChangeEvent, TranslateService, TranslationChangeEvent} from "@ngx-translate/core";
+import {Injectable} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRouteSnapshot, Router} from '@angular/router';
+import {LangChangeEvent, TranslateService, TranslationChangeEvent} from '@ngx-translate/core';
 
-import {LANGUAGES} from "./language.constants";
+import {LANGUAGES} from './language.constants';
 
 @Injectable()
 export class JhiLanguageHelper {
@@ -25,7 +25,7 @@ export class JhiLanguageHelper {
      */
     updateTitle(titleKey?: string) {
         if (!titleKey) {
-             titleKey = this.getPageTitle(this.router.routerState.snapshot.root);
+            titleKey = this.getPageTitle(this.router.routerState.snapshot.root);
         }
 
         this.translateService.get(titleKey).subscribe((title) => {

@@ -1,17 +1,17 @@
-import {Component, OnInit} from "@angular/core";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
-import {Receipt} from "./receipt.model";
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {Client} from "../client/client.model";
-import {DataHolderService} from "./data-holder.service";
-import {TranslateService} from "ng2-translate";
-import {Router} from "@angular/router";
-import {ClientService} from "../client/client.service";
-import {Subscription} from "rxjs/Rx";
-import {DatePipe} from "@angular/common";
-import {Company} from "../company/company.model";
-import {CompanyService} from "../company/company.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnInit} from '@angular/core';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import {Receipt} from './receipt.model';
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {Client} from '../client/client.model';
+import {DataHolderService} from './data-holder.service';
+import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
+import {ClientService} from '../client/client.service';
+import {Subscription} from 'rxjs/Rx';
+import {DatePipe} from '@angular/common';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-send-address',
@@ -68,7 +68,7 @@ export class ReceiptSendAddressComponent implements OnInit {
 
     public goSelectProductStep() {
         if (!this.addressSelected) {
-            this.translateService.get('error.emailexists').subscribe(title => {
+            this.translateService.get('error.emailexists').subscribe((title) => {
                 this.alertService.error(title);
             });
         } else {

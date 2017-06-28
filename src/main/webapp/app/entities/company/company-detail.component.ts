@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Company} from "./company.model";
-import {CompanyService} from "./company.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Company} from './company.model';
+import {CompanyService} from './company.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-company-detail',
@@ -20,7 +20,7 @@ export class CompanyDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class CompanyDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.companyService.find(id).subscribe(company => {
+        this.companyService.find(id).subscribe((company) => {
             this.company = company;
         });
     }

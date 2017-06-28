@@ -2,11 +2,13 @@
     <div class="modal-header">
         <h4 class="modal-title" jhiTranslate="logisticsApp.receipt.delivery.title">Confirm delivery operation</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p jhiTranslate="logisticsApp.receipt.delivery.question" translateValues="{id: '{{receipt.id}}'}">Are you sure you want to deliver this Receipt?</p>
+        <p jhiTranslate="logisticsApp.receipt.delivery.question" translateValues="{id: '{{receipt.id}}'}">Are you sure
+            you want to deliver this Receipt?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

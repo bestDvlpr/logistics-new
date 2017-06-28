@@ -1,20 +1,20 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Headers, Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Headers, Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {EnumAware} from "./doctypaware.decorator";
-import {DataHolderService} from "./data-holder.service";
-import {Car} from "../car/car.model";
-import {ACElement} from "../../shared/autocomplete/element.model";
-import {CarService} from "../car/car.service";
-import * as FileSaver from "file-saver";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {EnumAware} from './doctypaware.decorator';
+import {DataHolderService} from './data-holder.service';
+import {Car} from '../car/car.model';
+import {ACElement} from '../../shared/autocomplete/element.model';
+import {CarService} from '../car/car.service';
+import * as FileSaver from 'file-saver';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-receipt-credit',
@@ -236,7 +236,7 @@ export class ReceiptCreditComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        this.receiptService.uploadReceipt(formData, this.docTypeSelected, "").subscribe((res: Response) => {
+        this.receiptService.uploadReceipt(formData, this.docTypeSelected, '').subscribe((res: Response) => {
             this.receipt = res.json();
             this.router.navigate(['/']);
         });

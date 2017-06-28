@@ -23,7 +23,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/logistics
         username: logistics
-        password:
+        password: QAZxsw123$
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -41,8 +41,13 @@ spring:
     mail:
         host: localhost
         port: 25
-        username:
-        password:
+        username: khsiddiqov@gmail.com
+        password: hasan123siddiq
+        protocol: smtp
+        properties.mail.smtp:
+                    auth: true
+                    starttls.enable: true
+                    ssl.trust: smtp.gmail.com
     thymeleaf:
         cache: true
     zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies

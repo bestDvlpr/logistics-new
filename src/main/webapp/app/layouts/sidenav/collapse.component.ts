@@ -1,8 +1,7 @@
 /**
  * Created by hasan on 2/22/17.
  */
-import {Directive, HostBinding, Input} from "@angular/core";
-
+import {Directive, HostBinding, Input} from '@angular/core';
 
 @Directive({selector: '[jhiCollapse]'})
 export class CollapseDirective {
@@ -12,16 +11,16 @@ export class CollapseDirective {
     // shown
     @HostBinding('class.in')
     @HostBinding('attr.aria-expanded')
-    private isExpanded: boolean = true;
+    private isExpanded = true;
     // hidden
     @HostBinding('attr.aria-hidden')
-    private isJhiCollapsed: boolean = false;
+    private isJhiCollapsed = false;
     // stale state
     @HostBinding('class.collapse')
-    private isJhiCollapse: boolean = true;
+    private isJhiCollapse = true;
     // animation state
     @HostBinding('class.collapsing')
-    private isJhiCollapsing: boolean = false;
+    private isJhiCollapsing = false;
 
     @Input()
     private set jhiCollapse(value: boolean) {

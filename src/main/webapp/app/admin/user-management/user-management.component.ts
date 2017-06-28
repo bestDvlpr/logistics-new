@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
-import {ITEMS_PER_PAGE, Principal, ResponseWrapper, User, UserService} from "../../shared";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {ITEMS_PER_PAGE, Principal, ResponseWrapper, User, UserService} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-user-mgmt',

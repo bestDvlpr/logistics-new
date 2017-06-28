@@ -73,7 +73,7 @@
                     </div>
                 </td>
                 <td jhiTranslate="{{'logisticsApp.LocationType.' + location.type}}">
-                        {{location.type}}
+                    {{location.type}}
                 </td>
                 <td class="text-xs-right">
                     <div class="btn-group flex-btn-group-container">
@@ -105,6 +105,7 @@
     </div>
     <div class="text-xs-center" *ngIf="childLocations && childLocations.length">
         <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadChildren(location.id, page)"></ngb-pagination>
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                        (pageChange)="loadChildren(location.id, page)"></ngb-pagination>
     </div>
 </div>

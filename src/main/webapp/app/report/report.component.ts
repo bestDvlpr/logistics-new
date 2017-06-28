@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {JhiLanguageHelper} from "../shared/language/language.helper";
+import {Component, OnInit} from '@angular/core';
+import {JhiLanguageHelper} from '../shared/language/language.helper';
 /**
  * @author: hasan @date: 6/3/17.
  */

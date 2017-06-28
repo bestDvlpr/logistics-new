@@ -1,5 +1,5 @@
-import {Address} from "../address/address.model";
-import {Product} from "../product/product.model";
+import {Address} from '../address/address.model';
+import {Product} from '../product/product.model';
 export enum SalesType {
     TAKEOUT_IN_TIME = <any>'TAKEOUT_IN_TIME',
     TAKEOUT = <any>'TAKEOUT',
@@ -27,7 +27,7 @@ export enum ReceiptStatus {
 export class ProductEntry {
     public address: Address;
     public product: Product;
-    public selected: boolean = false;
+    public selected = false;
 
     constructor(public id?: number,
                 public price?: number,

@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {LoyaltyCard} from "./loyalty-card.model";
-import {LoyaltyCardPopupService} from "./loyalty-card-popup.service";
-import {LoyaltyCardService} from "./loyalty-card.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {LoyaltyCard} from './loyalty-card.model';
+import {LoyaltyCardPopupService} from './loyalty-card-popup.service';
+import {LoyaltyCardService} from './loyalty-card.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-loyalty-card-delete-dialog',
@@ -15,14 +15,14 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
 })
 export class LoyaltyCardDeleteDialogComponent implements OnInit {
 
+    loyaltyCard: LoyaltyCard;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    loyaltyCard: LoyaltyCard;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private loyaltyCardService: LoyaltyCardService,
@@ -35,7 +35,7 @@ export class LoyaltyCardDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.loyaltyCardService.delete(id).subscribe(response => {
+        this.loyaltyCardService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'loyaltyCardListModification',
                 content: 'Deleted an loyaltyCard'
@@ -59,7 +59,7 @@ export class LoyaltyCardDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.loyaltyCardPopupService
                 .open(LoyaltyCardDeleteDialogComponent, params['id']);
         });

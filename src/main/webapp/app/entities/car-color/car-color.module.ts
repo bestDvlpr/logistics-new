@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     CarColorComponent,
@@ -15,7 +15,7 @@ import {
     CarColorResolvePagingParams,
     carColorRoute,
     CarColorService
-} from "./";
+} from './';
 
 const ENTITY_STATES = [
     ...carColorRoute,
@@ -25,7 +25,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         CarColorComponent,
@@ -49,4 +49,5 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsCarColorModule {}
+export class LogisticsCarColorModule {
+}

@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Car} from "./car.model";
-import {CarService} from "./car.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Car} from './car.model';
+import {CarService} from './car.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-car-delivery-products',
@@ -20,7 +20,7 @@ export class CarDeliveryProductsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class CarDeliveryProductsComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.carService.find(id).subscribe(car => {
+        this.carService.find(id).subscribe((car) => {
             this.car = car;
         });
     }
@@ -50,15 +50,15 @@ export class CarDeliveryProductsComponent implements OnInit, OnDestroy {
      popupWin.document.write(
      `<html>
      <head>
-     <base href="/" />
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <base href='/' />
+     <meta charset='utf-8'>
+     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
      <title>Print tab</title>
-     <meta name="description" content="">
-     <meta name="google" value="notranslate">
-     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <meta name='description' content=''>
+     <meta name='google' value='notranslate'>
+     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
      </head>
-     <body onload="window.print();window.close()">${printContents}</body>
+     <body onload='window.print();window.close()'>${printContents}</body>
      </html>`
      );
      popupWin.document.close();

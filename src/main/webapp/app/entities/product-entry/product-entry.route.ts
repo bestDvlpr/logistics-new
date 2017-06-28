@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
 
-import {JhiPaginationUtil} from "ng-jhipster";
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import {ProductEntryComponent} from "./product-entry.component";
-import {ProductEntryDetailComponent} from "./product-entry-detail.component";
-import {ProductEntryPopupComponent} from "./product-entry-dialog.component";
-import {ProductEntryDeletePopupComponent} from "./product-entry-delete-dialog.component";
+import {ProductEntryComponent} from './product-entry.component';
+import {ProductEntryDetailComponent} from './product-entry-detail.component';
+import {ProductEntryPopupComponent} from './product-entry-dialog.component';
+import {ProductEntryDeletePopupComponent} from './product-entry-delete-dialog.component';
 
-import {ProductEntryDeliveryComponent} from "./product-entry-delivery.component";
-import {ProductEntryDoneComponent} from "./product-entry-done.component";
+import {ProductEntryDeliveryComponent} from './product-entry-delivery.component';
+import {ProductEntryDoneComponent} from './product-entry-done.component';
 
 @Injectable()
 export class ProductEntryResolvePagingParams implements Resolve<any> {
@@ -18,8 +18,8 @@ export class ProductEntryResolvePagingParams implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),

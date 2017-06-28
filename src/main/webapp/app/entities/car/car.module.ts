@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     CarComponent,
@@ -16,7 +16,7 @@ import {
     CarResolvePagingParams,
     carRoute,
     CarService
-} from "./";
+} from './';
 
 const ENTITY_STATES = [
     ...carRoute,
@@ -26,7 +26,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         CarComponent,
@@ -51,4 +51,5 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsCarModule {}
+export class LogisticsCarModule {
+}

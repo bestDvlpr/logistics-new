@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Receipt} from "./receipt.model";
-import {ReceiptPopupService} from "./receipt-popup.service";
-import {ReceiptService} from "./receipt.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Receipt} from './receipt.model';
+import {ReceiptPopupService} from './receipt-popup.service';
+import {ReceiptService} from './receipt.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-delete-dialog',
@@ -29,7 +29,7 @@ export class ReceiptDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.receiptService.delete(id).subscribe(response => {
+        this.receiptService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'receiptListModification',
                 content: 'Deleted an receipt'
@@ -59,7 +59,7 @@ export class ReceiptDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.receiptPopupService
                 .open(ReceiptDeleteDialogComponent, params['id']);
         });

@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Seller} from "./seller.model";
-import {SellerPopupService} from "./seller-popup.service";
-import {SellerService} from "./seller.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Seller} from './seller.model';
+import {SellerPopupService} from './seller-popup.service';
+import {SellerService} from './seller.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-seller-dialog',
     templateUrl: './seller-dialog.component.html'
@@ -80,7 +80,7 @@ export class SellerPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.sellerPopupService
                     .open(SellerDialogComponent, params['id']);

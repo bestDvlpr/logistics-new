@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {CarModel} from "./car-model.model";
-import {CarModelPopupService} from "./car-model-popup.service";
-import {CarModelService} from "./car-model.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {CarModel} from './car-model.model';
+import {CarModelPopupService} from './car-model-popup.service';
+import {CarModelService} from './car-model.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-car-model-dialog',
     templateUrl: './car-model-dialog.component.html'

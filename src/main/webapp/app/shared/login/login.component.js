@@ -1,10 +1,11 @@
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+        var c = arguments.length,
+            r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
 var core_1 = require("@angular/core");
 var JhiLoginModalComponent = (function () {
     function JhiLoginModalComponent(eventManager, languageService, loginService, stateStorageService, elementRef, renderer, activeModal, router) {
@@ -18,6 +19,7 @@ var JhiLoginModalComponent = (function () {
         this.router = router;
         this.credentials = {};
     }
+
     JhiLoginModalComponent.prototype.ngOnInit = function () {
         this.languageService.addLocation('login');
     };
@@ -55,7 +57,7 @@ var JhiLoginModalComponent = (function () {
             var previousState = _this.stateStorageService.getPreviousState();
             if (previousState) {
                 _this.stateStorageService.resetPreviousState();
-                _this.router.navigate([previousState.name], { queryParams: previousState.params });
+                _this.router.navigate([previousState.name], {queryParams: previousState.params});
             }
         }).catch(function () {
             _this.authenticationError = true;

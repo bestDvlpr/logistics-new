@@ -6,7 +6,7 @@ export class Driver {
                 public lastName?: string,
                 public mobileId?: string,
                 public deleted?: boolean,
-                public carsId?: number ) {
+                public carsId?: number) {
         this.deleted = false;
     }
 }

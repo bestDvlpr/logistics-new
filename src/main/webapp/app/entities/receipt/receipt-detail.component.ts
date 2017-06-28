@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JhiAlertService} from "ng-jhipster";
-import {Receipt, ReceiptStatus} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {Response} from "@angular/http";
-import {DataHolderService} from "./data-holder.service";
-import {EnumAware} from "./doctypaware.decorator";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiAlertService} from 'ng-jhipster';
+import {Receipt, ReceiptStatus} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {Response} from '@angular/http';
+import {DataHolderService} from './data-holder.service';
+import {EnumAware} from './doctypaware.decorator';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-detail',
@@ -31,7 +31,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -40,7 +40,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.receiptService.find(id).subscribe(receipt => {
+        this.receiptService.find(id).subscribe((receipt) => {
             this.receipt = receipt;
             this.dataHolderService._receipt = this.receipt;
             this.dataHolderService._client = this.receipt.client;
@@ -65,10 +65,10 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     delivered() {
 
         if (this.deliveredTime !== null && this.deliveredDate !== null) {
-            let formattedTime = ((this.deliveredTime.hour < 10) ? '0' + this.deliveredTime.hour : this.deliveredTime.hour) +
+            const formattedTime = ((this.deliveredTime.hour < 10) ? '0' + this.deliveredTime.hour : this.deliveredTime.hour) +
                 ':' + ((this.deliveredTime.minute < 10) ? '0' + this.deliveredTime.minute : this.deliveredTime.minute) +
                 ':00';
-            let formattedDate = this.deliveredDate.year +
+            const formattedDate = this.deliveredDate.year +
                 '-' + ((this.deliveredDate.month < 10) ? '0' + this.deliveredDate.month : this.deliveredDate.month) +
                 '-' + ((this.deliveredDate.day < 10) ? '0' + this.deliveredDate.day : this.deliveredDate.day);
             this.receipt.deliveredDateTime = formattedDate + ' ' + formattedTime;

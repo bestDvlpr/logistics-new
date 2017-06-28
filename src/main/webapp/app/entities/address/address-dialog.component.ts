@@ -1,20 +1,20 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Address} from "./address.model";
-import {AddressPopupService} from "./address-popup.service";
-import {AddressService} from "./address.service";
-import {Location, LocationService} from "../location";
-import {Client, ClientService} from "../client";
-import {Receipt, ReceiptService} from "../receipt";
-import {DataHolderService} from "../receipt/data-holder.service";
-import {EnumAware} from "../receipt/doctypaware.decorator";
-import {LocationType} from "../location/location.model";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Address} from './address.model';
+import {AddressPopupService} from './address-popup.service';
+import {AddressService} from './address.service';
+import {Location, LocationService} from '../location';
+import {Client, ClientService} from '../client';
+import {Receipt, ReceiptService} from '../receipt';
+import {DataHolderService} from '../receipt/data-holder.service';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {LocationType} from '../location/location.model';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-address-dialog',
     templateUrl: './address-dialog.component.html'
@@ -74,7 +74,7 @@ export class AddressDialogComponent implements OnInit {
     setCountries() {
         if (this.locations.length > 0) {
             this.countries = [];
-            for (let location of this.locations) {
+            for (const location of this.locations) {
                 if (location.type === this.locationTypeEnum.COUNTRY) {
                     this.countries.push(location);
                 }
@@ -85,7 +85,7 @@ export class AddressDialogComponent implements OnInit {
     setRegions() {
         if (this.locations.length > 0) {
             this.regions = [];
-            for (let location of this.locations) {
+            for (const location of this.locations) {
                 if (location.parent !== null && location.parent.id === this.address.countryId) {
                     this.regions.push(location);
                 }
@@ -96,7 +96,7 @@ export class AddressDialogComponent implements OnInit {
     setDistricts() {
         if (this.locations.length > 0) {
             this.districts = [];
-            for (let location of this.locations) {
+            for (const location of this.locations) {
                 if (location.parent !== null && location.parent.id === this.address.regionId) {
                     this.districts.push(location);
                 }
@@ -179,7 +179,7 @@ export class AddressPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.addressPopupService
                     .open(AddressDialogComponent, params['id']);

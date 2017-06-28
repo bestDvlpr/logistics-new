@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService} from 'ng-jhipster';
 
-import {ProductEntry} from "./product-entry.model";
-import {ProductEntryService} from "./product-entry.service";
-import {EnumAware} from "../receipt/doctypaware.decorator";
-import {ReceiptStatus, WholeSaleFlag} from "../receipt/receipt.model";
-import {TranslateService} from "ng2-translate";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {ProductEntry} from './product-entry.model';
+import {ProductEntryService} from './product-entry.service';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {ReceiptStatus, WholeSaleFlag} from '../receipt/receipt.model';
+import {TranslateService} from '@ngx-translate/core';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-product-entry-delivery',
@@ -34,7 +34,7 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
     reverse: any;
     carNumber: string;
     productsSelected: ProductEntry[] = [];
-    isAllChecked: boolean = false;
+    isAllChecked = false;
     receiptStatusEnum = ReceiptStatus;
     wholeSaleFlagEnum = WholeSaleFlag;
     languages: any[];
@@ -68,9 +68,8 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -80,7 +79,7 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
     private onSuccess(data) {
         this.productEntries = data;
         if (this.productEntries.length <= 0) {
-            this.translateService.get('logisticsApp.productEntry.error.notFound').subscribe(title => {
+            this.translateService.get('logisticsApp.productEntry.error.notFound').subscribe((title) => {
                 this.alertService.error(title);
             });
         }
@@ -97,9 +96,9 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
     }
 
     productChecked(product: ProductEntry) {
-        let indexProd: number = this.productEntries.indexOf(product);
+        const indexProd: number = this.productEntries.indexOf(product);
         if (indexProd !== null && indexProd !== -1) {
-            let productEntry = this.productEntries[indexProd];
+            const productEntry = this.productEntries[indexProd];
             if (!productEntry.selected) {
                 this.productsSelected.push(productEntry);
                 if (this.productsSelected.length === this.productEntries.length) {
@@ -118,13 +117,13 @@ export class ProductEntryDeliveryComponent implements OnInit, OnDestroy {
     productAllChecked() {
         if (!this.isAllChecked) {
             this.productsSelected = [];
-            this.productEntries.forEach(entry => {
+            this.productEntries.forEach((entry) => {
                 entry.selected = true;
                 this.productsSelected.push(entry);
             });
             this.isAllChecked = !this.isAllChecked;
         } else {
-            this.productEntries.forEach(entry => entry.selected = false);
+            this.productEntries.forEach((entry) => entry.selected = false);
             this.isAllChecked = !this.isAllChecked;
             this.productsSelected = [];
         }

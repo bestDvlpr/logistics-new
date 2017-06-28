@@ -1,10 +1,11 @@
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+        var c = arguments.length,
+            r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
 var core_1 = require("@angular/core");
 var AuthService = (function () {
     function AuthService(principal, stateStorageService, loginModalService, router) {
@@ -13,6 +14,7 @@ var AuthService = (function () {
         this.loginModalService = loginModalService;
         this.router = router;
     }
+
     AuthService.prototype.authorize = function (force) {
         var authReturn = this.principal.identity(force).then(authThen.bind(this));
         return authReturn;
@@ -31,7 +33,7 @@ var AuthService = (function () {
             var previousState = this.stateStorageService.getPreviousState();
             if (isAuthenticated && !fromStateInfo.name && previousState) {
                 this.stateStorageService.resetPreviousState();
-                this.router.navigate([previousState.name], { queryParams: previousState.params });
+                this.router.navigate([previousState.name], {queryParams: previousState.params});
                 canActivate = false;
             }
             if (toStateInfo.data.authorities && toStateInfo.data.authorities.length > 0 &&

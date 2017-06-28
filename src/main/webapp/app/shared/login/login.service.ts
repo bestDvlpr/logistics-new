@@ -1,20 +1,20 @@
-import {Injectable} from "@angular/core";
-import {JhiLanguageService} from "ng-jhipster";
+import {Injectable} from '@angular/core';
+import {JhiLanguageService} from 'ng-jhipster';
 
-import {Principal} from "../auth/principal.service";
-import {AuthServerProvider} from "../auth/auth-jwt.service";
+import {Principal} from '../auth/principal.service';
+import {AuthServerProvider} from '../auth/auth-jwt.service';
 
 @Injectable()
 export class LoginService {
 
-    constructor(
-        private languageService: JhiLanguageService,
-        private principal: Principal,
-        private authServerProvider: AuthServerProvider
-    ) {}
+    constructor(private languageService: JhiLanguageService,
+                private principal: Principal,
+                private authServerProvider: AuthServerProvider) {
+    }
 
     login(credentials, callback?) {
-        const cb = callback || function() {};
+        const cb = callback || function() {
+            };
 
         return new Promise((resolve, reject) => {
             this.authServerProvider.login(credentials).subscribe((data) => {

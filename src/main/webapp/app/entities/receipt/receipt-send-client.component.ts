@@ -1,17 +1,17 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
-import {Receipt, WholeSaleFlag} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {TranslateService} from "ng2-translate";
-import {ClientService} from "../client/client.service";
-import {Client} from "../client/client.model";
-import {DataHolderService} from "./data-holder.service";
-import {Response} from "@angular/http";
-import {Company} from "../company/company.model";
-import {CompanyService} from "../company/company.service";
-import {EnumAware} from "./doctypaware.decorator";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import {Receipt, WholeSaleFlag} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {TranslateService} from '@ngx-translate/core';
+import {ClientService} from '../client/client.service';
+import {Client} from '../client/client.model';
+import {DataHolderService} from './data-holder.service';
+import {Response} from '@angular/http';
+import {Company} from '../company/company.model';
+import {CompanyService} from '../company/company.service';
+import {EnumAware} from './doctypaware.decorator';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-send-client',
@@ -51,14 +51,14 @@ export class ReceiptSendClientComponent implements OnInit {
         if (this.dataHolderService._receipt !== null) {
             this.receipt = this.dataHolderService._receipt;
             if (this.receipt.productEntries !== undefined) {
-                for (let prod of this.receipt.productEntries) {
+                for (const prod of this.receipt.productEntries) {
                     if (prod.addressId == null) {
                         this.uncheckedProdsExist = true;
                     }
                 }
             }
         } else {
-            this.subscription = this.route.params.subscribe(params => {
+            this.subscription = this.route.params.subscribe((params) => {
                 this.load(params['id']);
             });
         }
@@ -77,9 +77,9 @@ export class ReceiptSendClientComponent implements OnInit {
     }
 
     load(id) {
-        this.receiptService.find(id).subscribe(receipt => {
+        this.receiptService.find(id).subscribe((receipt) => {
             this.receipt = receipt;
-            for (let prod of this.receipt.productEntries) {
+            for (const prod of this.receipt.productEntries) {
                 if (prod.addressId === null) {
                     this.uncheckedProdsExist = true;
                 }
@@ -92,7 +92,7 @@ export class ReceiptSendClientComponent implements OnInit {
     }
 
     findClient() {
-        this.clientService.byPhoneNumber(this.phoneNumber).subscribe(res => {
+        this.clientService.byPhoneNumber(this.phoneNumber).subscribe((res) => {
             this.client = res;
         });
         this.client = null;
@@ -100,7 +100,7 @@ export class ReceiptSendClientComponent implements OnInit {
     }
 
     findCompany() {
-        this.companyService.byIdNumber(this.companyId).subscribe(res => {
+        this.companyService.byIdNumber(this.companyId).subscribe((res) => {
             this.company = res;
         });
         this.company = null;
@@ -130,7 +130,7 @@ export class ReceiptSendClientComponent implements OnInit {
 
     public sendOrder() {
         if (this.uncheckedProdsExist) {
-            this.translateService.get('error.NotNull').subscribe(title => {
+            this.translateService.get('error.NotNull').subscribe((title) => {
                 this.alertService.error(title);
             });
         } else {

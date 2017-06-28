@@ -14,7 +14,6 @@ import uz.hasan.security.AuthoritiesConstants;
 import uz.hasan.service.ExcelService;
 import uz.hasan.service.ReceiptService;
 import uz.hasan.service.UserService;
-import uz.hasan.service.dto.ProductEntryDTO;
 import uz.hasan.service.dto.ReceiptProductEntriesDTO;
 import uz.hasan.service.mapper.CustomProductEntriesMapper;
 import uz.hasan.service.mapper.ProductEntryMapper;
@@ -314,9 +313,16 @@ public class ReceiptServiceImpl implements ReceiptService {
         Set<Set<ProductEntry>> entries = new HashSet<>();
         entries.add(receiptProductEntries);
 
-        SalesType deliveryFlag = receiptProductEntries.iterator().next().getDeliveryFlag();
-        Address address = receiptProductEntries.iterator().next().getAddress();
-        Long date = receiptProductEntries.iterator().next().getDeliveryDate();
+        ProductEntry nextProductEntry = receiptProductEntries.iterator().next();
+        SalesType deliveryFlag = nextProductEntry.getDeliveryFlag();
+        Address address = nextProductEntry.getAddress();
+        Long date = nextProductEntry.getDeliveryDate();
+
+        Boolean withSameCar = true;
+        if (nextProductEntry.getAttachedCar() != null && nextProductEntry.getAttachedCar().getNumber() != null) {
+            String carNumber = nextProductEntry.getAttachedCar().getNumber();
+            withSameCar = receiptProductEntries.stream().allMatch(productEntry -> productEntry.getAttachedCar().getNumber().equals(carNumber));
+        }
 
         boolean withSameDeliveryFlag = receiptProductEntries.stream().allMatch(productEntry -> productEntry.getDeliveryFlag().equals(deliveryFlag));
         boolean withSameAddress = receiptProductEntries.stream().allMatch(productEntry -> productEntry.getAddress().equals(address));
@@ -362,6 +368,21 @@ public class ReceiptServiceImpl implements ReceiptService {
                         .filter(productEntry -> productEntry.getDeliveryDate().equals(d))
                         .collect(Collectors.toSet());
                     result.add(bySalesType);
+                }
+            }
+            entries = result;
+        }
+
+        if (!withSameCar) {
+            Set<Set<ProductEntry>> result = new HashSet<>();
+            for (Set<ProductEntry> entrySet : entries) {
+                Set<String> numbers = new HashSet<>();
+                entrySet.forEach(productEntry -> numbers.add(productEntry.getAttachedCar().getNumber()));
+                for (String d : numbers) {
+                    Set<ProductEntry> byCarNumber = entrySet.stream()
+                        .filter(productEntry -> productEntry.getAttachedCar().getNumber().equals(d))
+                        .collect(Collectors.toSet());
+                    result.add(byCarNumber);
                 }
             }
             entries = result;
@@ -442,24 +463,27 @@ public class ReceiptServiceImpl implements ReceiptService {
             return null;
         }
 
-        List<ProductEntryDTO> productEntryDTOs = receiptDTO.getProductEntries();
-        List<ProductEntry> productEntryList = customProductEntryMapper.productEntryDTOsToProductEntries(productEntryDTOs);
+        List<ProductEntry> productEntryList = customProductEntryMapper.productEntryDTOsToProductEntries(receiptDTO.getProductEntries());
         productEntryList.forEach(productEntry -> productEntry.setAttachedToCarTime(ZonedDateTime.now()));
         productEntryList.forEach(productEntry -> productEntry.setAttachedToDriverBy(userService.getUserWithAuthorities()));
         productEntryList.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER));
-        List<ProductEntry> productEntries = productEntryRepository.save(productEntryList);
+        receiptDTO.setProductEntries(productEntryMapper.productEntriesToProductEntryDTOs(productEntryList));
 
-        for (ProductEntry entry : productEntries) {
-            Car attachedCar = entry.getAttachedCar();
-            if (attachedCar != null) { // TODO: 4/3/17 mark as busy when car is fully occupied
-                attachedCar.setStatus(CarStatus.BUSY);
-                carRepository.save(attachedCar);
-            }
-        }
+        Set<Receipt> receipts = this.divideReceipt(receiptDTO);
 
-        receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
+//        List<ProductEntry> productEntries = productEntryRepository.save(productEntryList);
+//
+//        for (ProductEntry entry : productEntries) {
+//            Car attachedCar = entry.getAttachedCar();
+//            if (attachedCar != null) { // TODO: 4/3/17 mark as busy when car is fully occupied
+//                attachedCar.setStatus(CarStatus.BUSY);
+//                carRepository.save(attachedCar);
+//            }
+//        }
+//
+//        receiptDTO.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
 
-        return save(receiptDTO);
+        return receiptProductEntriesMapper.receiptToReceiptProductEntryDTO(receipts.iterator().next());
     }
 
     /**
@@ -691,7 +715,11 @@ public class ReceiptServiceImpl implements ReceiptService {
                 productEntries.forEach(productEntry -> productEntry.setStatus(ReceiptStatus.TAKEOUT));
                 productEntries.forEach(productEntry -> productEntry.setAddress(null));
             } else {
-                receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+                if (userWithAuthorities.getAuthorities().contains(new Authority(AuthoritiesConstants.DISPATCHER))) {
+                    receipt.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
+                } else {
+                    receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+                }
             }
             Receipt newReceipt = new Receipt();
             BeanUtils.copyProperties(receipt, newReceipt);
@@ -713,7 +741,11 @@ public class ReceiptServiceImpl implements ReceiptService {
         } else {
             receipt.setAddress(productEntries.iterator().next().getAddress());
             receipt.setMarkedAsDeliveredBy(receipt.getMarkedAsDeliveredBy());
-            receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            if (userWithAuthorities.getAuthorities().contains(new Authority(AuthoritiesConstants.DISPATCHER))) {
+                receipt.setStatus(ReceiptStatus.ATTACHED_TO_DRIVER);
+            } else {
+                receipt.setStatus(ReceiptStatus.APPLICATION_SENT);
+            }
             receipt.setSentToDCTime(ZonedDateTime.now());
             receipt.setSentBy(userWithAuthorities);
             receipt.setProductEntries(productEntries);

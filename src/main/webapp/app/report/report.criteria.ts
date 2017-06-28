@@ -1,5 +1,5 @@
-import {ACElement} from "../shared/autocomplete/element.model";
-import {ReceiptStatus} from "../entities/receipt/receipt.model";
+import {ACElement} from '../shared/autocomplete/element.model';
+import {ReceiptStatus} from '../entities/receipt/receipt.model';
 /**
  * @author: hasan @date: 6/6/17.
  */
@@ -28,7 +28,6 @@ export class CountReportCriteria extends ReportCriteria {
     status: ReceiptStatus;
     company: ACElement;
     district: ACElement;
-
 
     constructor(startDate: string, endDate: string, company: ACElement, district: ACElement, status: ReceiptStatus) {
         super(startDate, endDate);

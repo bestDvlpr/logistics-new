@@ -87,7 +87,7 @@
  xhr: XMLHttpRequest = new XMLHttpRequest();
 
  for (let i = 0; i < files.length; i++) {
- formData.append("uploads[]", files[i], files[i].name);
+ formData.append('uploads[]', files[i], files[i].name);
  }
 
  xhr.onreadystatechange = () => {
@@ -113,10 +113,10 @@
  }
  }*/
 
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {Headers, Http, Response} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Headers, Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 declare var $: any;
 
 @Injectable()
@@ -126,16 +126,16 @@ export class UploadService {
     handleError: any;
 
     constructor(private router: Router,
-                private http: Http,) {
+                private http: Http, ) {
         this.http = http;
     }
 
     upload(postData: any, file: File): Observable<Response> {
-        let headers = new Headers();
+        const headers = new Headers();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
 
-        let formData: FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('file', file, file.name);
 
         // For multiple files
@@ -144,7 +144,7 @@ export class UploadService {
         // }
 
         if (postData !== '' && postData !== undefined && postData !== null) {
-            for (let property in postData) {
+            for (const property in postData) {
                 if (postData.hasOwnProperty(property)) {
                     formData.append(property, postData[property]);
                 }

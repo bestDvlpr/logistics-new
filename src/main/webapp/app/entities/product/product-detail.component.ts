@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Product} from "./product.model";
-import {ProductService} from "./product.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Product} from './product.model';
+import {ProductService} from './product.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-product-detail',
@@ -20,7 +20,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.productService.find(id).subscribe(product => {
+        this.productService.find(id).subscribe((product) => {
             this.product = product;
         });
     }

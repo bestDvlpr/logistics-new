@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {ProductEntry} from "./product-entry.model";
-import {ProductEntryPopupService} from "./product-entry-popup.service";
-import {ProductEntryService} from "./product-entry.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {ProductEntry} from './product-entry.model';
+import {ProductEntryPopupService} from './product-entry-popup.service';
+import {ProductEntryService} from './product-entry.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-product-entry-delete-dialog',
     templateUrl: './product-entry-delete-dialog.component.html'
 })
 export class ProductEntryDeleteDialogComponent implements OnInit {
+
+    productEntry: ProductEntry;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    productEntry: ProductEntry;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private productEntryService: ProductEntryService,
@@ -34,7 +35,7 @@ export class ProductEntryDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.productEntryService.delete(id).subscribe(response => {
+        this.productEntryService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'productEntryListModification',
                 content: 'Deleted an productEntry'
@@ -58,7 +59,7 @@ export class ProductEntryDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.productEntryPopupService
                 .open(ProductEntryDeleteDialogComponent, params['id']);
         });

@@ -1,28 +1,27 @@
-import {Component, Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {DatePipe} from "@angular/common";
-import {XmlHolder} from "./xml-holder.model";
-import {XmlHolderService} from "./xml-holder.service";
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {DatePipe} from '@angular/common';
+import {XmlHolder} from './xml-holder.model';
+import {XmlHolderService} from './xml-holder.service';
 @Injectable()
 export class XmlHolderPopupService {
     private isOpen = false;
-    constructor (
-        private datePipe: DatePipe,
-        private modalService: NgbModal,
-        private router: Router,
-        private xmlHolderService: XmlHolderService
 
-    ) {}
+    constructor(private datePipe: DatePipe,
+                private modalService: NgbModal,
+                private router: Router,
+                private xmlHolderService: XmlHolderService) {
+    }
 
-    open (component: Component, id?: number | any): NgbModalRef {
+    open(component: Component, id?: number | any): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
 
         if (id) {
-            this.xmlHolderService.find(id).subscribe(xmlHolder => {
+            this.xmlHolderService.find(id).subscribe((xmlHolder) => {
                 xmlHolder.date = this.datePipe.transform(xmlHolder.date, 'yyyy-MM-ddThh:mm');
                 this.xmlHolderModalRef(component, xmlHolder);
             });
@@ -32,13 +31,13 @@ export class XmlHolderPopupService {
     }
 
     xmlHolderModalRef(component: Component, xmlHolder: XmlHolder): NgbModalRef {
-        let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.xmlHolder = xmlHolder;
-        modalRef.result.then(result => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+        modalRef.result.then(() => {
+            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         });
         return modalRef;

@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {LoyaltyCard} from "./loyalty-card.model";
-import {LoyaltyCardService} from "./loyalty-card.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {LoyaltyCard} from './loyalty-card.model';
+import {LoyaltyCardService} from './loyalty-card.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-loyalty-card-detail',
@@ -20,7 +20,7 @@ export class LoyaltyCardDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class LoyaltyCardDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.loyaltyCardService.find(id).subscribe(loyaltyCard => {
+        this.loyaltyCardService.find(id).subscribe((loyaltyCard) => {
             this.loyaltyCard = loyaltyCard;
         });
     }

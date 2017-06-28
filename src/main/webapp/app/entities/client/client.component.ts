@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
-import {Client} from "./client.model";
-import {ClientService} from "./client.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Client} from './client.model';
+import {ClientService} from './client.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-client',

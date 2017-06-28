@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     CarTypeComponent,
@@ -15,7 +15,7 @@ import {
     CarTypeResolvePagingParams,
     carTypeRoute,
     CarTypeService
-} from "./";
+} from './';
 
 const ENTITY_STATES = [
     ...carTypeRoute,

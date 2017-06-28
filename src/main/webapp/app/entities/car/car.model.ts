@@ -1,4 +1,4 @@
-import {ProductEntry} from "../product-entry/product-entry.model";
+import {ProductEntry} from '../product-entry/product-entry.model';
 export enum CarStatus {
     IDLE = <any>'IDLE',
     BUSY = <any>'BUSY'

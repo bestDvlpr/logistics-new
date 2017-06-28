@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Address} from "./address.model";
-import {AddressService} from "./address.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Address} from './address.model';
+import {AddressService} from './address.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-address-detail',
@@ -20,7 +20,7 @@ export class AddressDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class AddressDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.addressService.find(id).subscribe(address => {
+        this.addressService.find(id).subscribe((address) => {
             this.address = address;
         });
     }

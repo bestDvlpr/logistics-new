@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {PhoneNumber} from "./phone-number.model";
-import {PhoneNumberPopupService} from "./phone-number-popup.service";
-import {PhoneNumberService} from "./phone-number.service";
-import {Client, ClientService} from "../client";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PhoneNumber} from './phone-number.model';
+import {PhoneNumberPopupService} from './phone-number-popup.service';
+import {PhoneNumberService} from './phone-number.service';
+import {Client, ClientService} from '../client';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-phone-number-dialog',
     templateUrl: './phone-number-dialog.component.html'
@@ -91,7 +91,7 @@ export class PhoneNumberPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.phoneNumberPopupService
                     .open(PhoneNumberDialogComponent, params['id']);

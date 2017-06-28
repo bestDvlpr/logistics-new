@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Company} from "./company.model";
-import {CompanyPopupService} from "./company-popup.service";
-import {CompanyService} from "./company.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Company} from './company.model';
+import {CompanyPopupService} from './company-popup.service';
+import {CompanyService} from './company.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-company-delete-dialog',
     templateUrl: './company-delete-dialog.component.html'
 })
 export class CompanyDeleteDialogComponent implements OnInit {
+
+    company: Company;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    company: Company;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private companyService: CompanyService,
@@ -34,7 +35,7 @@ export class CompanyDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.companyService.delete(id).subscribe(response => {
+        this.companyService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'companyListModification',
                 content: 'Deleted an company'
@@ -58,7 +59,7 @@ export class CompanyDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.companyPopupService
                 .open(CompanyDeleteDialogComponent, params['id']);
         });

@@ -1,16 +1,5 @@
 package uz.hasan.web.rest;
 
-import uz.hasan.LogisticsApp;
-import uz.hasan.domain.Authority;
-import uz.hasan.domain.User;
-import uz.hasan.repository.UserRepository;
-import uz.hasan.security.AuthoritiesConstants;
-import uz.hasan.service.MailService;
-import uz.hasan.service.UserService;
-import uz.hasan.service.dto.UserDTO;
-import uz.hasan.service.mapper.UserMapper;
-import uz.hasan.web.rest.errors.ExceptionTranslator;
-import uz.hasan.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,10 +14,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import uz.hasan.LogisticsApp;
+import uz.hasan.domain.Authority;
+import uz.hasan.domain.User;
+import uz.hasan.repository.UserRepository;
+import uz.hasan.security.AuthoritiesConstants;
+import uz.hasan.service.MailService;
+import uz.hasan.service.UserService;
+import uz.hasan.service.dto.UserDTO;
+import uz.hasan.service.mapper.UserMapper;
+import uz.hasan.web.rest.errors.ExceptionTranslator;
+import uz.hasan.web.rest.vm.ManagedUserVM;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,8 +35,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -114,7 +113,7 @@ public class UserResourceIntTest {
 
     /**
      * Create a User.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which has a required relationship to the User entity.
      */
@@ -154,6 +153,8 @@ public class UserResourceIntTest {
             true,
             DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
+            null,
+            null,
             null,
             null,
             null,
@@ -198,6 +199,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            null,
             authorities);
 
         // An entity with an existing ID cannot be created, so this API call must fail
@@ -234,6 +237,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            null,
             authorities);
 
         // Create the User
@@ -266,6 +271,8 @@ public class UserResourceIntTest {
             true,
             DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
+            null,
+            null,
             null,
             null,
             null,
@@ -353,6 +360,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            null,
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -397,6 +406,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            null,
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -452,6 +463,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            null,
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -496,6 +509,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            null,
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -530,7 +545,7 @@ public class UserResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").value(containsInAnyOrder("ROLE_USER", "ROLE_ADMIN")));
+            .andExpect(jsonPath("$").value(containsInAnyOrder("ROLE_USER", "ROLE_ADMIN", "ROLE_CASHIER", "ROLE_CREDIT", "ROLE_DISPATCHER", "ROLE_MANAGER", "ROLE_WAREHOUSE")));
     }
 
     @Test
@@ -572,6 +587,8 @@ public class UserResourceIntTest {
             DEFAULT_LOGIN,
             null,
             DEFAULT_LOGIN,
+            null,
+            null,
             null,
             Stream.of(AuthoritiesConstants.USER).collect(Collectors.toSet()));
         User user = userMapper.userDTOToUser(userDTO);

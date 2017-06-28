@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {PayType} from "./pay-type.model";
-import {PayTypeService} from "./pay-type.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PayType} from './pay-type.model';
+import {PayTypeService} from './pay-type.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-pay-type-detail',
@@ -20,7 +20,7 @@ export class PayTypeDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -29,7 +29,7 @@ export class PayTypeDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.payTypeService.find(id).subscribe(payType => {
+        this.payTypeService.find(id).subscribe((payType) => {
             this.payType = payType;
         });
     }

@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.product.home.title">Products</span>
-        <button class="btn btn-primary float-right create-product" [routerLink]="['/', { outlets: { popup: ['product-new'] } }]">
+        <button class="btn btn-primary float-right create-product"
+                [routerLink]="['/', { outlets: { popup: ['product-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.product.home.createLabel">
+            <span jhiTranslate="logisticsApp.product.home.createLabel">
             Create new Product
             </span>
         </button>
@@ -16,16 +17,24 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.product.sapCode">Sap Code</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sapType"><span jhiTranslate="logisticsApp.product.sapType">Sap Type</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="logisticsApp.product.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="uom"><span jhiTranslate="logisticsApp.product.uom">Uom</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="width"><span jhiTranslate="logisticsApp.product.width">Width</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="length"><span jhiTranslate="logisticsApp.product.length">Length</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="height"><span jhiTranslate="logisticsApp.product.height">Height</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="weight"><span jhiTranslate="logisticsApp.product.weight">Weight</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="sapCode"><span jhiTranslate="logisticsApp.product.sapCode">Sap Code</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="sapType"><span jhiTranslate="logisticsApp.product.sapType">Sap Type</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="name"><span jhiTranslate="logisticsApp.product.name">Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="uom"><span jhiTranslate="logisticsApp.product.uom">Uom</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="width"><span jhiTranslate="logisticsApp.product.width">Width</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="length"><span jhiTranslate="logisticsApp.product.length">Length</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="height"><span jhiTranslate="logisticsApp.product.height">Height</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="weight"><span jhiTranslate="logisticsApp.product.weight">Weight</span> <span
+                    class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -67,12 +76,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="products && products.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="products && products.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

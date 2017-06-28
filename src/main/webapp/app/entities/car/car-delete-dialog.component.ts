@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Car} from "./car.model";
-import {CarPopupService} from "./car-popup.service";
-import {CarService} from "./car.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Car} from './car.model';
+import {CarPopupService} from './car-popup.service';
+import {CarService} from './car.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-car-delete-dialog',
@@ -34,7 +34,7 @@ export class CarDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.carService.delete(id).subscribe(response => {
+        this.carService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'carListModification',
                 content: 'Deleted an car'
@@ -58,7 +58,7 @@ export class CarDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.carPopupService
                 .open(CarDeleteDialogComponent, params['id']);
         });

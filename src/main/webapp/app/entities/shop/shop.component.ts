@@ -1,19 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {
-    JhiAlertService,
-    JhiEventManager,
-    JhiPaginationUtil,
-    JhiParseLinks
-} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
-import {Shop} from "./shop.model";
-import {ShopService} from "./shop.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Shop} from './shop.model';
+import {ShopService} from './shop.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-shop',
@@ -48,7 +43,7 @@ export class ShopComponent implements OnInit, OnDestroy {
                 private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -113,13 +108,12 @@ export class ShopComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInShops() {
         this.eventSubscriber = this.eventManager.subscribe('shopListModification', (response) => this.loadAll());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

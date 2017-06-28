@@ -1,11 +1,13 @@
 <div>
     <h2><span jhiTranslate="logisticsApp.loyaltyCard.home.title">Loyalty Cards</span>
-        <button class="btn btn-primary float-right create-loyalty-card" [routerLink]="['/', { outlets: { popup: ['loyalty-card-new'] } }]">
+        <button class="btn btn-primary float-right create-loyalty-card"
+                [routerLink]="['/', { outlets: { popup: ['loyalty-card-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.loyaltyCard.home.createLabel">
+            <span jhiTranslate="logisticsApp.loyaltyCard.home.createLabel">
             Create new Loyalty Card
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
 
     <div class="container-fluid">
@@ -17,11 +19,14 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="loyaltyCardID"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardID">Loyalty Card ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="loyaltyCardAmount"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardAmount">Loyalty Card Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="loyaltyCardBonus"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus">Loyalty Card Bonus</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="loyaltyCardID"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardID">Loyalty Card ID</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="loyaltyCardAmount"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardAmount">Loyalty Card Amount</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="loyaltyCardBonus"><span jhiTranslate="logisticsApp.loyaltyCard.loyaltyCardBonus">Loyalty Card Bonus</span>
+                    <span class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -63,7 +68,8 @@
             <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

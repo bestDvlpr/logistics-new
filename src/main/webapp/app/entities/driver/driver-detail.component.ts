@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Driver} from "./driver.model";
-import {DriverService} from "./driver.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Driver} from './driver.model';
+import {DriverService} from './driver.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-driver-detail',
@@ -14,15 +14,13 @@ export class DriverDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     languages: any[];
 
-    constructor(
-        private languageHelper: JhiLanguageHelper,
-        private driverService: DriverService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private driverService: DriverService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.languageHelper.getAll().then((languages) => {
@@ -30,11 +28,12 @@ export class DriverDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    load (id) {
-        this.driverService.find(id).subscribe(driver => {
+    load(id) {
+        this.driverService.find(id).subscribe((driver) => {
             this.driver = driver;
         });
     }
+
     previousState() {
         window.history.back();
     }

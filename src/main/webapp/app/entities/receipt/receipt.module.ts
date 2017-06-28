@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     CollapsedReceiptComponent,
@@ -31,11 +31,11 @@ import {
     ReceiptSendProductComponent,
     ReceiptService,
     UploadService
-} from "./";
-import {AutocompleteModule} from "../../shared/autocomplete/autocomplete.module";
-import {NguiAutoCompleteModule} from "@ngui/auto-complete";
+} from './';
+import {AutocompleteModule} from '../../shared/autocomplete/autocomplete.module';
+import {NguiAutoCompleteModule} from '@ngui/auto-complete';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...receiptRoute,
     ...receiptPopupRoute,
 ];

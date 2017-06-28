@@ -1,84 +1,90 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myProductLabel" jhiTranslate="logisticsApp.product.home.createOrEditLabel">Create or edit a Product</h4>
+        <h4 class="modal-title" id="myProductLabel" jhiTranslate="logisticsApp.product.home.createOrEditLabel">Create or
+            edit a Product</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!product.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="product.id" readonly />
+                   [(ngModel)]="product.id" readonly/>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.sapCode" for="field_sapCode">Sap Code</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.product.sapCode" for="field_sapCode">Sap
+                Code</label>
             <input type="text" class="form-control" name="sapCode" id="field_sapCode"
-                [(ngModel)]="product.sapCode"
-             />
+                   [(ngModel)]="product.sapCode"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.sapType" for="field_sapType">Sap Type</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.product.sapType" for="field_sapType">Sap
+                Type</label>
             <input type="text" class="form-control" name="sapType" id="field_sapType"
-                [(ngModel)]="product.sapType"
-            required />
+                   [(ngModel)]="product.sapType"
+                   required/>
             <div [hidden]="!(editForm.controls.sapType?.dirty && editForm.controls.sapType?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.sapType?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.sapType?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.product.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="product.name"
-            required />
+                   [(ngModel)]="product.name"
+                   required/>
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.product.uom" for="field_uom">Uom</label>
             <input type="text" class="form-control" name="uom" id="field_uom"
-                [(ngModel)]="product.uom"
-            required />
+                   [(ngModel)]="product.uom"
+                   required/>
             <div [hidden]="!(editForm.controls.uom?.dirty && editForm.controls.uom?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.uom?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.uom?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.product.width" for="field_width">Width</label>
             <input type="number" class="form-control" name="width" id="field_width"
-                [(ngModel)]="product.width"
-             />
+                   [(ngModel)]="product.width"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.length" for="field_length">Length</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.product.length"
+                   for="field_length">Length</label>
             <input type="number" class="form-control" name="length" id="field_length"
-                [(ngModel)]="product.length"
-             />
+                   [(ngModel)]="product.length"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.height" for="field_height">Height</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.product.height"
+                   for="field_height">Height</label>
             <input type="number" class="form-control" name="height" id="field_height"
-                [(ngModel)]="product.height"
-             />
+                   [(ngModel)]="product.height"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.product.weight" for="field_weight">Weight</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.product.weight"
+                   for="field_weight">Weight</label>
             <input type="number" class="form-control" name="weight" id="field_weight"
-                [(ngModel)]="product.weight"
-             />
+                   [(ngModel)]="product.weight"
+            />
         </div>
 
     </div>

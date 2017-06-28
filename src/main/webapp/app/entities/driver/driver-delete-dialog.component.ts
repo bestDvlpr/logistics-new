@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Driver} from "./driver.model";
-import {DriverPopupService} from "./driver-popup.service";
-import {DriverService} from "./driver.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Driver} from './driver.model';
+import {DriverPopupService} from './driver-popup.service';
+import {DriverService} from './driver.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-driver-delete-dialog',
     templateUrl: './driver-delete-dialog.component.html'
 })
 export class DriverDeleteDialogComponent implements OnInit {
+
+    driver: Driver;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    driver: Driver;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private driverService: DriverService,
@@ -34,7 +35,7 @@ export class DriverDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.driverService.delete(id).subscribe(response => {
+        this.driverService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'driverListModification',
                 content: 'Deleted an driver'
@@ -58,7 +59,7 @@ export class DriverDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.driverPopupService
                 .open(DriverDeleteDialogComponent, params['id']);
         });

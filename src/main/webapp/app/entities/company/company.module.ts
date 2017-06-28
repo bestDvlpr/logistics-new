@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     CompanyComponent,
@@ -16,9 +16,9 @@ import {
     CompanyResolvePagingParams,
     companyRoute,
     CompanyService
-} from "./";
+} from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...companyRoute,
     ...companyPopupRoute,
 ];
@@ -26,7 +26,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         CompanyComponent,
@@ -51,4 +51,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsCompanyModule {}
+export class LogisticsCompanyModule {
+}

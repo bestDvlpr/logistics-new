@@ -1,20 +1,20 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {EnumAware} from "./doctypaware.decorator";
-import {DataHolderService} from "./data-holder.service";
-import {isUndefined} from "util";
-import {ProductEntryService} from "../product-entry/product-entry.service";
-import * as FileSaver from "file-saver";
-import {UploadService} from "./upload.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
+import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {EnumAware} from './doctypaware.decorator';
+import {DataHolderService} from './data-holder.service';
+import {isUndefined} from 'util';
+import {ProductEntryService} from '../product-entry/product-entry.service';
+import * as FileSaver from 'file-saver';
+import {UploadService} from './upload.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-receipt',

@@ -58,7 +58,7 @@
             "check-whitespace"
         ],
         "quotemark": [
-            false,
+            true,
             "single"
         ],
         "radix": true,

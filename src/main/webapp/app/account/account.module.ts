@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../shared";
+import {LogisticsSharedModule} from '../shared';
 
 import {
     accountState,
@@ -17,12 +17,12 @@ import {
     Register,
     RegisterComponent,
     SettingsComponent
-} from "./";
+} from './';
 
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(accountState, { useHash: true })
+        RouterModule.forRoot(accountState, {useHash: true})
     ],
     declarations: [
         ActivateComponent,
@@ -42,4 +42,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsAccountModule {}
+export class LogisticsAccountModule {
+}

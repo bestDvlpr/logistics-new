@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {XmlHolder} from "./xml-holder.model";
-import {XmlHolderPopupService} from "./xml-holder-popup.service";
-import {XmlHolderService} from "./xml-holder.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {XmlHolder} from './xml-holder.model';
+import {XmlHolderPopupService} from './xml-holder-popup.service';
+import {XmlHolderService} from './xml-holder.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-xml-holder-delete-dialog',
     templateUrl: './xml-holder-delete-dialog.component.html'
 })
 export class XmlHolderDeleteDialogComponent implements OnInit {
+
+    xmlHolder: XmlHolder;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    xmlHolder: XmlHolder;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private xmlHolderService: XmlHolderService,
@@ -34,7 +35,7 @@ export class XmlHolderDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.xmlHolderService.delete(id).subscribe(response => {
+        this.xmlHolderService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'xmlHolderListModification',
                 content: 'Deleted an xmlHolder'
@@ -58,7 +59,7 @@ export class XmlHolderDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.xmlHolderPopupService
                 .open(XmlHolderDeleteDialogComponent, params['id']);
         });

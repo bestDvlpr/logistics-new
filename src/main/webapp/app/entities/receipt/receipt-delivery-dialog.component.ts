@@ -1,15 +1,15 @@
-import {Response} from "@angular/http";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Response} from '@angular/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Receipt} from "./receipt.model";
-import {ReceiptPopupService} from "./receipt-popup.service";
-import {ReceiptService} from "./receipt.service";
-import * as FileSaver from "file-saver";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Receipt} from './receipt.model';
+import {ReceiptPopupService} from './receipt-popup.service';
+import {ReceiptService} from './receipt.service';
+import * as FileSaver from 'file-saver';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-delivery-dialog',
@@ -45,10 +45,10 @@ export class ReceiptDeliveryDialogComponent implements OnInit {
     }
 
     private onSuccessDocx(res: Response, receiptId: number) {
-        let mediaType = 'application/octet-stream;charset=UTF-8';
-        let blob = new Blob([res.blob()], {type: mediaType});
-        let receiptNumber = receiptId + '';
-        let filename = receiptNumber + '_invoice.docx';
+        const mediaType = 'application/octet-stream;charset=UTF-8';
+        const blob = new Blob([res.blob()], {type: mediaType});
+        const receiptNumber = receiptId + '';
+        const filename = receiptNumber + '_invoice.docx';
 
         try {
             window.navigator.msSaveOrOpenBlob(blob, filename);
@@ -72,7 +72,7 @@ export class ReceiptDeliveryPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.receiptPopupService
                 .open(ReceiptDeliveryDialogComponent, params['id']);
         });

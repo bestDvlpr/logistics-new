@@ -1,24 +1,25 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {LoyaltyCard} from "./loyalty-card.model";
+import {LoyaltyCard} from './loyalty-card.model';
 @Injectable()
 export class LoyaltyCardService {
 
     private resourceUrl = 'api/loyalty-cards';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(loyaltyCard: LoyaltyCard): Observable<LoyaltyCard> {
-        let copy: LoyaltyCard = Object.assign({}, loyaltyCard);
+        const copy: LoyaltyCard = Object.assign({}, loyaltyCard);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(loyaltyCard: LoyaltyCard): Observable<LoyaltyCard> {
-        let copy: LoyaltyCard = Object.assign({}, loyaltyCard);
+        const copy: LoyaltyCard = Object.assign({}, loyaltyCard);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -31,21 +32,19 @@ export class LoyaltyCardService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
-
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

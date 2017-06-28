@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Car} from "./car.model";
-import {CarPopupService} from "./car-popup.service";
-import {CarService} from "./car.service";
-import {CarModel, CarModelService} from "../car-model";
-import {CarColor, CarColorService} from "../car-color";
-import {CarType, CarTypeService} from "../car-type";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Car} from './car.model';
+import {CarPopupService} from './car-popup.service';
+import {CarService} from './car.service';
+import {CarModel, CarModelService} from '../car-model';
+import {CarColor, CarColorService} from '../car-color';
+import {CarType, CarTypeService} from '../car-type';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-car-dialog',
     templateUrl: './car-dialog.component.html'
@@ -113,7 +113,7 @@ export class CarPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.carPopupService
                     .open(CarDialogComponent, params['id']);

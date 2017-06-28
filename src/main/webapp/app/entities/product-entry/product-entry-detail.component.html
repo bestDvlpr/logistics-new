@@ -1,4 +1,3 @@
-
 <div *ngIf="productEntry">
     <h2><span jhiTranslate="logisticsApp.productEntry.detail.title">Product Entry</span> {{productEntry.id}}</h2>
     <hr>
@@ -10,7 +9,8 @@
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.deliveryFlag">Delivery Flag</span></dt>
         <dd>
-            <span jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">{{productEntry.deliveryFlag}}</span>
+            <span
+                jhiTranslate="{{'logisticsApp.SalesType.' + productEntry.deliveryFlag}}">{{productEntry.deliveryFlag}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.hallFlag">Hall Flag</span></dt>
         <dd>
@@ -18,11 +18,13 @@
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.defectFlag">Defect Flag</span></dt>
         <dd>
-            <span jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}">{{productEntry.defectFlag}}</span>
+            <span
+                jhiTranslate="{{'logisticsApp.DefectFlag.' + productEntry.defectFlag}}">{{productEntry.defectFlag}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.virtualFlag">Virtual Flag</span></dt>
         <dd>
-            <span jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}">{{productEntry.virtualFlag}}</span>
+            <span
+                jhiTranslate="{{'logisticsApp.VirtualFlag.' + productEntry.virtualFlag}}">{{productEntry.virtualFlag}}</span>
         </dd>
         <dt><span jhiTranslate="logisticsApp.productEntry.reason">Reason</span></dt>
         <dd>

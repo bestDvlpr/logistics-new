@@ -1,14 +1,15 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {CarModel} from "./car-model.model";
+import {CarModel} from './car-model.model';
 @Injectable()
 export class CarModelService {
 
     private resourceUrl = 'api/car-models';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(carModel: CarModel): Observable<CarModel> {
         const copy: CarModel = Object.assign({}, carModel);
@@ -33,7 +34,7 @@ export class CarModelService {
     query(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {

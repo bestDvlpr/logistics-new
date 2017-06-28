@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Address} from "./address.model";
-import {AddressPopupService} from "./address-popup.service";
-import {AddressService} from "./address.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Address} from './address.model';
+import {AddressPopupService} from './address-popup.service';
+import {AddressService} from './address.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-address-delete-dialog',
@@ -17,6 +17,7 @@ export class AddressDeleteDialogComponent implements OnInit {
 
     address: Address;
     languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
@@ -34,7 +35,7 @@ export class AddressDeleteDialogComponent implements OnInit {
     }
 
     confirmDelete(id: number) {
-        this.addressService.delete(id).subscribe(response => {
+        this.addressService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'addressListModification',
                 content: 'Deleted an address'
@@ -58,7 +59,7 @@ export class AddressDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.addressPopupService
                 .open(AddressDeleteDialogComponent, params['id']);
         });

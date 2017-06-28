@@ -1,24 +1,24 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
-import {JhiPaginationUtil} from "ng-jhipster";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import {ReceiptComponent} from "./receipt.component";
-import {ReceiptDetailComponent} from "./receipt-detail.component";
-import {ReceiptPopupComponent} from "./receipt-dialog.component";
-import {ReceiptDeletePopupComponent} from "./receipt-delete-dialog.component";
-import {ReceiptSendClientComponent} from "./receipt-send-client.component";
-import {ReceiptSendAddressComponent} from "./receipt-send-address.component";
-import {ReceiptSendProductComponent} from "./receipt-send-product.component";
-import {ClientPopupComponent} from "../client/client-dialog.component";
-import {ReceiptNewComponent} from "./receipt-new.component";
-import {ReceiptAppliedComponent} from "./receipt-applied.component";
-import {ReceiptProductToCarComponent} from "./receipt-product-to-car.component";
-import {CollapsedReceiptComponent} from "./collapsed-receipt.component";
-import {ReceiptArchivedComponent} from "./receipt-archived.component";
-import {ReceiptDeliveryPopupComponent} from "./receipt-delivery-dialog.component";
-import {ReceiptCreditComponent} from "./receipt-credit.component";
-import {ReceiptCorporateComponent} from "./receipt-corporate.component";
-import {ReceiptCancelCarPopupComponent} from "./receipt-cancel-car-dialog.component";
+import {ReceiptComponent} from './receipt.component';
+import {ReceiptDetailComponent} from './receipt-detail.component';
+import {ReceiptPopupComponent} from './receipt-dialog.component';
+import {ReceiptDeletePopupComponent} from './receipt-delete-dialog.component';
+import {ReceiptSendClientComponent} from './receipt-send-client.component';
+import {ReceiptSendAddressComponent} from './receipt-send-address.component';
+import {ReceiptSendProductComponent} from './receipt-send-product.component';
+import {ClientPopupComponent} from '../client/client-dialog.component';
+import {ReceiptNewComponent} from './receipt-new.component';
+import {ReceiptAppliedComponent} from './receipt-applied.component';
+import {ReceiptProductToCarComponent} from './receipt-product-to-car.component';
+import {CollapsedReceiptComponent} from './collapsed-receipt.component';
+import {ReceiptArchivedComponent} from './receipt-archived.component';
+import {ReceiptDeliveryPopupComponent} from './receipt-delivery-dialog.component';
+import {ReceiptCreditComponent} from './receipt-credit.component';
+import {ReceiptCorporateComponent} from './receipt-corporate.component';
+import {ReceiptCancelCarPopupComponent} from './receipt-cancel-car-dialog.component';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {

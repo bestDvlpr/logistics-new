@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Shop} from "./shop.model";
-import {ShopPopupService} from "./shop-popup.service";
-import {ShopService} from "./shop.service";
-import {Address, AddressService} from "../address";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Shop} from './shop.model';
+import {ShopPopupService} from './shop-popup.service';
+import {ShopService} from './shop.service';
+import {Address, AddressService} from '../address';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-shop-dialog',
     templateUrl: './shop-dialog.component.html'
@@ -91,7 +91,7 @@ export class ShopPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.shopPopupService
                     .open(ShopDialogComponent, params['id']);

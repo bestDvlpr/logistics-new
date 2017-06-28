@@ -1,19 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {
-    JhiAlertService,
-    JhiEventManager,
-    JhiPaginationUtil,
-    JhiParseLinks
-} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
-import {PayMaster} from "./pay-master.model";
-import {PayMasterService} from "./pay-master.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {PayMaster} from './pay-master.model';
+import {PayMasterService} from './pay-master.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-pay-master',
@@ -21,7 +16,7 @@ import {JhiLanguageHelper} from "../../shared/language/language.helper";
 })
 export class PayMasterComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     payMasters: PayMaster[];
     error: any;
     success: any;
@@ -37,20 +32,18 @@ currentAccount: any;
     reverse: any;
     languages: any[];
 
-    constructor(
-        private languageHelper: JhiLanguageHelper,
-        private payMasterService: PayMasterService,
-        private parseLinks: JhiParseLinks,
-        private alertService: JhiAlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: JhiEventManager,
-        private paginationUtil: JhiPaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private payMasterService: PayMasterService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: JhiEventManager,
+                private paginationUtil: JhiPaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -62,20 +55,23 @@ currentAccount: any;
         this.payMasterService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
     }
-    loadPage (page: number) {
+
+    loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/pay-master'], {queryParams:
-            {
+        this.router.navigate(['/pay-master'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -92,6 +88,7 @@ currentAccount: any;
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -107,25 +104,23 @@ currentAccount: any;
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: PayMaster) {
+    trackId(index: number, item: PayMaster) {
         return item.id;
     }
-
-
 
     registerChangeInPayMasters() {
         this.eventSubscriber = this.eventManager.subscribe('payMasterListModification', (response) => this.loadAll());
     }
 
-    sort () {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    sort() {
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
         return result;
     }
 
-    private onSuccess (data, headers) {
+    private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
@@ -133,7 +128,7 @@ currentAccount: any;
         this.payMasters = data;
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

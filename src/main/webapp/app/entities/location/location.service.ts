@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {Location, LocationType} from "./location.model";
+import {Location, LocationType} from './location.model';
 @Injectable()
 export class LocationService {
 
@@ -12,14 +12,14 @@ export class LocationService {
     }
 
     create(location: Location): Observable<Location> {
-        let copy: Location = Object.assign({}, location);
+        const copy: Location = Object.assign({}, location);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(location: Location): Observable<Location> {
-        let copy: Location = Object.assign({}, location);
+        const copy: Location = Object.assign({}, location);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -32,27 +32,27 @@ export class LocationService {
     }
 
     findChildren(id: number, req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(`${this.resourceUrl}/children/${id}`, options);
     }
 
     findCountries(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(`${this.resourceUrl}/countries`, options);
     }
 
     findChildList(id: number, req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(`${this.resourceUrl}/child-list/${id}`, options);
     }
 
     findCountryList(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(`${this.resourceUrl}/country-list`, options);
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             ;
     }
@@ -67,11 +67,10 @@ export class LocationService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

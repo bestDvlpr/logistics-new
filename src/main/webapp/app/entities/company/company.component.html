@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="logisticsApp.company.home.title">Companies</span>
-        <button class="btn btn-primary float-right create-company" [routerLink]="['/', { outlets: { popup: ['company-new'] } }]">
+        <button class="btn btn-primary float-right create-company"
+                [routerLink]="['/', { outlets: { popup: ['company-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="logisticsApp.company.home.createLabel">
+            <span jhiTranslate="logisticsApp.company.home.createLabel">
             Create new Company
             </span>
         </button>
@@ -16,12 +17,16 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="logisticsApp.company.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="idNumber"><span jhiTranslate="logisticsApp.company.idNumber">Id Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="type"><span jhiTranslate="logisticsApp.company.type">Type</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressStreetAddress"><span jhiTranslate="logisticsApp.company.address">Address</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="name"><span jhiTranslate="logisticsApp.company.name">Name</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="idNumber"><span jhiTranslate="logisticsApp.company.idNumber">Id Number</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="type"><span jhiTranslate="logisticsApp.company.type">Type</span> <span
+                    class="fa fa-sort"></span></th>
+                <th jhiSortBy="addressStreetAddress"><span jhiTranslate="logisticsApp.company.address">Address</span>
+                    <span class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +37,7 @@
                 <td jhiTranslate="{{'logisticsApp.CompanyType.' + company.type}}">{{company.type}}</td>
                 <td>
                     <div *ngIf="company.addressId">
-                        <a [routerLink]="['../address', company.addressId  ]" >{{company.addressStreetAddress}}</a>
+                        <a [routerLink]="['../address', company.addressId  ]">{{company.addressStreetAddress}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -63,12 +68,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="companies && companies.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="companies && companies.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

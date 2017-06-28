@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {Company, CompanyType} from "./company.model";
+import {Company, CompanyType} from './company.model';
 @Injectable()
 export class CompanyService {
 
@@ -12,14 +12,14 @@ export class CompanyService {
     }
 
     create(company: Company): Observable<Company> {
-        let copy: Company = Object.assign({}, company);
+        const copy: Company = Object.assign({}, company);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(company: Company): Observable<Company> {
-        let copy: Company = Object.assign({}, company);
+        const copy: Company = Object.assign({}, company);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -32,7 +32,7 @@ export class CompanyService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             ;
     }
@@ -46,9 +46,9 @@ export class CompanyService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

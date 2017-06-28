@@ -1,16 +1,16 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Rx";
-import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from "ng-jhipster";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Rx';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
-import {DefectFlag, ProductEntry, SalesPlace, SalesType, VirtualFlag} from "./product-entry.model";
-import {ProductEntryService} from "./product-entry.service";
-import {ITEMS_PER_PAGE, Principal} from "../../shared";
-import {PaginationConfig} from "../../blocks/config/uib-pagination.config";
-import {EnumAware} from "../receipt/doctypaware.decorator";
-import {ReceiptStatus} from "../receipt/receipt.model";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {DefectFlag, ProductEntry, SalesPlace, SalesType, VirtualFlag} from './product-entry.model';
+import {ProductEntryService} from './product-entry.service';
+import {ITEMS_PER_PAGE, Principal} from '../../shared';
+import {PaginationConfig} from '../../blocks/config/uib-pagination.config';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {ReceiptStatus} from '../receipt/receipt.model';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-product-entry',
@@ -51,7 +51,7 @@ export class ProductEntryComponent implements OnInit, OnDestroy {
                 private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
@@ -116,13 +116,12 @@ export class ProductEntryComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInProductEntries() {
         this.eventSubscriber = this.eventManager.subscribe('productEntryListModification', (response) => this.loadAll());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

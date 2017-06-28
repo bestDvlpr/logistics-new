@@ -1,16 +1,17 @@
-import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {User} from "./user.model";
-import {ResponseWrapper} from "../model/response-wrapper.model";
-import {createRequestOption} from "../model/request-util";
+import {User} from './user.model';
+import {ResponseWrapper} from '../model/response-wrapper.model';
+import {createRequestOption} from '../model/request-util';
 
 @Injectable()
 export class UserService {
     private resourceUrl = 'api/users';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(user: User): Observable<ResponseWrapper> {
         return this.http.post(this.resourceUrl, user)

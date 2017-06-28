@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../../shared";
+import {LogisticsSharedModule} from '../../shared';
 
 import {
     DriverComponent,
@@ -15,9 +15,9 @@ import {
     DriverResolvePagingParams,
     driverRoute,
     DriverService
-} from "./";
+} from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...driverRoute,
     ...driverPopupRoute,
 ];
@@ -25,7 +25,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         DriverComponent,
@@ -49,4 +49,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsDriverModule {}
+export class LogisticsDriverModule {
+}

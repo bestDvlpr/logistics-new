@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
-import {JhiPaginationUtil} from "ng-jhipster";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import {CarComponent} from "./car.component";
-import {CarDetailComponent} from "./car-detail.component";
-import {CarPopupComponent} from "./car-dialog.component";
-import {CarDeletePopupComponent} from "./car-delete-dialog.component";
-import {CarDeliveryProductsComponent} from "./car-delivery-products.component";
+import {CarComponent} from './car.component';
+import {CarDetailComponent} from './car-detail.component';
+import {CarPopupComponent} from './car-dialog.component';
+import {CarDeletePopupComponent} from './car-delete-dialog.component';
+import {CarDeliveryProductsComponent} from './car-delivery-products.component';
 
 @Injectable()
 export class CarResolvePagingParams implements Resolve<any> {

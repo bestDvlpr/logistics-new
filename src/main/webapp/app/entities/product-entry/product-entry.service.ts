@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {ProductEntry} from "./product-entry.model";
+import {ProductEntry} from './product-entry.model';
 @Injectable()
 export class ProductEntryService {
 
@@ -12,14 +12,14 @@ export class ProductEntryService {
     }
 
     create(productEntry: ProductEntry): Observable<ProductEntry> {
-        let copy: ProductEntry = Object.assign({}, productEntry);
+        const copy: ProductEntry = Object.assign({}, productEntry);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(productEntry: ProductEntry): Observable<ProductEntry> {
-        let copy: ProductEntry = Object.assign({}, productEntry);
+        const copy: ProductEntry = Object.assign({}, productEntry);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -32,7 +32,7 @@ export class ProductEntryService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             ;
     }
@@ -45,11 +45,10 @@ export class ProductEntryService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {
@@ -75,7 +74,7 @@ export class ProductEntryService {
     }
 
     deliver(productEntries: ProductEntry[]) {
-        let mediaType = ResponseContentType.Blob;
+        const mediaType = ResponseContentType.Blob;
         return this.http.post(this.resourceUrl.concat('/delivery'), productEntries, {responseType: mediaType});
     }
 }

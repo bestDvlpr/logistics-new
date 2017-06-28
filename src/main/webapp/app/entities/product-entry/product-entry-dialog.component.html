@@ -1,124 +1,143 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myProductEntryLabel" jhiTranslate="logisticsApp.productEntry.home.createOrEditLabel">Create or edit a Product Entry</h4>
+        <h4 class="modal-title" id="myProductEntryLabel"
+            jhiTranslate="logisticsApp.productEntry.home.createOrEditLabel">Create or edit a Product Entry</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!productEntry.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="productEntry.id" readonly />
+                   [(ngModel)]="productEntry.id" readonly/>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.price" for="field_price">Price</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.price"
+                   for="field_price">Price</label>
             <input type="number" class="form-control" name="price" id="field_price"
-                [(ngModel)]="productEntry.price"
-            required />
+                   [(ngModel)]="productEntry.price"
+                   required/>
             <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
+                       [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
                     This field should be a number.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryFlag" for="field_deliveryFlag">Delivery Flag</label>
-            <select class="form-control" name="deliveryFlag" [(ngModel)]="productEntry.deliveryFlag" id="field_deliveryFlag"  required>
-                <option value="TAKEOUT_IN_TIME" jhiTranslate="logisticsApp.SalesType.TAKEOUT_IN_TIME">TAKEOUT_IN_TIME</option>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryFlag"
+                   for="field_deliveryFlag">Delivery Flag</label>
+            <select class="form-control" name="deliveryFlag" [(ngModel)]="productEntry.deliveryFlag"
+                    id="field_deliveryFlag" required>
+                <option value="TAKEOUT_IN_TIME" jhiTranslate="logisticsApp.SalesType.TAKEOUT_IN_TIME">TAKEOUT_IN_TIME
+                </option>
                 <option value="TAKEOUT" jhiTranslate="logisticsApp.SalesType.TAKEOUT">TAKEOUT</option>
                 <option value="DELIVERY" jhiTranslate="logisticsApp.SalesType.DELIVERY">DELIVERY</option>
             </select>
             <div [hidden]="!(editForm.controls.deliveryFlag?.dirty && editForm.controls.deliveryFlag?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.deliveryFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.deliveryFlag?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.hallFlag" for="field_hallFlag">Hall Flag</label>
-            <select class="form-control" name="hallFlag" [(ngModel)]="productEntry.hallFlag" id="field_hallFlag"  required>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.hallFlag" for="field_hallFlag">Hall
+                Flag</label>
+            <select class="form-control" name="hallFlag" [(ngModel)]="productEntry.hallFlag" id="field_hallFlag"
+                    required>
                 <option value="STORE" jhiTranslate="logisticsApp.SalesPlace.STORE">STORE</option>
                 <option value="WAREHOUSE" jhiTranslate="logisticsApp.SalesPlace.WAREHOUSE">WAREHOUSE</option>
             </select>
             <div [hidden]="!(editForm.controls.hallFlag?.dirty && editForm.controls.hallFlag?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.hallFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.hallFlag?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.defectFlag" for="field_defectFlag">Defect Flag</label>
-            <select class="form-control" name="defectFlag" [(ngModel)]="productEntry.defectFlag" id="field_defectFlag"  required>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.defectFlag"
+                   for="field_defectFlag">Defect Flag</label>
+            <select class="form-control" name="defectFlag" [(ngModel)]="productEntry.defectFlag" id="field_defectFlag"
+                    required>
                 <option value="WELL" jhiTranslate="logisticsApp.DefectFlag.WELL">WELL</option>
                 <option value="DEFECTED" jhiTranslate="logisticsApp.DefectFlag.DEFECTED">DEFECTED</option>
             </select>
             <div [hidden]="!(editForm.controls.defectFlag?.dirty && editForm.controls.defectFlag?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.defectFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.defectFlag?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.virtualFlag" for="field_virtualFlag">Virtual Flag</label>
-            <select class="form-control" name="virtualFlag" [(ngModel)]="productEntry.virtualFlag" id="field_virtualFlag"  required>
-                <option value="SOLD_PHYSICALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_PHYSICALLY">SOLD_PHYSICALLY</option>
-                <option value="SOLD_VIRTUALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_VIRTUALLY">SOLD_VIRTUALLY</option>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.virtualFlag"
+                   for="field_virtualFlag">Virtual Flag</label>
+            <select class="form-control" name="virtualFlag" [(ngModel)]="productEntry.virtualFlag"
+                    id="field_virtualFlag" required>
+                <option value="SOLD_PHYSICALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_PHYSICALLY">
+                    SOLD_PHYSICALLY
+                </option>
+                <option value="SOLD_VIRTUALLY" jhiTranslate="logisticsApp.VirtualFlag.SOLD_VIRTUALLY">SOLD_VIRTUALLY
+                </option>
             </select>
             <div [hidden]="!(editForm.controls.virtualFlag?.dirty && editForm.controls.virtualFlag?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.virtualFlag?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.virtualFlag?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.reason" for="field_reason">Reason</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.reason"
+                   for="field_reason">Reason</label>
             <input type="text" class="form-control" name="reason" id="field_reason"
-                [(ngModel)]="productEntry.reason"
-             />
+                   [(ngModel)]="productEntry.reason"
+            />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.comment" for="field_comment">Comment</label>
             <input type="text" class="form-control" name="comment" id="field_comment"
-                [(ngModel)]="productEntry.comment"
-             />
+                   [(ngModel)]="productEntry.comment"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.guid" for="field_guid">Guid</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.guid"
+                   for="field_guid">Guid</label>
             <input type="text" class="form-control" name="guid" id="field_guid"
-                [(ngModel)]="productEntry.guid"
-            required />
+                   [(ngModel)]="productEntry.guid"
+                   required/>
             <div [hidden]="!(editForm.controls.guid?.dirty && editForm.controls.guid?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.guid?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.guid?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.qty" for="field_qty">Qty</label>
             <input type="number" class="form-control" name="qty" id="field_qty"
-                [(ngModel)]="productEntry.qty"
-            required />
+                   [(ngModel)]="productEntry.qty"
+                   required/>
             <div [hidden]="!(editForm.controls.qty?.dirty && editForm.controls.qty?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.qty?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.qty?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.qty?.errors?.number" jhiTranslate="entity.validation.number">
+                       [hidden]="!editForm.controls.qty?.errors?.number" jhiTranslate="entity.validation.number">
                     This field should be a number.
                 </small>
             </div>
@@ -126,150 +145,195 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.discount" for="field_discount">Discount</label>
             <input type="number" class="form-control" name="discount" id="field_discount"
-                [(ngModel)]="productEntry.discount"
-             />
+                   [(ngModel)]="productEntry.discount"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.status" for="field_status">Status</label>
-            <select class="form-control" name="status" [(ngModel)]="productEntry.status" id="field_status"  required>
-                <option value="APPLICATION_SENT" jhiTranslate="logisticsApp.ReceiptStatus.APPLICATION_SENT">APPLICATION_SENT</option>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.status"
+                   for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="productEntry.status" id="field_status" required>
+                <option value="APPLICATION_SENT" jhiTranslate="logisticsApp.ReceiptStatus.APPLICATION_SENT">
+                    APPLICATION_SENT
+                </option>
                 <option value="NEW" jhiTranslate="logisticsApp.ReceiptStatus.NEW">NEW</option>
-                <option value="ATTACHED_TO_DRIVER" jhiTranslate="logisticsApp.ReceiptStatus.ATTACHED_TO_DRIVER">ATTACHED_TO_DRIVER</option>
-                <option value="DELIVERY_PROCESS" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERY_PROCESS">DELIVERY_PROCESS</option>
+                <option value="ATTACHED_TO_DRIVER" jhiTranslate="logisticsApp.ReceiptStatus.ATTACHED_TO_DRIVER">
+                    ATTACHED_TO_DRIVER
+                </option>
+                <option value="DELIVERY_PROCESS" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERY_PROCESS">
+                    DELIVERY_PROCESS
+                </option>
                 <option value="DELIVERED" jhiTranslate="logisticsApp.ReceiptStatus.DELIVERED">DELIVERED</option>
             </select>
             <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.cancelled" for="field_cancelled">Cancelled</label>
             <input type="checkbox" class="form-control" name="cancelled" id="field_cancelled"
-                [(ngModel)]="productEntry.cancelled"
-             />
+                   [(ngModel)]="productEntry.cancelled"
+            />
             <div [hidden]="!(editForm.controls.cancelled?.dirty && editForm.controls.cancelled?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.cancelled?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.cancelled?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.serialNumber" for="field_serialNumber">Serial Number</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.serialNumber"
+                   for="field_serialNumber">Serial Number</label>
             <input type="text" class="form-control" name="serialNumber" id="field_serialNumber"
-                [(ngModel)]="productEntry.serialNumber"
-             />
+                   [(ngModel)]="productEntry.serialNumber"
+            />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.attachedToCarTime" for="field_attachedToCarTime">Attached To Car Time</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.attachedToCarTime"
+                   for="field_attachedToCarTime">Attached To Car Time</label>
             <div class="d-flex">
-                <input id="field_attachedToCarTime" type="datetime-local" class="form-control" name="attachedToCarTime" [(ngModel)]="productEntry.attachedToCarTime"
-                  />
+                <input id="field_attachedToCarTime" type="datetime-local" class="form-control" name="attachedToCarTime"
+                       [(ngModel)]="productEntry.attachedToCarTime"
+                />
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryStartTime" for="field_deliveryStartTime">Delivery Start Time</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryStartTime"
+                   for="field_deliveryStartTime">Delivery Start Time</label>
             <div class="d-flex">
-                <input id="field_deliveryStartTime" type="datetime-local" class="form-control" name="deliveryStartTime" [(ngModel)]="productEntry.deliveryStartTime"
-                  />
+                <input id="field_deliveryStartTime" type="datetime-local" class="form-control" name="deliveryStartTime"
+                       [(ngModel)]="productEntry.deliveryStartTime"
+                />
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryEndTime" for="field_deliveryEndTime">Delivery End Time</label>
+            <label class="form-control-label" jhiTranslate="logisticsApp.productEntry.deliveryEndTime"
+                   for="field_deliveryEndTime">Delivery End Time</label>
             <div class="d-flex">
-                <input id="field_deliveryEndTime" type="datetime-local" class="form-control" name="deliveryEndTime" [(ngModel)]="productEntry.deliveryEndTime"
-                  />
+                <input id="field_deliveryEndTime" type="datetime-local" class="form-control" name="deliveryEndTime"
+                       [(ngModel)]="productEntry.deliveryEndTime"
+                />
             </div>
         </div>
 
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.product" for="field_product">Product</label>
-            <select class="form-control" id="field_product" name="product" [(ngModel)]="productEntry.productId"  required>
+            <select class="form-control" id="field_product" name="product" [(ngModel)]="productEntry.productId"
+                    required>
                 <option [ngValue]="null"></option>
-                <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.name}}</option>
+                <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">
+                    {{productOption.name}}
+                </option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.product?.dirty && editForm.controls.product?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.product?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.sellerID" for="field_sellerID">Seller ID</label>
-            <select class="form-control" id="field_sellerID" name="sellerID" [(ngModel)]="productEntry.sellerIDId" >
+            <select class="form-control" id="field_sellerID" name="sellerID" [(ngModel)]="productEntry.sellerIDId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="sellerOption.id" *ngFor="let sellerOption of sellers; trackBy: trackSellerById">{{sellerOption.sellerID}}</option>
+                <option [ngValue]="sellerOption.id" *ngFor="let sellerOption of sellers; trackBy: trackSellerById">
+                    {{sellerOption.sellerID}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.receipt" for="field_receipt">Receipt</label>
-            <select class="form-control" id="field_receipt" name="receipt" [(ngModel)]="productEntry.receiptId"  required>
+            <select class="form-control" id="field_receipt" name="receipt" [(ngModel)]="productEntry.receiptId"
+                    required>
                 <option [ngValue]="null"></option>
-                <option [ngValue]="receiptOption.id" *ngFor="let receiptOption of receipts; trackBy: trackReceiptById">{{receiptOption.docNum}}</option>
+                <option [ngValue]="receiptOption.id" *ngFor="let receiptOption of receipts; trackBy: trackReceiptById">
+                    {{receiptOption.docNum}}
+                </option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.receipt?.dirty && editForm.controls.receipt?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.receipt?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.receipt?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.driver" for="field_driver">Driver</label>
-            <select class="form-control" id="field_driver" name="driver" [(ngModel)]="productEntry.driverId" >
+            <select class="form-control" id="field_driver" name="driver" [(ngModel)]="productEntry.driverId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="driverOption.id" *ngFor="let driverOption of drivers; trackBy: trackDriverById">{{driverOption.lastName}}</option>
+                <option [ngValue]="driverOption.id" *ngFor="let driverOption of drivers; trackBy: trackDriverById">
+                    {{driverOption.lastName}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.attachedCar" for="field_attachedCar">Attached Car</label>
-            <select class="form-control" id="field_attachedCar" name="attachedCar" [(ngModel)]="productEntry.attachedCarId" >
+            <select class="form-control" id="field_attachedCar" name="attachedCar"
+                    [(ngModel)]="productEntry.attachedCarId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="carOption.id" *ngFor="let carOption of cars; trackBy: trackCarById">{{carOption.number}}</option>
+                <option [ngValue]="carOption.id" *ngFor="let carOption of cars; trackBy: trackCarById">
+                    {{carOption.number}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.productEntry.address" for="field_address">Address</label>
-            <select class="form-control" id="field_address" name="address" [(ngModel)]="productEntry.addressId" >
+            <select class="form-control" id="field_address" name="address" [(ngModel)]="productEntry.addressId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="addressOption.id" *ngFor="let addressOption of addresses; trackBy: trackAddressById">{{addressOption.streetAddress}}</option>
+                <option [ngValue]="addressOption.id" *ngFor="let addressOption of addresses; trackBy: trackAddressById">
+                    {{addressOption.streetAddress}}
+                </option>
             </select>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.productEntry.attachedToDriverBy" for="field_attachedToDriverBy">Attached To Driver By</label>
-            <select class="form-control" id="field_attachedToDriverBy" name="attachedToDriverBy" [(ngModel)]="productEntry.attachedToDriverById" >
+            <label jhiTranslate="logisticsApp.productEntry.attachedToDriverBy" for="field_attachedToDriverBy">Attached
+                To Driver By</label>
+            <select class="form-control" id="field_attachedToDriverBy" name="attachedToDriverBy"
+                    [(ngModel)]="productEntry.attachedToDriverById">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">
+                    {{userOption.login}}
+                </option>
             </select>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy" for="field_deliveryItemsSentBy">Delivery Items Sent By</label>
-            <select class="form-control" id="field_deliveryItemsSentBy" name="deliveryItemsSentBy" [(ngModel)]="productEntry.deliveryItemsSentById" >
+            <label jhiTranslate="logisticsApp.productEntry.deliveryItemsSentBy" for="field_deliveryItemsSentBy">Delivery
+                Items Sent By</label>
+            <select class="form-control" id="field_deliveryItemsSentBy" name="deliveryItemsSentBy"
+                    [(ngModel)]="productEntry.deliveryItemsSentById">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">
+                    {{userOption.login}}
+                </option>
             </select>
         </div>
         <div class="form-group">
-            <label jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy" for="field_markedAsDeliveredBy">Marked As Delivered By</label>
-            <select class="form-control" id="field_markedAsDeliveredBy" name="markedAsDeliveredBy" [(ngModel)]="productEntry.markedAsDeliveredById" >
+            <label jhiTranslate="logisticsApp.productEntry.markedAsDeliveredBy" for="field_markedAsDeliveredBy">Marked
+                As Delivered By</label>
+            <select class="form-control" id="field_markedAsDeliveredBy" name="markedAsDeliveredBy"
+                    [(ngModel)]="productEntry.markedAsDeliveredById">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">
+                    {{userOption.login}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="logisticsApp.company.detail.title" for="field_company">Company</label>
-            <select class="form-control" id="field_company" name="company" [(ngModel)]="productEntry.companyId"  required>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="productEntry.companyId"
+                    required>
                 <option [ngValue]="null"></option>
-                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">
+                    {{companyOption.name}}
+                </option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
+                   [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

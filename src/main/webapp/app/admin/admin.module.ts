@@ -1,7 +1,7 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import {LogisticsSharedModule} from "../shared";
+import {LogisticsSharedModule} from '../shared';
 import {
     adminState,
     AuditsComponent,
@@ -28,13 +28,13 @@ import {
     UserModalService,
     UserResolve,
     UserResolvePagingParams
-} from "./";
+} from './';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 @NgModule({
     imports: [
         LogisticsSharedModule,
-        RouterModule.forRoot(adminState, { useHash: true }),
+        RouterModule.forRoot(adminState, {useHash: true}),
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
@@ -73,4 +73,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LogisticsAdminModule {}
+export class LogisticsAdminModule {
+}

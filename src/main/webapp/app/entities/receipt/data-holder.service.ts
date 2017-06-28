@@ -1,14 +1,14 @@
-import {Receipt} from "./receipt.model";
-import {Client} from "../client/client.model";
-import {Address} from "../address/address.model";
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {ACElement} from "../../shared/autocomplete/element.model";
-import {Company} from "../company/company.model";
-import {isNullOrUndefined} from "util";
-import {CountByDistrictReport} from "../../report/count-by-district.model";
-import {TranslateService} from "ng2-translate";
-import {Injectable, OnInit} from "@angular/core";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Receipt} from './receipt.model';
+import {Client} from '../client/client.model';
+import {Address} from '../address/address.model';
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {ACElement} from '../../shared/autocomplete/element.model';
+import {Company} from '../company/company.model';
+import {isNullOrUndefined} from 'util';
+import {CountByDistrictReport} from '../../report/count-by-district.model';
+import {Injectable, OnInit} from '@angular/core';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
+import {TranslateService} from '@ngx-translate/core';
 /**
  * @author: hasan @date: 3/11/17.
  */
@@ -20,10 +20,31 @@ export class DataHolderService implements OnInit {
     _selectedProducts: ProductEntry[] = null;
     _leftProducts: ProductEntry[] = null;
     _autocompleteObjects: ACElement[] = null;
-    productCarExists: boolean = false;
+    productCarExists = false;
     _autocompleteSelected: ACElement = null;
     _company: Company = null;
     languages: any[];
+
+    static formatYYYYMMDD(date: any) {
+        if (isNullOrUndefined(date)) {
+            return null;
+        }
+        return date.year +
+            '-' + ((date.month < 10) ? '0' + date.month : date.month) +
+            '-' + ((date.day < 10) ? '0' + date.day : date.day);
+    }
+
+    static format(date: any) {
+        if (isNullOrUndefined(date)) {
+            return null;
+        }
+        const month = date.getMonth() + 1;
+        const fullYear = date.getFullYear();
+        const month2 = ((month < 10) ? '0' + month : month);
+        const date2 = ((date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
+        const s = fullYear + '-' + month2 + '-' + date2;
+        return {s};
+    }
 
     constructor(private translateService: TranslateService,
                 private languageHelper: JhiLanguageHelper) {
@@ -45,7 +66,7 @@ export class DataHolderService implements OnInit {
         if (this._receipt != null &&
             this._receipt.productEntries != null &&
             this._receipt.productEntries.length > 0) {
-            for (let entry of this._receipt.productEntries) {
+            for (const entry of this._receipt.productEntries) {
                 if (entry.attachedCarId != null) {
                     this.productCarExists = true;
                 }
@@ -56,36 +77,17 @@ export class DataHolderService implements OnInit {
         });
     }
 
-    static formatYYYYMMDD(date: any) {
-        if (isNullOrUndefined(date)) {
-            return null;
-        }
-        return date.year +
-            '-' + ((date.month < 10) ? '0' + date.month : date.month) +
-            '-' + ((date.day < 10) ? '0' + date.day : date.day);
-    }
-
-    static format(date: any) {
-        if (isNullOrUndefined(date)) {
-            return null;
-        }
-        let month = date.getMonth() + 1;
-        return date.getFullYear() +
-            '-' + ((month < 10) ? '0' + month : month) +
-            '-' + ((date.getDate() < 10) ? '0' + date.getDate() : date.getDate());
-    }
-
     drawChart(report: CountByDistrictReport) {
-        let data: any = [];
-        for (let a of report.countByCompanies) {
+        const data: any = [];
+        for (const a of report.countByCompanies) {
             data.push({
                 name: (a.companyName !== null ? a.companyName : this.translateService.instant('logisticsApp.report.other')) + ': ' + a.count,
                 y: a.count
             });
         }
 
-        let allCount: number = 0;
-        report.countByCompanies.forEach(value => allCount += value.count);
+        let allCount = 0;
+        report.countByCompanies.forEach((value) => allCount += value.count);
 
         let district = null;
         if (report.districtName !== null) {
@@ -102,7 +104,7 @@ export class DataHolderService implements OnInit {
             },
             series: [{
                 name: report.districtName !== null ? report.districtName : this.translateService.instant('logisticsApp.report.other'),
-                data: data
+                data
             }],
             chart: {
                 type: 'pie',
@@ -145,9 +147,9 @@ export class DataHolderService implements OnInit {
     }
 
     drawColumnChart(report: CountByDistrictReport) {
-        let data: any = [];
-        let companyNames = [];
-        for (let a of report.countByCompanies) {
+        const data: any = [];
+        const companyNames = [];
+        for (const a of report.countByCompanies) {
             data.push({
                 y: a.count
             });
@@ -157,8 +159,8 @@ export class DataHolderService implements OnInit {
             }
         }
 
-        let allCount: number = 0;
-        report.countByCompanies.forEach(value => allCount += value.count);
+        let allCount = 0;
+        report.countByCompanies.forEach((value) => allCount += value.count);
 
         let district = null;
         if (report.districtName !== null) {
@@ -175,7 +177,7 @@ export class DataHolderService implements OnInit {
             },
             series: [{
                 name: report.districtName !== null ? report.districtName : this.translateService.instant('logisticsApp.report.other'),
-                data: data,
+                data,
                 colorByPoint: true
             }],
             chart: {

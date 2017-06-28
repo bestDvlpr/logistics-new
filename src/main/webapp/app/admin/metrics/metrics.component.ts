@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Component, OnInit} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {JhiMetricsMonitoringModalComponent} from "./metrics-modal.component";
-import {JhiMetricsService} from "./metrics.service";
+import {JhiMetricsMonitoringModalComponent} from './metrics-modal.component';
+import {JhiMetricsService} from './metrics.service';
 
 @Component({
     selector: 'jhi-metrics',
@@ -15,10 +15,8 @@ export class JhiMetricsMonitoringComponent implements OnInit {
     updatingMetrics = true;
     JCACHE_KEY: string;
 
-    constructor(
-        private modalService: NgbModal,
-        private metricsService: JhiMetricsService
-    ) {
+    constructor(private modalService: NgbModal,
+                private metricsService: JhiMetricsService) {
         this.JCACHE_KEY = 'jcache.statistics';
     }
 
@@ -58,7 +56,7 @@ export class JhiMetricsMonitoringComponent implements OnInit {
 
     refreshThreadDumpData() {
         this.metricsService.threadDump().subscribe((data) => {
-            const modalRef  = this.modalService.open(JhiMetricsMonitoringModalComponent, { size: 'lg'});
+            const modalRef = this.modalService.open(JhiMetricsMonitoringModalComponent, {size: 'lg'});
             modalRef.componentInstance.threadDump = data;
             modalRef.result.then((result) => {
                 // Left blank intentionally, nothing to do here

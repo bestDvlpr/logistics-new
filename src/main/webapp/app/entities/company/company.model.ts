@@ -1,4 +1,4 @@
-import {Address} from "../address/address.model";
+import {Address} from '../address/address.model';
 export enum CompanyType {
     WAREHOUSE = <any>'WAREHOUSE',
     SHOP = <any>'SHOP',

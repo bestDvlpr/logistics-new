@@ -1,27 +1,28 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Receipt} from "./receipt.model";
-import {ReceiptPopupService} from "./receipt-popup.service";
-import {ReceiptService} from "./receipt.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Receipt} from './receipt.model';
+import {ReceiptPopupService} from './receipt-popup.service';
+import {ReceiptService} from './receipt.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-cancel-car-dialog',
     templateUrl: './receipt-cancel-car-dialog.component.html'
 })
 export class ReceiptCancelCarDialogComponent implements OnInit {
+
+    receipt: Receipt;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
-
-    receipt: Receipt;
-    languages: any[];
 
     constructor(private languageHelper: JhiLanguageHelper,
                 private receiptService: ReceiptService,
@@ -37,7 +38,7 @@ export class ReceiptCancelCarDialogComponent implements OnInit {
         this.receiptService.cancelAttachedCar(receiptId).subscribe((res: Receipt) => {
             this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
             this.activeModal.dismiss(true);
-        })
+        });
     }
 }
 
@@ -55,7 +56,7 @@ export class ReceiptCancelCarPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.receiptPopupService
                 .open(ReceiptCancelCarDialogComponent, params['id']);
         });

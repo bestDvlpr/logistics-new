@@ -1,42 +1,41 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import {Product} from "./product.model";
-import {ProductPopupService} from "./product-popup.service";
-import {ProductService} from "./product.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Product} from './product.model';
+import {ProductPopupService} from './product-popup.service';
+import {ProductService} from './product.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-product-delete-dialog',
     templateUrl: './product-delete-dialog.component.html'
 })
-export class ProductDeleteDialogComponent implements OnInit{
+export class ProductDeleteDialogComponent implements OnInit {
+
+    product: Product;
+    languages: any[];
+
     ngOnInit(): void {
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
 
-    product: Product;
-    languages: any[];
-
-    constructor(
-        private languageHelper: JhiLanguageHelper,
-        private productService: ProductService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private productService: ProductService,
+                public activeModal: NgbActiveModal,
+                private eventManager: JhiEventManager) {
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.productService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.productService.delete(id).subscribe(() => {
             this.eventManager.broadcast({
                 name: 'productListModification',
                 content: 'Deleted an product'
@@ -55,13 +54,12 @@ export class ProductDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private productPopupService: ProductPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private productPopupService: ProductPopupService) {
+    }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.productPopupService
                 .open(ProductDeleteDialogComponent, params['id']);
         });

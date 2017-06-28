@@ -1,21 +1,19 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 
-import {GatewayRoutesService} from "./gateway-routes.service";
-import {GatewayRoute} from "./gateway-route.model";
+import {GatewayRoutesService} from './gateway-routes.service';
+import {GatewayRoute} from './gateway-route.model';
 
 @Component({
     selector: 'jhi-gateway',
     templateUrl: './gateway.component.html',
-    providers: [ GatewayRoutesService ]
+    providers: [GatewayRoutesService]
 })
 export class JhiGatewayComponent implements OnInit {
 
     gatewayRoutes: GatewayRoute[];
     updatingRoutes: Boolean;
 
-    constructor(
-        private gatewayRoutesService: GatewayRoutesService
-    ) {
+    constructor(private gatewayRoutesService: GatewayRoutesService) {
     }
 
     ngOnInit() {

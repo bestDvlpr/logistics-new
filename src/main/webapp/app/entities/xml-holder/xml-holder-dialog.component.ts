@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {XmlHolder} from "./xml-holder.model";
-import {XmlHolderPopupService} from "./xml-holder-popup.service";
-import {XmlHolderService} from "./xml-holder.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {XmlHolder} from './xml-holder.model';
+import {XmlHolderPopupService} from './xml-holder-popup.service';
+import {XmlHolderService} from './xml-holder.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-xml-holder-dialog',
     templateUrl: './xml-holder-dialog.component.html'
@@ -80,7 +80,7 @@ export class XmlHolderPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.xmlHolderPopupService
                     .open(XmlHolderDialogComponent, params['id']);

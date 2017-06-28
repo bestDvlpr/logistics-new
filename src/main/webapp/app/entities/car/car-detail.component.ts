@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Car} from "./car.model";
-import {CarService} from "./car.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Car} from './car.model';
+import {CarService} from './car.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-car-detail',
@@ -14,11 +14,9 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     languages: any[];
 
-    constructor(
-        private languageHelper: JhiLanguageHelper,
-        private carService: CarService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private languageHelper: JhiLanguageHelper,
+                private carService: CarService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -35,6 +33,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
             this.car = car;
         });
     }
+
     previousState() {
         window.history.back();
     }

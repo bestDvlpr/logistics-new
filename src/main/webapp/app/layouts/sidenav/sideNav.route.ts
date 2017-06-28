@@ -1,6 +1,6 @@
-import {Route} from "@angular/router";
+import {Route} from '@angular/router';
 
-import {SidenavComponent} from "./sidenav.component";
+import {SidenavComponent} from './sidenav.component';
 /* import { AuthService } from './shared';
 
  @Injectable()

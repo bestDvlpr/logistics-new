@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from "@angular/http";
-import {Observable} from "rxjs/Rx";
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, ResponseContentType, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import {DocType, Receipt, ReceiptStatus} from "./receipt.model";
+import {DocType, Receipt, ReceiptStatus} from './receipt.model';
 @Injectable()
 export class ReceiptService {
 

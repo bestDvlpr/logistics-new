@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Response} from "@angular/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import {NgbActiveModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import {Client} from "./client.model";
-import {ClientPopupService} from "./client-popup.service";
-import {ClientService} from "./client.service";
-import {PhoneNumber} from "../phone-number/phone-number.model";
-import {EnumAware} from "../receipt/doctypaware.decorator";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Client} from './client.model';
+import {ClientPopupService} from './client-popup.service';
+import {ClientService} from './client.service';
+import {PhoneNumber} from '../phone-number/phone-number.model';
+import {EnumAware} from '../receipt/doctypaware.decorator';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @Component({
     selector: 'jhi-client-dialog',
     templateUrl: './client-dialog.component.html'
@@ -47,9 +47,9 @@ export class ClientDialogComponent implements OnInit {
                 lastName: ['', [Validators.required, Validators.minLength(2)]],
                 numbers: this.formBuilder.array([]),
             });
-            let numbers: FormArray = this.formBuilder.array([]);
-            for (let number of this.client.numbers) {
-                let num: FormGroup = this.initPhoneNumbers();
+            const numbers: FormArray = this.formBuilder.array([]);
+            for (const number of this.client.numbers) {
+                const num: FormGroup = this.initPhoneNumbers();
                 num.controls['id'].setValue(number.id);
                 num.controls['number'].setValue(number.number);
                 num.controls['type'].setValue(number.type);
@@ -149,7 +149,7 @@ export class ClientPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.clientPopupService
                     .open(ClientDialogComponent, params['id']);

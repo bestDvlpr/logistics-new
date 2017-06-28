@@ -1,16 +1,16 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {JhiAlertService, JhiEventManager} from "ng-jhipster";
-import {Receipt} from "./receipt.model";
-import {ReceiptService} from "./receipt.service";
-import {ProductEntry} from "../product-entry/product-entry.model";
-import {Client} from "../client/client.model";
-import {DataHolderService} from "./data-holder.service";
-import {Address} from "../address/address.model";
-import {Response} from "@angular/http";
-import {Car} from "../car/car.model";
-import {CarService} from "../car/car.service";
-import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import {Receipt} from './receipt.model';
+import {ReceiptService} from './receipt.service';
+import {ProductEntry} from '../product-entry/product-entry.model';
+import {Client} from '../client/client.model';
+import {DataHolderService} from './data-holder.service';
+import {Address} from '../address/address.model';
+import {Response} from '@angular/http';
+import {Car} from '../car/car.model';
+import {CarService} from '../car/car.service';
+import {JhiLanguageHelper} from '../../shared/language/language.helper';
 
 @Component({
     selector: 'jhi-receipt-product-to-car',
@@ -26,7 +26,7 @@ export class ReceiptProductToCarComponent implements OnInit {
     productsSelected: ProductEntry[] = [];
     prodsWithoutCar = false;
     isSaving: boolean;
-    isAllChecked: boolean = false;
+    isAllChecked = false;
     acObjects: string[];
     cars: Car[];
     selectedCarNumber: string;
@@ -55,7 +55,7 @@ export class ReceiptProductToCarComponent implements OnInit {
 
     /** Checks whether one of the receipt products has not been attached car */
     private checkProductCar() {
-        for (let a of this.dataHolderService._receipt.productEntries) {
+        for (const a of this.dataHolderService._receipt.productEntries) {
             if (a.attachedCarId === null && a.attachedCarNumber === null) {
                 this.prodsWithoutCar = true;
             }
@@ -64,7 +64,7 @@ export class ReceiptProductToCarComponent implements OnInit {
 
     /** Find receipt by id */
     load(id) {
-        this.receiptService.find(id).subscribe(receipt => {
+        this.receiptService.find(id).subscribe((receipt) => {
             this.receipt = receipt;
         });
     }
@@ -74,9 +74,9 @@ export class ReceiptProductToCarComponent implements OnInit {
     }
 
     productChecked(product: ProductEntry) {
-        let indexProd: number = this.productEntries.indexOf(product);
+        const indexProd: number = this.productEntries.indexOf(product);
         if (indexProd !== null && indexProd !== -1) {
-            let productEntry = this.productEntries[indexProd];
+            const productEntry = this.productEntries[indexProd];
             if (!productEntry.selected) {
                 this.productsSelected.push(productEntry);
                 if (this.productsSelected.length === this.productEntries.length) {
@@ -95,7 +95,7 @@ export class ReceiptProductToCarComponent implements OnInit {
     productAllChecked() {
         if (!this.isAllChecked) {
             this.productsSelected = [];
-            this.productEntries.forEach(entry => {
+            this.productEntries.forEach((entry) => {
                 if (entry.attachedCarNumber === null) {
                     entry.selected = true;
                     this.productsSelected.push(entry);
@@ -103,7 +103,7 @@ export class ReceiptProductToCarComponent implements OnInit {
             });
             this.isAllChecked = !this.isAllChecked;
         } else {
-            this.productEntries.forEach(entry => entry.selected = false);
+            this.productEntries.forEach((entry) => entry.selected = false);
             this.productsSelected = [];
             this.isAllChecked = !this.isAllChecked;
         }
@@ -111,9 +111,9 @@ export class ReceiptProductToCarComponent implements OnInit {
 
     attach() {
         if (this.selectedCarNumber !== null) {
-            let filter = this.cars.find((x) => x.number === this.selectedCarNumber);
-            for (let selObj of this.productsSelected) {
-                let index: number = this.receipt.productEntries.indexOf(selObj, 0);
+            const filter = this.cars.find((x) => x.number === this.selectedCarNumber);
+            for (const selObj of this.productsSelected) {
+                const index: number = this.receipt.productEntries.indexOf(selObj);
                 this.receipt.productEntries[index].attachedCarNumber = filter.number;
                 this.receipt.productEntries[index].attachedCarId = filter.id;
             }
@@ -158,7 +158,7 @@ export class ReceiptProductToCarComponent implements OnInit {
     private setACObjects(cars: Car[]) {
         if (cars !== null && cars.length > 0) {
             this.acObjects = [];
-            for (let car of cars) {
+            for (const car of cars) {
                 this.acObjects.push(car.number);
             }
         }

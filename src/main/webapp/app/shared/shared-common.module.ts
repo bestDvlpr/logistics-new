@@ -1,5 +1,5 @@
-import {NgModule} from "@angular/core";
-import {Title} from "@angular/platform-browser";
+import {NgModule} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 import {
     FindLanguageFromKeyPipe,
@@ -7,7 +7,7 @@ import {
     JhiAlertErrorComponent,
     JhiLanguageHelper,
     LogisticsSharedLibsModule
-} from "./";
+} from './';
 
 @NgModule({
     imports: [
@@ -29,4 +29,5 @@ import {
         JhiAlertErrorComponent
     ]
 })
-export class LogisticsSharedCommonModule {}
+export class LogisticsSharedCommonModule {
+}
