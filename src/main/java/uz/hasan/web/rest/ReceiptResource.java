@@ -279,10 +279,25 @@ public class ReceiptResource {
      */
     @PostMapping(value = "/receipts/upload/{docType}/{companyId}", headers = ("content-type=multipart/*"))
     @Timed
-    public ResponseEntity<ReceiptProductEntriesDTO> uploadReceipt(@PathVariable DocType docType, @PathVariable String companyId, @RequestPart("file") MultipartFile file)
+    public ResponseEntity<ReceiptProductEntriesDTO> uploadReceiptWithCompany(@PathVariable DocType docType, @PathVariable String companyId, @RequestPart("file") MultipartFile file)
         throws URISyntaxException {
         log.debug("REST request to upload application file: {}", file);
         ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createApplicationFromFile(file, docType, companyId);
+        return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /receipts/upload/credit : upload receipts {@link uz.hasan.domain.enumeration.DocType} CREDIT.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @PostMapping(value = "/receipts/upload/{docType}", headers = ("content-type=multipart/*"))
+    @Timed
+    public ResponseEntity<ReceiptProductEntriesDTO> uploadReceipt(@PathVariable DocType docType, @RequestPart("file") MultipartFile file)
+        throws URISyntaxException {
+        log.debug("REST request to upload application file: {}", file);
+        ReceiptProductEntriesDTO receiptProductEntriesDTO = uploadService.createApplicationFromFile(file, docType, null);
         return new ResponseEntity<>(receiptProductEntriesDTO, HttpStatus.OK);
     }
 
