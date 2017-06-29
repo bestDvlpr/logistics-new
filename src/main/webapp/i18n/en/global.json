@@ -195,6 +195,7 @@
         "userexists": "Login name already used!",
         "emailexists": "E-mail is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
+        "phonenumberexists": "A new {{ entityName }} cannot already have a phone number",
         "listempty": "List cannot be empty!",
         "not.found": "Nothing found!"
     },

@@ -1,13 +1,8 @@
 package uz.hasan.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import uz.hasan.service.ClientService;
-import uz.hasan.service.dto.ClientAndAddressesDTO;
-import uz.hasan.web.rest.util.HeaderUtil;
-import uz.hasan.web.rest.util.PaginationUtil;
-import uz.hasan.service.dto.ClientDTO;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,15 +11,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.hasan.service.ClientService;
+import uz.hasan.service.dto.ClientAndAddressesDTO;
+import uz.hasan.service.dto.ClientDTO;
+import uz.hasan.web.rest.util.HeaderUtil;
+import uz.hasan.web.rest.util.PaginationUtil;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Client.
@@ -56,6 +54,10 @@ public class ClientResource {
         log.debug("REST request to save Client : {}", clientDTO);
         if (clientDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new client cannot already have an ID")).body(null);
+        }
+        ClientDTO client = clientService.findByPhoneNumber(clientDTO.getNumbers().get(0).getNumber());
+        if (client!=null){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "phonenumberexists", "A new client cannot already have a phone number")).body(null);
         }
         clientDTO.setRegDate(ZonedDateTime.now());
         ClientAndAddressesDTO result = clientService.save(clientDTO);
