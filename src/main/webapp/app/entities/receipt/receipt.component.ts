@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Response} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
-import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
+import {JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks} from 'ng-jhipster';
 
 import {DocType, Receipt, ReceiptStatus, WholeSaleFlag} from './receipt.model';
 import {ReceiptService} from './receipt.service';
@@ -10,7 +10,6 @@ import {ITEMS_PER_PAGE, Principal} from '../../shared';
 import {EnumAware} from './doctypaware.decorator';
 import {DataHolderService} from './data-holder.service';
 import {isUndefined} from 'util';
-import {ProductEntryService} from '../product-entry/product-entry.service';
 import * as FileSaver from 'file-saver';
 import {UploadService} from './upload.service';
 import {JhiLanguageHelper} from '../../shared/language/language.helper';
@@ -58,7 +57,7 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private eventManager: JhiEventManager,
                 private dataHolderService: DataHolderService,
-                private productEntryService: ProductEntryService,
+                private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
@@ -114,22 +113,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        if (this.isAdmin) {
-            this.router.navigate(['/receipt'], {
-                queryParams: {
-                    page: this.page,
-                    size: this.itemsPerPage,
-                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-                }
-            });
-        } else {
-            this.router.navigate(['/accepted-receipts', {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }]);
-            this.loadAccepted();
-        }
         this.isDCEmployee = false;
         const authorities = this.currentAccount.authorities;
         for (const auth of authorities) {
@@ -142,13 +125,33 @@ export class ReceiptComponent implements OnInit, OnDestroy {
                 }
             }
         }
-        if (this.isDCEmployee) {
-            if (this.isAdmin) {
-                this.loadAll();
-            } else {
-                this.loadAccepted();
-            }
+
+        if (this.isAdmin) {
+            this.router.navigate(['/receipt'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
+            this.loadAll();
+        } else if (this.isDCEmployee) {
+            this.router.navigate(['/accepted-receipts'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
+            this.loadAccepted();
         } else {
+            this.router.navigate(['/accepted-receipts'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
             this.loadAllByCompanyId();
         }
     }
@@ -156,18 +159,22 @@ export class ReceiptComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         if (this.isAdmin) {
-            this.router.navigate(['/receipt', {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }]);
+            this.router.navigate(['/receipt'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
             this.loadAll();
         } else {
-            this.router.navigate(['/accepted-receipts', {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }]);
+            this.router.navigate(['/accepted-receipts'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
             this.loadAccepted();
         }
     }
@@ -201,7 +208,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
             }
         });
         this.registerChangeInReceipts();
-        this.getReport();
     }
 
     ngOnDestroy() {
@@ -344,12 +350,6 @@ export class ReceiptComponent implements OnInit, OnDestroy {
         this.uploadService.upload(postData, this.receiptFile).subscribe((res: Response) => {
             this.receipt = res.json();
             this.router.navigate(['/']);
-        });
-    }
-
-    getReport() {
-        this.receiptService.report().subscribe((res) => {
-            console.log(res);
         });
     }
 }
