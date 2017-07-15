@@ -125,8 +125,8 @@ module.exports = (options) => {
             ]),
             new StringReplacePlugin(),
             new WebpackNotifierPlugin({
-                title: 'JHipster',
-                contentImage: path.join(__dirname, 'logo-jhipster.png')
+                title: 'Logistics - TMS',
+                contentImage: path.join(__dirname, 'logo_tms.png')
             })
         ]
     };
