@@ -18,36 +18,40 @@
             </div>
 
             <div *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_DISPATCHER']" class="col-md-6" #deliveryAll>
-                <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
+                <div *ngIf="pieChartOptions">
+                    <chart *ngIf="pieChartOptions" [options]="pieChartOptions"></chart>
+                </div>
             </div>
 
             <div *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_DISPATCHER']" class="col-md-6"
                  #deliveryCountAll>
-                <form class="form-inline">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
-                        <input ngbDatepicker #from="ngbDatepicker"
-                               [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
-                               autocomplete="off"
-                               class="form-control" name="startTime">
-                        <span class="fa fa-calendar input-group-addon" (click)="from.toggle()"></span>
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
-                        <input ngbDatepicker #to="ngbDatepicker"
-                               autocomplete="off"
-                               [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
-                               class="form-control" name="endTime">
-                        <span class="fa fa-calendar input-group-addon" (click)="to.toggle()"></span>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary btn-block form-control" (click)="deliveryCountByCompanyChart()">
-                            <span jhiTranslate="global.form.search"></span>
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </div>
-                </form>
-                <chart *ngIf="lineChartOptions" [options]="lineChartOptions"></chart>
+                <div *ngIf="lineChartOptions">
+                    <form class="form-inline">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <label class="input-group-addon" for="startTime" jhiTranslate="global.form.from">From</label>
+                            <input ngbDatepicker #from="ngbDatepicker"
+                                   [(ngModel)]="startTime" id="startTime" [startDate]="fromMinDate" (click)="from.toggle()"
+                                   autocomplete="off"
+                                   class="form-control" name="startTime">
+                            <span class="fa fa-calendar input-group-addon" (click)="from.toggle()"></span>
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <label class="input-group-addon" for="endTime" jhiTranslate="global.form.to">To</label>
+                            <input ngbDatepicker #to="ngbDatepicker"
+                                   autocomplete="off"
+                                   [(ngModel)]="endTime" id="endTime" [startDate]="toMinDate" (click)="to.toggle()"
+                                   class="form-control" name="endTime">
+                            <span class="fa fa-calendar input-group-addon" (click)="to.toggle()"></span>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-block form-control" (click)="generateCharts()">
+                                <span jhiTranslate="global.form.search"></span>
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </div>
+                    </form>
+                    <chart *ngIf="lineChartOptions" [options]="lineChartOptions"></chart>
+                </div>
             </div>
         </div>
 

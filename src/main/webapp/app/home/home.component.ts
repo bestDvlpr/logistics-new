@@ -74,8 +74,22 @@ export class HomeComponent implements OnInit {
         this.modalRef = this.loginModalService.open();
     }
 
-    deliveryCountChart() {
-        this.reportService.deliveryCountChart(ReceiptStatus.DELIVERED, null, null).subscribe((res) => {
+    generateCharts() {
+        this.deliveryCountChart();
+        this.deliveryCountByCompanyChart();
+    }
+
+    private deliveryCountChart() {
+        let startDate = null;
+        let endDate = null;
+        if (this.startTime && this.endTime) {
+            startDate = DataHolderService.formatYYYYMMDD(this.startTime);
+            endDate = DataHolderService.formatYYYYMMDD(this.endTime);
+            this.criteriaForByCompany = new CommonReportCriteria();
+            this.criteriaForByCompany.startDate = startDate;
+            this.criteriaForByCompany.endDate = endDate;
+        }
+        this.reportService.deliveryCountChart(ReceiptStatus.DELIVERED, startDate, endDate).subscribe((res) => {
             this.overallCountByCompany = res;
             const data = [];
             const overall = this.overallCountByCompany.find((x) => x.companyName === null);
@@ -112,7 +126,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    deliveryCountByCompanyChart() {
+    private deliveryCountByCompanyChart() {
         if (this.startTime && this.endTime) {
             const startDate = DataHolderService.formatYYYYMMDD(this.startTime);
             const endDate = DataHolderService.formatYYYYMMDD(this.endTime);
