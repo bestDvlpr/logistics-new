@@ -134,6 +134,7 @@ export class CountReportComponent implements OnInit {
             filename = DataHolderService.format(new Date()) + '_report.xlsx';
         } else {
             filename = DataHolderService.formatYYYYMMDD(this.startTime) + '-' + DataHolderService.formatYYYYMMDD(this.endTime) + '_report.xlsx';
+            let a = res['name'];
         }
 
         try {

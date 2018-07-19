@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {JhiEventManager} from 'ng-jhipster';
 import {Receipt, ReceiptStatus} from './receipt.model';
@@ -19,7 +19,8 @@ import {JhiLanguageHelper} from '../../shared/language/language.helper';
 @EnumAware
 export class CollapsedReceiptComponent implements OnInit, OnDestroy {
 
-    receipt: Receipt;
+    @Input()receipt: Receipt;
+    @Input()aaa: string;
     phoneNumber: string;
     client: Client;
     company: Company;

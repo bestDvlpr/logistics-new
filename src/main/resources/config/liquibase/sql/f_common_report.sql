@@ -87,7 +87,8 @@ BEGIN
                                    SELECT DISTINCT ON (phone_number.client_id) *
                                    FROM phone_number
                                ) pn ON pn.client_id = cl.id
-                 WHERE r.status = 'DELIVERED' AND
+                 WHERE
+--                      r.status = 'DELIVERED' AND
                        (cast(TO_TIMESTAMP(r.doc_date / 1000) AS DATE)
                         BETWEEN to_date($1, 'yyyy-mm-dd') AND to_date($2, 'yyyy-mm-dd') OR $1 IS NULL)
                        AND (c.name = $3 OR $3 IS NULL)

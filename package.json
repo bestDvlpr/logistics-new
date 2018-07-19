@@ -98,8 +98,7 @@
   },
   "engines": {
     "node": ">=8.1.2",
-    "npm": "@5.0.4",
-    "yarn": "0.24.6"
+    "npm": "@5.0.4"
   },
   "scripts": {
     "lint": "tslint 'src/main/webapp/app/**/*.ts'",
@@ -108,15 +107,15 @@
     "tsc:w": "tsc -w",
     "ngc": "ngc -p tsconfig-aot.json",
     "cleanup": "rimraf target/{aot,www}",
-    "start": "yarn run webpack:dev",
-    "webpack:build": "yarn run ngc && webpack --config webpack/webpack.vendor.js && webpack --config webpack/webpack.dev.js",
+    "start": "npm run webpack:dev",
+    "webpack:build": "npm run ngc && webpack --config webpack/webpack.vendor.js && webpack --config webpack/webpack.dev.js",
     "webpack:build:dev": "webpack --config webpack/webpack.dev.js",
     "webpack:build:vendor": "webpack --config webpack/webpack.vendor.js",
-    "webpack:dev": "webpack-dev-server --config webpack/webpack.dev.js  --progress --inline --hot --profile --port=9060",
-    "webpack:test": "yarn run ngc && yarn run test",
-    "webpack:prod": "yarn run ngc && webpack -p --config webpack/webpack.vendor.js && webpack -p --config webpack/webpack.prod.js",
-    "test": "yarn run lint && karma start src/test/javascript/karma.conf.js",
+    "webpack:dev": "webpack-dev-server --config webpack/webpack.dev.js  --progress --inline --hot --profile --port=9061",
+    "webpack:test": "npm run ngc && npm run test",
+    "webpack:prod": "npm run ngc && webpack -p --config webpack/webpack.vendor.js && webpack -p --config webpack/webpack.prod.js",
+    "test": "npm run lint && karma start src/test/javascript/karma.conf.js",
     "test:watch": "karma start src/test/javascript/karma.conf.js --watch",
-    "postinstall": "node node_modules/phantomjs-prebuilt/install.js && yarn run webpack:build"
+    "postinstall": "node node_modules/phantomjs-prebuilt/install.js && npm run webpack:build"
   }
 }

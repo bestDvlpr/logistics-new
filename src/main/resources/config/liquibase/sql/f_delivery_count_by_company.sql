@@ -22,7 +22,8 @@ BEGIN
                                    FROM address
                                ) a ON a.client_id = cl.id
                      LEFT JOIN location l ON a.district_id = l.id
-                 WHERE r.status = 'DELIVERED' AND
+                 WHERE 
+--                  r.status = 'DELIVERED' AND
                        (cast(TO_TIMESTAMP(r.doc_date / 1000) AS DATE)
                         BETWEEN to_date($1, 'YYYY-MM-DD') AND to_date($2, 'YYYY-MM-DD') OR $1 IS NULL)
                        AND (cm.name = $3 OR $3 IS NULL)

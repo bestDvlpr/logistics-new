@@ -73,8 +73,9 @@ public class IntegrationServiceImpl implements IntegrationService {
 
     private void createOrUpdateReceipt(Receipt receipt, IntegrateDTO integrateDTO) throws ValidationException {
 
-        if (receipt == null)
+        if (receipt == null) {
             receipt = new Receipt();
+        }
         /* create date without time to compare old receipts*/
         LocalDate localDate = LocalDate.now();
 //        Date today = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -96,8 +97,9 @@ public class IntegrationServiceImpl implements IntegrationService {
 
         LoyaltyCard loyaltyCard = getLoyaltyCard(integrateDTO);
 
-        if (integrateDTO.getDocDate() == null)
+        if (integrateDTO.getDocDate() == null) {
             throw new NullPointerException("Doc Date is null");
+        }
 
         receipt.setDocDate(integrateDTO.getDocDate());
         receipt.setDocID(integrateDTO.getDocID());
