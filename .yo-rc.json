@@ -21,7 +21,7 @@
     "useSass": true,
     "clientPackageManager": "npm",
     "applicationType": "gateway",
-    "clientFramework": "angular2",
+    "clientFramework": "angularX",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "enableTranslation": true,
@@ -29,7 +29,6 @@
     "languages": [
       "ru",
       "en"
-    ],
-    "herokuAppName": "h-logistics"
+    ]
   }
 }
