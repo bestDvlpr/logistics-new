@@ -69,7 +69,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "4.0.2",
     "lazypipe": "1.0.2",
-    "lodash": "4.17.15",
+    "lodash": "4.17.13",
     "map-stream": "0.0.7",
     "merge-jsons-webpack-plugin": "1.0.20",
     "node-sass": "4.13.0",
